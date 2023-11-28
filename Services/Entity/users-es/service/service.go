@@ -10,7 +10,7 @@ import (
 )
 
 func AddUser(w http.ResponseWriter, r *http.Request) {
-	log.Println("Start AddUser...")
+	log.Println("Start AddUser Service...")
 
 	var newUser *models.NewUser
 
@@ -23,4 +23,5 @@ func AddUser(w http.ResponseWriter, r *http.Request) {
 	res, _ := repository.AddUser(newUser) //Save the agenda to Database
 	w.WriteHeader(http.StatusOK)          //Write the status code 201 Created
 	json.NewEncoder(w).Encode(res)
+	log.Println("End AddUser Service...")
 }

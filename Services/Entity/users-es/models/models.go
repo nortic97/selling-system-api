@@ -1,15 +1,15 @@
 package models
 
 type User struct {
-	Id           string `json:"id"`
-	UserName     string `json:"user_name"`
-	UserPassword string `json:"user_password"`
-	UserRoleId   string `json:"user_role_id"`
+	Id           string `json:"Id"`
+	UserName     string `json:"UserName"`
+	UserPassword string `json:"UserPassword"`
+	UserRoleId   string `json:"UserRoleId"`
 }
 
 type NewUser struct {
-	Id           *string `json:"id"`
-	UserName     string  `json:"user_name"`
-	UserPassword string  `json:"user_password"`
-	UserRoleId   string  `json:"user_role_id"`
+	Id           *string `json:"Id"`
+	UserName     string  `json:"UserName"`
+	UserPassword string  `json:"UserPassword"`
+	UserRoleId   string  `json:"UserRoleId"`
 }

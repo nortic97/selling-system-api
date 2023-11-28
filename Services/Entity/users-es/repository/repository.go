@@ -16,7 +16,7 @@ var users, ctx = initFirestore()
 func initFirestore() (*firestore.CollectionRef, context.Context) {
 
 	ctx := context.Background()
-	sa := option.WithCredentialsFile("../KeyService.json")
+	sa := option.WithCredentialsFile("./KeyService.json")
 	app, err := firebase.NewApp(ctx, nil, sa)
 
 	if err != nil {
@@ -34,7 +34,7 @@ func initFirestore() (*firestore.CollectionRef, context.Context) {
 
 func AddUser(user *models.NewUser) (*models.User, error) {
 
-	log.Println("Start AddUser...")
+	log.Println("Start AddUser Repository...")
 
 	id := ksuid.New().String()
 
@@ -50,7 +50,7 @@ func AddUser(user *models.NewUser) (*models.User, error) {
 	userResult, _, err := GetUserById(user.Id) //Find agenda document to return
 
 	log.Println("Inserted user document", userResult.Id)
-	log.Println("End AddUser...")
+	log.Println("End AddUser Repository...")
 
 	return userResult, err
 
@@ -58,7 +58,8 @@ func AddUser(user *models.NewUser) (*models.User, error) {
 
 func GetUserById(id *string) (*models.User, bool, error) {
 
-	log.Printf("Start GetUserById... %s", id)
+	log.Println("Start GetUserById Repository...")
+	log.Printf("id : %s", *id)
 
 	var userModel models.User
 	UserDocument, err := users.Doc(*id).Get(ctx) //Find a user document by ID
@@ -68,10 +69,10 @@ func GetUserById(id *string) (*models.User, bool, error) {
 		return &userModel, false, err //Return false if the agenda doesn't exists
 	}
 
-	UserDocument.DataTo(userModel) //Transform agenda document to agenda model
+	UserDocument.DataTo(&userModel) //Transform agenda document to agenda model
 
-	log.Println("Found a agenda document", userModel.Id)
-	log.Println("Start GetAgendaById Repository")
+	log.Println("Found a user document", userModel.Id)
+	log.Println("End GetUserById Repository")
 
 	return &userModel, true, nil
 
