@@ -14,7 +14,7 @@ func Controller() {
 
 	router := mux.NewRouter()
 	router.HandleFunc("/", homeHandler).Methods("GET")
-	router.HandleFunc("/users/es/v1/AddUser", service.CreateUser).Methods("POST")
+	router.HandleFunc("/users/es/v1/CreateUser", service.CreateUser).Methods("POST")
 	router.HandleFunc("/users/es/v1/ReadUserById/{id}", service.ReadUserById).Methods("GET")
 	router.HandleFunc("/users/es/v1/UpdateUser", service.UpdateUser).Methods("PUT")
 	router.HandleFunc("/users/es/v1/DeleteUser/{id}", service.DeleteUser).Methods("DELETE")
