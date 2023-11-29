@@ -32,9 +32,9 @@ func initFirestore() (*firestore.CollectionRef, context.Context) {
 	return client.Collection("users"), ctx
 }
 
-func AddUser(user *models.NewUser) (*models.User, error) {
+func CreateUser(user *models.NewUser) (*models.User, error) {
 
-	log.Println("Start AddUser Repository...")
+	log.Println("Start CreateUser Repository...")
 
 	id := ksuid.New().String()
 
@@ -47,18 +47,18 @@ func AddUser(user *models.NewUser) (*models.User, error) {
 		return nil, err
 	}
 
-	userResult, _, err := GetUserById(user.Id) //Find agenda document to return
+	userResult, _, err := ReadUserById(user.Id) //Find agenda document to return
 
 	log.Println("Inserted user document", userResult.Id)
-	log.Println("End AddUser Repository...")
+	log.Println("End CreateUser Repository...")
 
 	return userResult, err
 
 }
 
-func GetUserById(id *string) (*models.User, bool, error) {
+func ReadUserById(id *string) (*models.User, bool, error) {
 
-	log.Println("Start GetUserById Repository...")
+	log.Println("Start ReadUserById Repository...")
 	log.Printf("id : %s", *id)
 
 	var userModel models.User
@@ -72,8 +72,46 @@ func GetUserById(id *string) (*models.User, bool, error) {
 	UserDocument.DataTo(&userModel) //Transform agenda document to agenda model
 
 	log.Println("Found a user document", userModel.Id)
-	log.Println("End GetUserById Repository")
+	log.Println("End ReadUserById Repository")
 
 	return &userModel, true, nil
+
+}
+
+func UpdateUser(user *models.NewUser) (*models.User, error) {
+
+	log.Println("Start UpdateUser Repository...")
+
+	_, err := users.Doc(*user.Id).Set(ctx, user)
+
+	if err != nil {
+		log.Fatal(err)
+		return nil, err
+	}
+
+	userResult, _, err := ReadUserById(user.Id) //Find agenda document to return
+
+	log.Println("Updated user document", userResult.Id)
+	log.Println("End UpdateUser Repository...")
+
+	return userResult, err
+
+}
+
+func DeleteUser(id *string) (bool, error) {
+
+	log.Println("Start DeleteUser Repository...")
+
+	_, err := users.Doc(*id).Delete(ctx)
+
+	if err != nil {
+		log.Fatal(err)
+		return false, err
+	}
+
+	log.Println("Delete user document", id)
+	log.Println("End DeleteUser Repository...")
+
+	return true, nil
 
 }
