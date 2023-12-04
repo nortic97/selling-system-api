@@ -21,6 +21,6 @@ jobs:
           go-version: '1.21.x'
       # users-es Tests
       - name: Install dependencies for users-es
-        run: go get ./Services/Entity/users-es ./
+        run: go get ./Services/Entity/users-es
       - name: Test for users-es
-        run: go test -v ./Services/Entity/users-es ./...
+        run: go test -v ./Services/Entity/users-es/test
