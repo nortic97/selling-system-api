@@ -2,3 +2,4 @@
 
 - se ha creado la rama dev
 - Se ha incorporado los test unitarios
+- Manifiestos mejorados y corregidos.
