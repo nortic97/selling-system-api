@@ -4,15 +4,14 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"os"
 	"users-es/actions"
+	"users-es/utils"
 
 	"github.com/gorilla/mux"
+	"github.com/sinhashubham95/go-actuator"
 )
 
-var ENV = os.Getenv("ENV")
-
-var PORT string = ":3000"
+var ENV, PORT = utils.Environment()
 
 func Controller() {
 	log.Println("Controller Start...")
@@ -24,12 +23,7 @@ func Controller() {
 	router.HandleFunc("/users/es/v1/ReadUserById/{id}", actions.ReadUserById).Methods("GET")
 	router.HandleFunc("/users/es/v1/UpdateUser", actions.UpdateUser).Methods("PUT")
 	router.HandleFunc("/users/es/v1/DeleteUser/{id}", actions.DeleteUser).Methods("DELETE")
-
-	if ENV != "" {
-		PORT = ":80"
-	} else {
-		PORT = ":3000"
-	}
+	router.Handle("/actuator", actuator.GetActuatorHandler(&actuator.Config{}))
 
 	log.Println("users-es listening on http://localhost" + PORT)
 	err := http.ListenAndServe(PORT, router)
