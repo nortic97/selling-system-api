@@ -37,7 +37,13 @@ func CreateUser(user *models.NewUser) (*models.User, error) {
 
 	log.Println("Start CreateUser Repository...")
 
-	id := ksuid.New().String()
+	var id string
+
+	if user.Id == nil {
+		id = ksuid.New().String()
+	} else {
+		id = *user.Id
+	}
 
 	pass, _ := utils.EncodePassword(user.UserPassword)
 
@@ -83,6 +89,7 @@ func ReadUserById(id *string) (*models.User, bool, error) {
 
 }
 
+// TODO: this function not work's
 func ReadAllUsers(id *string) (*models.User, bool, error) {
 
 	log.Println("Start ReadUserById Repository...")
@@ -120,16 +127,15 @@ func UpdateUser(user *models.NewUser) (*models.User, error) {
 		log.Print("Password Changed!")
 		passEncode, _ := utils.EncodePassword(user.UserPassword)
 		user.UserPassword = passEncode
-		userResult.UserPassword = passEncode
 	}
 
 	_, err = users.Doc(*user.Id).Set(ctx, user)
 
+	userResult, _, err = ReadUserById(user.Id)
+
 	if err != nil {
 		log.Fatal(err)
-		return nil, err
 	}
-
 	log.Println("Updated user document", userResult.Id)
 	log.Println("End UpdateUser Repository...")
 
@@ -148,7 +154,7 @@ func DeleteUser(id *string) (bool, error) {
 		return false, err
 	}
 
-	log.Println("Delete user document", id)
+	log.Println("Delete user document", *id)
 	log.Println("End DeleteUser Repository...")
 
 	return true, nil

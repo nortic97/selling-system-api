@@ -1,72 +1,63 @@
 package service
 
 import (
-	"encoding/json"
-	"fmt"
 	"log"
-	"net/http"
 	"users-es/models"
 	"users-es/repository"
-
-	"github.com/gorilla/mux"
 )
 
-func CreateUser(w http.ResponseWriter, r *http.Request) {
+func CreateUser(user *models.NewUser) (*models.User, error) {
+
 	log.Println("Start CreateUser Service...")
 
-	var newUser *models.NewUser
-
-	err := json.NewDecoder(r.Body).Decode(&newUser) //Read the request message
+	res, err := repository.CreateUser(user) //Save the user to Database
 
 	if err != nil {
-		fmt.Fprintf(w, "Enter the correct data")
+		log.Panic(err)
 	}
 
-	res, _ := repository.CreateUser(newUser)           //Save the user to Database
-	w.Header().Set("content-Type", "application/json") //Set content type
-	w.WriteHeader(http.StatusOK)                       //Write the status code 201 Created
-	json.NewEncoder(w).Encode(res)
 	log.Println("End CreateUser Service...")
+
+	return res, err
 }
 
-func UpdateUser(w http.ResponseWriter, r *http.Request) {
+func UpdateUser(user *models.NewUser) (*models.User, error) {
 	log.Println("Start UpdateUser Service...")
 
-	var newUser *models.NewUser
-
-	err := json.NewDecoder(r.Body).Decode(&newUser) //Read the request message
+	res, err := repository.UpdateUser(user) //Update the user to Database
 
 	if err != nil {
-		fmt.Fprintf(w, "Enter the correct data")
+		log.Panic(err)
 	}
 
-	res, _ := repository.UpdateUser(newUser)           //Update the user to Database
-	w.Header().Set("content-Type", "application/json") //Set content type
-	w.WriteHeader(http.StatusOK)                       //Write the status code 201 Created
-	json.NewEncoder(w).Encode(res)
 	log.Println("End UpdateUser Service...")
+	return res, err
 }
 
-func DeleteUser(w http.ResponseWriter, r *http.Request) {
+func DeleteUser(id *string) (bool, error) {
 	log.Println("Start DeleteUser Service...")
 
-	id := mux.Vars(r)["id"] //Read the URL Params
+	res, err := repository.DeleteUser(id) //Save the user to Database
 
-	res, _ := repository.DeleteUser(&id)               //Save the user to Database
-	w.Header().Set("content-Type", "application/json") //Set content type
-	w.WriteHeader(http.StatusOK)                       //Write the status code 201 Created
-	json.NewEncoder(w).Encode(res)
+	if err != nil {
+		log.Panic(err)
+	}
+
 	log.Println("End DeleteUser Service...")
+
+	return res, err
 }
 
-func ReadUserById(w http.ResponseWriter, r *http.Request) {
+func ReadUserById(id *string) (*models.User, bool, error) {
 	log.Println("Start ReadUser Service...")
 
-	id := mux.Vars(r)["id"] //Read the URL Params
+	res, b, err := repository.ReadUserById(id) //Save the user to Database
 
-	res, _, _ := repository.ReadUserById(&id)          //Save the user to Database
-	w.Header().Set("content-Type", "application/json") //Set content type
-	w.WriteHeader(http.StatusOK)                       //Write the status code 201 Created
-	json.NewEncoder(w).Encode(res)
+	if err != nil {
+		log.Panic(err)
+	}
+
 	log.Println("End ReadUserById Service...")
+
+	return res, b, err
 }
