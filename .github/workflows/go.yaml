@@ -11,7 +11,7 @@ on:
 
 jobs:
   # users-es Tests
-  usersES:
+  users-es:
     runs-on: ubuntu-latest
 
     steps:
