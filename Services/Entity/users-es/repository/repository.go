@@ -16,18 +16,25 @@ var users, ctx = initFirestore()
 
 func initFirestore() (*firestore.CollectionRef, context.Context) {
 
+	defer func() {
+		recuperado := recover()
+		if recuperado != nil {
+			log.Println("Server error initFirestore")
+		}
+	}()
+
 	ctx := context.Background()
 	sa := option.WithCredentialsFile("./KeyService.json")
 	app, err := firebase.NewApp(ctx, nil, sa)
 
 	if err != nil {
-		log.Fatalln(err)
+		log.Panic(err)
 	}
 
 	client, err := app.Firestore(ctx)
 
 	if err != nil {
-		log.Fatalln(err)
+		log.Panic(err)
 	}
 
 	return client.Collection("users"), ctx
@@ -36,6 +43,13 @@ func initFirestore() (*firestore.CollectionRef, context.Context) {
 func CreateUser(user *models.NewUser) (*models.User, error) {
 
 	log.Println("Start CreateUser Repository...")
+
+	defer func() {
+		recuperado := recover()
+		if recuperado != nil {
+			log.Println("Recovered Error CreateUser")
+		}
+	}()
 
 	var id string
 
@@ -54,11 +68,16 @@ func CreateUser(user *models.NewUser) (*models.User, error) {
 	_, err := users.Doc(id).Create(ctx, user)
 
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 		return nil, err
 	}
 
 	userResult, _, err := ReadUserById(user.Id) //Find agenda document to return
+
+	if err != nil {
+		log.Panic(err)
+		return nil, err
+	}
 
 	log.Println("Inserted user document", userResult.Id)
 	log.Println("End CreateUser Repository...")
@@ -72,11 +91,18 @@ func ReadUserById(id *string) (*models.User, bool, error) {
 	log.Println("Start ReadUserById Repository...")
 	log.Printf("id : %s", *id)
 
+	defer func() {
+		recuperado := recover()
+		if recuperado != nil {
+			log.Println("Recovered Error ReadUserById")
+		}
+	}()
+
 	var userModel models.User
 	UserDocument, err := users.Doc(*id).Get(ctx) //Find a user document by ID
 
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 		return &userModel, false, err //Return false if the agenda doesn't exists
 	}
 
@@ -99,7 +125,7 @@ func ReadAllUsers(id *string) (*models.User, bool, error) {
 	UserDocument, err := users.Doc(*id).Get(ctx) //Find a user document by ID
 
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 		return &userModel, false, err //Return false if the agenda doesn't exists
 	}
 
@@ -116,10 +142,17 @@ func UpdateUser(user *models.NewUser) (*models.User, error) {
 
 	log.Println("Start UpdateUser Repository...")
 
+	defer func() {
+		recuperado := recover()
+		if recuperado != nil {
+			log.Println("Recovered Error UpdateUser")
+		}
+	}()
+
 	userResult, _, err := ReadUserById(user.Id)
 
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 		return nil, err
 	}
 
@@ -131,10 +164,14 @@ func UpdateUser(user *models.NewUser) (*models.User, error) {
 
 	_, err = users.Doc(*user.Id).Set(ctx, user)
 
+	if err != nil {
+		log.Panic(err)
+	}
+
 	userResult, _, err = ReadUserById(user.Id)
 
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 	}
 	log.Println("Updated user document", userResult.Id)
 	log.Println("End UpdateUser Repository...")
@@ -147,10 +184,17 @@ func DeleteUser(id *string) (bool, error) {
 
 	log.Println("Start DeleteUser Repository...")
 
+	defer func() {
+		recuperado := recover()
+		if recuperado != nil {
+			log.Println("Recovered Error DeleteUser")
+		}
+	}()
+
 	_, err := users.Doc(*id).Delete(ctx)
 
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 		return false, err
 	}
 

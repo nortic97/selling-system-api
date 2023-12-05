@@ -17,3 +17,8 @@ type NewUser struct {
 	UserRoleId   string  `json:"UserRoleId"`
 	UserImageUrl string  `json:"UserImageUrl"`
 }
+
+type Health struct {
+	Status string
+	Env    string
+}
