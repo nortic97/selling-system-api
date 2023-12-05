@@ -16,13 +16,6 @@ func Controller() {
 	log.Println("Controller Start...")
 	log.Printf("Environment: %s", ENV)
 
-	defer func() {
-		recuperado := recover()
-		if recuperado != nil {
-			log.Println("Recovered Error Server")
-		}
-	}()
-
 	router := mux.NewRouter()
 	router.HandleFunc("/", homeHandler).Methods("GET")
 	router.HandleFunc("/users/es/v1/CreateUser", actions.CreateUser).Methods("POST")

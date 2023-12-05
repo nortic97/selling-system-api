@@ -12,10 +12,6 @@ COPY . .
 
 RUN CGO_ENABLED=0 GOOS=linux go build -o users-es
 
-# Run the tests in the container
-FROM build-stage AS run-test-stage
-RUN go test -v ./...
-
 # Deploy the application binary into a lean image
 FROM gcr.io/distroless/base-debian11 AS build-release-stage
 
@@ -23,4 +19,4 @@ COPY --from=build-stage /app/KeyService.json /app/users-es ./
 
 EXPOSE 80
 
-CMD ["./users-es"]
+ENTRYPOINT ["./users-es"]
