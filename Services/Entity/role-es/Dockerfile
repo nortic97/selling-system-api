@@ -10,13 +10,15 @@ RUN go mod download
 
 COPY . .
 
-RUN CGO_ENABLED=0 GOOS=linux go build -o role-es
+RUN CGO_ENABLED=0 GOOS=linux go build -o application
 
 # Deploy the application binary into a lean image
-FROM gcr.io/distroless/base-debian11 AS build-release-stage
+FROM alpine AS build-release-stage
 
-COPY --from=build-stage /app/KeyService.json /app/role-es ./
+WORKDIR /app
+
+COPY --from=build-stage /app/KeyService.json /app/application ./
 
 EXPOSE 80
 
-ENTRYPOINT ["./role-es"]
+ENTRYPOINT ["./application"]

@@ -11,6 +11,15 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// EndPoint to create a user
+// @Summary Create user
+// @Description The actual endpoint create a user and save in database.
+// @Tags CreateUser
+// @Accept json
+// @Produce json
+// @Param user body models.NewUser true "Created User"
+// @Success 200 {object} models.User
+// @Router /users/es/v1/CreateUser [post]
 func CreateUser(w http.ResponseWriter, r *http.Request) {
 	log.Println("Start CreateUser Action...")
 

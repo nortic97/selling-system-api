@@ -1,0 +1,56 @@
+definitions:
+  models.NewUser:
+    properties:
+      Id:
+        type: string
+      UserEmail:
+        type: string
+      UserImageUrl:
+        type: string
+      UserName:
+        type: string
+      UserPassword:
+        type: string
+      UserRoleId:
+        type: string
+    type: object
+  models.User:
+    properties:
+      Id:
+        type: string
+      UserEmail:
+        type: string
+      UserImageUrl:
+        type: string
+      UserName:
+        type: string
+      UserPassword:
+        type: string
+      UserRoleId:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /users/es/v1/CreateUser:
+    post:
+      consumes:
+      - application/json
+      description: The actual endpoint create a user and save in database.
+      operationId: CreateUser
+      parameters:
+      - description: Created User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.NewUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+      summary: Create user
+swagger: "2.0"
