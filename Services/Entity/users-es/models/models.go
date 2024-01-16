@@ -20,5 +20,4 @@ type NewUser struct {
 
 type Health struct {
 	Status string
-	Env    string
 }

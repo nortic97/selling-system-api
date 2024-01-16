@@ -5,19 +5,23 @@ import (
 	"log"
 	"net/http"
 	"role-es/models"
-	"role-es/utils"
 )
-
-var ENV, PORT = utils.Environment()
 
 const SERVER_UP string = "UP"
 
+// EndPoint to show service status
+// @Summary Service status
+// @Description The actual endpoint show Service status.
+// @Tags Actuator
+// @Accept json
+// @Produce json
+// @Success 200 {object} models.Health
+// @Router /roles/es/v1/actuator [GET]
 func Actuator(w http.ResponseWriter, r *http.Request) {
 	log.Println("Checking Health...")
 
 	health := models.Health{
 		Status: SERVER_UP,
-		Env:    ENV,
 	}
 
 	log.Printf("Server Status %s", SERVER_UP)

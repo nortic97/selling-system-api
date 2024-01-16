@@ -11,6 +11,15 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// EndPoint to create a role
+// @Summary Create role
+// @Description The actual endpoint create a role and save in database.
+// @Tags CreateRole
+// @Accept json
+// @Produce json
+// @Param user body models.NewRole true "Created Role"
+// @Success 200 {object} models.Role
+// @Router /roles/es/v1/CreateRole [POST]
 func CreateRole(w http.ResponseWriter, r *http.Request) {
 	log.Println("Start CreateRole Action...")
 
@@ -29,6 +38,15 @@ func CreateRole(w http.ResponseWriter, r *http.Request) {
 	log.Println("End CreateRole Action...")
 }
 
+// EndPoint to update a role
+// @Summary Update role
+// @Description The actual endpoint Update a role and save in database.
+// @Tags UpdateRole
+// @Accept json
+// @Produce json
+// @Param user body models.NewRole true "Update Role"
+// @Success 200 {object} models.Role
+// @Router /roles/es/v1/UpdateRole [PUT]
 func UpdateRole(w http.ResponseWriter, r *http.Request) {
 	log.Println("Start UpdateRole Action...")
 
@@ -47,6 +65,15 @@ func UpdateRole(w http.ResponseWriter, r *http.Request) {
 	log.Println("End UpdateRole Action...")
 }
 
+// EndPoint to delete a role
+// @Summary Delete role
+// @Description The actual endpoint Delete a role.
+// @Tags DeleteRole
+// @Accept json
+// @Produce json
+// @Param id path string true "Role Id"
+// @Success 200 {boolean} boolean
+// @Router /roles/es/v1/DeleteRole/{id} [DELETE]
 func DeleteRole(w http.ResponseWriter, r *http.Request) {
 	log.Println("Start DeleteRole Action...")
 
@@ -59,6 +86,15 @@ func DeleteRole(w http.ResponseWriter, r *http.Request) {
 	log.Println("End DeleteRole Service...")
 }
 
+// EndPoint to read a role
+// @Summary Read role by ID
+// @Description The actual endpoint Search a role by Id.
+// @Tags ReadRoleById
+// @Accept json
+// @Produce json
+// @Param id path string true "Role Id"
+// @Success 200 {object} models.Role
+// @Router /roles/es/v1/ReadRoleById/{id} [GET]
 func ReadRoleById(w http.ResponseWriter, r *http.Request) {
 	log.Println("Start ReadRoleById Action...")
 

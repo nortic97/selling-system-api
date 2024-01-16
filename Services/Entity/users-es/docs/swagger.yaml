@@ -1,4 +1,9 @@
 definitions:
+  models.Health:
+    properties:
+      status:
+        type: string
+    type: object
   models.NewUser:
     properties:
       Id:
@@ -37,7 +42,6 @@ paths:
       consumes:
       - application/json
       description: The actual endpoint create a user and save in database.
-      operationId: CreateUser
       parameters:
       - description: Created User
         in: body
@@ -53,4 +57,85 @@ paths:
           schema:
             $ref: '#/definitions/models.User'
       summary: Create user
+      tags:
+      - CreateUser
+  /users/es/v1/DeleteUser/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: The actual endpoint Delete a user.
+      parameters:
+      - description: User Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: boolean
+      summary: Delete user
+      tags:
+      - DeleteUser
+  /users/es/v1/ReadUserById/{id}:
+    get:
+      consumes:
+      - application/json
+      description: The actual endpoint Search a user by Id.
+      parameters:
+      - description: User Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+      summary: Read user by ID
+      tags:
+      - ReadUserById
+  /users/es/v1/UpdateUser:
+    put:
+      consumes:
+      - application/json
+      description: The actual endpoint Update a user and save in database.
+      parameters:
+      - description: Update User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.NewUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+      summary: Update user
+      tags:
+      - UpdateUser
+  /users/es/v1/actuator:
+    get:
+      consumes:
+      - application/json
+      description: The actual endpoint show Service status.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Health'
+      summary: Service status
+      tags:
+      - Actuator
 swagger: "2.0"

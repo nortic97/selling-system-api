@@ -61,51 +61,87 @@ func RoleInit() *models.NewRole {
 
 	id := "2Z5IeLdwlWjED8CKOAXIVv9swM0"
 
-	permissions := []models.Permissions{
+	Menus := []models.Menu{
 		{
 
-			PermissionName:       "Users",
-			PermissionPosition:   1,
-			PermissionHasSubMenu: true,
-			PermissionUrl:        "/users",
-			PermissionSubMenu: []models.SubPermission{
+			MenuName:       "Users",
+			MenuPosition:   1,
+			MenuHasSubMenu: true,
+			MenuUrl:        "/users",
+			MenuActions: []string{
+				"POST",
+				"GET",
+				"PUT",
+				"DELETE",
+			},
+			MenuSubMenu: []models.SubMenu{
 				{
 
-					SubPermissionName: "List Users",
-					SubPermissionUrl:  "/UsersList",
+					SubMenuName: "List Users",
+					SubMenuActions: []string{
+						"POST",
+						"GET",
+						"PUT",
+						"DELETE",
+					},
+					SubMenuUrl: "/UsersList",
 				},
 				{
 
-					SubPermissionName: "Add User",
-					SubPermissionUrl:  "/AddUser",
+					SubMenuName: "Add User",
+					SubMenuActions: []string{
+						"POST",
+						"GET",
+						"PUT",
+						"DELETE",
+					},
+					SubMenuUrl: "/AddUser",
 				},
 			},
 		},
 		{
 
-			PermissionName:       "Roles",
-			PermissionPosition:   2,
-			PermissionHasSubMenu: true,
-			PermissionUrl:        "/roles",
-			PermissionSubMenu: []models.SubPermission{
+			MenuName:       "Roles",
+			MenuPosition:   2,
+			MenuHasSubMenu: true,
+			MenuUrl:        "/roles",
+			MenuActions: []string{
+				"POST",
+				"GET",
+				"PUT",
+				"DELETE",
+			},
+			MenuSubMenu: []models.SubMenu{
 				{
 
-					SubPermissionName: "List Roles",
-					SubPermissionUrl:  "/RolesList",
+					SubMenuName: "List Roles",
+					SubMenuActions: []string{
+						"POST",
+						"GET",
+						"PUT",
+						"DELETE",
+					},
+					SubMenuUrl: "/RolesList",
 				},
 				{
 
-					SubPermissionName: "Add Role",
-					SubPermissionUrl:  "/RoleAdd",
+					SubMenuName: "Add Role",
+					SubMenuActions: []string{
+						"POST",
+						"GET",
+						"PUT",
+						"DELETE",
+					},
+					SubMenuUrl: "/RoleAdd",
 				},
 			},
 		},
 		{
-			PermissionName:       "Dashboard",
-			PermissionPosition:   0,
-			PermissionUrl:        "/Dashboard",
-			PermissionHasSubMenu: false,
-			PermissionSubMenu:    nil,
+			MenuName:       "Dashboard",
+			MenuPosition:   0,
+			MenuUrl:        "/Dashboard",
+			MenuHasSubMenu: false,
+			MenuSubMenu:    nil,
 		},
 	}
 
@@ -113,7 +149,7 @@ func RoleInit() *models.NewRole {
 		Id:          &id,
 		RoleName:    "test_name",
 		Description: "test_description",
-		Permissions: permissions,
+		Menu:        Menus,
 	}
 
 }

@@ -1,0 +1,171 @@
+definitions:
+  models.Health:
+    properties:
+      status:
+        type: string
+    type: object
+  models.Menu:
+    properties:
+      Id:
+        type: string
+      MenuAction:
+        items:
+          type: string
+        type: array
+      MenuSubMenu:
+        items:
+          $ref: '#/definitions/models.SubMenu'
+        type: array
+      PermissionHasSubMenu:
+        type: boolean
+      PermissionName:
+        type: string
+      PermissionPosition:
+        type: integer
+      PermissionUrl:
+        type: string
+    type: object
+  models.NewRole:
+    properties:
+      Description:
+        type: string
+      Id:
+        type: string
+      Menu:
+        items:
+          $ref: '#/definitions/models.Menu'
+        type: array
+      RoleName:
+        type: string
+    type: object
+  models.Role:
+    properties:
+      Description:
+        type: string
+      Id:
+        type: string
+      Menu:
+        items:
+          $ref: '#/definitions/models.Menu'
+        type: array
+      RoleName:
+        type: string
+    type: object
+  models.SubMenu:
+    properties:
+      Id:
+        type: string
+      SubMenuActions:
+        items:
+          type: string
+        type: array
+      SubMenuName:
+        type: string
+      SubMenuUrl:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /roles/es/v1/CreateRole:
+    post:
+      consumes:
+      - application/json
+      description: The actual endpoint create a role and save in database.
+      parameters:
+      - description: Created Role
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.NewRole'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Role'
+      summary: Create role
+      tags:
+      - CreateRole
+  /roles/es/v1/DeleteRole/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: The actual endpoint Delete a role.
+      parameters:
+      - description: Role Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: boolean
+      summary: Delete role
+      tags:
+      - DeleteRole
+  /roles/es/v1/ReadRoleById/{id}:
+    get:
+      consumes:
+      - application/json
+      description: The actual endpoint Search a role by Id.
+      parameters:
+      - description: Role Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Role'
+      summary: Read role by ID
+      tags:
+      - ReadRoleById
+  /roles/es/v1/UpdateRole:
+    put:
+      consumes:
+      - application/json
+      description: The actual endpoint Update a role and save in database.
+      parameters:
+      - description: Update Role
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.NewRole'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Role'
+      summary: Update role
+      tags:
+      - UpdateRole
+  /roles/es/v1/actuator:
+    get:
+      consumes:
+      - application/json
+      description: The actual endpoint show Service status.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Health'
+      summary: Service status
+      tags:
+      - Actuator
+swagger: "2.0"

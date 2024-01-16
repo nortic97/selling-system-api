@@ -12,16 +12,17 @@ import (
 	httpSwagger "github.com/swaggo/http-swagger"
 )
 
-var ENV, PORT = utils.Environment()
-
 func Controller() {
+
+	REST_PORT := utils.Environment()
+
 	log.Println("Controller Start...")
-	log.Printf("Environment: %s", ENV)
+	log.Printf("REST PORT: %s", REST_PORT)
 
 	// Swagger doc
 	docs.SwaggerInfo.Title = "Users Entity API"
 	docs.SwaggerInfo.Version = "0.0.1"
-	docs.SwaggerInfo.Description = "This is an Entity API."
+	docs.SwaggerInfo.Description = "This is Users Entity API."
 
 	// Endpoints
 	router := mux.NewRouter()
@@ -30,11 +31,11 @@ func Controller() {
 	router.HandleFunc("/users/es/v1/ReadUserById/{id}", actions.ReadUserById).Methods("GET")
 	router.HandleFunc("/users/es/v1/UpdateUser", actions.UpdateUser).Methods("PUT")
 	router.HandleFunc("/users/es/v1/DeleteUser/{id}", actions.DeleteUser).Methods("DELETE")
-	router.HandleFunc("/actuator", actions.Actuator).Methods("GET")
-	router.PathPrefix("/swagger").Handler(httpSwagger.WrapHandler)
+	router.HandleFunc("/users/es/v1/actuator", actions.Actuator).Methods("GET")
+	router.PathPrefix("/users/es/v1/swagger").Handler(httpSwagger.WrapHandler)
 
-	log.Println("users-es listening on http://localhost" + PORT)
-	err := http.ListenAndServe(PORT, router)
+	log.Println("users-es listening on http://localhost:" + REST_PORT)
+	err := http.ListenAndServe((":" + REST_PORT), router)
 
 	if err != nil {
 		log.Panic(err)
