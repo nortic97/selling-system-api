@@ -14,6 +14,7 @@ import (
 
 var users, ctx = initFirestore()
 
+// This function is responsible for gettin information of google firestore.
 func initFirestore() (*firestore.CollectionRef, context.Context) {
 
 	defer func() {
@@ -40,6 +41,7 @@ func initFirestore() (*firestore.CollectionRef, context.Context) {
 	return client.Collection("users"), ctx
 }
 
+// "Login" is a function to confirm that the account exists.
 func Login(login *models.Login) ([]*models.User, bool, error) {
 
 	log.Println("Start Login Repository...")
@@ -53,7 +55,7 @@ func Login(login *models.Login) ([]*models.User, bool, error) {
 		}
 	}()
 
-	query := users.Where("UserName", "==", login.UserName)
+	query := users.Where("UserEmail", "==", login.UserEmail)
 
 	it := query.Documents(ctx)
 
@@ -72,20 +74,21 @@ func Login(login *models.Login) ([]*models.User, bool, error) {
 		var userData *models.User
 		doc.DataTo(&userData)
 
+		// Confirm the password for user is correct.
 		if !utils.CheckPasswordHash(login.UserPassword, userData.UserPassword) {
-			return nil, true, nil
+			return nil, true, nil // Return the account exist but the pass is incorrect.
 		}
 
-		usersList = append(usersList, userData)
+		usersList = append(usersList, userData) // Add data about the account to a list.
 
 	}
 
 	log.Println("End Login Repository...")
 
 	if len(usersList) == 0 {
-		return nil, false, nil
+		return nil, false, nil // Return the account not exist.
 	} else {
-		return usersList, true, nil
+		return usersList, true, nil // Return the account exist.
 	}
 
 }

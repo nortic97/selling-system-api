@@ -1,6 +1,8 @@
 definitions:
   models.Health:
     properties:
+      environment:
+        type: string
       status:
         type: string
     type: object

@@ -14,10 +14,9 @@ import (
 
 func Controller() {
 
-	REST_PORT := utils.Environment()
-
 	log.Println("Controller Start...")
-	log.Printf("REST PORT: %s", REST_PORT)
+
+	REST_PORT := utils.PORTS()
 
 	// Swagger doc
 	docs.SwaggerInfo.Title = "Roles Entity API"
@@ -34,6 +33,7 @@ func Controller() {
 	router.HandleFunc("/roles/es/v1/actuator", actions.Actuator).Methods("GET")
 	router.PathPrefix("/roles/es/v1/swagger").Handler(httpSwagger.WrapHandler)
 
+	// Start HTTP server
 	log.Println("role-es listening on http://localhost:" + REST_PORT)
 	err := http.ListenAndServe((":" + REST_PORT), router)
 
@@ -43,6 +43,7 @@ func Controller() {
 
 }
 
+// Function have the welcome message.
 func homeHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprintf(w, "Entity Service For roles Enjoy :)")

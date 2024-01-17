@@ -175,6 +175,9 @@ const docTemplate = `{
         "models.Health": {
             "type": "object",
             "properties": {
+                "environment": {
+                    "type": "string"
+                },
                 "status": {
                     "type": "string"
                 }

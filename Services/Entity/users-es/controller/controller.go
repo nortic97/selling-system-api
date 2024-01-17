@@ -12,12 +12,12 @@ import (
 	httpSwagger "github.com/swaggo/http-swagger"
 )
 
+// Function in charge of starting the HTTP server and its endpoints.
 func Controller() {
 
-	REST_PORT := utils.Environment()
-
 	log.Println("Controller Start...")
-	log.Printf("REST PORT: %s", REST_PORT)
+
+	REST_PORT := utils.PORTS()
 
 	// Swagger doc
 	docs.SwaggerInfo.Title = "Users Entity API"
@@ -34,6 +34,7 @@ func Controller() {
 	router.HandleFunc("/users/es/v1/actuator", actions.Actuator).Methods("GET")
 	router.PathPrefix("/users/es/v1/swagger").Handler(httpSwagger.WrapHandler)
 
+	// Start HTTP server
 	log.Println("users-es listening on http://localhost:" + REST_PORT)
 	err := http.ListenAndServe((":" + REST_PORT), router)
 
@@ -43,6 +44,7 @@ func Controller() {
 
 }
 
+// Function have the welcome message.
 func homeHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprintf(w, "Entity Service For Users Enjoy :)")

@@ -10,6 +10,15 @@ import (
 	_ "time"
 )
 
+// EndPoint to generate a JWT Token and Login.
+// @Summary Generate Token and Login.
+// @Description The actual endpoint generate a JWT Token and identifies if the user can be login.
+// @Tags Login
+// @Accept json
+// @Produce json
+// @Param login body models.Login true "Login"
+// @Success 200 {object} models.Token
+// @Router /auth/us/v1/Auth [POST]
 func GenerateToken(w http.ResponseWriter, r *http.Request) {
 	log.Println("Start GenerateToken Action...")
 
@@ -24,7 +33,7 @@ func GenerateToken(w http.ResponseWriter, r *http.Request) {
 	usersList, exist, _ := service.Login(login)
 
 	if exist && len(usersList) > 0 {
-		token := service.GenerateToken(usersList[0])
+		token := service.GenerateToken(usersList[0])       // Generate the token
 		w.Header().Set("content-Type", "application/json") //Set content type
 		w.WriteHeader(http.StatusOK)                       //Write the status code 200
 		json.NewEncoder(w).Encode(token)

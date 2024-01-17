@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"role-es/models"
+	"role-es/utils"
 )
 
 const SERVER_UP string = "UP"
@@ -21,7 +22,8 @@ func Actuator(w http.ResponseWriter, r *http.Request) {
 	log.Println("Checking Health...")
 
 	health := models.Health{
-		Status: SERVER_UP,
+		Status:      SERVER_UP,
+		Environment: utils.Environment(),
 	}
 
 	log.Printf("Server Status %s", SERVER_UP)

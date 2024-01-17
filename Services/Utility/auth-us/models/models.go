@@ -3,7 +3,7 @@ package models
 import "github.com/golang-jwt/jwt"
 
 type Login struct {
-	UserName     string `json:"UserName"`
+	UserEmail    string `json:"UserEmail"`
 	UserPassword string `json:"UserPassword"`
 }
 
@@ -30,4 +30,9 @@ type Token struct {
 	Token        string `json:"access_token"`
 	RefreshToken string `json:"refresh_token"`
 	Type         string `json:"token_type"`
+}
+
+type Health struct {
+	Status      string
+	Environment string
 }
