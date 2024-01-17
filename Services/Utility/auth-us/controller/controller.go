@@ -9,6 +9,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/rs/cors"
 	httpSwagger "github.com/swaggo/http-swagger"
 )
 
@@ -31,9 +32,18 @@ func Controller() {
 	router.HandleFunc("/auth/us/v1/actuator", actions.Actuator).Methods("GET")
 	router.PathPrefix("/auth/us/v1/swagger").Handler(httpSwagger.WrapHandler)
 
+	// CORS configuration
+	c := cors.New(cors.Options{
+		AllowedOrigins:   []string{"*"},
+		AllowedHeaders:   []string{"*"},
+		AllowCredentials: true,
+	})
+
+	handler := c.Handler(router)
+
 	// Start HTTP server
 	log.Println("Listening on http://localhost:" + REST_PORT)
-	err := http.ListenAndServe(":"+REST_PORT, router)
+	err := http.ListenAndServe(":"+REST_PORT, handler)
 
 	if err != nil {
 		log.Fatal(err)
