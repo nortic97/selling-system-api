@@ -1,4 +1,15 @@
 definitions:
+  models.Action:
+    properties:
+      Action:
+        type: string
+      ApiUrlAction:
+        type: string
+      Id:
+        type: string
+      Value:
+        type: string
+    type: object
   models.Health:
     properties:
       environment:
@@ -8,23 +19,25 @@ definitions:
     type: object
   models.Menu:
     properties:
+      Icon:
+        type: string
       Id:
         type: string
-      MenuAction:
+      MenuActions:
         items:
-          type: string
+          $ref: '#/definitions/models.Action'
         type: array
+      MenuHasSubMenu:
+        type: boolean
+      MenuName:
+        type: string
+      MenuPosition:
+        type: integer
       MenuSubMenu:
         items:
           $ref: '#/definitions/models.SubMenu'
         type: array
-      PermissionHasSubMenu:
-        type: boolean
-      PermissionName:
-        type: string
-      PermissionPosition:
-        type: integer
-      PermissionUrl:
+      MenuUrl:
         type: string
     type: object
   models.NewRole:
@@ -59,10 +72,12 @@ definitions:
         type: string
       SubMenuActions:
         items:
-          type: string
+          $ref: '#/definitions/models.Action'
         type: array
       SubMenuName:
         type: string
+      SubMenuPosition:
+        type: integer
       SubMenuUrl:
         type: string
     type: object

@@ -16,19 +16,28 @@ type NewRole struct {
 
 type Menu struct {
 	Id             string    `json:"Id"`
-	MenuName       string    `json:"PermissionName"`
-	MenuPosition   int       `json:"PermissionPosition"`
-	MenuHasSubMenu bool      `json:"PermissionHasSubMenu"`
-	MenuUrl        string    `json:"PermissionUrl"`
-	MenuActions    []string  `json:"MenuAction"`
+	MenuName       string    `json:"MenuName"`
+	Icon           string    `json:"Icon"`
+	MenuPosition   int       `json:"MenuPosition"`
+	MenuHasSubMenu bool      `json:"MenuHasSubMenu"`
+	MenuUrl        string    `json:"MenuUrl"`
+	MenuActions    []Action  `json:"MenuActions"`
 	MenuSubMenu    []SubMenu `json:"MenuSubMenu"`
 }
 
 type SubMenu struct {
-	Id             string   `json:"Id"`
-	SubMenuName    string   `json:"SubMenuName"`
-	SubMenuActions []string `json:"SubMenuActions"`
-	SubMenuUrl     string   `json:"SubMenuUrl"`
+	Id              string   `json:"Id"`
+	SubMenuName     string   `json:"SubMenuName"`
+	SubMenuPosition int      `json:"SubMenuPosition"`
+	SubMenuActions  []Action `json:"SubMenuActions"`
+	SubMenuUrl      string   `json:"SubMenuUrl"`
+}
+
+type Action struct {
+	Id           string `json:"Id"`
+	Value        string `json:"Value"`
+	ApiUrlAction string `json:"ApiUrlAction"`
+	Action       string `json:"Action"`
 }
 
 type Health struct {

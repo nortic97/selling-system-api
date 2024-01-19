@@ -62,87 +62,75 @@ func RoleInit() *models.NewRole {
 	id := "2Z5IeLdwlWjED8CKOAXIVv9swM0"
 
 	Menus := []models.Menu{
+		// Dashboard
 		{
-
-			MenuName:       "Users",
+			Id:             "2bArYUUo4cGF7i2qRZzLIipk9gc",
+			MenuName:       "Dashboard",
+			Icon:           "",
 			MenuPosition:   1,
-			MenuHasSubMenu: true,
-			MenuUrl:        "/users",
-			MenuActions: []string{
-				"POST",
-				"GET",
-				"PUT",
-				"DELETE",
-			},
-			MenuSubMenu: []models.SubMenu{
-				{
-
-					SubMenuName: "List Users",
-					SubMenuActions: []string{
-						"POST",
-						"GET",
-						"PUT",
-						"DELETE",
-					},
-					SubMenuUrl: "/UsersList",
-				},
-				{
-
-					SubMenuName: "Add User",
-					SubMenuActions: []string{
-						"POST",
-						"GET",
-						"PUT",
-						"DELETE",
-					},
-					SubMenuUrl: "/AddUser",
-				},
-			},
+			MenuHasSubMenu: false,
+			MenuUrl:        "/home/dashboard",
+			MenuActions:    nil,
 		},
+		// Products
 		{
-
-			MenuName:       "Roles",
+			Id:             "2bB1jbPEOCaYDTSIpLChn5Nmb9I",
+			MenuName:       "Products",
+			Icon:           "",
 			MenuPosition:   2,
 			MenuHasSubMenu: true,
-			MenuUrl:        "/roles",
-			MenuActions: []string{
-				"POST",
-				"GET",
-				"PUT",
-				"DELETE",
-			},
+			MenuUrl:        "#product",
+			MenuActions:    nil,
 			MenuSubMenu: []models.SubMenu{
 				{
-
-					SubMenuName: "List Roles",
-					SubMenuActions: []string{
-						"POST",
-						"GET",
-						"PUT",
-						"DELETE",
+					Id:              "2bB31U2Sq1xaF6UEftKK8yBmrOJ",
+					SubMenuName:     "List Product",
+					SubMenuPosition: 1,
+					SubMenuActions: []models.Action{
+						{
+							Id:           "2bB21AN6K6bvkFeJYxnMKoYnSAU",
+							Value:        "List",
+							ApiUrlAction: "",
+							Action:       "GET",
+						},
+						{
+							Id:           "2bB2BPXRIJXWyljcDkVl36eNNK7",
+							Value:        "Create",
+							ApiUrlAction: "",
+							Action:       "POST",
+						},
+						{
+							Id:           "2bB2CsvVnv48GmHvpTaVoMUplc3",
+							Value:        "Update",
+							ApiUrlAction: "",
+							Action:       "PUT",
+						},
+						{
+							Id:           "2bB2EydyAS0BKP3J4nRiItEsMr4",
+							Value:        "Delete",
+							ApiUrlAction: "",
+							Action:       "DELETE",
+						},
 					},
-					SubMenuUrl: "/RolesList",
+					SubMenuUrl: "/home/ListProduct",
 				},
 				{
-
-					SubMenuName: "Add Role",
-					SubMenuActions: []string{
-						"POST",
-						"GET",
-						"PUT",
-						"DELETE",
+					Id:              "2bB3ZzEmoCawT9KzI3IlAQG0YhO",
+					SubMenuName:     "Add Product",
+					SubMenuPosition: 2,
+					SubMenuActions: []models.Action{
+						{
+							Id:           "2bB3eF6zkQsVYI5rSlrppiYumzh",
+							Value:        "Create",
+							ApiUrlAction: "",
+							Action:       "POST",
+						},
 					},
-					SubMenuUrl: "/RoleAdd",
+					SubMenuUrl: "/home/AddProduct",
 				},
 			},
 		},
-		{
-			MenuName:       "Dashboard",
-			MenuPosition:   0,
-			MenuUrl:        "/Dashboard",
-			MenuHasSubMenu: false,
-			MenuSubMenu:    nil,
-		},
+		//
 	}
 
 	return &models.NewRole{

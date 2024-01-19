@@ -172,6 +172,23 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "models.Action": {
+            "type": "object",
+            "properties": {
+                "Action": {
+                    "type": "string"
+                },
+                "ApiUrlAction": {
+                    "type": "string"
+                },
+                "Id": {
+                    "type": "string"
+                },
+                "Value": {
+                    "type": "string"
+                }
+            }
+        },
         "models.Health": {
             "type": "object",
             "properties": {
@@ -186,14 +203,26 @@ const docTemplate = `{
         "models.Menu": {
             "type": "object",
             "properties": {
+                "Icon": {
+                    "type": "string"
+                },
                 "Id": {
                     "type": "string"
                 },
-                "MenuAction": {
+                "MenuActions": {
                     "type": "array",
                     "items": {
-                        "type": "string"
+                        "$ref": "#/definitions/models.Action"
                     }
+                },
+                "MenuHasSubMenu": {
+                    "type": "boolean"
+                },
+                "MenuName": {
+                    "type": "string"
+                },
+                "MenuPosition": {
+                    "type": "integer"
                 },
                 "MenuSubMenu": {
                     "type": "array",
@@ -201,16 +230,7 @@ const docTemplate = `{
                         "$ref": "#/definitions/models.SubMenu"
                     }
                 },
-                "PermissionHasSubMenu": {
-                    "type": "boolean"
-                },
-                "PermissionName": {
-                    "type": "string"
-                },
-                "PermissionPosition": {
-                    "type": "integer"
-                },
-                "PermissionUrl": {
+                "MenuUrl": {
                     "type": "string"
                 }
             }
@@ -264,11 +284,14 @@ const docTemplate = `{
                 "SubMenuActions": {
                     "type": "array",
                     "items": {
-                        "type": "string"
+                        "$ref": "#/definitions/models.Action"
                     }
                 },
                 "SubMenuName": {
                     "type": "string"
+                },
+                "SubMenuPosition": {
+                    "type": "integer"
                 },
                 "SubMenuUrl": {
                     "type": "string"
