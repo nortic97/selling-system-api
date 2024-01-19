@@ -15,8 +15,13 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/roles/es/v1/CreateRole": {
+        "/api/roles/es/v1/CreateRole": {
             "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "The actual endpoint create a role and save in database.",
                 "consumes": [
                     "application/json"
@@ -49,8 +54,13 @@ const docTemplate = `{
                 }
             }
         },
-        "/roles/es/v1/DeleteRole/{id}": {
+        "/api/roles/es/v1/DeleteRole/{id}": {
             "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "The actual endpoint Delete a role.",
                 "consumes": [
                     "application/json"
@@ -81,8 +91,13 @@ const docTemplate = `{
                 }
             }
         },
-        "/roles/es/v1/ReadRoleById/{id}": {
+        "/api/roles/es/v1/ReadRoleById/{id}": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "The actual endpoint Search a role by Id.",
                 "consumes": [
                     "application/json"
@@ -113,8 +128,13 @@ const docTemplate = `{
                 }
             }
         },
-        "/roles/es/v1/UpdateRole": {
+        "/api/roles/es/v1/UpdateRole": {
             "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "The actual endpoint Update a role and save in database.",
                 "consumes": [
                     "application/json"
@@ -147,7 +167,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/roles/es/v1/actuator": {
+        "/api/roles/es/v1/actuator": {
             "get": {
                 "description": "The actual endpoint show Service status.",
                 "consumes": [
@@ -297,6 +317,13 @@ const docTemplate = `{
                     "type": "string"
                 }
             }
+        }
+    },
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
         }
     }
 }`

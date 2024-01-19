@@ -46,7 +46,7 @@ func initializeMenu() *models.InitMenu {
 				Icon:           "",
 				MenuPosition:   2,
 				MenuHasSubMenu: true,
-				MenuUrl:        "#product",
+				MenuUrl:        "product",
 				MenuActions:    nil,
 				MenuSubMenu: []models.SubMenu{
 					{
@@ -98,6 +98,63 @@ func initializeMenu() *models.InitMenu {
 				},
 			},
 			//
+			{
+				Id:             "2bBc9x5hFUmKLlTRbUZRls9tqJh",
+				MenuName:       "Sale",
+				Icon:           "",
+				MenuPosition:   3,
+				MenuHasSubMenu: true,
+				MenuUrl:        "Sale",
+				MenuActions:    nil,
+				MenuSubMenu: []models.SubMenu{
+					{
+						Id:              "2bB31U2Sq1xaF6UEftKK8yBmrOJ",
+						SubMenuName:     "List Sale",
+						SubMenuPosition: 1,
+						SubMenuActions: []models.Action{
+							{
+								Id:           "2bBcGftmrX4yPOQGHBuYLYy7wgS",
+								Value:        "List",
+								ApiUrlAction: "",
+								Action:       "GET",
+							},
+							{
+								Id:           "2bBcHXAJgbArWIo7GdfNNaK4Eqy",
+								Value:        "Create",
+								ApiUrlAction: "",
+								Action:       "POST",
+							},
+							{
+								Id:           "2bBcIApgMHibglUu1HIwtSxGGQG",
+								Value:        "Update",
+								ApiUrlAction: "",
+								Action:       "PUT",
+							},
+							{
+								Id:           "2bBcInIb2uO7qAjlwBRLqWmaupq",
+								Value:        "Delete",
+								ApiUrlAction: "",
+								Action:       "DELETE",
+							},
+						},
+						SubMenuUrl: "/home/ListSale",
+					},
+					{
+						Id:              "2bBcJdcqqvuvtQeKv66cGy6MbuW",
+						SubMenuName:     "Add Sale",
+						SubMenuPosition: 2,
+						SubMenuActions: []models.Action{
+							{
+								Id:           "2bBcKNuz2dvVgtXUcf0sW1Hyj74",
+								Value:        "Create",
+								ApiUrlAction: "",
+								Action:       "POST",
+							},
+						},
+						SubMenuUrl: "/home/AddSale",
+					},
+				},
+			},
 		},
 	}
 

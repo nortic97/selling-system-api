@@ -5,10 +5,12 @@ import (
 	"log"
 	"net/http"
 	"users-es/actions"
+	"users-es/auth"
 	"users-es/docs"
 	"users-es/utils"
 
 	"github.com/gorilla/mux"
+	"github.com/rs/cors"
 	httpSwagger "github.com/swaggo/http-swagger"
 )
 
@@ -25,18 +27,28 @@ func Controller() {
 	docs.SwaggerInfo.Description = "This is Users Entity API."
 
 	// Endpoints
-	router := mux.NewRouter()
+	router := mux.NewRouter().StrictSlash(true)
+	router.Use(auth.Authorize()) // Authorize with token
 	router.HandleFunc("/", homeHandler).Methods("GET")
-	router.HandleFunc("/users/es/v1/CreateUser", actions.CreateUser).Methods("POST")
-	router.HandleFunc("/users/es/v1/ReadUserById/{id}", actions.ReadUserById).Methods("GET")
-	router.HandleFunc("/users/es/v1/UpdateUser", actions.UpdateUser).Methods("PUT")
-	router.HandleFunc("/users/es/v1/DeleteUser/{id}", actions.DeleteUser).Methods("DELETE")
-	router.HandleFunc("/users/es/v1/actuator", actions.Actuator).Methods("GET")
-	router.PathPrefix("/users/es/v1/swagger").Handler(httpSwagger.WrapHandler)
+	router.HandleFunc("/api/users/es/v1/CreateUser", actions.CreateUser).Methods("POST")
+	router.HandleFunc("/api/users/es/v1/ReadUserById/{id}", actions.ReadUserById).Methods("GET")
+	router.HandleFunc("/api/users/es/v1/UpdateUser", actions.UpdateUser).Methods("PUT")
+	router.HandleFunc("/api/users/es/v1/DeleteUser/{id}", actions.DeleteUser).Methods("DELETE")
+	router.HandleFunc("/api/users/es/v1/actuator", actions.Actuator).Methods("GET")
+	router.PathPrefix("/swagger").Handler(httpSwagger.WrapHandler)
+
+	// CORS configuration
+	c := cors.New(cors.Options{
+		AllowedOrigins:   []string{"*"},
+		AllowedHeaders:   []string{"*"},
+		AllowCredentials: true,
+	})
+
+	handler := c.Handler(router)
 
 	// Start HTTP server
 	log.Println("users-es listening on http://localhost:" + REST_PORT)
-	err := http.ListenAndServe((":" + REST_PORT), router)
+	err := http.ListenAndServe((":" + REST_PORT), handler)
 
 	if err != nil {
 		log.Panic(err)

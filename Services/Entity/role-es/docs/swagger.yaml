@@ -84,7 +84,7 @@ definitions:
 info:
   contact: {}
 paths:
-  /roles/es/v1/CreateRole:
+  /api/roles/es/v1/CreateRole:
     post:
       consumes:
       - application/json
@@ -103,10 +103,12 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.Role'
+      security:
+      - ApiKeyAuth: []
       summary: Create role
       tags:
       - CreateRole
-  /roles/es/v1/DeleteRole/{id}:
+  /api/roles/es/v1/DeleteRole/{id}:
     delete:
       consumes:
       - application/json
@@ -124,10 +126,12 @@ paths:
           description: OK
           schema:
             type: boolean
+      security:
+      - ApiKeyAuth: []
       summary: Delete role
       tags:
       - DeleteRole
-  /roles/es/v1/ReadRoleById/{id}:
+  /api/roles/es/v1/ReadRoleById/{id}:
     get:
       consumes:
       - application/json
@@ -145,10 +149,12 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.Role'
+      security:
+      - ApiKeyAuth: []
       summary: Read role by ID
       tags:
       - ReadRoleById
-  /roles/es/v1/UpdateRole:
+  /api/roles/es/v1/UpdateRole:
     put:
       consumes:
       - application/json
@@ -167,10 +173,12 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.Role'
+      security:
+      - ApiKeyAuth: []
       summary: Update role
       tags:
       - UpdateRole
-  /roles/es/v1/actuator:
+  /api/roles/es/v1/actuator:
     get:
       consumes:
       - application/json
@@ -185,4 +193,9 @@ paths:
       summary: Service status
       tags:
       - Actuator
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

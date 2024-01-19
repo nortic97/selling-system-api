@@ -17,7 +17,7 @@ const SERVER_UP string = "UP"
 // @Accept json
 // @Produce json
 // @Success 200 {object} models.Health
-// @Router /users/es/v1/actuator [GET]
+// @Router /api/users/es/v1/actuator [GET]
 func Actuator(w http.ResponseWriter, r *http.Request) {
 	log.Println("Checking Health...")
 

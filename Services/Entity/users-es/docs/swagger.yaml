@@ -39,7 +39,7 @@ definitions:
 info:
   contact: {}
 paths:
-  /users/es/v1/CreateUser:
+  /api/users/es/v1/CreateUser:
     post:
       consumes:
       - application/json
@@ -58,10 +58,12 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.User'
+      security:
+      - ApiKeyAuth: []
       summary: Create user
       tags:
       - CreateUser
-  /users/es/v1/DeleteUser/{id}:
+  /api/users/es/v1/DeleteUser/{id}:
     delete:
       consumes:
       - application/json
@@ -79,10 +81,12 @@ paths:
           description: OK
           schema:
             type: boolean
+      security:
+      - ApiKeyAuth: []
       summary: Delete user
       tags:
       - DeleteUser
-  /users/es/v1/ReadUserById/{id}:
+  /api/users/es/v1/ReadUserById/{id}:
     get:
       consumes:
       - application/json
@@ -100,10 +104,12 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.User'
+      security:
+      - ApiKeyAuth: []
       summary: Read user by ID
       tags:
       - ReadUserById
-  /users/es/v1/UpdateUser:
+  /api/users/es/v1/UpdateUser:
     put:
       consumes:
       - application/json
@@ -122,10 +128,12 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.User'
+      security:
+      - ApiKeyAuth: []
       summary: Update user
       tags:
       - UpdateUser
-  /users/es/v1/actuator:
+  /api/users/es/v1/actuator:
     get:
       consumes:
       - application/json
@@ -140,4 +148,9 @@ paths:
       summary: Service status
       tags:
       - Actuator
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

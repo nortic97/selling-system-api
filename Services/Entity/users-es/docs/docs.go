@@ -15,8 +15,13 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/users/es/v1/CreateUser": {
+        "/api/users/es/v1/CreateUser": {
             "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "The actual endpoint create a user and save in database.",
                 "consumes": [
                     "application/json"
@@ -49,8 +54,13 @@ const docTemplate = `{
                 }
             }
         },
-        "/users/es/v1/DeleteUser/{id}": {
+        "/api/users/es/v1/DeleteUser/{id}": {
             "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "The actual endpoint Delete a user.",
                 "consumes": [
                     "application/json"
@@ -81,8 +91,13 @@ const docTemplate = `{
                 }
             }
         },
-        "/users/es/v1/ReadUserById/{id}": {
+        "/api/users/es/v1/ReadUserById/{id}": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "The actual endpoint Search a user by Id.",
                 "consumes": [
                     "application/json"
@@ -113,8 +128,13 @@ const docTemplate = `{
                 }
             }
         },
-        "/users/es/v1/UpdateUser": {
+        "/api/users/es/v1/UpdateUser": {
             "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "The actual endpoint Update a user and save in database.",
                 "consumes": [
                     "application/json"
@@ -147,7 +167,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/users/es/v1/actuator": {
+        "/api/users/es/v1/actuator": {
             "get": {
                 "description": "The actual endpoint show Service status.",
                 "consumes": [
@@ -228,6 +248,13 @@ const docTemplate = `{
                     "type": "string"
                 }
             }
+        }
+    },
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
         }
     }
 }`

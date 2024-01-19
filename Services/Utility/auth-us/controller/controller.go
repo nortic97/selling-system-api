@@ -28,9 +28,9 @@ func Controller() {
 	// EndPoints
 	router := mux.NewRouter()
 	router.HandleFunc("/", homeHandler).Methods("GET")
-	router.HandleFunc("/auth/us/v1/Auth", actions.GenerateToken).Methods("POST")
-	router.HandleFunc("/auth/us/v1/actuator", actions.Actuator).Methods("GET")
-	router.PathPrefix("/auth/us/v1/swagger").Handler(httpSwagger.WrapHandler)
+	router.HandleFunc("/api/auth/us/v1/Auth", actions.GenerateToken).Methods("POST")
+	router.HandleFunc("/api/auth/us/v1/actuator", actions.Actuator).Methods("GET")
+	router.PathPrefix("/swagger").Handler(httpSwagger.WrapHandler)
 
 	// CORS configuration
 	c := cors.New(cors.Options{

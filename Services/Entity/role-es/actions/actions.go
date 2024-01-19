@@ -19,7 +19,8 @@ import (
 // @Produce json
 // @Param user body models.NewRole true "Created Role"
 // @Success 200 {object} models.Role
-// @Router /roles/es/v1/CreateRole [POST]
+// @Security ApiKeyAuth
+// @Router /api/roles/es/v1/CreateRole [POST]
 func CreateRole(w http.ResponseWriter, r *http.Request) {
 	log.Println("Start CreateRole Action...")
 
@@ -46,7 +47,8 @@ func CreateRole(w http.ResponseWriter, r *http.Request) {
 // @Produce json
 // @Param user body models.NewRole true "Update Role"
 // @Success 200 {object} models.Role
-// @Router /roles/es/v1/UpdateRole [PUT]
+// @Security ApiKeyAuth
+// @Router /api/roles/es/v1/UpdateRole [PUT]
 func UpdateRole(w http.ResponseWriter, r *http.Request) {
 	log.Println("Start UpdateRole Action...")
 
@@ -73,7 +75,8 @@ func UpdateRole(w http.ResponseWriter, r *http.Request) {
 // @Produce json
 // @Param id path string true "Role Id"
 // @Success 200 {boolean} boolean
-// @Router /roles/es/v1/DeleteRole/{id} [DELETE]
+// @Security ApiKeyAuth
+// @Router /api/roles/es/v1/DeleteRole/{id} [DELETE]
 func DeleteRole(w http.ResponseWriter, r *http.Request) {
 	log.Println("Start DeleteRole Action...")
 
@@ -94,7 +97,8 @@ func DeleteRole(w http.ResponseWriter, r *http.Request) {
 // @Produce json
 // @Param id path string true "Role Id"
 // @Success 200 {object} models.Role
-// @Router /roles/es/v1/ReadRoleById/{id} [GET]
+// @Security ApiKeyAuth
+// @Router /api/roles/es/v1/ReadRoleById/{id} [GET]
 func ReadRoleById(w http.ResponseWriter, r *http.Request) {
 	log.Println("Start ReadRoleById Action...")
 

@@ -25,6 +25,7 @@ require (
 	github.com/gorilla/mux v1.8.1 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/mailru/easyjson v0.7.6 // indirect
+	github.com/rs/cors v1.10.1
 	github.com/segmentio/ksuid v1.0.4 // indirect
 	github.com/swaggo/files v0.0.0-20220610200504-28940afbdbfe // indirect
 	github.com/swaggo/http-swagger v1.3.4 // indirect

@@ -5,10 +5,12 @@ import (
 	"log"
 	"net/http"
 	"role-es/actions"
+	"role-es/auth"
 	"role-es/docs"
 	"role-es/utils"
 
 	"github.com/gorilla/mux"
+	"github.com/rs/cors"
 	httpSwagger "github.com/swaggo/http-swagger"
 )
 
@@ -24,18 +26,28 @@ func Controller() {
 	docs.SwaggerInfo.Description = "This is Roles Entity API."
 
 	// Endpoints
-	router := mux.NewRouter()
+	router := mux.NewRouter().StrictSlash(true)
+	router.Use(auth.Authorize()) // Authorize with token
 	router.HandleFunc("/", homeHandler).Methods("GET")
-	router.HandleFunc("/roles/es/v1/CreateRole", actions.CreateRole).Methods("POST")
-	router.HandleFunc("/roles/es/v1/ReadRoleById/{id}", actions.ReadRoleById).Methods("GET")
-	router.HandleFunc("/roles/es/v1/UpdateRole", actions.UpdateRole).Methods("PUT")
-	router.HandleFunc("/roles/es/v1/DeleteRole/{id}", actions.DeleteRole).Methods("DELETE")
-	router.HandleFunc("/roles/es/v1/actuator", actions.Actuator).Methods("GET")
-	router.PathPrefix("/roles/es/v1/swagger").Handler(httpSwagger.WrapHandler)
+	router.HandleFunc("/api/roles/es/v1/CreateRole", actions.CreateRole).Methods("POST")
+	router.HandleFunc("/api/roles/es/v1/ReadRoleById/{id}", actions.ReadRoleById).Methods("GET")
+	router.HandleFunc("/api/roles/es/v1/UpdateRole", actions.UpdateRole).Methods("PUT")
+	router.HandleFunc("/api/roles/es/v1/DeleteRole/{id}", actions.DeleteRole).Methods("DELETE")
+	router.HandleFunc("/api/roles/es/v1/actuator", actions.Actuator).Methods("GET")
+	router.PathPrefix("/swagger").Handler(httpSwagger.WrapHandler)
+
+	// CORS configuration
+	c := cors.New(cors.Options{
+		AllowedOrigins:   []string{"*"},
+		AllowedHeaders:   []string{"*"},
+		AllowCredentials: true,
+	})
+
+	handler := c.Handler(router)
 
 	// Start HTTP server
-	log.Println("role-es listening on http://localhost:" + REST_PORT)
-	err := http.ListenAndServe((":" + REST_PORT), router)
+	log.Println("listening on http://localhost:" + REST_PORT)
+	err := http.ListenAndServe((":" + REST_PORT), handler)
 
 	if err != nil {
 		log.Panic(err)

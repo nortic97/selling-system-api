@@ -19,7 +19,8 @@ import (
 // @Produce json
 // @Param user body models.NewUser true "Created User"
 // @Success 200 {object} models.User
-// @Router /users/es/v1/CreateUser [POST]
+// @Security ApiKeyAuth
+// @Router /api/users/es/v1/CreateUser [POST]
 func CreateUser(w http.ResponseWriter, r *http.Request) {
 	log.Println("Start CreateUser Action...")
 
@@ -46,7 +47,8 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 // @Produce json
 // @Param user body models.NewUser true "Update User"
 // @Success 200 {object} models.User
-// @Router /users/es/v1/UpdateUser [PUT]
+// @Security ApiKeyAuth
+// @Router /api/users/es/v1/UpdateUser [PUT]
 func UpdateUser(w http.ResponseWriter, r *http.Request) {
 	log.Println("Start UpdateUser Action...")
 
@@ -73,7 +75,8 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 // @Produce json
 // @Param id path string true "User Id"
 // @Success 200 {boolean} boolean
-// @Router /users/es/v1/DeleteUser/{id} [DELETE]
+// @Security ApiKeyAuth
+// @Router /api/users/es/v1/DeleteUser/{id} [DELETE]
 func DeleteUser(w http.ResponseWriter, r *http.Request) {
 	log.Println("Start DeleteUser Action...")
 
@@ -94,7 +97,8 @@ func DeleteUser(w http.ResponseWriter, r *http.Request) {
 // @Produce json
 // @Param id path string true "User Id"
 // @Success 200 {object} models.User
-// @Router /users/es/v1/ReadUserById/{id} [GET]
+// @Security ApiKeyAuth
+// @Router /api/users/es/v1/ReadUserById/{id} [GET]
 func ReadUserById(w http.ResponseWriter, r *http.Request) {
 	log.Println("Start ReadUser Action...")
 
