@@ -18,8 +18,7 @@ import (
 // @Accept json
 // @Produce json
 // @Param user body models.NewUser true "Created User"
-// @Success 200 {object} models.User
-// @Security ApiKeyAuth
+// @Success 201 {object} models.User
 // @Router /api/users/es/v1/CreateUser [POST]
 func CreateUser(w http.ResponseWriter, r *http.Request) {
 	log.Println("Start CreateUser Action...")
@@ -34,7 +33,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	res, _ := service.CreateUser(newUser)              //Save the user to Database
 	w.Header().Set("content-Type", "application/json") //Set content type
-	w.WriteHeader(http.StatusOK)                       //Write the status code 201 Created
+	w.WriteHeader(http.StatusCreated)                  //Write the status code 201 Created
 	json.NewEncoder(w).Encode(res)
 	log.Println("End CreateUser Action...")
 }

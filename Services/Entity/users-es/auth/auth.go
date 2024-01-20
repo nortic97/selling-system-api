@@ -23,7 +23,7 @@ func Authorize() func(http.Handler) http.Handler {
 			header := r.Header.Get("Authorization")
 
 			// Allow unauthenticated users in
-			if header == "" && (strings.Contains(r.URL.Path, "/swagger/") || strings.Contains(r.URL.Path, "/actuator")) {
+			if header == "" && (strings.Contains(r.URL.Path, "/swagger/") || strings.Contains(r.URL.Path, "actuator") || strings.Contains(r.URL.Path, "CreateUser")) {
 				next.ServeHTTP(w, r)
 				return
 			}
