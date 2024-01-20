@@ -25,22 +25,7 @@ definitions:
 info:
   contact: {}
 paths:
-  /api/auth/us/v1/actuator:
-    get:
-      consumes:
-      - application/json
-      description: The actual endpoint show Service status.
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.Health'
-      summary: Service status
-      tags:
-      - Actuator
-  /auth/us/v1/Auth:
+  /api/auth/us/v1/Auth:
     post:
       consumes:
       - application/json
@@ -63,4 +48,19 @@ paths:
       summary: Generate Token and Login.
       tags:
       - Login
+  /api/auth/us/v1/actuator:
+    get:
+      consumes:
+      - application/json
+      description: The actual endpoint show Service status.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Health'
+      summary: Service status
+      tags:
+      - Actuator
 swagger: "2.0"

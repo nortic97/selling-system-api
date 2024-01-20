@@ -18,8 +18,8 @@ import (
 // @Produce json
 // @Param login body models.Login true "Login"
 // @Success 200 {object} models.Token
-// @Router /auth/us/v1/Auth [POST]
-func GenerateToken(w http.ResponseWriter, r *http.Request) {
+// @Router /api/auth/us/v1/Auth [POST]
+func Auth(w http.ResponseWriter, r *http.Request) {
 	log.Println("Start GenerateToken Action...")
 
 	var login *models.Login

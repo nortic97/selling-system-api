@@ -28,7 +28,7 @@ func Controller() {
 	// EndPoints
 	router := mux.NewRouter()
 	router.HandleFunc("/", homeHandler).Methods("GET")
-	router.HandleFunc("/api/auth/us/v1/Auth", actions.GenerateToken).Methods("POST")
+	router.HandleFunc("/api/auth/us/v1/Auth", actions.Auth).Methods("POST")
 	router.HandleFunc("/api/auth/us/v1/actuator", actions.Actuator).Methods("GET")
 	router.PathPrefix("/swagger").Handler(httpSwagger.WrapHandler)
 

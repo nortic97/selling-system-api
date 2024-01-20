@@ -15,30 +15,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/api/auth/us/v1/actuator": {
-            "get": {
-                "description": "The actual endpoint show Service status.",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Actuator"
-                ],
-                "summary": "Service status",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/models.Health"
-                        }
-                    }
-                }
-            }
-        },
-        "/auth/us/v1/Auth": {
+        "/api/auth/us/v1/Auth": {
             "post": {
                 "description": "The actual endpoint generate a JWT Token and identifies if the user can be login.",
                 "consumes": [
@@ -67,6 +44,29 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/models.Token"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/us/v1/actuator": {
+            "get": {
+                "description": "The actual endpoint show Service status.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Actuator"
+                ],
+                "summary": "Service status",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Health"
                         }
                     }
                 }

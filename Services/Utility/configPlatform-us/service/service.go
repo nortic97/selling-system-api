@@ -97,7 +97,7 @@ func initializeMenu() *models.InitMenu {
 					},
 				},
 			},
-			//
+			// Sale
 			{
 				Id:             "2bBc9x5hFUmKLlTRbUZRls9tqJh",
 				MenuName:       "Sale",
