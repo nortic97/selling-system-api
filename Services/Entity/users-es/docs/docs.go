@@ -17,11 +17,6 @@ const docTemplate = `{
     "paths": {
         "/api/users/es/v1/CreateUser": {
             "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
                 "description": "The actual endpoint create a user and save in database.",
                 "consumes": [
                     "application/json"
@@ -45,8 +40,8 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "OK",
+                    "201": {
+                        "description": "Created",
                         "schema": {
                             "$ref": "#/definitions/models.User"
                         }
