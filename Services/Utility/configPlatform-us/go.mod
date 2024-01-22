@@ -1,4 +1,4 @@
-module configPlatform
+module configPlatform-us
 
 go 1.21.4
 

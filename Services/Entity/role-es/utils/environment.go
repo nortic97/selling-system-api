@@ -3,7 +3,7 @@ package utils
 import "os"
 
 const (
-	DEFAULT_PORT = "3000"
+	DEFAULT_PORT = "30001"
 	DEFAULT_ENV  = "LOCALHOST"
 )
 

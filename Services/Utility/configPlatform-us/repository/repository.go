@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"configPlatform/models"
+	"configPlatform-us/models"
 	"context"
 	"log"
 

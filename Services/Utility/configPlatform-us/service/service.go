@@ -1,9 +1,9 @@
 package service
 
 import (
-	"configPlatform/models"
-	"configPlatform/repository"
-	"configPlatform/utils"
+	"configPlatform-us/models"
+	"configPlatform-us/repository"
+	"configPlatform-us/utils"
 	"log"
 )
 

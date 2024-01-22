@@ -1,7 +1,7 @@
 package main
 
 import (
-	"configPlatform/service"
+	"configPlatform-us/service"
 	"log"
 )
 
