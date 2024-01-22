@@ -16,30 +16,29 @@ func UploadFile(w http.ResponseWriter, r *http.Request) {
 
 	var fileModel *models.NewFile = new(models.NewFile) // New is necessary for not errors.
 
-	// Obtiene el archivo del formulario
+	// Get form.
 	file, handler, err := r.FormFile("file")
 	fileModel.FileFolder = r.FormValue("folder")
-	fileModel.FileUser = r.FormValue("user")
+	fileModel.Owner = r.FormValue("user")
 
 	if err != nil {
-		http.Error(w, fmt.Sprintf("Error al obtener el archivo del formulario: %v", err), http.StatusBadRequest)
+		http.Error(w, fmt.Sprintf("Error to get file: %v", err), http.StatusBadRequest)
 		return
 	}
 	defer file.Close()
 
-	// Leemos el contenido del archivo
+	// Read file.
 	fileContent, err := io.ReadAll(file)
 	if err != nil {
-		http.Error(w, fmt.Sprintf("Error al leer el contenido del archivo: %s", err), http.StatusInternalServerError)
+		http.Error(w, fmt.Sprintf("Error to read file: %s", err), http.StatusInternalServerError)
 		return
 	}
 
-	fileModel.FileName = handler.Filename
+	fileModel.FileName = handler.Filename // Get original file name.
 
-	// Crear un slice de bytes de destino con el mismo tamaño que el origen
-	fileModel.File = make([]byte, len(fileContent))
+	fileModel.File = make([]byte, len(fileContent)) // make slice empty of bytes.
 
-	copy(fileModel.File, fileContent)
+	copy(fileModel.File, fileContent) // Copy bytes in model.
 
 	res, err := service.UploadFile(fileModel)
 	if err != nil {

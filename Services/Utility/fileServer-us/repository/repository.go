@@ -5,7 +5,6 @@ import (
 	"fileServer-us/models"
 	"fileServer-us/utils"
 	"log"
-	"net/url"
 	"path/filepath"
 
 	"cloud.google.com/go/storage"
@@ -19,7 +18,7 @@ const (
 
 var client, ctx = initFirestore()
 
-// This function is responsible for gettin information of google firestore.
+// This function is responsible for getting information of google firestore.
 func initFirestore() (*storage.Client, context.Context) {
 
 	defer func() {
@@ -43,29 +42,32 @@ func UploadFile(fileModel *models.NewFile) (*models.NewFile, error) {
 
 	log.Println("Start UploadFile Repository...")
 	log.Printf("Cargando archivo: %s", fileModel.FileName)
-	id := ksuid.New().String()
 
+	// Generate Data file.
+	id := ksuid.New().String()
 	fileModel.Id = &id
 	fileModel.FileExtension = filepath.Ext(fileModel.FileName)
-	fileModel.FileType = utils.FileType(fileModel.FileType)
+	fileModel.FileType = utils.FileType(fileModel.FileExtension)
 	fileModel.FileBucket = DEFAULT_BUCKET
 
-	bucket := client.Bucket(fileModel.FileBucket)
-	wc := bucket.Object(fileModel.FileFolder + "/" + fileModel.FileUser + fileModel.FileExtension).NewWriter(ctx)
-	wc.ContentType = fileModel.FileType
+	// Init storage client
+	bucket := client.Bucket(fileModel.FileBucket) // default bucket
+	filePath := fileModel.FileFolder + "/" + fileModel.Owner + fileModel.FileExtension
+	wc := bucket.Object(filePath).NewWriter(ctx) // Path to save file.
+	wc.ContentType = fileModel.FileType          // Content type of file.
 
-	// Copiar los bytes al escritor en el bucket
+	// Copy bytes to writer in the bucket.
 	if _, err := wc.Write(fileModel.File); err != nil {
 		return nil, err
 	}
 
-	// Confirmar la escritura
+	// Confirm writer.
 	if err := wc.Close(); err != nil {
 		return nil, err
 	}
 
-	route := url.QueryEscape(fileModel.FileFolder + "/" + fileModel.FileUser)
-	fileModel.URL = "https://firebasestorage.googleapis.com/v0/b/" + DEFAULT_BUCKET + "/o/" + route + fileModel.FileExtension
+	// TODO: It's possible this generate some errors.
+	fileModel.URL = filePath
 
 	log.Println("End UploadFile Repository...")
 	return fileModel, nil

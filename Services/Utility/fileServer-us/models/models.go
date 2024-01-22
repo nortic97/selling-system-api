@@ -7,7 +7,7 @@ type NewFile struct {
 	FileFolder    string  `json:"FileFolder"`
 	FileExtension string  `json:"FileExtension"`
 	File          []byte  `json:"File"`
-	FileUser      string  `json:"FileUser"`
+	Owner         string  `json:"Owner"`
 	FileBucket    string  `json:"FileBucket"`
 	URLIsPublic   bool    `json:"UrlIsPublic"`
 	URL           string  `json:"Url"`
