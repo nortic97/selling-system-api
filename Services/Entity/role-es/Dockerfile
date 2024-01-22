@@ -17,7 +17,7 @@ FROM alpine AS build-release-stage
 
 WORKDIR /app
 
-COPY --from=build-stage /app/KeyService.json /app/application ./
+COPY --from=build-stage /app/docs /app/KeyService.json /app/application ./
 
 EXPOSE 80
 
