@@ -12,7 +12,7 @@ const (
 // In a future it is posible define new variables like "GRAPH_PORT" or "KAFKA_PORT" etc.
 //
 // Returns:
-//	string: the port number defined by the environment variable;
+//	string: the port number defined by the environment variable
 func PORTS() string {
 
 	REST_PORT := os.Getenv("REST_PORT") // Get port of env
@@ -28,7 +28,7 @@ func PORTS() string {
 // "ENV" is the environment variable that can be either "DEVELOPMENT" or "PRODUCTION".
 //
 // Returns:
-//	string: the environment variable;
+//	string: the environment variable
 func Environment() string {
 
 	ENV := os.Getenv("ENV") // Read environment variable.

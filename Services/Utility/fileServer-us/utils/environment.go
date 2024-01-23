@@ -7,9 +7,12 @@ const (
 	DEFAULT_ENV  = "LOCALHOST"
 )
 
-// Function for set PORT by environment variable
+// Function for read PORT by environment variable
 // "REST_PORT" is the environment variable that will be used to define port number for rest api
 // In a future it is posible define new variables like "GRAPH_PORT" or "KAFKA_PORT" etc.
+//
+// Returns:
+//	string: the port number defined by the environment variable
 func PORTS() string {
 
 	REST_PORT := os.Getenv("REST_PORT") // Get port of env
@@ -21,8 +24,11 @@ func PORTS() string {
 	return REST_PORT
 }
 
-// Function to set development mode by environment variable
+// Function to read development mode by environment variable
 // "ENV" is the environment variable that can be either "DEVELOPMENT" or "PRODUCTION".
+//
+// Returns:
+//	string: the environment variable
 func Environment() string {
 
 	ENV := os.Getenv("ENV") // Read environment variable.
