@@ -5,6 +5,7 @@ import (
 	"fileServer-us/models"
 	"fileServer-us/utils"
 	"log"
+	"net/url"
 	"path/filepath"
 
 	"cloud.google.com/go/storage"
@@ -66,8 +67,9 @@ func UploadFile(fileModel *models.NewFile) (*models.NewFile, error) {
 		return nil, err
 	}
 
-	// TODO: It's possible this generate some errors.
-	fileModel.URL = filePath
+	objectUrl := "https://firebasestorage.googleapis.com/v0/b/" + DEFAULT_BUCKET + "/o/" + url.QueryEscape(fileModel.FileFolder+"/"+fileModel.Owner) + fileModel.FileExtension + "?alt=media"
+
+	fileModel.URL = objectUrl
 
 	log.Println("End UploadFile Repository...")
 	return fileModel, nil

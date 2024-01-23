@@ -2,6 +2,7 @@ package controller
 
 import (
 	"fileServer-us/actions"
+	"fileServer-us/auth"
 	"fileServer-us/docs"
 	"fileServer-us/utils"
 	"fmt"
@@ -27,10 +28,10 @@ func Controller() {
 
 	// EndPoints
 	router := mux.NewRouter().StrictSlash(true)
-	//router.Use(auth.Authorize())
+	router.Use(auth.Authorize())
 	router.HandleFunc("/", homeHandler).Methods("GET")
 	router.HandleFunc("/api/fileServer/us/v1/UploadFile", actions.UploadFile).Methods("POST")
-	//router.HandleFunc("/api/fileServer/us/v1/actuator", actions.Actuator).Methods("GET")
+	router.HandleFunc("/api/fileServer/us/v1/actuator", actions.Actuator).Methods("GET")
 	router.PathPrefix("/swagger").Handler(httpSwagger.WrapHandler)
 
 	// CORS configuration

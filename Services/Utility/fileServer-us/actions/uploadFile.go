@@ -10,6 +10,18 @@ import (
 	"net/http"
 )
 
+// EndPoint to UploadFile
+// @Summary Upload File
+// @Description The actual endpoint Upload File to server.
+// @Tags UploadFile
+// @Accept mpfd
+// @Produce json
+// @Param file formData file true "File"
+// @Param folder formData string true "Folder"
+// @Param user formData string true "owner"
+// @Success 200 {object} models.NewFile
+// @Security ApiKeyAuth
+// @Router /api/fileServer/us/v1/UploadFile [POST]
 func UploadFile(w http.ResponseWriter, r *http.Request) {
 
 	log.Println("Start UploadFile Action...")
@@ -40,10 +52,11 @@ func UploadFile(w http.ResponseWriter, r *http.Request) {
 
 	copy(fileModel.File, fileContent) // Copy bytes in model.
 
-	res, err := service.UploadFile(fileModel)
+	res, err := service.UploadFile(fileModel) //Save the File to storage
 	if err != nil {
 		log.Panicln(err)
-	} //Save the File to storage
+	}
+
 	w.Header().Set("content-Type", "application/json") //Set content type
 	w.WriteHeader(http.StatusOK)                       //Write the status code 201 Created
 	json.NewEncoder(w).Encode(res)
