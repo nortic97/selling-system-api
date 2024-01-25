@@ -45,8 +45,8 @@ func TestGenerateToken(t *testing.T) {
 func initModelLogin() *models.Login {
 
 	return &models.Login{
-		UserEmail:    "test_email@developer.com",
-		UserPassword: "test_password",
+		UserEmail:    "admin@posdash.com",
+		UserPassword: "PosDashAdmin2023-*",
 	}
 
 }
