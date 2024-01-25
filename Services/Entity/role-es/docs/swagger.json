@@ -80,6 +80,50 @@
                 }
             }
         },
+        "/api/roles/es/v1/ReadAllRolesPaginate/{size}/{startAfterKey}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "The actual endpoint list roles.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ReadAllRolesPaginate"
+                ],
+                "summary": "Read role whit pagination",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Size",
+                        "name": "size",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Send null string if first page",
+                        "name": "startAfterKey",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.RoleFilter"
+                        }
+                    }
+                }
+            }
+        },
         "/api/roles/es/v1/ReadRoleById/{id}": {
             "get": {
                 "security": [
@@ -280,6 +324,26 @@
                     }
                 },
                 "RoleName": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.RoleFilter": {
+            "type": "object",
+            "properties": {
+                "Roles": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Role"
+                    }
+                },
+                "Size": {
+                    "type": "integer"
+                },
+                "TotalData": {
+                    "type": "integer"
+                },
+                "startAfterKey": {
                     "type": "string"
                 }
             }

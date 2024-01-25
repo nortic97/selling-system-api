@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"role-es/models"
 	"role-es/service"
+	"strconv"
 
 	"github.com/gorilla/mux"
 )
@@ -109,4 +110,49 @@ func ReadRoleById(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)                       //Write the status code 201 Created
 	json.NewEncoder(w).Encode(res)
 	log.Println("End ReadRoleById Action...")
+}
+
+// EndPoint to read a role whit pagination
+// @Summary Read role whit pagination
+// @Description The actual endpoint list roles.
+// @Tags ReadAllRolesPaginate
+// @Accept json
+// @Produce json
+// @Param size path int true "Size"
+// @Param startAfterKey path string true "Send null string if first page"
+// @Success 200 {object} models.RoleFilter
+// @Security ApiKeyAuth
+// @Router /api/roles/es/v1/ReadAllRolesPaginate/{size}/{startAfterKey} [GET]
+func ReadAllRolesPaginate(w http.ResponseWriter, r *http.Request) {
+	log.Println("Start ReadAllRolesPaginate Action...")
+
+	//Read the URL Params
+	sizeStr := mux.Vars(r)["size"]
+	startAfterKey := mux.Vars(r)["startAfterKey"]
+
+	size, err := strconv.Atoi(sizeStr)
+	if err != nil {
+		// Check if have error
+		log.Panic("Error converting size to int")
+		return
+	}
+
+	var key *string
+
+	if startAfterKey == "null" {
+		key = nil
+	} else {
+		key = &startAfterKey
+	}
+
+	res, err := service.ReadAllRolesPaginate(&size, key) //call service
+
+	if err != nil {
+		log.Panic(err)
+	}
+
+	w.Header().Set("content-Type", "application/json") //Set content type
+	w.WriteHeader(http.StatusOK)                       //Write the status code
+	json.NewEncoder(w).Encode(res)
+	log.Println("End ReadAllRolesPaginate Action...")
 }

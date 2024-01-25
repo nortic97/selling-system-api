@@ -86,14 +86,14 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/users/es/v1/ReadAllUsers/{size}/{startAfterKey}": {
+        "/api/users/es/v1/ReadAllUsersPaginate/{size}/{startAfterKey}": {
             "get": {
                 "security": [
                     {
                         "ApiKeyAuth": []
                     }
                 ],
-                "description": "The actual endpoint Search a users.",
+                "description": "The actual endpoint Search a users by page.",
                 "consumes": [
                     "application/json"
                 ],
@@ -101,9 +101,9 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "ReadAllUsers"
+                    "ReadAllUsersPaginate"
                 ],
-                "summary": "Read all users",
+                "summary": "Read all users by page",
                 "parameters": [
                     {
                         "type": "integer",

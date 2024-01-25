@@ -32,7 +32,7 @@ func Controller() {
 	router.HandleFunc("/", homeHandler).Methods("GET")
 	router.HandleFunc("/api/users/es/v1/CreateUser", actions.CreateUser).Methods("POST")
 	router.HandleFunc("/api/users/es/v1/ReadUserById/{id}", actions.ReadUserById).Methods("GET")
-	router.HandleFunc("/api/users/es/v1/ReadAllUsers/{size}/{startAfterKey}", actions.ReadAllUsers).Methods("GET")
+	router.HandleFunc("/api/users/es/v1/ReadAllUsersPaginate/{size}/{startAfterKey}", actions.ReadAllUsersPaginate).Methods("GET")
 	router.HandleFunc("/api/users/es/v1/UpdateUser", actions.UpdateUser).Methods("PUT")
 	router.HandleFunc("/api/users/es/v1/DeleteUser/{id}", actions.DeleteUser).Methods("DELETE")
 	router.HandleFunc("/api/users/es/v1/actuator", actions.Actuator).Methods("GET")

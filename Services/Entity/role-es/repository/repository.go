@@ -8,6 +8,7 @@ import (
 	"cloud.google.com/go/firestore"
 	firebase "firebase.google.com/go"
 	"github.com/segmentio/ksuid"
+	"google.golang.org/api/iterator"
 	"google.golang.org/api/option"
 )
 
@@ -110,26 +111,51 @@ func ReadRoleById(id *string) (*models.Role, bool, error) {
 
 }
 
-// TODO: this function not work's
-func ReadAllRoles(id *string) (*models.Role, bool, error) {
+func ReadAllRolesPaginate(size *int, startAfterKey *string) (*models.RoleFilter, error) {
 
-	log.Println("Start ReadRoleById Repository...")
-	log.Printf("id : %s", *id)
+	log.Println("Start ReadAllUsersPaginate Repository...")
 
-	var userModel models.Role
-	RoleDocument, err := roles.Doc(*id).Get(ctx) //Find a role document by ID
+	var roleFilter models.RoleFilter
+
+	totalDocs, err := roles.Documents(ctx).GetAll()
 
 	if err != nil {
-		log.Panic(err)
-		return &userModel, false, err //Return false if the agenda doesn't exists
+		return nil, err
 	}
 
-	RoleDocument.DataTo(&userModel) //Transform agenda document to agenda model
+	roleFilter.TotalData = len(totalDocs)
 
-	log.Println("Found a role document", userModel.Id)
-	log.Println("End ReadRoleById Repository")
+	query := roles.OrderBy("RoleName", firestore.Asc).Limit(*size)
 
-	return &userModel, true, nil
+	if startAfterKey != nil {
+		lastDoc, err := roles.Doc(*startAfterKey).Get(ctx)
+		if err != nil {
+			return nil, err
+		}
+		query = roles.OrderBy("RoleName", firestore.Asc).StartAfter(lastDoc.Data()["RoleName"]).Limit(*size)
+	}
+
+	iter := query.Documents(ctx)
+
+	for {
+		doc, err := iter.Next()
+		if err == iterator.Done {
+			break
+		}
+		if err != nil {
+			return nil, err
+		}
+
+		var roleModel models.Role
+		doc.DataTo(&roleModel)
+		roleFilter.Roles = append(roleFilter.Roles, roleModel)
+		roleFilter.StartAfterKey = doc.Ref.ID
+		roleFilter.Size = *size
+	}
+
+	log.Println("End ReadAllUsersPaginate Repository")
+
+	return &roleFilter, nil
 
 }
 

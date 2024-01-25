@@ -40,6 +40,13 @@ type Action struct {
 	Action       string `json:"Action"`
 }
 
+type RoleFilter struct {
+	Roles         []Role `json:"Roles"`
+	Size          int    `json:"Size"`
+	StartAfterKey string `json:"startAfterKey"`
+	TotalData     int    `json:"TotalData"`
+}
+
 type Health struct {
 	Status      string
 	Environment string

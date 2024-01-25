@@ -61,3 +61,19 @@ func ReadRoleById(id *string) (*models.Role, bool, error) {
 
 	return res, b, err
 }
+
+// Get all roles with pagination
+// Parameters:
+//
+//	size (*int): size of page to retrieve.
+//	startAfterKey (*string): id of last document.
+//
+// Returns:
+//
+//	*models.RoleFilter
+//	error
+func ReadAllRolesPaginate(size *int, startAfterKey *string) (*models.RoleFilter, error) {
+	log.Println("Start ReadAllRolesPaginate Service...")
+	log.Println("End ReadAllRolesPaginate Service...")
+	return repository.ReadAllRolesPaginate(size, startAfterKey)
+}

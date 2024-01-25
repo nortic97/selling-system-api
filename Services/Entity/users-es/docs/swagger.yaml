@@ -97,11 +97,11 @@ paths:
       summary: Delete user
       tags:
       - DeleteUser
-  /api/users/es/v1/ReadAllUsers/{size}/{startAfterKey}:
+  /api/users/es/v1/ReadAllUsersPaginate/{size}/{startAfterKey}:
     get:
       consumes:
       - application/json
-      description: The actual endpoint Search a users.
+      description: The actual endpoint Search a users by page.
       parameters:
       - description: size
         in: path
@@ -122,9 +122,9 @@ paths:
             $ref: '#/definitions/models.UserFilter'
       security:
       - ApiKeyAuth: []
-      summary: Read all users
+      summary: Read all users by page
       tags:
-      - ReadAllUsers
+      - ReadAllUsersPaginate
   /api/users/es/v1/ReadUserById/{id}:
     get:
       consumes:

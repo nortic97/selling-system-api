@@ -66,6 +66,19 @@ definitions:
       RoleName:
         type: string
     type: object
+  models.RoleFilter:
+    properties:
+      Roles:
+        items:
+          $ref: '#/definitions/models.Role'
+        type: array
+      Size:
+        type: integer
+      TotalData:
+        type: integer
+      startAfterKey:
+        type: string
+    type: object
   models.SubMenu:
     properties:
       Id:
@@ -131,6 +144,34 @@ paths:
       summary: Delete role
       tags:
       - DeleteRole
+  /api/roles/es/v1/ReadAllRolesPaginate/{size}/{startAfterKey}:
+    get:
+      consumes:
+      - application/json
+      description: The actual endpoint list roles.
+      parameters:
+      - description: Size
+        in: path
+        name: size
+        required: true
+        type: integer
+      - description: Send null string if first page
+        in: path
+        name: startAfterKey
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.RoleFilter'
+      security:
+      - ApiKeyAuth: []
+      summary: Read role whit pagination
+      tags:
+      - ReadAllRolesPaginate
   /api/roles/es/v1/ReadRoleById/{id}:
     get:
       consumes:

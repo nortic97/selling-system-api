@@ -116,9 +116,9 @@ func ReadUserById(id *string) (*models.User, bool, error) {
 
 }
 
-func ReadAllUsers(size *int, startAfterKey *string) (*models.UserFilter, error) {
+func ReadAllUsersPaginate(size *int, startAfterKey *string) (*models.UserFilter, error) {
 
-	log.Println("Start ReadAllUsers Repository...")
+	log.Println("Start ReadAllUsersPaginate Repository...")
 
 	var userFilter models.UserFilter
 
@@ -158,7 +158,7 @@ func ReadAllUsers(size *int, startAfterKey *string) (*models.UserFilter, error) 
 		userFilter.Size = *size
 	}
 
-	log.Println("End ReadAllUsers Repository")
+	log.Println("End ReadAllUsersPaginate Repository")
 
 	return &userFilter, nil
 
