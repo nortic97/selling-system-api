@@ -9,6 +9,7 @@ import (
 	"cloud.google.com/go/firestore"
 	firebase "firebase.google.com/go"
 	"github.com/segmentio/ksuid"
+	"google.golang.org/api/iterator"
 	"google.golang.org/api/option"
 )
 
@@ -115,26 +116,51 @@ func ReadUserById(id *string) (*models.User, bool, error) {
 
 }
 
-// TODO: this function not work's
-func ReadAllUsers(id *string) (*models.User, bool, error) {
+func ReadAllUsers(size *int, startAfterKey *string) (*models.UserFilter, error) {
 
-	log.Println("Start ReadUserById Repository...")
-	log.Printf("id : %s", *id)
+	log.Println("Start ReadAllUsers Repository...")
 
-	var userModel models.User
-	UserDocument, err := users.Doc(*id).Get(ctx) //Find a user document by ID
+	var userFilter models.UserFilter
+
+	totalDocs, err := users.Documents(ctx).GetAll()
 
 	if err != nil {
-		log.Panic(err)
-		return &userModel, false, err //Return false if the agenda doesn't exists
+		return nil, err
 	}
 
-	UserDocument.DataTo(&userModel) //Transform agenda document to agenda model
+	userFilter.TotalData = len(totalDocs)
 
-	log.Println("Found a user document", userModel.Id)
-	log.Println("End ReadUserById Repository")
+	query := users.OrderBy("UserName", firestore.Asc).Limit(*size)
 
-	return &userModel, true, nil
+	if startAfterKey != nil {
+		lastDoc, err := users.Doc(*startAfterKey).Get(ctx)
+		if err != nil {
+			return nil, err
+		}
+		query = users.OrderBy("UserName", firestore.Asc).StartAfter(lastDoc.Data()["UserName"]).Limit(*size)
+	}
+
+	iter := query.Documents(ctx)
+
+	for {
+		doc, err := iter.Next()
+		if err == iterator.Done {
+			break
+		}
+		if err != nil {
+			return nil, err
+		}
+
+		var userModel models.User
+		doc.DataTo(&userModel)
+		userFilter.Users = append(userFilter.Users, userModel)
+		userFilter.StartAfterKey = doc.Ref.ID
+		userFilter.Size = *size
+	}
+
+	log.Println("End ReadAllUsers Repository")
+
+	return &userFilter, nil
 
 }
 

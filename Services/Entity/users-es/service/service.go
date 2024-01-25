@@ -61,3 +61,9 @@ func ReadUserById(id *string) (*models.User, bool, error) {
 
 	return res, b, err
 }
+
+func ReadAllUsers(size *int, startAfterKey *string) (*models.UserFilter, error) {
+	log.Println("End ReadAllUsers Service...")
+	log.Println("End ReadAllUsers Service...")
+	return repository.ReadAllUsers(size, startAfterKey)
+}

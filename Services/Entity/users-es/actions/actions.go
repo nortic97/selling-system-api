@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 	"users-es/models"
 	"users-es/service"
 
@@ -103,9 +104,54 @@ func ReadUserById(w http.ResponseWriter, r *http.Request) {
 
 	id := mux.Vars(r)["id"] //Read the URL Params
 
-	res, _, _ := service.ReadUserById(&id)             //Save the user to Database
+	res, _, _ := service.ReadUserById(&id)             //read the user to Database
 	w.Header().Set("content-Type", "application/json") //Set content type
 	w.WriteHeader(http.StatusOK)                       //Write the status code 201 Created
 	json.NewEncoder(w).Encode(res)
 	log.Println("End ReadUserById Action...")
+}
+
+// EndPoint to read all user
+// @Summary Read all users
+// @Description The actual endpoint Search a users.
+// @Tags ReadAllUsers
+// @Accept json
+// @Produce json
+// @Param size path int true "size"
+// @Param startAfterKey path string true "send null string if is empty"
+// @Success 200 {object} models.UserFilter
+// @Security ApiKeyAuth
+// @Router /api/users/es/v1/ReadAllUsers/{size}/{startAfterKey} [GET]
+func ReadAllUsers(w http.ResponseWriter, r *http.Request) {
+	log.Println("Start ReadAllUsers Action...")
+
+	//Read the URL Params
+	sizeStr := mux.Vars(r)["size"]
+	startAfterKey := mux.Vars(r)["startAfterKey"]
+
+	size, err := strconv.Atoi(sizeStr)
+	if err != nil {
+		// Check if have error
+		log.Panic("Error converting size to int")
+		return
+	}
+
+	var key *string
+
+	if startAfterKey == "null" {
+		key = nil
+	} else {
+		key = &startAfterKey
+	}
+
+	res, err := service.ReadAllUsers(&size, key) //read user to Database
+
+	if err != nil {
+		log.Panic(err)
+	}
+
+	w.Header().Set("content-Type", "application/json") //Set content type
+	w.WriteHeader(http.StatusOK)                       //Write the status code 201 Created
+	json.NewEncoder(w).Encode(res)
+	log.Println("End ReadAllUsers Action...")
 }

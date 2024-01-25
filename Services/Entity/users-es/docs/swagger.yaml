@@ -36,6 +36,19 @@ definitions:
       UserRoleId:
         type: string
     type: object
+  models.UserFilter:
+    properties:
+      Size:
+        type: integer
+      TotalData:
+        type: integer
+      Users:
+        items:
+          $ref: '#/definitions/models.User'
+        type: array
+      startAfterKey:
+        type: string
+    type: object
 info:
   contact: {}
 paths:
@@ -84,6 +97,34 @@ paths:
       summary: Delete user
       tags:
       - DeleteUser
+  /api/users/es/v1/ReadAllUsers/{size}/{startAfterKey}:
+    get:
+      consumes:
+      - application/json
+      description: The actual endpoint Search a users.
+      parameters:
+      - description: size
+        in: path
+        name: size
+        required: true
+        type: integer
+      - description: send null string if is empty
+        in: path
+        name: startAfterKey
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserFilter'
+      security:
+      - ApiKeyAuth: []
+      summary: Read all users
+      tags:
+      - ReadAllUsers
   /api/users/es/v1/ReadUserById/{id}:
     get:
       consumes:

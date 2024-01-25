@@ -86,6 +86,50 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/users/es/v1/ReadAllUsers/{size}/{startAfterKey}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "The actual endpoint Search a users.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ReadAllUsers"
+                ],
+                "summary": "Read all users",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "size",
+                        "name": "size",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "send null string if is empty",
+                        "name": "startAfterKey",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.UserFilter"
+                        }
+                    }
+                }
+            }
+        },
         "/api/users/es/v1/ReadUserById/{id}": {
             "get": {
                 "security": [
@@ -240,6 +284,26 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "UserRoleId": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.UserFilter": {
+            "type": "object",
+            "properties": {
+                "Size": {
+                    "type": "integer"
+                },
+                "TotalData": {
+                    "type": "integer"
+                },
+                "Users": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.User"
+                    }
+                },
+                "startAfterKey": {
                     "type": "string"
                 }
             }
