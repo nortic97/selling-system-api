@@ -1,9 +1,6 @@
 package actions
 
 import (
-	"auth-us/models"
-	"auth-us/repository"
-	"encoding/json"
 	"log"
 	"net/http"
 	"strings"
@@ -22,44 +19,41 @@ import (
 // @Success 200 boolean boolean
 // @Security ApiKeyAuth
 // @Router /api/ms/auth/CheckAccessApi [GET]
-func CheckAccessApi(w http.ResponseWriter, r *http.Request) {
+func CheckAccess(w http.ResponseWriter, r *http.Request) {
 
-	var roleModel *models.Role
+	// var roleModel *models.Resource
 
-	var result bool = false
+	// var result bool = false
 
-	ti, _ := validToken(r) //Validate the token received
+	// ti, _ := validToken(r) //Validate the token received
 
-	claims, _ := extractClaims(ti)
+	// claims, _ := extractClaims(ti)
 
-	UserRoleId := claims["UserRoleId"].(string) //Get claim user
-	resource := r.URL.Query()["resource"][0]    //Obtains the request resource param
-	action := r.URL.Query()["action"][0]        //Obtains the request action param
+	//UserRoleId := claims["UserRoleId"].(string) //Get claim user
+	//resource := r.URL.Query()["resource"][0]    //Obtains the request resource param
+	//action := r.URL.Query()["action"][0]        //Obtains the request action param
 
-	roleModel, err := repository.GetRoleById(&UserRoleId)
-	if err != nil { //Validate if error
-		w.WriteHeader(http.StatusUnauthorized)
-	}
+	//roleModel, err := repository.GetRoleById(&UserRoleId)
 
-	for _, menu := range roleModel.Menu {
-		if menu.MenuHasSubMenu {
-			for _, subMenu := range menu.MenuSubMenu {
-				for _, actionArray := range subMenu.SubMenuActions {
-					if actionArray.ApiUrlAction == resource && actionArray.Action == action {
-						result = true
-					}
-				}
-			}
-		}
-	}
+	// for _, menu := range roleModel.Menu {
+	// 	if menu.MenuHasSubMenu {
+	// 		for _, subMenu := range menu.MenuSubMenu {
+	// 			for _, actionArray := range subMenu.SubMenuActions {
+	// 				if actionArray.ApiUrlAction == resource && actionArray.Action == action {
+	// 					result = true
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// }
 
-	if err != nil { //Validate if error
-		http.Error(w, "Doesn't access to resource :(", http.StatusUnauthorized) //Write the status code 401 Unauthorized
-	} else {
-		w.Header().Set("content-Type", "application/json") //Set content type
-		w.WriteHeader(http.StatusOK)
-		json.NewEncoder(w).Encode(result)
-	}
+	// if err != nil { //Validate if error
+	// 	http.Error(w, "Doesn't access to resource :(", http.StatusUnauthorized) //Write the status code 401 Unauthorized
+	// } else {
+	// 	w.Header().Set("content-Type", "application/json") //Set content type
+	// 	w.WriteHeader(http.StatusOK)
+	// 	json.NewEncoder(w).Encode(result)
+	// }
 }
 
 func validToken(r *http.Request) (*jwt.Token, error) {

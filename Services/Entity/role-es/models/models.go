@@ -21,23 +21,14 @@ type Menu struct {
 	MenuPosition   int       `json:"MenuPosition"`
 	MenuHasSubMenu bool      `json:"MenuHasSubMenu"`
 	MenuUrl        string    `json:"MenuUrl"`
-	MenuActions    []Action  `json:"MenuActions"`
 	MenuSubMenu    []SubMenu `json:"MenuSubMenu"`
 }
 
 type SubMenu struct {
-	Id              string   `json:"Id"`
-	SubMenuName     string   `json:"SubMenuName"`
-	SubMenuPosition int      `json:"SubMenuPosition"`
-	SubMenuActions  []Action `json:"SubMenuActions"`
-	SubMenuUrl      string   `json:"SubMenuUrl"`
-}
-
-type Action struct {
-	Id           string `json:"Id"`
-	Value        string `json:"Value"`
-	ApiUrlAction string `json:"ApiUrlAction"`
-	Action       string `json:"Action"`
+	Id              string `json:"Id"`
+	SubMenuName     string `json:"SubMenuName"`
+	SubMenuPosition int    `json:"SubMenuPosition"`
+	SubMenuUrl      string `json:"SubMenuUrl"`
 }
 
 type RoleFilter struct {

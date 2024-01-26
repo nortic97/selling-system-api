@@ -264,23 +264,6 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "models.Action": {
-            "type": "object",
-            "properties": {
-                "Action": {
-                    "type": "string"
-                },
-                "ApiUrlAction": {
-                    "type": "string"
-                },
-                "Id": {
-                    "type": "string"
-                },
-                "Value": {
-                    "type": "string"
-                }
-            }
-        },
         "models.Health": {
             "type": "object",
             "properties": {
@@ -300,12 +283,6 @@ const docTemplate = `{
                 },
                 "Id": {
                     "type": "string"
-                },
-                "MenuActions": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/models.Action"
-                    }
                 },
                 "MenuHasSubMenu": {
                     "type": "boolean"
@@ -392,12 +369,6 @@ const docTemplate = `{
             "properties": {
                 "Id": {
                     "type": "string"
-                },
-                "SubMenuActions": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/models.Action"
-                    }
                 },
                 "SubMenuName": {
                     "type": "string"

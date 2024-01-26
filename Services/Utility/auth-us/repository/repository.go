@@ -93,17 +93,17 @@ func Login(login *models.Login) ([]*models.User, bool, error) {
 
 }
 
-func GetRoleById(id *string) (*models.Role, error) {
+// func GetRoleById(id *string) (*models.Role, error) {
 
-	log.Println("Start GetRoleById Repository")
+// 	log.Println("Start GetRoleById Repository")
 
-	roleData, err := roles.Doc(*id).Get(ctx)
-	if err != nil {
-		return nil, err
-	}
-	var role *models.Role
-	roleData.DataTo(&role)
-	log.Println("End GetRoleById Repository")
-	return role, nil
+// 	roleData, err := roles.Doc(*id).Get(ctx)
+// 	if err != nil {
+// 		return nil, err
+// 	}
+// 	var role *models.Role
+// 	roleData.DataTo(&role)
+// 	log.Println("End GetRoleById Repository")
+// 	return role, nil
 
-}
+// }

@@ -46,7 +46,6 @@ func InitializeMenu() (*models.InitMenu, *models.InitMenu) {
 				MenuPosition:   1,
 				MenuHasSubMenu: false,
 				MenuUrl:        "/home/dashboard",
-				MenuActions:    nil,
 			},
 			// Products
 			{
@@ -56,53 +55,18 @@ func InitializeMenu() (*models.InitMenu, *models.InitMenu) {
 				MenuPosition:   2,
 				MenuHasSubMenu: true,
 				MenuUrl:        "Products",
-				MenuActions:    nil,
 				MenuSubMenu: []models.SubMenu{
 					{
 						Id:              "2bB31U2Sq1xaF6UEftKK8yBmrOJ",
 						SubMenuName:     "List Product",
 						SubMenuPosition: 1,
-						SubMenuActions: []models.Action{
-							{
-								Id:           "2bB21AN6K6bvkFeJYxnMKoYnSAU",
-								Value:        "List",
-								ApiUrlAction: "",
-								Action:       "GET",
-							},
-							{
-								Id:           "2bB2BPXRIJXWyljcDkVl36eNNK7",
-								Value:        "Create",
-								ApiUrlAction: "",
-								Action:       "POST",
-							},
-							{
-								Id:           "2bB2CsvVnv48GmHvpTaVoMUplc3",
-								Value:        "Update",
-								ApiUrlAction: "",
-								Action:       "PUT",
-							},
-							{
-								Id:           "2bB2EydyAS0BKP3J4nRiItEsMr4",
-								Value:        "Delete",
-								ApiUrlAction: "",
-								Action:       "DELETE",
-							},
-						},
-						SubMenuUrl: "/home/ListProduct",
+						SubMenuUrl:      "/home/ListProduct",
 					},
 					{
 						Id:              "2bB3ZzEmoCawT9KzI3IlAQG0YhO",
 						SubMenuName:     "Add Product",
 						SubMenuPosition: 2,
-						SubMenuActions: []models.Action{
-							{
-								Id:           "2bB3eF6zkQsVYI5rSlrppiYumzh",
-								Value:        "Create",
-								ApiUrlAction: "",
-								Action:       "POST",
-							},
-						},
-						SubMenuUrl: "/home/AddProduct",
+						SubMenuUrl:      "/home/AddProduct",
 					},
 				},
 			},
@@ -114,53 +78,18 @@ func InitializeMenu() (*models.InitMenu, *models.InitMenu) {
 				MenuPosition:   3,
 				MenuHasSubMenu: true,
 				MenuUrl:        "Sale",
-				MenuActions:    nil,
 				MenuSubMenu: []models.SubMenu{
 					{
 						Id:              "2bB31U2Sq1xaF6UEftKK8yBmrOJ",
 						SubMenuName:     "List Sale",
 						SubMenuPosition: 1,
-						SubMenuActions: []models.Action{
-							{
-								Id:           "2bBcGftmrX4yPOQGHBuYLYy7wgS",
-								Value:        "List",
-								ApiUrlAction: "",
-								Action:       "GET",
-							},
-							{
-								Id:           "2bBcHXAJgbArWIo7GdfNNaK4Eqy",
-								Value:        "Create",
-								ApiUrlAction: "",
-								Action:       "POST",
-							},
-							{
-								Id:           "2bBcIApgMHibglUu1HIwtSxGGQG",
-								Value:        "Update",
-								ApiUrlAction: "",
-								Action:       "PUT",
-							},
-							{
-								Id:           "2bBcInIb2uO7qAjlwBRLqWmaupq",
-								Value:        "Delete",
-								ApiUrlAction: "",
-								Action:       "DELETE",
-							},
-						},
-						SubMenuUrl: "/home/ListSale",
+						SubMenuUrl:      "/home/ListSale",
 					},
 					{
 						Id:              "2bBcJdcqqvuvtQeKv66cGy6MbuW",
 						SubMenuName:     "Add Sale",
 						SubMenuPosition: 2,
-						SubMenuActions: []models.Action{
-							{
-								Id:           "2bBcKNuz2dvVgtXUcf0sW1Hyj74",
-								Value:        "Create",
-								ApiUrlAction: "",
-								Action:       "POST",
-							},
-						},
-						SubMenuUrl: "/home/AddSale",
+						SubMenuUrl:      "/home/AddSale",
 					},
 				},
 			},
@@ -172,52 +101,19 @@ func InitializeMenu() (*models.InitMenu, *models.InitMenu) {
 				MenuPosition:   4,
 				MenuHasSubMenu: true,
 				MenuUrl:        "Purchases",
-				MenuActions:    nil,
 				MenuSubMenu: []models.SubMenu{
 					{
 						Id:              "2bB31U2Sq1xaF6UEftKK8yBmrOJ",
 						SubMenuName:     "List Purchases",
 						SubMenuPosition: 1,
-						SubMenuActions: []models.Action{
-							{
-								Id:           "2bJRbSJcSCovwmjf2CYZ3nBfCh4",
-								Value:        "List",
-								ApiUrlAction: "",
-								Action:       "GET",
-							},
-							{
-								Id:           "2bJRc2bzqEvhRqxe1UVvhZA8caQ",
-								Value:        "Create",
-								ApiUrlAction: "",
-								Action:       "POST",
-							},
-							{
-								Id:           "2bJRcSjOTM9AIJH9zTG0JpEudWQ",
-								Value:        "Update",
-								ApiUrlAction: "",
-								Action:       "PUT",
-							},
-							{
-								Id:           "2bJRcucv87x86ToFZtpxiORdCad",
-								Value:        "Delete",
-								ApiUrlAction: "",
-								Action:       "DELETE",
-							},
-						},
+
 						SubMenuUrl: "/home/ListPurchases",
 					},
 					{
 						Id:              "2bJRdbHsISlTZxsdrjc9DnFMHZ8",
 						SubMenuName:     "Add Purchase",
 						SubMenuPosition: 2,
-						SubMenuActions: []models.Action{
-							{
-								Id:           "2bJReTxdDqq2oRDzmWHzXqsWLUN",
-								Value:        "Create",
-								ApiUrlAction: "",
-								Action:       "POST",
-							},
-						},
+
 						SubMenuUrl: "/home/AddPurchase",
 					},
 				},
@@ -230,52 +126,20 @@ func InitializeMenu() (*models.InitMenu, *models.InitMenu) {
 				MenuPosition:   5,
 				MenuHasSubMenu: true,
 				MenuUrl:        "Returns",
-				MenuActions:    nil,
+
 				MenuSubMenu: []models.SubMenu{
 					{
 						Id:              "2bJUpd5B5GeJQAuy07qNcSO5PM7",
 						SubMenuName:     "List Returns",
 						SubMenuPosition: 1,
-						SubMenuActions: []models.Action{
-							{
-								Id:           "2bJUpd5B5GeJQAuy07qNcSO5PM7",
-								Value:        "List",
-								ApiUrlAction: "",
-								Action:       "GET",
-							},
-							{
-								Id:           "2bJUpYg8IOoaC0SL1XkBDPIJtNz",
-								Value:        "Create",
-								ApiUrlAction: "",
-								Action:       "POST",
-							},
-							{
-								Id:           "2bJUpZIet0uaB5MqbteLWTQ703V",
-								Value:        "Update",
-								ApiUrlAction: "",
-								Action:       "PUT",
-							},
-							{
-								Id:           "2bJUs2qrLZuDMCRP57tCmQVpwPq",
-								Value:        "Delete",
-								ApiUrlAction: "",
-								Action:       "DELETE",
-							},
-						},
+
 						SubMenuUrl: "/home/ListReturns",
 					},
 					{
 						Id:              "2bJUsn3uxp73Ay9rJN9lDnmhH0t",
 						SubMenuName:     "Add Return",
 						SubMenuPosition: 2,
-						SubMenuActions: []models.Action{
-							{
-								Id:           "2bJUsrcbHQXxWeUdbrFTkJKedkQ",
-								Value:        "Create",
-								ApiUrlAction: "",
-								Action:       "POST",
-							},
-						},
+
 						SubMenuUrl: "/home/AddReturn",
 					},
 				},
@@ -288,72 +152,27 @@ func InitializeMenu() (*models.InitMenu, *models.InitMenu) {
 				MenuPosition:   5,
 				MenuHasSubMenu: true,
 				MenuUrl:        "People",
-				MenuActions:    nil,
+
 				MenuSubMenu: []models.SubMenu{
 					{
 						Id:              "2bJWfobd4tJkYknnUobqrrKdeE7",
 						SubMenuName:     "Costumers",
 						SubMenuPosition: 1,
-						SubMenuActions: []models.Action{
-							{
-								Id:           "2bJWfrkdyFHWXYm9zZgpYRKQd89",
-								Value:        "List",
-								ApiUrlAction: "",
-								Action:       "GET",
-							},
-							{
-								Id:           "2bJWfpUHjs4tJh3HnMPGSvVbiF7",
-								Value:        "Create",
-								ApiUrlAction: "",
-								Action:       "POST",
-							},
-							{
-								Id:           "2bJWfoKWzKADaqqA395dV2nXW3M",
-								Value:        "Update",
-								ApiUrlAction: "",
-								Action:       "PUT",
-							},
-							{
-								Id:           "2bJWfreOhxvB9wt7vOMByT5lRVU",
-								Value:        "Delete",
-								ApiUrlAction: "",
-								Action:       "DELETE",
-							},
-						},
+
 						SubMenuUrl: "/home/ListCostumers",
 					},
 					{
 						Id:              "2bJWfrrkY84ZIyXccOfteGG6ZRl",
 						SubMenuName:     "Add Costumers",
 						SubMenuPosition: 2,
-						SubMenuActions: []models.Action{
-							{
-								Id:           "2bJWfkke16pF7PafKiCIIphELVg",
-								Value:        "Create",
-								ApiUrlAction: "",
-								Action:       "POST",
-							},
-						},
+
 						SubMenuUrl: "/home/AddCostumers",
 					},
 					{
 						Id:              "2bV9ibEPOjGBarSQSbLznkIIo11",
 						SubMenuName:     "List Roles",
 						SubMenuPosition: 3,
-						SubMenuActions: []models.Action{
-							{
-								Id:           "2bV9nC7X8xI6uRhZkVmlJMAQ5nF",
-								Value:        "Create",
-								ApiUrlAction: "/api/roles/es/v1/CreateRole",
-								Action:       "POST",
-							},
-							{
-								Id:           "2bV9nC7X8xI6uRhZkVmlJMAQ5nF",
-								Value:        "List",
-								ApiUrlAction: "/api/roles/es/v1/GetAllRoles",
-								Action:       "GET",
-							},
-						},
+
 						SubMenuUrl: "/home/ListRoles",
 					},
 				},
@@ -372,7 +191,6 @@ func InitializeMenu() (*models.InitMenu, *models.InitMenu) {
 				MenuPosition:   1,
 				MenuHasSubMenu: false,
 				MenuUrl:        "/home/dashboard",
-				MenuActions:    nil,
 			},
 		},
 	}

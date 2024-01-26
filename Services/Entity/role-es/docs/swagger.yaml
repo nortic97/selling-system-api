@@ -1,15 +1,4 @@
 definitions:
-  models.Action:
-    properties:
-      Action:
-        type: string
-      ApiUrlAction:
-        type: string
-      Id:
-        type: string
-      Value:
-        type: string
-    type: object
   models.Health:
     properties:
       environment:
@@ -23,10 +12,6 @@ definitions:
         type: string
       Id:
         type: string
-      MenuActions:
-        items:
-          $ref: '#/definitions/models.Action'
-        type: array
       MenuHasSubMenu:
         type: boolean
       MenuName:
@@ -83,10 +68,6 @@ definitions:
     properties:
       Id:
         type: string
-      SubMenuActions:
-        items:
-          $ref: '#/definitions/models.Action'
-        type: array
       SubMenuName:
         type: string
       SubMenuPosition:

@@ -253,23 +253,6 @@
         }
     },
     "definitions": {
-        "models.Action": {
-            "type": "object",
-            "properties": {
-                "Action": {
-                    "type": "string"
-                },
-                "ApiUrlAction": {
-                    "type": "string"
-                },
-                "Id": {
-                    "type": "string"
-                },
-                "Value": {
-                    "type": "string"
-                }
-            }
-        },
         "models.Health": {
             "type": "object",
             "properties": {
@@ -289,12 +272,6 @@
                 },
                 "Id": {
                     "type": "string"
-                },
-                "MenuActions": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/models.Action"
-                    }
                 },
                 "MenuHasSubMenu": {
                     "type": "boolean"
@@ -381,12 +358,6 @@
             "properties": {
                 "Id": {
                     "type": "string"
-                },
-                "SubMenuActions": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/models.Action"
-                    }
                 },
                 "SubMenuName": {
                     "type": "string"
