@@ -156,3 +156,29 @@ func ReadAllRolesPaginate(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(res)
 	log.Println("End ReadAllRolesPaginate Action...")
 }
+
+// EndPoint to read all roles without pagination
+// @Summary Read role without pagination
+// @Description The actual endpoint list roles.
+// @Tags GetAllRoles
+// @Accept json
+// @Produce json
+// @Success 200 {object} models.Role
+// @Security ApiKeyAuth
+// @Router /api/roles/es/v1/GetAllRoles [GET]
+func GetAllRoles(w http.ResponseWriter, r *http.Request) {
+
+	log.Println("Start GetAllRoles Action...")
+
+	res, err := service.GetAllRoles() //call service
+
+	if err != nil {
+		log.Panic(err)
+	}
+
+	w.Header().Set("content-Type", "application/json") //Set content type
+	w.WriteHeader(http.StatusOK)                       //Write the status code
+	json.NewEncoder(w).Encode(res)
+	log.Println("End GetAllRoles Action...")
+
+}

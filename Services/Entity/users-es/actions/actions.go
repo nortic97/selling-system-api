@@ -34,7 +34,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	res, _ := service.CreateUser(newUser)              //Save the user to Database
 	w.Header().Set("content-Type", "application/json") //Set content type
-	w.WriteHeader(http.StatusCreated)                  //Write the status code 201 Created
+	w.WriteHeader(http.StatusCreated)                  //Write the status code
 	json.NewEncoder(w).Encode(res)
 	log.Println("End CreateUser Action...")
 }

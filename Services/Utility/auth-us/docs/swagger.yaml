@@ -63,4 +63,37 @@ paths:
       summary: Service status
       tags:
       - Actuator
+  /api/ms/auth/CheckAccessApi:
+    get:
+      consumes:
+      - application/json
+      description: The actual show if have permissions.
+      parameters:
+      - description: resource
+        in: query
+        name: resource
+        required: true
+        type: string
+      - description: action
+        in: query
+        name: action
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: boolean
+      security:
+      - ApiKeyAuth: []
+      summary: Check Access to api's URL.
+      tags:
+      - CheckAccess
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

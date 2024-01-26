@@ -80,6 +80,34 @@
                 }
             }
         },
+        "/api/roles/es/v1/GetAllRoles": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "The actual endpoint list roles.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "GetAllRoles"
+                ],
+                "summary": "Read role without pagination",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Role"
+                        }
+                    }
+                }
+            }
+        },
         "/api/roles/es/v1/ReadAllRolesPaginate/{size}/{startAfterKey}": {
             "get": {
                 "security": [

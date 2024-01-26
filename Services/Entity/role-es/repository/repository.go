@@ -159,6 +159,33 @@ func ReadAllRolesPaginate(size *int, startAfterKey *string) (*models.RoleFilter,
 
 }
 
+func GetAllRoles() ([]*models.Role, error) {
+
+	log.Println("Start GetAllUsers Repository")
+
+	var rolesList []*models.Role
+
+	iter := roles.Documents(ctx)
+
+	for {
+		doc, err := iter.Next()
+		if err == iterator.Done {
+			break
+		}
+		if err != nil {
+			return nil, err
+		}
+
+		var role *models.Role
+		doc.DataTo(&role)
+		rolesList = append(rolesList, role)
+
+	}
+
+	log.Println("End GetAllUsers Repository")
+	return rolesList, nil
+}
+
 func UpdateRole(role *models.NewRole) (*models.Role, error) {
 
 	log.Println("Start UpdateRole Repository...")

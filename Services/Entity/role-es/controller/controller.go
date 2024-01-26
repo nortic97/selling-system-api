@@ -32,6 +32,7 @@ func Controller() {
 	router.HandleFunc("/api/roles/es/v1/CreateRole", actions.CreateRole).Methods("POST")
 	router.HandleFunc("/api/roles/es/v1/ReadRoleById/{id}", actions.ReadRoleById).Methods("GET")
 	router.HandleFunc("/api/roles/es/v1/ReadAllRolesPaginate/{size}/{startAfterKey}", actions.ReadAllRolesPaginate).Methods("GET")
+	router.HandleFunc("/api/roles/es/v1/GetAllRoles", actions.GetAllRoles).Methods("GET")
 	router.HandleFunc("/api/roles/es/v1/UpdateRole", actions.UpdateRole).Methods("PUT")
 	router.HandleFunc("/api/roles/es/v1/DeleteRole/{id}", actions.DeleteRole).Methods("DELETE")
 	router.HandleFunc("/api/roles/es/v1/actuator", actions.Actuator).Methods("GET")

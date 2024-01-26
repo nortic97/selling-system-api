@@ -336,6 +336,26 @@ func InitializeMenu() (*models.InitMenu, *models.InitMenu) {
 						},
 						SubMenuUrl: "/home/AddCostumers",
 					},
+					{
+						Id:              "2bV9ibEPOjGBarSQSbLznkIIo11",
+						SubMenuName:     "List Roles",
+						SubMenuPosition: 3,
+						SubMenuActions: []models.Action{
+							{
+								Id:           "2bV9nC7X8xI6uRhZkVmlJMAQ5nF",
+								Value:        "Create",
+								ApiUrlAction: "/api/roles/es/v1/CreateRole",
+								Action:       "POST",
+							},
+							{
+								Id:           "2bV9nC7X8xI6uRhZkVmlJMAQ5nF",
+								Value:        "List",
+								ApiUrlAction: "/api/roles/es/v1/GetAllRoles",
+								Action:       "GET",
+							},
+						},
+						SubMenuUrl: "/home/ListRoles",
+					},
 				},
 			},
 		},

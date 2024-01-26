@@ -77,3 +77,15 @@ func ReadAllRolesPaginate(size *int, startAfterKey *string) (*models.RoleFilter,
 	log.Println("End ReadAllRolesPaginate Service...")
 	return repository.ReadAllRolesPaginate(size, startAfterKey)
 }
+
+// Get all roles without pagination
+//
+// Returns:
+//
+//	*models.Role
+//	error
+func GetAllRoles() ([]*models.Role, error) {
+	log.Println("Start GetAllRoles Service...")
+	log.Println("End GetAllRoles Service...")
+	return repository.GetAllRoles()
+}

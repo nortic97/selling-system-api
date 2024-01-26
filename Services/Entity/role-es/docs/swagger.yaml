@@ -144,6 +144,23 @@ paths:
       summary: Delete role
       tags:
       - DeleteRole
+  /api/roles/es/v1/GetAllRoles:
+    get:
+      consumes:
+      - application/json
+      description: The actual endpoint list roles.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Role'
+      security:
+      - ApiKeyAuth: []
+      summary: Read role without pagination
+      tags:
+      - GetAllRoles
   /api/roles/es/v1/ReadAllRolesPaginate/{size}/{startAfterKey}:
     get:
       consumes:

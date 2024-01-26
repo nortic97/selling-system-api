@@ -12,10 +12,10 @@ import (
 	"google.golang.org/api/option"
 )
 
-var users, ctx = initFirestore()
+var users, roles, ctx = initFirestore()
 
 // This function is responsible for gettin information of google firestore.
-func initFirestore() (*firestore.CollectionRef, context.Context) {
+func initFirestore() (*firestore.CollectionRef, *firestore.CollectionRef, context.Context) {
 
 	defer func() {
 		recuperado := recover()
@@ -38,7 +38,7 @@ func initFirestore() (*firestore.CollectionRef, context.Context) {
 		log.Panic(err)
 	}
 
-	return client.Collection("users"), ctx
+	return client.Collection("users"), client.Collection("roles"), ctx
 }
 
 // "Login" is a function to confirm that the account exists.
@@ -90,5 +90,20 @@ func Login(login *models.Login) ([]*models.User, bool, error) {
 	} else {
 		return usersList, true, nil // Return the account exist.
 	}
+
+}
+
+func GetRoleById(id *string) (*models.Role, error) {
+
+	log.Println("Start GetRoleById Repository")
+
+	roleData, err := roles.Doc(*id).Get(ctx)
+	if err != nil {
+		return nil, err
+	}
+	var role *models.Role
+	roleData.DataTo(&role)
+	log.Println("End GetRoleById Repository")
+	return role, nil
 
 }
