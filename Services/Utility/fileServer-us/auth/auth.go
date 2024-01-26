@@ -1,21 +1,17 @@
 package auth
 
 import (
-	"context"
+	"encoding/json"
+	"io"
 	"log"
 	"net/http"
+	"net/url"
 	"strings"
+
+	"github.com/gorilla/mux"
 )
 
-var (
-	userCtxKey = &contextKey{"user"}
-)
-
-type contextKey struct {
-	name string
-}
-
-// Authorize godoc
+// Authorize is a middleware for Auth user.
 func Authorize() func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -29,7 +25,18 @@ func Authorize() func(http.Handler) http.Handler {
 			}
 
 			if strings.Contains(r.URL.Path, "/api/") { // Validate if request is to rest api
-				url := split(r.URL.Path, "/") // Split to url
+
+				route := mux.CurrentRoute(r) // Get actual route
+
+				var url string
+
+				if route != nil {
+					// Get route template
+					pattern, err := route.GetPathTemplate()
+					if err == nil {
+						url = pattern
+					}
+				}
 
 				log.Println("Checking access for rest api", url, r.Method)
 				access, err := checkAccess(header, url, r.Method) // Valid access for url and method : GET, POST, PUT, DELETE
@@ -40,9 +47,6 @@ func Authorize() func(http.Handler) http.Handler {
 				}
 				log.Println("Access succeed for rest api", url, r.Method)
 
-			} else { // If request is to graphql api
-				ctx := context.WithValue(r.Context(), userCtxKey, header) // Add resources in context
-				r = r.WithContext(ctx)                                    // And call the next with our new context
 			}
 
 			next.ServeHTTP(w, r)
@@ -52,15 +56,27 @@ func Authorize() func(http.Handler) http.Handler {
 
 func checkAccess(token string, resource string, action string) (bool, error) {
 
-	if token != "" {
-		return true, nil
+	var req *http.Request
+	var err error
+
+	req, err = http.NewRequest("GET", "http://localhost:3000/api/ms/auth/CheckAccessApi?resource="+url.QueryEscape(resource)+"&action="+action, nil)
+
+	if err != nil {
+		return false, err
 	}
 
-	return false, nil
-}
+	req.Header.Add("Authorization", token) // Add authorization header to the req
 
-func split(value, char string) string {
-	index := strings.LastIndex(value, char)
-	url := value[:index+1]
-	return url
+	client := &http.Client{} // Send req using http Client
+	resp, err := client.Do(req)
+	if err != nil {
+		return false, err
+	}
+
+	var access bool
+
+	body, _ := io.ReadAll(resp.Body) // Read the request message
+	json.Unmarshal(body, &access)    // Parse message to var access
+	return access, nil
+
 }
