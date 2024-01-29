@@ -35,7 +35,20 @@ definitions:
         items:
           $ref: '#/definitions/models.Menu'
         type: array
+      Resources:
+        items:
+          $ref: '#/definitions/models.Resource'
+        type: array
       RoleName:
+        type: string
+    type: object
+  models.Resource:
+    properties:
+      Action:
+        type: string
+      Id:
+        type: string
+      Url:
         type: string
     type: object
   models.Role:
@@ -47,6 +60,10 @@ definitions:
       Menu:
         items:
           $ref: '#/definitions/models.Menu'
+        type: array
+      Resources:
+        items:
+          $ref: '#/definitions/models.Resource'
         type: array
       RoleName:
         type: string

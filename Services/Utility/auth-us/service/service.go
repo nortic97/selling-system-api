@@ -71,3 +71,9 @@ func GenerateToken(info *models.User) models.Token {
 	log.Println("End GenerateToken Service...")
 	return tokenModel
 }
+
+func GetRoleById(id *string) (*models.Role, error) {
+	log.Println("Start GetRoleById Service")
+	log.Println("End GetRoleById Service")
+	return repository.GetRoleById(id)
+}

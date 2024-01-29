@@ -10,10 +10,11 @@ type User struct {
 }
 
 type Role struct {
-	Id          string `json:"Id"`
-	RoleName    string `json:"RoleName"`
-	Description string `json:"Description"`
-	Menu        []Menu `json:"Menu"`
+	Id          string     `json:"Id"`
+	RoleName    string     `json:"RoleName"`
+	Description string     `json:"Description"`
+	Menu        []Menu     `json:"Menu"`
+	Resources   []Resource `json:"Resources"`
 }
 
 type InitMenu struct {
@@ -36,6 +37,12 @@ type SubMenu struct {
 	SubMenuName     string `json:"SubMenuName"`
 	SubMenuPosition int    `json:"SubMenuPosition"`
 	SubMenuUrl      string `json:"SubMenuUrl"`
+}
+
+type Resource struct {
+	Id     string `json:"Id"`
+	Url    string `json:"Url"`
+	Action string `json:"Action"`
 }
 
 type Health struct {

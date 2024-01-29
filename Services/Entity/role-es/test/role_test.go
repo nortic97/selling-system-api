@@ -103,6 +103,13 @@ func RoleInit() *models.NewRole {
 		RoleName:    "test_name",
 		Description: "test_description",
 		Menu:        Menus,
+		Resources: []models.Resource{
+			{
+				Id:     "test_id",
+				Url:    "/api/",
+				Action: "GET",
+			},
+		},
 	}
 
 }

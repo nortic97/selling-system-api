@@ -5,6 +5,8 @@ import (
 	"configPlatform-us/repository"
 	"configPlatform-us/utils"
 	"log"
+
+	"github.com/segmentio/ksuid"
 )
 
 // Initialize parameters to save in DB.
@@ -220,6 +222,71 @@ func InitRole(menuAdmin *[]models.Menu, menuUser *[]models.Menu) (*models.Role, 
 		RoleName:    "Administrador",
 		Description: "Rol por defecto",
 		Menu:        *menuAdmin,
+		Resources: []models.Resource{
+			// Role APi
+			{
+				Id:     ksuid.New().String(),
+				Url:    "/api/roles/es/v1/CreateRole",
+				Action: "POST",
+			},
+			{
+				Id:     ksuid.New().String(),
+				Url:    "/api/roles/es/v1/ReadRoleById/{id}",
+				Action: "GET",
+			},
+			{
+				Id:     ksuid.New().String(),
+				Url:    "/api/roles/es/v1/ReadAllRolesPaginate/{size}/{startAfterKey}",
+				Action: "GET",
+			},
+			{
+				Id:     ksuid.New().String(),
+				Url:    "/api/roles/es/v1/GetAllRoles",
+				Action: "GET",
+			},
+			{
+				Id:     ksuid.New().String(),
+				Url:    "/api/roles/es/v1/UpdateRole",
+				Action: "PUT",
+			},
+			{
+				Id:     ksuid.New().String(),
+				Url:    "/api/roles/es/v1/DeleteRole/{id}",
+				Action: "DELETE",
+			},
+			// Users API
+			{
+				Id:     ksuid.New().String(),
+				Url:    "/api/users/es/v1/CreateUser",
+				Action: "POST",
+			},
+			{
+				Id:     ksuid.New().String(),
+				Url:    "/api/users/es/v1/ReadUserById/{id}",
+				Action: "GET",
+			},
+			{
+				Id:     ksuid.New().String(),
+				Url:    "/api/users/es/v1/ReadAllUsersPaginate/{size}/{startAfterKey}",
+				Action: "GET",
+			},
+			{
+				Id:     ksuid.New().String(),
+				Url:    "/api/users/es/v1/UpdateUser",
+				Action: "PUT",
+			},
+			{
+				Id:     ksuid.New().String(),
+				Url:    "/api/users/es/v1/DeleteUser/{id}",
+				Action: "DELETE",
+			},
+			// File Server
+			{
+				Id:     ksuid.New().String(),
+				Url:    "/api/fileServer/us/v1/UploadFile",
+				Action: "POST",
+			},
+		},
 	}
 
 	roleUser := models.Role{
@@ -227,6 +294,7 @@ func InitRole(menuAdmin *[]models.Menu, menuUser *[]models.Menu) (*models.Role, 
 		RoleName:    "Usuario",
 		Description: "Rol por defecto para primer Registro",
 		Menu:        *menuUser,
+		Resources:   nil,
 	}
 
 	log.Println("End InitRole Service...")

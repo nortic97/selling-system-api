@@ -319,7 +319,27 @@ const docTemplate = `{
                         "$ref": "#/definitions/models.Menu"
                     }
                 },
+                "Resources": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Resource"
+                    }
+                },
                 "RoleName": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Resource": {
+            "type": "object",
+            "properties": {
+                "Action": {
+                    "type": "string"
+                },
+                "Id": {
+                    "type": "string"
+                },
+                "Url": {
                     "type": "string"
                 }
             }
@@ -337,6 +357,12 @@ const docTemplate = `{
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/models.Menu"
+                    }
+                },
+                "Resources": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Resource"
                     }
                 },
                 "RoleName": {

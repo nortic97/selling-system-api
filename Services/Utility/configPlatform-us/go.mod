@@ -8,6 +8,7 @@ require (
 	cloud.google.com/go/iam v0.13.0 // indirect
 	cloud.google.com/go/storage v1.29.0 // indirect
 	github.com/google/uuid v1.3.0 // indirect
+	github.com/segmentio/ksuid v1.0.4 // indirect
 )
 
 require (

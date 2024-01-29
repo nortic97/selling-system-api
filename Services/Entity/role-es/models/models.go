@@ -5,6 +5,7 @@ type Role struct {
 	RoleName    string `json:"RoleName"`
 	Description string `json:"Description"`
 	Menu        []Menu `json:"Menu"`
+	Resources   []Resource `json:"Resources"`
 }
 
 type NewRole struct {
@@ -12,6 +13,7 @@ type NewRole struct {
 	RoleName    string  `json:"RoleName"`
 	Description string  `json:"Description"`
 	Menu        []Menu  `json:"Menu"`
+	Resources   []Resource `json:"Resources"`
 }
 
 type Menu struct {
@@ -36,6 +38,12 @@ type RoleFilter struct {
 	Size          int    `json:"Size"`
 	StartAfterKey string `json:"startAfterKey"`
 	TotalData     int    `json:"TotalData"`
+}
+
+type Resource struct {
+	Id     string `json:"Id"`
+	Url    string `json:"Url"`
+	Action string `json:"Action"`
 }
 
 type Health struct {
