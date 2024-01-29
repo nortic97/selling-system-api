@@ -1,0 +1,90 @@
+definitions:
+  models.Health:
+    properties:
+      environment:
+        type: string
+      status:
+        type: string
+    type: object
+  models.NewFile:
+    properties:
+      File:
+        items:
+          type: integer
+        type: array
+      FileBucket:
+        type: string
+      FileExtension:
+        type: string
+      FileFolder:
+        type: string
+      FileName:
+        type: string
+      FileType:
+        type: string
+      Id:
+        type: string
+      Owner:
+        type: string
+      Url:
+        type: string
+      UrlIsPublic:
+        type: boolean
+    type: object
+info:
+  contact: {}
+paths:
+  /api/fileServer/us/v1/UploadFile:
+    post:
+      consumes:
+      - multipart/form-data
+      description: The actual endpoint Upload File to server.
+      parameters:
+      - description: File
+        in: formData
+        name: file
+        required: true
+        type: file
+      - description: Folder
+        in: formData
+        name: folder
+        required: true
+        type: string
+      - description: owner
+        in: formData
+        name: user
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.NewFile'
+      security:
+      - ApiKeyAuth: []
+      summary: Upload File
+      tags:
+      - UploadFile
+  /api/fileServer/us/v1/actuator:
+    get:
+      consumes:
+      - application/json
+      description: The actual endpoint show Service status.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Health'
+      summary: Service status
+      tags:
+      - Actuator
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

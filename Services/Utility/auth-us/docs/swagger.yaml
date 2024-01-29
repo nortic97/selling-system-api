@@ -1,0 +1,99 @@
+definitions:
+  models.Health:
+    properties:
+      environment:
+        type: string
+      status:
+        type: string
+    type: object
+  models.Login:
+    properties:
+      UserEmail:
+        type: string
+      UserPassword:
+        type: string
+    type: object
+  models.Token:
+    properties:
+      access_token:
+        type: string
+      refresh_token:
+        type: string
+      token_type:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /api/auth/us/v1/Auth:
+    post:
+      consumes:
+      - application/json
+      description: The actual endpoint generate a JWT Token and identifies if the
+        user can be login.
+      parameters:
+      - description: Login
+        in: body
+        name: login
+        required: true
+        schema:
+          $ref: '#/definitions/models.Login'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Token'
+      summary: Generate Token and Login.
+      tags:
+      - Login
+  /api/auth/us/v1/actuator:
+    get:
+      consumes:
+      - application/json
+      description: The actual endpoint show Service status.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Health'
+      summary: Service status
+      tags:
+      - Actuator
+  /api/ms/auth/CheckAccessApi:
+    get:
+      consumes:
+      - application/json
+      description: The actual show if have permissions.
+      parameters:
+      - description: resource
+        in: query
+        name: resource
+        required: true
+        type: string
+      - description: action
+        in: query
+        name: action
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: boolean
+      security:
+      - ApiKeyAuth: []
+      summary: Check Access to api's URL.
+      tags:
+      - CheckAccess
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

@@ -9,6 +9,7 @@ import (
 	"cloud.google.com/go/firestore"
 	firebase "firebase.google.com/go"
 	"github.com/segmentio/ksuid"
+	"google.golang.org/api/iterator"
 	"google.golang.org/api/option"
 )
 
@@ -16,18 +17,25 @@ var users, ctx = initFirestore()
 
 func initFirestore() (*firestore.CollectionRef, context.Context) {
 
+	defer func() {
+		recuperado := recover()
+		if recuperado != nil {
+			log.Println("Server error initFirestore")
+		}
+	}()
+
 	ctx := context.Background()
 	sa := option.WithCredentialsFile("./KeyService.json")
 	app, err := firebase.NewApp(ctx, nil, sa)
 
 	if err != nil {
-		log.Fatalln(err)
+		log.Panic(err)
 	}
 
 	client, err := app.Firestore(ctx)
 
 	if err != nil {
-		log.Fatalln(err)
+		log.Panic(err)
 	}
 
 	return client.Collection("users"), ctx
@@ -36,6 +44,13 @@ func initFirestore() (*firestore.CollectionRef, context.Context) {
 func CreateUser(user *models.NewUser) (*models.User, error) {
 
 	log.Println("Start CreateUser Repository...")
+
+	defer func() {
+		recuperado := recover()
+		if recuperado != nil {
+			log.Println("Recovered Error CreateUser")
+		}
+	}()
 
 	var id string
 
@@ -54,11 +69,16 @@ func CreateUser(user *models.NewUser) (*models.User, error) {
 	_, err := users.Doc(id).Create(ctx, user)
 
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 		return nil, err
 	}
 
 	userResult, _, err := ReadUserById(user.Id) //Find agenda document to return
+
+	if err != nil {
+		log.Panic(err)
+		return nil, err
+	}
 
 	log.Println("Inserted user document", userResult.Id)
 	log.Println("End CreateUser Repository...")
@@ -72,11 +92,18 @@ func ReadUserById(id *string) (*models.User, bool, error) {
 	log.Println("Start ReadUserById Repository...")
 	log.Printf("id : %s", *id)
 
+	defer func() {
+		recuperado := recover()
+		if recuperado != nil {
+			log.Println("Recovered Error ReadUserById")
+		}
+	}()
+
 	var userModel models.User
 	UserDocument, err := users.Doc(*id).Get(ctx) //Find a user document by ID
 
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 		return &userModel, false, err //Return false if the agenda doesn't exists
 	}
 
@@ -89,26 +116,51 @@ func ReadUserById(id *string) (*models.User, bool, error) {
 
 }
 
-// TODO: this function not work's
-func ReadAllUsers(id *string) (*models.User, bool, error) {
+func ReadAllUsersPaginate(size *int, startAfterKey *string) (*models.UserFilter, error) {
 
-	log.Println("Start ReadUserById Repository...")
-	log.Printf("id : %s", *id)
+	log.Println("Start ReadAllUsersPaginate Repository...")
 
-	var userModel models.User
-	UserDocument, err := users.Doc(*id).Get(ctx) //Find a user document by ID
+	var userFilter models.UserFilter
+
+	totalDocs, err := users.Documents(ctx).GetAll()
 
 	if err != nil {
-		log.Fatal(err)
-		return &userModel, false, err //Return false if the agenda doesn't exists
+		return nil, err
 	}
 
-	UserDocument.DataTo(&userModel) //Transform agenda document to agenda model
+	userFilter.TotalData = len(totalDocs)
 
-	log.Println("Found a user document", userModel.Id)
-	log.Println("End ReadUserById Repository")
+	query := users.OrderBy("UserName", firestore.Asc).Limit(*size)
 
-	return &userModel, true, nil
+	if startAfterKey != nil {
+		lastDoc, err := users.Doc(*startAfterKey).Get(ctx)
+		if err != nil {
+			return nil, err
+		}
+		query = users.OrderBy("UserName", firestore.Asc).StartAfter(lastDoc.Data()["UserName"]).Limit(*size)
+	}
+
+	iter := query.Documents(ctx)
+
+	for {
+		doc, err := iter.Next()
+		if err == iterator.Done {
+			break
+		}
+		if err != nil {
+			return nil, err
+		}
+
+		var userModel models.User
+		doc.DataTo(&userModel)
+		userFilter.Users = append(userFilter.Users, userModel)
+		userFilter.StartAfterKey = doc.Ref.ID
+		userFilter.Size = *size
+	}
+
+	log.Println("End ReadAllUsersPaginate Repository")
+
+	return &userFilter, nil
 
 }
 
@@ -116,10 +168,17 @@ func UpdateUser(user *models.NewUser) (*models.User, error) {
 
 	log.Println("Start UpdateUser Repository...")
 
+	defer func() {
+		recuperado := recover()
+		if recuperado != nil {
+			log.Println("Recovered Error UpdateUser")
+		}
+	}()
+
 	userResult, _, err := ReadUserById(user.Id)
 
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 		return nil, err
 	}
 
@@ -131,10 +190,14 @@ func UpdateUser(user *models.NewUser) (*models.User, error) {
 
 	_, err = users.Doc(*user.Id).Set(ctx, user)
 
+	if err != nil {
+		log.Panic(err)
+	}
+
 	userResult, _, err = ReadUserById(user.Id)
 
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 	}
 	log.Println("Updated user document", userResult.Id)
 	log.Println("End UpdateUser Repository...")
@@ -147,10 +210,17 @@ func DeleteUser(id *string) (bool, error) {
 
 	log.Println("Start DeleteUser Repository...")
 
+	defer func() {
+		recuperado := recover()
+		if recuperado != nil {
+			log.Println("Recovered Error DeleteUser")
+		}
+	}()
+
 	_, err := users.Doc(*id).Delete(ctx)
 
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 		return false, err
 	}
 

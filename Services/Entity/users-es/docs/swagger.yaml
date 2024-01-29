@@ -1,0 +1,195 @@
+definitions:
+  models.Health:
+    properties:
+      environment:
+        type: string
+      status:
+        type: string
+    type: object
+  models.NewUser:
+    properties:
+      Id:
+        type: string
+      UserEmail:
+        type: string
+      UserImageUrl:
+        type: string
+      UserName:
+        type: string
+      UserPassword:
+        type: string
+      UserRoleId:
+        type: string
+    type: object
+  models.User:
+    properties:
+      Id:
+        type: string
+      UserEmail:
+        type: string
+      UserImageUrl:
+        type: string
+      UserName:
+        type: string
+      UserPassword:
+        type: string
+      UserRoleId:
+        type: string
+    type: object
+  models.UserFilter:
+    properties:
+      Size:
+        type: integer
+      TotalData:
+        type: integer
+      Users:
+        items:
+          $ref: '#/definitions/models.User'
+        type: array
+      startAfterKey:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /api/users/es/v1/CreateUser:
+    post:
+      consumes:
+      - application/json
+      description: The actual endpoint create a user and save in database.
+      parameters:
+      - description: Created User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.NewUser'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.User'
+      summary: Create user
+      tags:
+      - CreateUser
+  /api/users/es/v1/DeleteUser/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: The actual endpoint Delete a user.
+      parameters:
+      - description: User Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: boolean
+      security:
+      - ApiKeyAuth: []
+      summary: Delete user
+      tags:
+      - DeleteUser
+  /api/users/es/v1/ReadAllUsersPaginate/{size}/{startAfterKey}:
+    get:
+      consumes:
+      - application/json
+      description: The actual endpoint Search a users by page.
+      parameters:
+      - description: size
+        in: path
+        name: size
+        required: true
+        type: integer
+      - description: send null string if is empty
+        in: path
+        name: startAfterKey
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserFilter'
+      security:
+      - ApiKeyAuth: []
+      summary: Read all users by page
+      tags:
+      - ReadAllUsersPaginate
+  /api/users/es/v1/ReadUserById/{id}:
+    get:
+      consumes:
+      - application/json
+      description: The actual endpoint Search a user by Id.
+      parameters:
+      - description: User Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+      security:
+      - ApiKeyAuth: []
+      summary: Read user by ID
+      tags:
+      - ReadUserById
+  /api/users/es/v1/UpdateUser:
+    put:
+      consumes:
+      - application/json
+      description: The actual endpoint Update a user and save in database.
+      parameters:
+      - description: Update User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.NewUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+      security:
+      - ApiKeyAuth: []
+      summary: Update user
+      tags:
+      - UpdateUser
+  /api/users/es/v1/actuator:
+    get:
+      consumes:
+      - application/json
+      description: The actual endpoint show Service status.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Health'
+      summary: Service status
+      tags:
+      - Actuator
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
