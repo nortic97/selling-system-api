@@ -48,6 +48,15 @@ func InitializeMenu() (*models.InitMenu, *models.InitMenu) {
 				MenuPosition:   1,
 				MenuHasSubMenu: false,
 				MenuUrl:        "/home/dashboard",
+				MenuSubMenu:    nil,
+				Actions: []models.Resource{
+					{
+						Id:     ksuid.New().String(),
+						Value:  "Read",
+						Url:    "/home/dashboard",
+						Action: "GET",
+					},
+				},
 			},
 			// Products
 			{
@@ -63,14 +72,17 @@ func InitializeMenu() (*models.InitMenu, *models.InitMenu) {
 						SubMenuName:     "List Product",
 						SubMenuPosition: 1,
 						SubMenuUrl:      "/home/ListProduct",
+						Actions:         nil,
 					},
 					{
 						Id:              "2bB3ZzEmoCawT9KzI3IlAQG0YhO",
 						SubMenuName:     "Add Product",
 						SubMenuPosition: 2,
 						SubMenuUrl:      "/home/AddProduct",
+						Actions:         nil,
 					},
 				},
+				Actions: nil,
 			},
 			// Sale
 			{
@@ -154,28 +166,50 @@ func InitializeMenu() (*models.InitMenu, *models.InitMenu) {
 				MenuPosition:   5,
 				MenuHasSubMenu: true,
 				MenuUrl:        "People",
-
 				MenuSubMenu: []models.SubMenu{
 					{
 						Id:              "2bJWfobd4tJkYknnUobqrrKdeE7",
 						SubMenuName:     "Costumers",
 						SubMenuPosition: 1,
-
-						SubMenuUrl: "/home/ListCostumers",
+						SubMenuUrl:      "/home/ListCostumers",
 					},
 					{
 						Id:              "2bJWfrrkY84ZIyXccOfteGG6ZRl",
 						SubMenuName:     "Add Costumers",
 						SubMenuPosition: 2,
-
-						SubMenuUrl: "/home/AddCostumers",
+						SubMenuUrl:      "/home/AddCostumers",
 					},
 					{
 						Id:              "2bV9ibEPOjGBarSQSbLznkIIo11",
 						SubMenuName:     "List Roles",
 						SubMenuPosition: 3,
-
-						SubMenuUrl: "/home/ListRoles",
+						SubMenuUrl:      "/home/ListRoles",
+						Actions: []models.Resource{
+							{
+								Id:     ksuid.New().String(),
+								Value:  "Create",
+								Url:    "/api/roles/es/v1",
+								Action: "POST",
+							},
+							{
+								Id:     ksuid.New().String(),
+								Value:  "Read",
+								Url:    "/api/roles/es/v1/",
+								Action: "GET",
+							},
+							{
+								Id:     ksuid.New().String(),
+								Value:  "Update",
+								Url:    "/api/roles/es/v1/",
+								Action: "PUT",
+							},
+							{
+								Id:     ksuid.New().String(),
+								Value:  "Delete",
+								Url:    "/api/roles/es/v1",
+								Action: "DELETE",
+							},
+						},
 					},
 				},
 			},
@@ -226,64 +260,58 @@ func InitRole(menuAdmin *[]models.Menu, menuUser *[]models.Menu) (*models.Role, 
 			// Role APi
 			{
 				Id:     ksuid.New().String(),
-				Url:    "/api/roles/es/v1/CreateRole",
+				Value:  "Create",
+				Url:    "/api/roles/es/v1",
 				Action: "POST",
 			},
 			{
 				Id:     ksuid.New().String(),
-				Url:    "/api/roles/es/v1/ReadRoleById/{id}",
+				Value:  "Read",
+				Url:    "/api/roles/es/v1/",
 				Action: "GET",
 			},
 			{
 				Id:     ksuid.New().String(),
-				Url:    "/api/roles/es/v1/ReadAllRolesPaginate/{size}/{startAfterKey}",
-				Action: "GET",
-			},
-			{
-				Id:     ksuid.New().String(),
-				Url:    "/api/roles/es/v1/GetAllRoles",
-				Action: "GET",
-			},
-			{
-				Id:     ksuid.New().String(),
-				Url:    "/api/roles/es/v1/UpdateRole",
+				Value:  "Update",
+				Url:    "/api/roles/es/v1/",
 				Action: "PUT",
 			},
 			{
 				Id:     ksuid.New().String(),
-				Url:    "/api/roles/es/v1/DeleteRole/{id}",
+				Value:  "Delete",
+				Url:    "/api/roles/es/v1",
 				Action: "DELETE",
 			},
 			// Users API
 			{
 				Id:     ksuid.New().String(),
-				Url:    "/api/users/es/v1/CreateUser",
+				Value:  "Create",
+				Url:    "/api/users/es/v1",
 				Action: "POST",
 			},
 			{
 				Id:     ksuid.New().String(),
-				Url:    "/api/users/es/v1/ReadUserById/{id}",
+				Value:  "Read",
+				Url:    "/api/users/es/v1",
 				Action: "GET",
 			},
 			{
 				Id:     ksuid.New().String(),
-				Url:    "/api/users/es/v1/ReadAllUsersPaginate/{size}/{startAfterKey}",
-				Action: "GET",
-			},
-			{
-				Id:     ksuid.New().String(),
-				Url:    "/api/users/es/v1/UpdateUser",
+				Value:  "Update",
+				Url:    "/api/users/es/v1",
 				Action: "PUT",
 			},
 			{
 				Id:     ksuid.New().String(),
-				Url:    "/api/users/es/v1/DeleteUser/{id}",
+				Value:  "Delete",
+				Url:    "/api/users/es/v1",
 				Action: "DELETE",
 			},
 			// File Server
 			{
 				Id:     ksuid.New().String(),
-				Url:    "/api/fileServer/us/v1/UploadFile",
+				Value:  "Create",
+				Url:    "/api/fileServer/us/v1",
 				Action: "POST",
 			},
 		},

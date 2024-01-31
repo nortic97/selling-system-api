@@ -23,24 +23,27 @@ type InitMenu struct {
 }
 
 type Menu struct {
-	Id             string    `json:"Id"`
-	MenuName       string    `json:"MenuName"`
-	Icon           string    `json:"Icon"`
-	MenuPosition   int       `json:"MenuPosition"`
-	MenuHasSubMenu bool      `json:"MenuHasSubMenu"`
-	MenuUrl        string    `json:"MenuUrl"`
-	MenuSubMenu    []SubMenu `json:"MenuSubMenu"`
+	Id             string     `json:"Id"`
+	MenuName       string     `json:"MenuName"`
+	Icon           string     `json:"Icon"`
+	MenuPosition   int        `json:"MenuPosition"`
+	MenuHasSubMenu bool       `json:"MenuHasSubMenu"`
+	MenuUrl        string     `json:"MenuUrl"`
+	MenuSubMenu    []SubMenu  `json:"MenuSubMenu"`
+	Actions        []Resource `json:"Actions"`
 }
 
 type SubMenu struct {
-	Id              string `json:"Id"`
-	SubMenuName     string `json:"SubMenuName"`
-	SubMenuPosition int    `json:"SubMenuPosition"`
-	SubMenuUrl      string `json:"SubMenuUrl"`
+	Id              string     `json:"Id"`
+	SubMenuName     string     `json:"SubMenuName"`
+	SubMenuPosition int        `json:"SubMenuPosition"`
+	SubMenuUrl      string     `json:"SubMenuUrl"`
+	Actions         []Resource `json:"Actions"`
 }
 
 type Resource struct {
 	Id     string `json:"Id"`
+	Value  string `json:"Value"`
 	Url    string `json:"Url"`
 	Action string `json:"Action"`
 }

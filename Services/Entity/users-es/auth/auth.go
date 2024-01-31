@@ -7,8 +7,6 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
-
-	"github.com/gorilla/mux"
 )
 
 // Authorize is a middleware for Auth user.
@@ -26,17 +24,7 @@ func Authorize() func(http.Handler) http.Handler {
 
 			if strings.Contains(r.URL.Path, "/api/") { // Validate if request is to rest api
 
-				route := mux.CurrentRoute(r) // Get actual route
-
-				var url string
-
-				if route != nil {
-					// Get route template
-					pattern, err := route.GetPathTemplate()
-					if err == nil {
-						url = pattern
-					}
-				}
+				url := "/api/users/es/v1"
 
 				log.Println("Checking access for rest api", url, r.Method)
 				access, err := checkAccess(header, url, r.Method) // Valid access for url and method : GET, POST, PUT, DELETE
