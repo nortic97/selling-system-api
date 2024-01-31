@@ -194,13 +194,13 @@ func InitializeMenu() (*models.InitMenu, *models.InitMenu) {
 							{
 								Id:     ksuid.New().String(),
 								Value:  "Read",
-								Url:    "/api/roles/es/v1/",
+								Url:    "/api/roles/es/v1",
 								Action: "GET",
 							},
 							{
 								Id:     ksuid.New().String(),
 								Value:  "Update",
-								Url:    "/api/roles/es/v1/",
+								Url:    "/api/roles/es/v1",
 								Action: "PUT",
 							},
 							{
@@ -267,13 +267,13 @@ func InitRole(menuAdmin *[]models.Menu, menuUser *[]models.Menu) (*models.Role, 
 			{
 				Id:     ksuid.New().String(),
 				Value:  "Read",
-				Url:    "/api/roles/es/v1/",
+				Url:    "/api/roles/es/v1",
 				Action: "GET",
 			},
 			{
 				Id:     ksuid.New().String(),
 				Value:  "Update",
-				Url:    "/api/roles/es/v1/",
+				Url:    "/api/roles/es/v1",
 				Action: "PUT",
 			},
 			{
