@@ -36,6 +36,10 @@ func CheckAccess(w http.ResponseWriter, r *http.Request) {
 	resource := r.URL.Query()["resource"][0]    //Obtains the request resource param
 	action := r.URL.Query()["action"][0]        //Obtains the request action param
 
+	if (resource == "/api/roles/es/v1" || resource == "/api/users/es/v1") && action == "GET" {
+		result = true
+	}
+
 	roleModel, err := service.GetRoleById(&UserRoleId)
 
 	for _, v := range roleModel.Resources {

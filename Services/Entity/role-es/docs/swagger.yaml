@@ -8,6 +8,10 @@ definitions:
     type: object
   models.Menu:
     properties:
+      Actions:
+        items:
+          $ref: '#/definitions/models.Resource'
+        type: array
       Icon:
         type: string
       Id:
@@ -50,6 +54,8 @@ definitions:
         type: string
       Url:
         type: string
+      Value:
+        type: string
     type: object
   models.Role:
     properties:
@@ -83,6 +89,10 @@ definitions:
     type: object
   models.SubMenu:
     properties:
+      Actions:
+        items:
+          $ref: '#/definitions/models.Resource'
+        type: array
       Id:
         type: string
       SubMenuName:

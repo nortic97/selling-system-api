@@ -267,6 +267,12 @@
         "models.Menu": {
             "type": "object",
             "properties": {
+                "Actions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Resource"
+                    }
+                },
                 "Icon": {
                     "type": "string"
                 },
@@ -330,6 +336,9 @@
                 },
                 "Url": {
                     "type": "string"
+                },
+                "Value": {
+                    "type": "string"
                 }
             }
         },
@@ -382,6 +391,12 @@
         "models.SubMenu": {
             "type": "object",
             "properties": {
+                "Actions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Resource"
+                    }
+                },
                 "Id": {
                     "type": "string"
                 },

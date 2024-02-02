@@ -278,6 +278,12 @@ const docTemplate = `{
         "models.Menu": {
             "type": "object",
             "properties": {
+                "Actions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Resource"
+                    }
+                },
                 "Icon": {
                     "type": "string"
                 },
@@ -341,6 +347,9 @@ const docTemplate = `{
                 },
                 "Url": {
                     "type": "string"
+                },
+                "Value": {
+                    "type": "string"
                 }
             }
         },
@@ -393,6 +402,12 @@ const docTemplate = `{
         "models.SubMenu": {
             "type": "object",
             "properties": {
+                "Actions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Resource"
+                    }
+                },
                 "Id": {
                     "type": "string"
                 },
