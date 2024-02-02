@@ -121,6 +121,14 @@ func exceptions(resource string, action string) bool {
 
 	}
 
+	if action == "PUT" {
+
+		if resource == "/api/users/es/v1" {
+			return true
+		}
+
+	}
+
 	return false
 
 }
