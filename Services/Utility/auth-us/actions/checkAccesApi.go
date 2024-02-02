@@ -36,9 +36,7 @@ func CheckAccess(w http.ResponseWriter, r *http.Request) {
 	resource := r.URL.Query()["resource"][0]    //Obtains the request resource param
 	action := r.URL.Query()["action"][0]        //Obtains the request action param
 
-	if (resource == "/api/roles/es/v1" || resource == "/api/users/es/v1") && action == "GET" {
-		result = true
-	}
+	result = exceptions(resource, action) // Confirm if URL is exception o resource role and only need Authenticated.
 
 	roleModel, err := service.GetRoleById(&UserRoleId)
 
@@ -99,4 +97,30 @@ func extractClaims(token *jwt.Token) (jwt.MapClaims, bool) {
 		log.Printf("Invalid JWT Token")
 		return nil, false
 	}
+}
+
+func exceptions(resource string, action string) bool {
+
+	if action == "GET" {
+
+		if resource == "/api/roles/es/v1" {
+			return true
+		}
+
+		if resource == "/api/users/es/v1" {
+			return true
+		}
+
+	}
+
+	if action == "POST" {
+
+		if resource == "/api/fileServer/us/v1" {
+			return true
+		}
+
+	}
+
+	return false
+
 }
