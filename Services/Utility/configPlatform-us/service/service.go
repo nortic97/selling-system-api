@@ -211,6 +211,38 @@ func InitializeMenu() (*models.InitMenu, *models.InitMenu) {
 							},
 						},
 					},
+					{
+						Id:              ksuid.New().String(),
+						SubMenuName:     "List Users",
+						SubMenuPosition: 4,
+						SubMenuUrl:      "/home/ListUsers",
+						Actions: []models.Resource{
+							{
+								Id:     ksuid.New().String(),
+								Value:  "Create",
+								Url:    "/api/users/es/v1",
+								Action: "POST",
+							},
+							{
+								Id:     ksuid.New().String(),
+								Value:  "Read",
+								Url:    "/api/users/es/v1",
+								Action: "GET",
+							},
+							{
+								Id:     ksuid.New().String(),
+								Value:  "Update",
+								Url:    "/api/users/es/v1",
+								Action: "PUT",
+							},
+							{
+								Id:     ksuid.New().String(),
+								Value:  "Delete",
+								Url:    "/api/users/es/v1",
+								Action: "DELETE",
+							},
+						},
+					},
 				},
 			},
 		},
