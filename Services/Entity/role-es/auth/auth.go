@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"os"
 	"strings"
 )
 
@@ -47,7 +48,13 @@ func checkAccess(token string, resource string, action string) (bool, error) {
 	var req *http.Request
 	var err error
 
-	req, err = http.NewRequest("GET", "http://localhost:3000/api/ms/auth/CheckAccessApi?resource="+url.QueryEscape(resource)+"&action="+action, nil)
+	if os.Getenv("ENV") == "PRODUCTION" {
+
+		req, err = http.NewRequest("GET", "http://192.168.1.39:3000/api/ms/auth/CheckAccessApi?resource="+url.QueryEscape(resource)+"&action="+action, nil)
+
+	} else {
+		req, err = http.NewRequest("GET", "http://localhost:3000/api/ms/auth/CheckAccessApi?resource="+url.QueryEscape(resource)+"&action="+action, nil)
+	}
 
 	if err != nil {
 		return false, err
