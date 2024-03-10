@@ -2,13 +2,15 @@ package auth
 
 import (
 	"encoding/json"
+	"fileServer-us/utils"
 	"io"
 	"log"
 	"net/http"
 	"net/url"
-	"os"
 	"strings"
 )
+
+var ENV string = utils.Environment()
 
 // Authorize is a middleware for Auth user.
 func Authorize() func(http.Handler) http.Handler {
@@ -48,9 +50,9 @@ func checkAccess(token string, resource string, action string) (bool, error) {
 	var req *http.Request
 	var err error
 
-	if os.Getenv("ENV") == "PRODUCTION" {
+	if ENV == "PRODUCTION" {
 
-		req, err = http.NewRequest("GET", "http://192.168.1.39:3000/api/ms/auth/CheckAccessApi?resource="+url.QueryEscape(resource)+"&action="+action, nil)
+		req, err = http.NewRequest("GET", "http://auth-us:80/api/ms/auth/CheckAccessApi?resource="+url.QueryEscape(resource)+"&action="+action, nil)
 
 	} else {
 		req, err = http.NewRequest("GET", "http://localhost:3000/api/ms/auth/CheckAccessApi?resource="+url.QueryEscape(resource)+"&action="+action, nil)

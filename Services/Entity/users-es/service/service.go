@@ -2,7 +2,7 @@ package service
 
 import (
 	"log"
-	"users-es/models"
+	"models"
 	"users-es/repository"
 )
 

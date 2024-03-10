@@ -1,8 +1,8 @@
 package test
 
 import (
+	"models"
 	"testing"
-	"users-es/models"
 	"users-es/service"
 )
 

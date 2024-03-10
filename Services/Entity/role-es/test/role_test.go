@@ -1,7 +1,7 @@
 package test
 
 import (
-	"role-es/models"
+	"models"
 	"role-es/service"
 	"testing"
 )

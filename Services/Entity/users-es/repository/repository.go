@@ -3,7 +3,7 @@ package repository
 import (
 	"context"
 	"log"
-	"users-es/models"
+	"models"
 	"users-es/utils"
 
 	"cloud.google.com/go/firestore"

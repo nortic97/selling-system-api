@@ -2,7 +2,7 @@ package service
 
 import (
 	"log"
-	"role-es/models"
+	"models"
 	"role-es/repository"
 )
 

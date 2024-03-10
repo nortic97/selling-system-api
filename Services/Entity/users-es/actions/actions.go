@@ -4,9 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"models"
 	"net/http"
 	"strconv"
-	"users-es/models"
+
 	"users-es/service"
 
 	"github.com/gorilla/mux"

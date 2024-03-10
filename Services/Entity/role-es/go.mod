@@ -1,6 +1,6 @@
 module role-es
 
-go 1.21.4
+go 1.21.7
 
 require (
 	cloud.google.com/go v0.110.10 // indirect
@@ -48,4 +48,7 @@ require (
 	google.golang.org/grpc v1.59.0 // indirect
 	google.golang.org/protobuf v1.31.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
+	models v0.0.0
 )
+
+replace models => ../../Utility/models
