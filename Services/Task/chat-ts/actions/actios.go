@@ -2,7 +2,6 @@ package actions
 
 import (
 	"chat-ts/models"
-	"encoding/json"
 	"log"
 	"net/http"
 
@@ -15,12 +14,10 @@ var (
 	broadcast      = make(chan models.Message)       // Canal para transmitir mensajes a todos los clientes
 	register       = make(chan *models.Client)       // Canal para registrar un nuevo cliente
 	unregister     = make(chan *models.Client)       // Canal para desregistrar un cliente
-	connectedUsers = make(map[string]*websocket.Conn)
+	connectedUsers = make(map[string]*models.Client) // Mapa de usuarios conectados (key: id, value: cliente)
 )
 
 func HandleWebSocket(w http.ResponseWriter, r *http.Request) {
-
-	// Permitir todas las solicitudes de origen
 	upgrader.CheckOrigin = func(r *http.Request) bool { return true }
 
 	conn, err := upgrader.Upgrade(w, r, nil)
@@ -29,70 +26,113 @@ func HandleWebSocket(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Lee el ID y el nickname del usuario del query param
 	id := r.URL.Query().Get("id")
-	if id == "" {
-		log.Println("ID del usuario no especificado.")
+	nickName := r.URL.Query().Get("nickName")
+	if id == "" || nickName == "" {
+		log.Println("ID o NickName del usuario no especificado.")
 		conn.Close()
 		return
 	}
+	profilePic := r.URL.Query().Get("profilePic")
 
-	connectedUsers[id] = conn
-
-	c := &models.Client{Id: id, Conn: conn}
+	c := &models.Client{Id: id, Conn: conn, ProfilePic: profilePic, NickName: nickName}
+	connectedUsers[id] = c
 	register <- c
 
-	// Escuchar mensajes entrantes del cliente
-	go func() {
-		defer func() {
-			unregister <- c
-			conn.Close()
-		}()
-		for {
-			var msg models.Message
-			err := conn.ReadJSON(&msg)
-			if err != nil {
-				log.Println("Error al leer el mensaje:", err)
-				break
-			}
-			broadcast <- msg
-		}
+	defer func() {
+		unregister <- c
+		conn.Close()
 	}()
+
+	for {
+		var msg models.MessageContent
+		// Crear el mensaje completo
+		err := conn.ReadJSON(&msg)
+
+		if err != nil {
+			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway) {
+				log.Println("Error al leer el mensaje:", err)
+			}
+			break
+		}
+
+		message := models.Message{
+			Type:    models.MessageTypeMessage,
+			Content: msg,
+		}
+
+		broadcast <- message
+	}
 }
 
 func StartChat() {
+	go HandleUserEvents() // Lanzar HandleUserEvents en una goroutine separada
 	for {
 		select {
 		case c := <-register:
 			clients[c.Id] = c
-			log.Printf("Cliente %s conectado.\n", c.Id)
+			log.Printf("Cliente %s conectado.\n", c.NickName)
+			broadcastOnlineUsers()
 
 		case c := <-unregister:
 			delete(clients, c.Id)
-			log.Printf("Cliente %s desconectado.\n", c.Id)
+			log.Printf("Cliente %s desconectado.\n", c.NickName)
+			delete(connectedUsers, c.Id)
+			broadcastOnlineUsers()
 
 		case msg := <-broadcast:
-			if destClient, ok := clients[msg.To]; ok {
+			// Asignar el tipo de mensaje
+			msg.Type = models.MessageTypeMessage
+
+			// Verificar si el destinatario está conectado
+			if destClient, ok := clients[msg.Content.To]; ok {
+				// Enviar el mensaje al cliente destinatario
 				err := destClient.Conn.WriteJSON(msg)
 				if err != nil {
-					log.Printf("Error al enviar mensaje a %s: %v\n", destClient.Id, err)
+					log.Printf("Error al enviar mensaje a %s: %v\n", destClient.NickName, err)
 				}
 			} else {
-				log.Printf("Cliente %s no encontrado.\n", msg.To)
+				log.Printf("Cliente %s no encontrado.\n", msg.Content.To)
 			}
 		}
 	}
 }
 
-// Función para obtener la lista de usuarios conectados
-func GetUsersHandler(w http.ResponseWriter, r *http.Request) {
-	// Crear una lista de IDs de usuarios conectados a partir del mapa de conexiones WebSocket
-	var users []string
-	for userID := range connectedUsers {
-		users = append(users, userID)
+func broadcastOnlineUsers() {
+	var users []*models.Client
+	for _, client := range connectedUsers {
+		userDetails := &models.Client{
+			Id:         client.Id,
+			ProfilePic: client.ProfilePic,
+			NickName:   client.NickName,
+		}
+		users = append(users, userDetails)
 	}
 
-	// Escribir la lista de usuarios como una respuesta HTTP
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(users)
+	for _, client := range connectedUsers {
+		err := client.Conn.WriteJSON(models.ClientMessage{
+			Type:    models.MessageTypeClient,
+			Content: users,
+		})
+		if err != nil {
+			log.Printf("Error al enviar lista de usuarios a %s: %v\n", client.NickName, err)
+		}
+	}
+}
+
+func HandleUserEvents() {
+	for {
+		select {
+		case c := <-register:
+			clients[c.Id] = c
+			log.Printf("Cliente %s conectado.\n", c.NickName)
+			broadcastOnlineUsers()
+
+		case c := <-unregister:
+			delete(clients, c.Id)
+			log.Printf("Cliente %s desconectado.\n", c.NickName)
+			delete(connectedUsers, c.Id)
+			broadcastOnlineUsers()
+		}
+	}
 }

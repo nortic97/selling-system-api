@@ -13,7 +13,6 @@ func main() {
 	go actions.StartChat()
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/chat", actions.HandleWebSocket).Methods("GET")
-	router.HandleFunc("/online-users", actions.GetUsersHandler).Methods("GET")
 
 	// CORS configuration
 	c := cors.New(cors.Options{
