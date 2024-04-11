@@ -54,4 +54,4 @@ require (
 	models v0.0.0
 )
 
-replace models => ../../Utility/models
+replace models => ./models

@@ -3,6 +3,11 @@
 # Build the application from source
 FROM golang:latest AS build-stage
 
+WORKDIR /app/models
+
+COPY ./models ./
+RUN go mod download
+
 WORKDIR /app
 
 COPY go.mod go.sum ./
