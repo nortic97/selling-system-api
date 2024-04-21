@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"users-es/config"
 	"users-es/controller"
 	"users-es/utils"
 )
@@ -16,5 +17,7 @@ func main() {
 	log.Println("Start Service users-es...")
 	log.Printf("Environment: %s", ENV)
 	log.Printf("REST PORT: %s", REST_PORT)
-	controller.Controller() // call controller method
+	config.ConnectDB()
+	defer config.CloseDB()
+	controller.RestController() // call controller method
 }

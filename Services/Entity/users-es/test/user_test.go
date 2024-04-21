@@ -1,73 +1,75 @@
 package test
 
 import (
-	"models"
+	"bytes"
+	"encoding/json"
+	"net/http"
+	"net/http/httptest"
 	"testing"
-	"users-es/service"
+	"time"
+	"users-es/actions"
+	"users-es/models"
+	"users-es/utils"
+
+	"github.com/google/uuid"
 )
 
-var user = UserInit()
+var id = "38f2391c-7017-4b88-a5e4-59c84b3c320e"
 
-func TestCreateUser(t *testing.T) {
+func TestCreateUserEndpoint(t *testing.T) {
 
-	userTest, _ := service.CreateUser(user)
-
-	got := userTest.Id
-
-	expected := *user.Id
-
-	if got != expected {
-		t.Error("Error creating user")
+	// Crear un usuario con datos de ejemplo
+	user := models.User{
+		ID:          utils.StringToUUIDPtr(id),
+		FirstName:   utils.StringPtr("John"),
+		LastName:    utils.StringPtr("Doe"),
+		Username:    utils.StringPtr("johndoe"),
+		Password:    utils.StringPtr("password"),
+		Email:       utils.StringPtr("johndoe@example.com"),
+		Phone:       utils.StringPtr("1234567890"),
+		RoleID:      utils.UUIDPtr(uuid.New()),
+		Status:      utils.StringPtr("active"),
+		Address:     utils.StringPtr("123 Main St"),
+		DateOfBirth: &time.Time{},
+		Photo:       utils.StringPtr("default.jpg"),
+		CreatedAt:   &time.Time{},
+		DeletedAt:   nil,
+		UpdatedAt:   &time.Time{},
 	}
 
-}
-
-func TestReadUserById(t *testing.T) {
-
-	got, _, _ := service.ReadUserById(user.Id)
-
-	expected := *user.Id
-
-	if got.Id != expected {
-		t.Error("Error reading user")
+	// Convierte el usuario a JSON
+	jsonData, err := json.Marshal(user)
+	if err != nil {
+		t.Fatalf("Error al convertir el usuario a JSON: %v", err)
 	}
 
-}
+	// Crea un nuevo Request usando httptest.NewRequest
+	req := httptest.NewRequest("POST", "/api/users/es/v1/CreateUser", bytes.NewBuffer(jsonData))
 
-func TestUpdateUser(t *testing.T) {
+	// Crea un ResponseRecorder (implementa http.ResponseWriter) para grabar la respuesta.
+	rr := httptest.NewRecorder()
 
-	user.UserName = "test_update_user"
+	// Llama al manejador directamente con el método ServeHTTP y pasa el ResponseRecorder y el Request falso.
+	handler := http.HandlerFunc(actions.CreateUser)
+	handler.ServeHTTP(rr, req)
 
-	got, _ := service.UpdateUser(user)
-
-	expected := "test_update_user"
-	if got.UserName != expected {
-		t.Error("Error updating user")
+	// Verifica el código de estado de la respuesta.
+	if status := rr.Code; status != http.StatusCreated {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
 	}
-}
 
-func TestDeleteUser(t *testing.T) {
-
-	got, _ := service.DeleteUser(user.Id)
-
-	expected := true
-
-	if got != expected {
-		t.Error("Error deleting user")
+	// Deserializa el cuerpo de la respuesta en la estructura Response
+	var respBody models.User
+	if err := json.Unmarshal(rr.Body.Bytes(), &respBody); err != nil {
+		t.Errorf("error decoding response body: %v", err)
 	}
-}
 
-func UserInit() *models.NewUser {
-
-	id := "2Z5IeLdwlWjED8CKOAXIVv9swM0"
-
-	return &models.NewUser{
-		Id:           &id,
-		UserName:     "test_name",
-		UserEmail:    "test_email@developer.com",
-		UserPassword: "test_password",
-		UserRoleId:   "test_role_id",
-		UserImageUrl: "https://google.com",
+	// Verifica el campo Message
+	expectedMessage := id
+	if respBody.ID.String() != expectedMessage {
+		t.Errorf("handler returned unexpected message: got %v want %v",
+			respBody.Status, expectedMessage)
 	}
 
 }

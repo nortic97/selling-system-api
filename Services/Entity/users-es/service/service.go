@@ -2,68 +2,34 @@ package service
 
 import (
 	"log"
-	"models"
+	"users-es/models"
 	"users-es/repository"
+	"users-es/utils"
+
+	"github.com/google/uuid"
 )
 
-func CreateUser(user *models.NewUser) (*models.User, error) {
+func CreateUser(user *models.User) (*models.User, error) {
 
 	log.Println("Start CreateUser Service...")
 
-	res, err := repository.CreateUser(user) //Save the user to Database
-
-	if err != nil {
-		log.Panic(err)
+	// Generar un nuevo ID si no se proporciona uno
+	if user.ID == nil {
+		id := uuid.New()
+		user.ID = &id
 	}
+
+	// Codificar la contraseña antes de almacenarla
+	pass, err := utils.EncodePassword(user.Password)
+	if err != nil {
+		log.Printf("\n\n repository/CreateUser \n\n %v \n\n", err)
+		return nil, err
+	}
+	user.Password = &pass
+
+	res, err := repository.CreateUser(user) //Save the user to Database
 
 	log.Println("End CreateUser Service...")
 
 	return res, err
-}
-
-func UpdateUser(user *models.NewUser) (*models.User, error) {
-	log.Println("Start UpdateUser Service...")
-
-	res, err := repository.UpdateUser(user) //Update the user to Database
-
-	if err != nil {
-		log.Panic(err)
-	}
-
-	log.Println("End UpdateUser Service...")
-	return res, err
-}
-
-func DeleteUser(id *string) (bool, error) {
-	log.Println("Start DeleteUser Service...")
-
-	res, err := repository.DeleteUser(id) //Save the user to Database
-
-	if err != nil {
-		log.Panic(err)
-	}
-
-	log.Println("End DeleteUser Service...")
-
-	return res, err
-}
-
-func ReadUserById(id *string) (*models.User, bool, error) {
-	log.Println("Start ReadUser Service...")
-
-	res, b, err := repository.ReadUserById(id) //Save the user to Database
-
-	if err != nil {
-		log.Panic(err)
-	}
-
-	log.Println("End ReadUserById Service...")
-
-	return res, b, err
-}
-
-func ReadAllUsersPaginate(size *int, startAfterKey *string) (*models.UserFilter, error) {
-	log.Println("End ReadAllUsersPaginate Service...")
-	log.Println("End ReadAllUsersPaginate Service...")
-	return repository.ReadAllUsersPaginate(size, startAfterKey)
 }

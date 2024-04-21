@@ -5,7 +5,6 @@ import (
 	"log"
 	"net/http"
 	"users-es/actions"
-	"users-es/auth"
 	"users-es/docs"
 	"users-es/utils"
 
@@ -15,7 +14,7 @@ import (
 )
 
 // Function in charge of starting the HTTP server and its endpoints.
-func Controller() {
+func RestController() {
 
 	log.Println("Controller Start...")
 
@@ -28,13 +27,9 @@ func Controller() {
 
 	// Endpoints
 	router := mux.NewRouter().StrictSlash(true)
-	router.Use(auth.Authorize()) // Authorize with token
+	//router.Use(auth.Authorize()) // Authorize with token
 	router.HandleFunc("/", homeHandler).Methods("GET")
 	router.HandleFunc("/api/users/es/v1/CreateUser", actions.CreateUser).Methods("POST")
-	router.HandleFunc("/api/users/es/v1/ReadUserById/{id}", actions.ReadUserById).Methods("GET")
-	router.HandleFunc("/api/users/es/v1/ReadAllUsersPaginate/{size}/{startAfterKey}", actions.ReadAllUsersPaginate).Methods("GET")
-	router.HandleFunc("/api/users/es/v1/UpdateUser", actions.UpdateUser).Methods("PUT")
-	router.HandleFunc("/api/users/es/v1/DeleteUser/{id}", actions.DeleteUser).Methods("DELETE")
 	router.HandleFunc("/api/users/es/v1/actuator", actions.Actuator).Methods("GET")
 	router.PathPrefix("/swagger").Handler(httpSwagger.WrapHandler)
 
@@ -53,13 +48,13 @@ func Controller() {
 	err := http.ListenAndServe((":" + REST_PORT), handler)
 
 	if err != nil {
-		log.Panic(err)
+		log.Printf("Error al iniciar el servidor HTTP: %v", err)
 	}
 
 }
 
-// Function have the welcome message.
+// Function in charge of displaying the welcome message.
 func homeHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
-	fmt.Fprintf(w, "Entity Service For Users Enjoy :)")
+	fmt.Fprintf(w, "Welcome to the Users Entity Service!")
 }

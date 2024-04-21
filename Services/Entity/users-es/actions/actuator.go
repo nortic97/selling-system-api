@@ -3,8 +3,8 @@ package actions
 import (
 	"encoding/json"
 	"log"
-	"models"
 	"net/http"
+	"users-es/models"
 
 	"users-es/utils"
 )
