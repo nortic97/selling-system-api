@@ -22,6 +22,7 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: 1234
     steps:
+       # users-es Tests
       - uses: actions/checkout@v4
       - name: Setup Go
         uses: actions/setup-go@v4
@@ -33,29 +34,7 @@ jobs:
       - name: Run Tests
         working-directory: Services/Entity/users-es/test
         run: go test -v ./...
- 
-  # users-es Tests
-  users-es:
-    needs: [ start-postgres ]  # Depends on start-postgres job
-    runs-on: ubuntu-latest
-    steps:
-    
-      - uses: actions/checkout@v4
-      - name: Setup Go
-        uses: actions/setup-go@v4
-        with:
-          go-version: '1.21.x'
-      - name: Install dependencies
-        working-directory: Services/Entity/users-es
-        run: go get .
-      - name: Run Tests
-        working-directory: Services/Entity/users-es/test
-        run: go test -v ./...
-  # role-es Tests
-  role-es:
-    needs: [ start-postgres ]  # Depends on start-postgres job
-    runs-on: ubuntu-latest
-    steps:
+      # role-es Tests
       - uses: actions/checkout@v4
       - name: Setup Go
         uses: actions/setup-go@v4
@@ -67,11 +46,7 @@ jobs:
       - name: Run Tests
         working-directory: Services/Entity/role-es/test
         run: go test -v ./...
-  # role-es Tests
-  auth-us:
-    needs: [ start-postgres ]  # Depends on start-postgres job
-    runs-on: ubuntu-latest
-    steps:
+      # auth-us Tests
       - uses: actions/checkout@v4
       - name: Setup Go
         uses: actions/setup-go@v4
