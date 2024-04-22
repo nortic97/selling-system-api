@@ -10,7 +10,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  start-postgres:
+  Run-Tests:
     runs-on: ubuntu-latest
     services:
       postgres:
