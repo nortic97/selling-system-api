@@ -8,7 +8,6 @@ import (
 
 func CreateUser(user *models.User) (*models.User, error) {
 	log.Println("Start CreateUser Repository...")
-	log.Println(&user)
 	// Crear el usuario en la base de datos
 	result := config.DB.Create(&user)
 	if result.Error != nil {
