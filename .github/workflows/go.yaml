@@ -21,8 +21,20 @@ jobs:
           POSTGRES_DB: store
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: 1234
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      
+  # users-es Tests
+  users-es:
+    needs: [ start-postgres ]  # Depends on start-postgres job
+    runs-on: ubuntu-latest
     steps:
-       # users-es Tests
+    
       - uses: actions/checkout@v4
       - name: Setup Go
         uses: actions/setup-go@v4
@@ -34,7 +46,11 @@ jobs:
       - name: Run Tests
         working-directory: Services/Entity/users-es/test
         run: go test -v ./...
-      # role-es Tests
+  # role-es Tests
+  role-es:
+    needs: [ start-postgres ]  # Depends on start-postgres job
+    runs-on: ubuntu-latest
+    steps:
       - uses: actions/checkout@v4
       - name: Setup Go
         uses: actions/setup-go@v4
@@ -46,7 +62,11 @@ jobs:
       - name: Run Tests
         working-directory: Services/Entity/role-es/test
         run: go test -v ./...
-      # auth-us Tests
+  # role-es Tests
+  auth-us:
+    needs: [ start-postgres ]  # Depends on start-postgres job
+    runs-on: ubuntu-latest
+    steps:
       - uses: actions/checkout@v4
       - name: Setup Go
         uses: actions/setup-go@v4
