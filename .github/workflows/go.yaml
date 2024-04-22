@@ -21,60 +21,40 @@ jobs:
           POSTGRES_DB: store
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: 1234
-        # Set health checks to wait until postgres has started
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
-      
-  # users-es Tests
-  users-es:
-    needs: [ start-postgres ]  # Depends on start-postgres job
-    runs-on: ubuntu-latest
     steps:
-    
+       # users-es Tests
       - uses: actions/checkout@v4
-      - name: Setup Go
+      - name: Setup Go users-es
         uses: actions/setup-go@v4
         with:
           go-version: '1.21.x'
-      - name: Install dependencies
+      - name: Install dependencies users-es
         working-directory: Services/Entity/users-es
         run: go get .
-      - name: Run Tests
+      - name: Run Tests users-es
         working-directory: Services/Entity/users-es/test
         run: go test -v ./...
-  # role-es Tests
-  role-es:
-    needs: [ start-postgres ]  # Depends on start-postgres job
-    runs-on: ubuntu-latest
-    steps:
+      # role-es Tests
       - uses: actions/checkout@v4
-      - name: Setup Go
+      - name: Setup Go role-es
         uses: actions/setup-go@v4
         with:
           go-version: '1.21.x'
-      - name: Install dependencies
+      - name: Install dependencies role-es
         working-directory: Services/Entity/role-es
         run: go get .
-      - name: Run Tests
+      - name: Run Tests role-es
         working-directory: Services/Entity/role-es/test
         run: go test -v ./...
-  # role-es Tests
-  auth-us:
-    needs: [ start-postgres ]  # Depends on start-postgres job
-    runs-on: ubuntu-latest
-    steps:
+      # auth-us Tests
       - uses: actions/checkout@v4
-      - name: Setup Go
+      - name: Setup Go auth-us
         uses: actions/setup-go@v4
         with:
           go-version: '1.21.x'
-      - name: Install dependencies
+      - name: Install dependencies auth-us
         working-directory: Services/Utility/auth-us
         run: go get .
-      - name: Run Tests
+      - name: Run Tests auth-us
         working-directory: Services/Utility/auth-us/test
         run: go test -v ./...
