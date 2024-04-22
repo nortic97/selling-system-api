@@ -13,18 +13,15 @@ jobs:
   # Start Fake Postgres Container
   start-postgres:
     runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-      - name: Start Postgres Docker container
-        uses: eladweissman/postgresql-init@v1.4  # Adjust version as needed
-        with:
-          image: postgres:16
-          database: store  # Customize database name
-          user: postgres       # Customize username (if needed)
-          password: 1234   # Customize password (if needed)
-          port: 5432           # Customize port (if needed)
-          docker_driver: "overlay2"  # Consider driver if issues arise
+    services:
+        postgres: # Label used to access the service container
+          image: postgres # Provide the password for postgres
+          env:
+            database: store  # Customize database name
+            user: postgres       # Customize username (if needed)
+            password: 1234   # Customize password (if needed)
+            port: 5432           # Customize port (if needed)
+            docker_driver: "overlay2"  # Consider driver if issues arise
   # users-es Tests
   users-es:
     needs: [ start-postgres ]  # Depends on start-postgres job
