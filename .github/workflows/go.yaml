@@ -21,6 +21,7 @@ jobs:
           POSTGRES_DB: store
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: 1234
+    
   # users-es Tests
   users-es:
     needs: [ start-postgres ]  # Depends on start-postgres job
