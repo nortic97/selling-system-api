@@ -10,17 +10,17 @@ on:
     branches: [ "main" ]
 
 jobs:
-  # Start Fake Postgres Container
   start-postgres:
     runs-on: ubuntu-latest
     services:
-        postgres: # Label used to access the service container
-          image: postgres # Provide the password for postgres
-          env:
-            database: store  # Customize database name
-            user: postgres       # Customize username (if needed)
-            password: 1234   # Customize password (if needed)
-            port: 5432           # Customize port (if needed)
+      postgres:
+        image: postgres
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_DB: store
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: 1234
   # users-es Tests
   users-es:
     needs: [ start-postgres ]  # Depends on start-postgres job
