@@ -20,12 +20,12 @@ func CreateUser(user *models.User) (*models.User, error) {
 	}
 
 	// Codificar la contraseña antes de almacenarla
-	pass, err := utils.EncodePassword(user.Password)
+	pass, err := utils.EncodePassword(&user.Password)
 	if err != nil {
 		log.Printf("\n\n repository/CreateUser \n\n %v \n\n", err)
 		return nil, err
 	}
-	user.Password = &pass
+	user.Password = pass
 
 	res, err := repository.CreateUser(user) //Save the user to Database
 
