@@ -1,6 +1,0 @@
-package models
-
-type Health struct {
-	Status      string
-	Environment string
-}
