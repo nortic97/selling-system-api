@@ -19,7 +19,7 @@ public class RoleEntity {
     private String description;
 
     @Column(nullable = false)
-    private String status;
+    private boolean status;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -59,11 +59,11 @@ public class RoleEntity {
         this.description = description;
     }
 
-    public String getStatus() {
+    public boolean isStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 
