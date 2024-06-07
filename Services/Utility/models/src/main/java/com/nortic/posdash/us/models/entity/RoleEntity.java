@@ -32,7 +32,19 @@ public class RoleEntity {
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<UserEntity> users;
 
+    @ManyToOne
+    @JoinColumn(name = "menu_id", nullable = false)
+    private MenuEntity menu;
+
     public RoleEntity() {
+    }
+
+    public MenuEntity getMenu() {
+        return menu;
+    }
+
+    public void setMenu(MenuEntity menu) {
+        this.menu = menu;
     }
 
     public UUID getId() {
@@ -89,6 +101,14 @@ public class RoleEntity {
 
     public void setDeletedAt(LocalDateTime deletedAt) {
         this.deletedAt = deletedAt;
+    }
+
+    public List<UserEntity> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<UserEntity> users) {
+        this.users = users;
     }
 
     @PrePersist
