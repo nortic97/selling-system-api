@@ -1,8 +1,12 @@
 package com.nortic.posdash.us.models.enums;
 
+/**
+ * Enum for status of response body
+ */
 public enum StatusEnum {
     SUCCESS("success"),
-    ERROR("error");
+    ERROR("error"),
+    NOT_FOUND("not found");
 
     private final String message;
 
@@ -10,6 +14,10 @@ public enum StatusEnum {
         this.message = message;
     }
 
+    /**
+     * Return String assigned to enum
+     * @return
+     */
     public String getMessage() {
         return message;
     }

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="bf6a528c-8945-489b-a085-932dffd99fee" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/config/GlobalExceptionHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/repository/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/service/IUserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/service/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/utils/CustomException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/utils/Mapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/utils/PasswordUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/utils/ResponseBody.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/us/models/dto/RoleDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/us/models/dto/UserDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/us/models/enums/StatusEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Services.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Services.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/role-es/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/role-es/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/role-es/KeyService.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/role-es/actions/actions.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/role-es/actions/actuator.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/role-es/auth/auth.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/role-es/controller/controller.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/role-es/docs/docs.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/role-es/docs/swagger.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/role-es/docs/swagger.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/role-es/go.mod" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/role-es/go.sum" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/role-es/main.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/role-es/models/go.mod" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/role-es/models/main.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/role-es/repository/repository.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/role-es/service/service.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/role-es/test/KeyService.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/role-es/test/role_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/role-es/utils/environment.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/usersES/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/UsersEsApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/UsersEsApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/controller/usersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/controller/usersController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/auth-us/.vscode/launch.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/auth-us/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/auth-us/KeyService.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/auth-us/actions/GenerateToken.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/auth-us/actions/actuator.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/auth-us/actions/checkAccesApi.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/auth-us/controller/controller.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/auth-us/docs/docs.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/auth-us/docs/swagger.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/auth-us/docs/swagger.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/auth-us/go.mod" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/auth-us/go.sum" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/auth-us/main.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/auth-us/models/models.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/auth-us/repository/repository.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/auth-us/service/service.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/auth-us/test/KeyService.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/auth-us/test/auth_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/auth-us/utils/environment.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/auth-us/utils/passwordHash.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/configPlatform-us/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/configPlatform-us/KeyService.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/configPlatform-us/go.mod" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/configPlatform-us/go.sum" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/configPlatform-us/main.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/configPlatform-us/models/models.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/configPlatform-us/repository/repository.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/configPlatform-us/service/service.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/configPlatform-us/utils/environment.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/configPlatform-us/utils/passwordHash.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/.vscode/launch.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/KeyService.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/actions/actuator.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/actions/uploadFile.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/auth/auth.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/controller/controller.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/docs/docs.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/docs/swagger.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/docs/swagger.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/go.mod" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/go.sum" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/main.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/models/models.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/repository/repository.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/service/service.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/utils/constants.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/utils/environment.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/utils/fileType.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/utils/passwordHash.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/models/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/models/pom.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="JvmLoggingSettingsStorage">
+    <option name="loggerId" value="Apache Commons Logging" />
+  </component>
+  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
+  <component name="KubernetesApiProvider"><![CDATA[{
+  "isMigrated": true
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 1
+}]]></component>
+  <component name="ProjectId" id="2hhGsSHkBW6cNM9WsU47j7UyKKp" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.UsersEsApplication.executor": "Run",
+    "git-widget-placeholder": "dev",
+    "ignore.virus.scanning.warn.message": "true",
+    "jdk.selected.JAVA_MODULE": "21",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.UsersEsApplication">
+    <configuration name="ModelsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="envFilePaths">
+        <option value="$PROJECT_DIR$/../../.env" />
+      </option>
+      <module name="models" />
+      <selectedOptions>
+        <option name="environmentVariables" />
+      </selectedOptions>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.nortic.posdash.us.models.ModelsApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UsersEsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="envFilePaths">
+        <option value="$PROJECT_DIR$/../../.env" />
+      </option>
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="usersES" />
+      <selectedOptions>
+        <option name="environmentVariables" />
+      </selectedOptions>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.nortic.posdash.es.users.UsersEsApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Spring Boot.ModelsApplication" />
+      <item itemvalue="Spring Boot.UsersEsApplication" />
+    </list>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bf6a528c-8945-489b-a085-932dffd99fee" name="Changes" comment="" />
+      <created>1718039102319</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1718039102319</updated>
+      <workItem from="1718039103730" duration="12775000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
