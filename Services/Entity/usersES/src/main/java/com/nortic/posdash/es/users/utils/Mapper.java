@@ -1,7 +1,9 @@
 package com.nortic.posdash.es.users.utils;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Mapper {
 
     private final ModelMapper modelMapper;

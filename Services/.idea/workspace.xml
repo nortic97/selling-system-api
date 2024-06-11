@@ -5,100 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bf6a528c-8945-489b-a085-932dffd99fee" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/config/GlobalExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/config/SecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/repository/UserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/service/IUserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/service/UserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/utils/CustomException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/utils/Mapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/utils/PasswordUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/utils/ResponseBody.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/us/models/dto/RoleDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/us/models/dto/UserDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/us/models/enums/StatusEnum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Services.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Services.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/role-es/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/role-es/Dockerfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/role-es/KeyService.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/role-es/actions/actions.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/role-es/actions/actuator.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/role-es/auth/auth.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/role-es/controller/controller.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/role-es/docs/docs.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/role-es/docs/swagger.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/role-es/docs/swagger.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/role-es/go.mod" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/role-es/go.sum" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/role-es/main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/role-es/models/go.mod" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/role-es/models/main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/role-es/repository/repository.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/role-es/service/service.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/role-es/test/KeyService.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/role-es/test/role_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/role-es/utils/environment.go" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Entity/usersES/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/UsersEsApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/UsersEsApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/controller/usersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/controller/usersController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/auth-us/.vscode/launch.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/auth-us/Dockerfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/auth-us/KeyService.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/auth-us/actions/GenerateToken.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/auth-us/actions/actuator.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/auth-us/actions/checkAccesApi.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/auth-us/controller/controller.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/auth-us/docs/docs.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/auth-us/docs/swagger.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/auth-us/docs/swagger.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/auth-us/go.mod" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/auth-us/go.sum" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/auth-us/main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/auth-us/models/models.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/auth-us/repository/repository.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/auth-us/service/service.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/auth-us/test/KeyService.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/auth-us/test/auth_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/auth-us/utils/environment.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/auth-us/utils/passwordHash.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/configPlatform-us/Dockerfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/configPlatform-us/KeyService.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/configPlatform-us/go.mod" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/configPlatform-us/go.sum" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/configPlatform-us/main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/configPlatform-us/models/models.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/configPlatform-us/repository/repository.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/configPlatform-us/service/service.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/configPlatform-us/utils/environment.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/configPlatform-us/utils/passwordHash.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/.vscode/launch.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/Dockerfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/KeyService.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/actions/actuator.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/actions/uploadFile.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/auth/auth.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/controller/controller.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/docs/docs.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/docs/swagger.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/docs/swagger.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/go.mod" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/go.sum" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/models/models.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/repository/repository.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/service/service.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/utils/constants.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/utils/environment.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/utils/fileType.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/fileServer-us/utils/passwordHash.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/config/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/config/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/controller/usersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/controller/UsersController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/service/IUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/service/IUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/utils/CustomException.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/utils/CustomException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/utils/Mapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/utils/Mapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/utils/PasswordUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/utils/PasswordUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Utility/models/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/models/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/us/models/dto/RoleDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/us/models/dto/RoleDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/us/models/dto/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/us/models/dto/UserDTO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,14 +39,14 @@
   <component name="JvmLoggingSettingsStorage">
     <option name="loggerId" value="Apache Commons Logging" />
   </component>
-  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
-  <component name="KubernetesApiProvider"><![CDATA[{
-  "isMigrated": true
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 1
-}]]></component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="2hhGsSHkBW6cNM9WsU47j7UyKKp" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -157,6 +77,7 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
+    "run.code.analysis.last.selected.profile": "pProject Default",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -220,6 +141,7 @@
       <option name="presentableId" value="Default" />
       <updated>1718039102319</updated>
       <workItem from="1718039103730" duration="12775000" />
+      <workItem from="1718110673103" duration="7546000" />
     </task>
     <servers />
   </component>

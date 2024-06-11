@@ -1,11 +1,14 @@
 package com.nortic.posdash.us.models.dto;
 
+import jakarta.validation.constraints.NotBlank;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class RoleDTO {
 
     private UUID id;
+    @NotBlank(message = "Role name is mandatory")
     private String name;
     private String description;
     private boolean status;

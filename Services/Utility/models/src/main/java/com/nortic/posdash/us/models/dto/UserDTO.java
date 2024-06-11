@@ -1,6 +1,13 @@
 package com.nortic.posdash.us.models.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.NonNullFields;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -11,10 +18,16 @@ public class UserDTO{
     private UUID id;
     private String fullName;
     private String lastName;
+    @NotBlank(message = "Username is mandatory")
     private String userName;
+    @NotBlank(message = "Password is mandatory")
+    @Size(min = 6, message = "Password must be at least 6 characters long")
     private String password;
+    @NotBlank(message = "Email is mandatory")
+    @Email(message = "Email must be valid")
     private String email;
     private String phone;
+    @NotNull(message = "Role is mandatory")
     private RoleDTO role;
     private boolean status;
     private String address;
