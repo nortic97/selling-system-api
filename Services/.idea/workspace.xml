@@ -4,21 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf6a528c-8945-489b-a085-932dffd99fee" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+    <list default="true" id="bf6a528c-8945-489b-a085-932dffd99fee" name="Changes" comment="Deleted Added">
+      <change afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/config/JwtAuthenticationFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Entity/usersES/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/config/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/config/GlobalExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/controller/usersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/controller/UsersController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/controller/UsersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/controller/UsersController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/service/IUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/service/IUserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/utils/CustomException.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/utils/CustomException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/utils/Mapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/utils/Mapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/utils/PasswordUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/utils/PasswordUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/models/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/models/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/us/models/dto/RoleDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/us/models/dto/RoleDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/us/models/dto/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/us/models/dto/UserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,11 +137,25 @@
       <option name="presentableId" value="Default" />
       <updated>1718039102319</updated>
       <workItem from="1718039103730" duration="12775000" />
-      <workItem from="1718110673103" duration="7546000" />
+      <workItem from="1718110673103" duration="7850000" />
+      <workItem from="1718285609939" duration="17823000" />
     </task>
+    <task id="LOCAL-00001" summary="Deleted Added">
+      <option name="closed" value="true" />
+      <created>1718118491274</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1718118491274</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Deleted Added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Deleted Added" />
   </component>
 </project>

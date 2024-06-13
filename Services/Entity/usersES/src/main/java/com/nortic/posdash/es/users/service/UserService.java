@@ -5,10 +5,15 @@ import com.nortic.posdash.es.users.utils.CustomException;
 import com.nortic.posdash.es.users.utils.Mapper;
 import com.nortic.posdash.es.users.utils.PasswordUtils;
 import com.nortic.posdash.us.models.dto.UserDTO;
+import com.nortic.posdash.us.models.entity.RoleEntity;
 import com.nortic.posdash.us.models.entity.UserEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,20 +57,76 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public UserDTO getUserById(UUID id) throws CustomException {
+        log.info("Start getUserById Service");
+        UserEntity userEntity = checkIfIdExists(id);
+        log.info("End getUserById Service");
+        return mapper.convertToDto(userEntity, UserDTO.class);
+    }
+
+    @Override
+    public List<UserDTO> getAllUsers() throws CustomException {
+        log.info("Start getAllUsers Service");
+        List<UserEntity> userEntityList = userRepository.findAll(Sort.by("fullName").ascending());
+        log.info("End getAllUsers Service");
+        return mapper.convertToDtoList(userEntityList, UserDTO.class);
+    }
+
+    @Override
+    public Page<UserDTO> getAllUsers(int page, int size) throws CustomException {
+        log.info("Start getAllUsers Service");
+        Pageable pageable = PageRequest.of(page, size, Sort.by("fullName").ascending());
+        Page<UserEntity> userEntityPage = userRepository.findAll(pageable);
+        log.info("End getAllUsers Service");
+        return mapper.convertToDtoPage(userEntityPage, UserDTO.class);
+    }
+
+    @Override
+    public UserDTO updateUser(UUID id, UserDTO user) throws CustomException {
+        log.info("Start updateUser Service");
+        UserEntity userEntity = checkIfIdExists(id);
+
+        userEntity.setFullName(user.getFullName());
+        userEntity.setLastName(user.getLastName());
+        userEntity.setPhone(user.getPhone());
+        userEntity.setStatus(user.isStatus());
+        userEntity.setAddress(user.getAddress());
+        userEntity.setBirthDate(user.getBirthDate());
+        userEntity.setPhoto(user.getPhoto());
+
+        if (user.getPassword() != null && !passwordUtils.verifyPassword(user.getPassword(), userEntity.getPassword())) {
+            log.info("Password Changed");
+            userEntity.setPassword(passwordUtils.encryptPassword(user.getPassword()));
+        }
+
+        if (user.getRole() != null && !user.getRole().equals(userEntity.getRole().getId().toString())) {
+            RoleEntity roleEntity = new RoleEntity();
+            roleEntity.setId(user.getRole().getId());
+            userEntity.setRole(roleEntity);
+        }
+
+        userEntity = userRepository.save(userEntity);
+        log.info("End updateUser Service");
+        return mapper.convertToDto(userEntity, UserDTO.class);
+    }
+
+    @Override
     public void deleteById(UUID id) throws CustomException {
         log.info("Start deleteById Service for user id: {}", id);
-        Optional<UserEntity> searchedUserId = userRepository.findById(id);
-        if(searchedUserId.isPresent()) {
-            UserEntity userEntity = searchedUserId.get();
-            userEntity.setStatus(false);
-            userEntity.markAsDeleted();
-            userRepository.save(userEntity);
-            log.info("User with id: {} marked as deleted", id);
-        }else{
-            log.error("User with id: {} not found", id);
-            throw new CustomException("User not found");
-        };
+        UserEntity userEntity = checkIfIdExists(id);
+        userEntity.setStatus(false);
+        userEntity.markAsDeleted();
+        userRepository.save(userEntity);
+        log.info("User with id: {} marked as deleted", id);
         log.info("End deleteById Service");
+    }
+
+    private UserEntity checkIfIdExists(UUID id) throws CustomException {
+        Optional<UserEntity> searchedId = userRepository.findById(id);
+        if (searchedId.isEmpty()) {
+            throw new CustomException("User not found");
+        }
+        return searchedId.get();
     }
 
     private void checkIfEmailExists(String email) throws CustomException {

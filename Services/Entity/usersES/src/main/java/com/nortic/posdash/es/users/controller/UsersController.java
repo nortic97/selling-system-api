@@ -7,17 +7,14 @@ import com.nortic.posdash.us.models.dto.UserDTO;
 import com.nortic.posdash.us.models.enums.StatusEnum;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,33 +32,78 @@ public class UsersController {
     }
 
     @PostMapping("/addUser")
-    public ResponseEntity<?> addUser(@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult){
+    public ResponseEntity<?> addUser(@Valid @RequestBody UserDTO userDTO) {
         log.info("Start addUser Controller");
         try {
-            if(bindingResult.hasErrors()){
-                List<String> errors = new ArrayList<>();
-                for (FieldError error : bindingResult.getFieldErrors()) {
-                    errors.add(error.getDefaultMessage());
-                }
-                return ResponseEntity.badRequest().body(new ResponseBody<>(errors, StatusEnum.ERROR).getBody());
-            }
             UserDTO user = userService.addUser(userDTO);
             log.info("End addUser Controller");
             return ResponseEntity.ok(new ResponseBody<>(user, StatusEnum.SUCCESS).getBody());
-        }catch (CustomException ce){
+        } catch (CustomException ce) {
+            log.error(ce.getMessage());
+            return ResponseEntity.internalServerError().body(new ResponseBody<>(ce.getMessage(), StatusEnum.ERROR).getBody());
+        }
+    }
+
+    @GetMapping("/getUserById/{id}")
+    public ResponseEntity<?> getUserById(@PathVariable UUID id) {
+        log.info("Start getUserById Controller");
+        try {
+            UserDTO user = userService.getUserById(id);
+            log.info("End getUserById Controller");
+            return ResponseEntity.ok(new ResponseBody<>(user, StatusEnum.SUCCESS).getBody());
+        } catch (CustomException ce) {
+            log.error(ce.getMessage());
+            return ResponseEntity.internalServerError().body(new ResponseBody<>(ce.getMessage(), StatusEnum.ERROR).getBody());
+        }
+    }
+
+    @GetMapping("/getAllUsers")
+    public ResponseEntity<?> getAllUsers() {
+        log.info("Start getAllUsers Controller");
+        try {
+            List<UserDTO> userDTO = userService.getAllUsers();
+            log.info("End getAllUsers Controller");
+            return ResponseEntity.ok(new ResponseBody<>(userDTO, StatusEnum.SUCCESS).getBody());
+        }catch (CustomException e) {
+            log.error(e.getMessage());
+            return ResponseEntity.internalServerError().body(new ResponseBody<>(e.getMessage(), StatusEnum.ERROR).getBody());
+        }
+    }
+
+    @GetMapping("/getAllUsers/{page}/{size}")
+    public ResponseEntity<?> getAllUsers(@PathVariable int size, @PathVariable int page) {
+        log.info("Start getAllUsers by page Controller");
+        try {
+            Page<UserDTO> userDTO = userService.getAllUsers(page,size);
+            log.info("End getAllUsers by page Controller");
+            return ResponseEntity.ok(new ResponseBody<>(userDTO, StatusEnum.SUCCESS).getBody());
+        }catch (CustomException e) {
+            log.error(e.getMessage());
+            return ResponseEntity.internalServerError().body(new ResponseBody<>(e.getMessage(), StatusEnum.ERROR).getBody());
+        }
+    }
+
+    @PutMapping("/updateUser/{id}")
+    public ResponseEntity<?> updateUser(@PathVariable UUID id, @Valid @RequestBody UserDTO userDTO) {
+        log.info("Start updateUser Controller");
+        try {
+            UserDTO updatedUser = userService.updateUser(id, userDTO);
+            log.info("End updateUser Controller");
+            return ResponseEntity.ok(new ResponseBody<>(updatedUser, StatusEnum.SUCCESS).getBody());
+        } catch (CustomException ce) {
             return ResponseEntity.internalServerError().body(new ResponseBody<>(ce.getMessage(), StatusEnum.ERROR).getBody());
         }
     }
 
     @DeleteMapping("/deleteUser/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable UUID id){
-    log.info("Start deleteUser Controller");
-    try {
-        userService.deleteById(id);
-        log.info("End deleteUser Controller");
-        return ResponseEntity.ok(new ResponseBody<>("Deleted", StatusEnum.SUCCESS).getBody());
-    }catch (CustomException ce){
-        return ResponseEntity.internalServerError().body(new ResponseBody<>(ce.getMessage(), StatusEnum.ERROR).getBody());
+    public ResponseEntity<?> deleteUser(@PathVariable UUID id) {
+        log.info("Start deleteUser Controller");
+        try {
+            userService.deleteById(id);
+            log.info("End deleteUser Controller");
+            return ResponseEntity.ok(new ResponseBody<>("Deleted", StatusEnum.SUCCESS).getBody());
+        } catch (CustomException ce) {
+            return ResponseEntity.internalServerError().body(new ResponseBody<>(ce.getMessage(), StatusEnum.ERROR).getBody());
         }
     }
 
@@ -71,5 +113,4 @@ public class UsersController {
         ResponseBody<Object> responseBody = new ResponseBody<>(new CustomException(request.getRequestURI()).getMessage(), StatusEnum.NOT_FOUND);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseBody.getBody());
     }
-
 }
