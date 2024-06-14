@@ -3,6 +3,7 @@ package com.nortic.posdash.es.users.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nortic.posdash.es.users.utils.ResponseBody;
 import com.nortic.posdash.us.models.enums.StatusEnum;
+import io.jsonwebtoken.io.Decoders;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,6 +25,7 @@ import io.jsonwebtoken.security.Keys;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.security.Key;
 import java.util.Date;
 import java.util.List;
 
@@ -36,10 +38,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final Environment env;
 
+    private final String SECRET_KEY;
+
     @Autowired
     public JwtAuthenticationFilter(ObjectMapper objectMapper, Environment env) {
         this.objectMapper = objectMapper;
         this.env = env;
+        this.SECRET_KEY = env.getProperty("SECRET_KEY");
     }
 
     @Override
@@ -54,16 +59,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String authorizationHeader = request.getHeader("Authorization");
 
+        if (requestURI.startsWith("/swagger-ui") || requestURI.startsWith("/v3") || requestURI.startsWith("/swagger") || requestURI.startsWith("/actuator")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
             log.warn("Missing or invalid Authorization header for request: {} {}", httpMethod, requestURI);
-            sendErrorResponse(response, "Missing or invalid Authorization header", HttpServletResponse.SC_UNAUTHORIZED);
+            sendErrorResponse(response, "Missing or invalid Authorization header");
             return;
         }
 
         String token = authorizationHeader.substring(7);
         try {
             Claims claims = Jwts.parserBuilder()
-                    .setSigningKey(Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8)))
+                    .setSigningKey(getSignInKey())
                     .build()
                     .parseClaimsJws(token)
                     .getBody();
@@ -81,25 +91,30 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 log.info("Access granted for request: {} {}", httpMethod, requestURI);
             } else {
                 log.warn("Token expired or invalid for user: {}", username);
-                sendErrorResponse(response, "Token expired or invalid", HttpServletResponse.SC_UNAUTHORIZED);
+                sendErrorResponse(response, "Token expired or invalid");
                 return;
             }
         } catch (ExpiredJwtException e) {
             log.warn("Token expired: {}", e.getMessage());
-            sendErrorResponse(response, "Token expired", HttpServletResponse.SC_UNAUTHORIZED);
+            sendErrorResponse(response, "Token expired");
             return;
         } catch (Exception e) {
             log.error("Failed to parse JWT token: {}", e.getMessage());
-            sendErrorResponse(response, "Failed to parse JWT token", HttpServletResponse.SC_UNAUTHORIZED);
+            sendErrorResponse(response, "Failed to parse JWT token");
             return;
         }
 
         filterChain.doFilter(request, response);
     }
 
-    private void sendErrorResponse(HttpServletResponse response, String message, int status) throws IOException {
-        response.setStatus(status);
+    private void sendErrorResponse(HttpServletResponse response, String message) throws IOException {
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType("application/json");
         response.getWriter().write(objectMapper.writeValueAsString(new ResponseBody<>(message, StatusEnum.ERROR).getBody()));
+    }
+
+    private Key getSignInKey() {
+        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 }

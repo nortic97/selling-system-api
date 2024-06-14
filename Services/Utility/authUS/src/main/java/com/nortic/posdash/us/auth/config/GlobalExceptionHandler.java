@@ -1,10 +1,8 @@
-package com.nortic.posdash.es.users.config;
+package com.nortic.posdash.us.auth.config;
 
-import com.nortic.posdash.es.users.utils.CustomException;
-import com.nortic.posdash.es.users.utils.ResponseBody;
+import com.nortic.posdash.us.auth.utils.CustomException;
+import com.nortic.posdash.us.auth.utils.ResponseBody;
 import com.nortic.posdash.us.models.enums.StatusEnum;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

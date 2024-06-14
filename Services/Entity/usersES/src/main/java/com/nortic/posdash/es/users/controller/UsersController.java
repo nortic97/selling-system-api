@@ -5,6 +5,7 @@ import com.nortic.posdash.es.users.utils.CustomException;
 import com.nortic.posdash.es.users.utils.ResponseBody;
 import com.nortic.posdash.us.models.dto.UserDTO;
 import com.nortic.posdash.us.models.enums.StatusEnum;
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -107,6 +108,7 @@ public class UsersController {
         }
     }
 
+    @Hidden
     @RequestMapping("/**")
     public ResponseEntity<?> handleInvalidRequests(HttpServletRequest request) {
         log.error("The url {} does not exist", request.getRequestURI());

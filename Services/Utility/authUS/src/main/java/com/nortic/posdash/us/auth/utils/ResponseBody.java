@@ -1,4 +1,6 @@
-package com.nortic.posdash.us.authus.utils;
+package com.nortic.posdash.us.auth.utils;
+
+import com.nortic.posdash.us.models.enums.StatusEnum;
 
 import java.time.LocalDate;
 import java.util.LinkedHashMap;
@@ -6,7 +8,7 @@ import java.util.Map;
 
 public class ResponseBody<T> {
 
-    private Map<String,Object> body = new LinkedHashMap<>();
+    private Map<String, Object> body = new LinkedHashMap<>();
 
     public ResponseBody(T data, StatusEnum status) {
         this.body.put("status", status.getMessage());

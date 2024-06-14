@@ -1,8 +1,13 @@
-package com.nortic.posdash.es.users.config;
+package com.nortic.posdash.us.auth.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nortic.posdash.es.users.utils.ResponseBody;
+import com.nortic.posdash.us.auth.utils.ResponseBody;
 import com.nortic.posdash.us.models.enums.StatusEnum;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,13 +22,9 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.Keys;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.security.Key;
 import java.util.Date;
 import java.util.List;
 
@@ -36,17 +37,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final Environment env;
 
+    private final String SECRET_KEY;
+
     @Autowired
     public JwtAuthenticationFilter(ObjectMapper objectMapper, Environment env) {
         this.objectMapper = objectMapper;
         this.env = env;
+        this.SECRET_KEY = env.getProperty("SECRET_KEY");
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        String SECRET_KEY = env.getProperty("SECRET_KEY");
+
 
         // Log the HTTP method and URL
         String httpMethod = request.getMethod();
@@ -54,7 +58,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String authorizationHeader = request.getHeader("Authorization");
 
-        if (requestURI.startsWith("/swagger-ui") || requestURI.startsWith("/v3") || requestURI.startsWith("/swagger") || requestURI.startsWith("/actuator")) {
+        if (
+                requestURI.startsWith("/swagger-ui") ||
+                        requestURI.startsWith("/v3") ||
+                        requestURI.startsWith("/swagger") ||
+                        requestURI.startsWith("/actuator") ||
+                        requestURI.startsWith("/api/v1/us/auth/login")
+        ) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -68,7 +78,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String token = authorizationHeader.substring(7);
         try {
             Claims claims = Jwts.parserBuilder()
-                    .setSigningKey(Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8)))
+                    .setSigningKey(getSignInKey())
                     .build()
                     .parseClaimsJws(token)
                     .getBody();
@@ -106,5 +116,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType("application/json");
         response.getWriter().write(objectMapper.writeValueAsString(new ResponseBody<>(message, StatusEnum.ERROR).getBody()));
+    }
+
+    private Key getSignInKey() {
+        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 }

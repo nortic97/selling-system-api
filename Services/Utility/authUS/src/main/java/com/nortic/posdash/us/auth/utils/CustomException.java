@@ -1,12 +1,12 @@
-package com.nortic.posdash.us.authus.utils;
+package com.nortic.posdash.us.auth.utils;
 
-public class CustomException extends Exception{
+public class CustomException extends Exception {
 
-    public CustomException(){
+    public CustomException() {
         super("Internal Server Error");
     }
 
-    public CustomException(String message){
+    public CustomException(String message) {
         super(message);
     }
 

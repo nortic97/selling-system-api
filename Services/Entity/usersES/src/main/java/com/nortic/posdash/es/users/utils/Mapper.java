@@ -1,7 +1,5 @@
 package com.nortic.posdash.es.users.utils;
 
-import com.nortic.posdash.us.models.dto.UserDTO;
-import com.nortic.posdash.us.models.entity.UserEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

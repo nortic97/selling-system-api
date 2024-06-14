@@ -1,4 +1,4 @@
-package com.nortic.posdash.us.authus.utils;
+package com.nortic.posdash.us.auth.utils;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;

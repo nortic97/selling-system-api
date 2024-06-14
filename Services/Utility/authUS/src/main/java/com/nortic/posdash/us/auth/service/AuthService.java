@@ -1,44 +1,79 @@
-package com.nortic.posdash.us.authus.service;
+package com.nortic.posdash.us.auth.service;
 
-import com.nortic.posdash.us.authus.config.JwtUtil;
+import com.nortic.posdash.us.auth.config.JwtUtil;
+import com.nortic.posdash.us.auth.repository.UserRepository;
+import com.nortic.posdash.us.auth.utils.CustomException;
+import com.nortic.posdash.us.auth.utils.PasswordUtils;
+import com.nortic.posdash.us.models.dto.AuthRequestDTO;
+import com.nortic.posdash.us.models.dto.TokenDTO;
+import com.nortic.posdash.us.models.entity.UserEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
-public class AuthService {
+public class AuthService implements IAuthService {
 
-    private final AuthenticationManager authenticationManager;
-
-    private final UserDetailsService userDetailsService;
-
+    private static final Logger log = LoggerFactory.getLogger(AuthService.class);
     private final JwtUtil jwtUtil;
+    private final UserRepository userRepository;
+    private final PasswordUtils passwordUtils;
 
     @Autowired
-    public AuthService(AuthenticationManager authenticationManager, JwtUtil jwtUtil, UserDetailsService userDetailsService) {
-        this.authenticationManager = authenticationManager;
+    public AuthService(JwtUtil jwtUtil, UserRepository userRepository, PasswordUtils passwordUtils) {
         this.jwtUtil = jwtUtil;
-        this.userDetailsService = userDetailsService;
+        this.userRepository = userRepository;
+        this.passwordUtils = passwordUtils;
     }
 
-    public Map<String, String> generateToken(String username, String password) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        final String accessToken = jwtUtil.generateToken(userDetails.getUsername());
-        final String refreshToken = jwtUtil.generateToken(userDetails.getUsername()); // Aquí puedes tener una lógica diferente para el refresh token
+    @Override
+    public TokenDTO generateToken(AuthRequestDTO authRequest) throws CustomException {
+        log.info("Start generateToken Service");
+        UserEntity userEntity = checkIfUserNameExists(authRequest.getUsername());
 
-        Map<String, String> tokens = new LinkedHashMap<>();
-        tokens.put("access_token", accessToken);
-        tokens.put("refresh_token", refreshToken);
-        tokens.put("token_type", "Bearer");
+        if (!passwordUtils.verifyPassword(authRequest.getPassword(), userEntity.getPassword())) {
+            throw new CustomException("Incorrect password");
+        }
 
+        Map<String, Object> additionalClaims = getAdditionalUserDetails(userEntity);
+
+        final String accessToken = jwtUtil.generateToken(userEntity.getId().toString(), additionalClaims);
+        final String refreshToken = jwtUtil.generateRefreshToken(userEntity.getId().toString());
+
+        TokenDTO tokens = new TokenDTO();
+        tokens.setAccessToken(accessToken);
+        tokens.setRefreshToken(refreshToken);
+        tokens.setTokenType("Bearer");
+
+        log.info("End generateToken Service");
         return tokens;
+    }
+
+    private Map<String, Object> getAdditionalUserDetails(UserEntity userEntity) {
+        log.info("Start getAdditionalUserDetails Service");
+        Map<String, Object> additionalClaims = new LinkedHashMap<>();
+        additionalClaims.put("username", userEntity.getUserName());
+        additionalClaims.put("role", userEntity.getRole().getName());
+        additionalClaims.put("email", userEntity.getEmail());
+        additionalClaims.put("pic", userEntity.getPhoto());
+        additionalClaims.put("fullName", userEntity.getFullName());
+        log.info("End getAdditionalUserDetails Service");
+
+        return additionalClaims;
+    }
+
+    private UserEntity checkIfUserNameExists(String userName) throws CustomException {
+        Optional<UserEntity> searchedUserName = userRepository.findByUserName(userName);
+        if (searchedUserName.isEmpty()) {
+            log.error("User name {} not found", userName);
+            throw new CustomException("User does not exist");
+        }
+        return searchedUserName.get();
     }
 
 }

@@ -8,11 +8,13 @@
         <outputRelativeToContentRoot value="true" />
         <module name="usersES" />
         <module name="models" />
+        <module name="authUS" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="authUS" options="-parameters" />
       <module name="models" options="-parameters" />
       <module name="usersES" options="-parameters" />
     </option>

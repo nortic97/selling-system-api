@@ -1,4 +1,4 @@
-package com.nortic.posdash.us.authus.utils;
+package com.nortic.posdash.us.auth.utils;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;

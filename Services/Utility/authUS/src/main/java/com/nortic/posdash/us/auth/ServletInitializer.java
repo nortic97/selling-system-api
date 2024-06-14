@@ -1,4 +1,4 @@
-package com.nortic.posdash.us.authus;
+package com.nortic.posdash.us.auth;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
