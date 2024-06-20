@@ -1,7 +1,6 @@
 package com.nortic.posdash.us.models.entity;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -32,19 +31,23 @@ public class RoleEntity {
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<UserEntity> users;
 
-    @ManyToOne
-    @JoinColumn(name = "menu_id", nullable = false)
-    private MenuEntity menu;
+    @ManyToMany
+    @JoinTable(
+            name = "role_permissions",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "permission_id")
+    )
+    private List<PermissionsEntity> permissions;
+
+    @ManyToMany
+    @JoinTable(
+            name = "role_menus",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "menu_id")
+    )
+    private List<MenuEntity> menus;
 
     public RoleEntity() {
-    }
-
-    public MenuEntity getMenu() {
-        return menu;
-    }
-
-    public void setMenu(MenuEntity menu) {
-        this.menu = menu;
     }
 
     public UUID getId() {
@@ -111,6 +114,22 @@ public class RoleEntity {
         this.users = users;
     }
 
+    public List<PermissionsEntity> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(List<PermissionsEntity> permissions) {
+        this.permissions = permissions;
+    }
+
+    public List<MenuEntity> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(List<MenuEntity> menus) {
+        this.menus = menus;
+    }
+
     @PrePersist
     protected void onCreate() {
         LocalDateTime now = LocalDateTime.now();
@@ -123,7 +142,6 @@ public class RoleEntity {
         updatedAt = LocalDateTime.now();
     }
 
-    // Método para marcar como eliminado
     public void markAsDeleted() {
         deletedAt = LocalDateTime.now();
     }

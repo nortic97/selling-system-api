@@ -1,6 +1,7 @@
 package com.nortic.posdash.us.auth.service;
 
 import com.nortic.posdash.us.auth.config.JwtUtil;
+import com.nortic.posdash.us.auth.repository.RoleRepository;
 import com.nortic.posdash.us.auth.repository.UserRepository;
 import com.nortic.posdash.us.auth.utils.CustomException;
 import com.nortic.posdash.us.auth.utils.PasswordUtils;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class AuthService implements IAuthService {
@@ -23,12 +25,14 @@ public class AuthService implements IAuthService {
     private final JwtUtil jwtUtil;
     private final UserRepository userRepository;
     private final PasswordUtils passwordUtils;
+    private final RoleRepository roleRepository;
 
     @Autowired
-    public AuthService(JwtUtil jwtUtil, UserRepository userRepository, PasswordUtils passwordUtils) {
+    public AuthService(JwtUtil jwtUtil, UserRepository userRepository, PasswordUtils passwordUtils, RoleRepository roleRepository) {
         this.jwtUtil = jwtUtil;
         this.userRepository = userRepository;
         this.passwordUtils = passwordUtils;
+        this.roleRepository = roleRepository;
     }
 
     @Override
@@ -52,6 +56,12 @@ public class AuthService implements IAuthService {
 
         log.info("End generateToken Service");
         return tokens;
+    }
+
+    public boolean hasPermission(UUID roleId, String method, String url) throws CustomException {
+        log.info("Start hasPermission Service");
+        log.info("Start hasPermission Service");
+        return roleRepository.hasPermission(roleId, method, url);
     }
 
     private Map<String, Object> getAdditionalUserDetails(UserEntity userEntity) {

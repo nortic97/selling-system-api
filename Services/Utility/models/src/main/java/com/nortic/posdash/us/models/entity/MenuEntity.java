@@ -14,7 +14,7 @@ public class MenuEntity {
 
     private String name;
 
-    private int Position;
+    private int position;
 
     private boolean hasSubmenu;
 
@@ -27,10 +27,10 @@ public class MenuEntity {
     private boolean status;
 
     @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<RoleEntity> roles;
-
-    @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<SubMenuEntity> subMenus;
+
+    @ManyToMany(mappedBy = "menus")
+    private List<RoleEntity> roles;
 
     public MenuEntity() {
     }
@@ -52,11 +52,11 @@ public class MenuEntity {
     }
 
     public int getPosition() {
-        return Position;
+        return position;
     }
 
     public void setPosition(int position) {
-        Position = position;
+        this.position = position;
     }
 
     public boolean isHasSubmenu() {
@@ -99,19 +99,19 @@ public class MenuEntity {
         this.status = status;
     }
 
-    public List<RoleEntity> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<RoleEntity> roles) {
-        this.roles = roles;
-    }
-
     public List<SubMenuEntity> getSubMenus() {
         return subMenus;
     }
 
     public void setSubMenus(List<SubMenuEntity> subMenus) {
         this.subMenus = subMenus;
+    }
+
+    public List<RoleEntity> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<RoleEntity> roles) {
+        this.roles = roles;
     }
 }
