@@ -8,7 +8,7 @@ import com.nortic.posdash.us.models.enums.*;
 
 public class ResponseBody<T> {
 
-    private Map<String,Object> body = new LinkedHashMap<>();
+    private final Map<String,Object> body = new LinkedHashMap<>();
 
     public ResponseBody(T data, StatusEnum status) {
         this.body.put("status", status.getMessage());

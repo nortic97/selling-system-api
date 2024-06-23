@@ -58,6 +58,7 @@ public class AuthService implements IAuthService {
         return tokens;
     }
 
+    @Override
     public boolean hasPermission(UUID roleId, String method, String url) throws CustomException {
         log.info("Start hasPermission Service");
         log.info("Start hasPermission Service");

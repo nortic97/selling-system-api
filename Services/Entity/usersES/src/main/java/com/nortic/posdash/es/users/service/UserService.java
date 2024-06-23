@@ -99,7 +99,7 @@ public class UserService implements IUserService {
             userEntity.setPassword(passwordUtils.encryptPassword(user.getPassword()));
         }
 
-        if (user.getRole() != null && !user.getRole().equals(userEntity.getRole().getId().toString())) {
+        if (user.getRole() != null && !user.getRole().getId().equals(userEntity.getRole().getId())) {
             RoleEntity roleEntity = new RoleEntity();
             roleEntity.setId(user.getRole().getId());
             userEntity.setRole(roleEntity);

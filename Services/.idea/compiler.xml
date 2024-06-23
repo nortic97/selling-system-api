@@ -6,14 +6,21 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="usersES" />
         <module name="models" />
         <module name="authUS" />
+        <module name="usersES" />
+      </profile>
+      <profile name="Annotation profile for UserConfigurationMS" enabled="true">
+        <sourceOutputDir name="../../UserConfigurationMS/target/generated-sources/annotations" />
+        <sourceTestOutputDir name="../../UserConfigurationMS/target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="UserConfigurationMS" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="UserConfigurationMS" options="-parameters" />
       <module name="authUS" options="-parameters" />
       <module name="models" options="-parameters" />
       <module name="usersES" options="-parameters" />

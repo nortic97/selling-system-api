@@ -1,7 +1,5 @@
 package com.nortic.posdash.es.users.utils;
 
-import java.util.List;
-
 public class CustomException extends Exception{
 
     public CustomException(){

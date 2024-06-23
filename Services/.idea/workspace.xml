@@ -4,20 +4,39 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf6a528c-8945-489b-a085-932dffd99fee" name="Changes" comment="All Service completed">
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/repository/RoleRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/us/models/entity/PermissionsEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+    <list default="true" id="bf6a528c-8945-489b-a085-932dffd99fee" name="Changes" comment="Auth Fixed">
+      <change afterPath="$PROJECT_DIR$/Microservice/UserConfigurationMS/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Microservice/UserConfigurationMS/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Microservice/UserConfigurationMS/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Microservice/UserConfigurationMS/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Microservice/UserConfigurationMS/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Microservice/UserConfigurationMS/src/main/java/com/nortic/posdash/ms/userconfigurationms/ServletInitializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Microservice/UserConfigurationMS/src/main/java/com/nortic/posdash/ms/userconfigurationms/UserConfigurationMsApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Microservice/UserConfigurationMS/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Microservice/UserConfigurationMS/src/test/java/com/nortic/posdash/ms/userconfigurationms/UserConfigurationMsApplicationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserConfigurationMS/UserConfigurationMS.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserConfigurationMS/target/classes/com/nortic/posdash/ms/userconfigurationms/ServletInitializer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserConfigurationMS/target/classes/com/nortic/posdash/ms/userconfigurationms/UserConfigurationMsApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/806e58f0-e784-4a0c-bd19-79597eac8241.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/806e58f0-e784-4a0c-bd19-79597eac8241/storage_v2/_src_/database/store.4fiKBg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/806e58f0-e784-4a0c-bd19-79597eac8241/storage_v2/_src_/database/store.4fiKBg/schema/public.abK9xQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/d4cb3dac-1b93-4667-8239-741a9ae61168.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/d4cb3dac-1b93-4667-8239-741a9ae61168/storage_v2/_src_/database/store.4fiKBg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/d4cb3dac-1b93-4667-8239-741a9ae61168/storage_v2/_src_/database/store.4fiKBg/schema/public.abK9xQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/config/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/config/JwtAuthenticationFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/config/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/config/JwtAuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/utils/CustomException.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/utils/CustomException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/utils/ResponseBody.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/utils/ResponseBody.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/config/SecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/service/AuthService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/us/models/entity/MenuEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/us/models/entity/MenuEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/us/models/entity/RoleEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/us/models/entity/RoleEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/service/IAuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/service/IAuthService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,6 +86,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.AuthUsApplication.executor": "Run",
+    "Spring Boot.UserConfigurationMsApplication.executor": "Run",
     "Spring Boot.UsersEsApplication.executor": "Run",
     "git-widget-placeholder": "dev",
     "ignore.virus.scanning.warn.message": "true",
@@ -99,9 +119,11 @@
       <recent name="C:\Users\usuario\Documents\PosDash\web-selling-system\Services\Utility\authUS\src\main\java\com\nortic\posdash\us\authus" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\usuario\Documents\PosDash\web-selling-system\Services\Microservice" />
       <recent name="C:\Users\usuario\Documents\PosDash\web-selling-system\Services\Utility" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.nortic.posdash.es.users.config" />
       <recent name="com.nortic.posdash.us.auth.config" />
     </key>
   </component>
@@ -114,7 +136,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.AuthUsApplication">
+  <component name="RunManager" selected="Spring Boot.UserConfigurationMsApplication">
     <configuration name="AuthUsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="envFilePaths">
         <option value="$PROJECT_DIR$/../../.env" />
@@ -142,6 +164,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="UserConfigurationMsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <option name="envFilePaths">
+        <option value="$PROJECT_DIR$/../../.env" />
+      </option>
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="UserConfigurationMS" />
+      <selectedOptions>
+        <option name="environmentVariables" />
+      </selectedOptions>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.nortic.posdash.ms.userconfigurationms.UserConfigurationMsApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.nortic.posdash.ms.userconfigurationms.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="UsersEsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="envFilePaths">
         <option value="$PROJECT_DIR$/../../.env" />
@@ -160,7 +202,13 @@
       <item itemvalue="Spring Boot.AuthUsApplication" />
       <item itemvalue="Spring Boot.ModelsApplication" />
       <item itemvalue="Spring Boot.UsersEsApplication" />
+      <item itemvalue="Spring Boot.UserConfigurationMsApplication" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.UserConfigurationMsApplication" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -186,7 +234,9 @@
       <workItem from="1718367220046" duration="18175000" />
       <workItem from="1718398261027" duration="151000" />
       <workItem from="1718822185178" duration="8040000" />
-      <workItem from="1718843807212" duration="3372000" />
+      <workItem from="1718843807212" duration="3720000" />
+      <workItem from="1718907517511" duration="22000" />
+      <workItem from="1719159616510" duration="4086000" />
     </task>
     <task id="LOCAL-00001" summary="Deleted Added">
       <option name="closed" value="true" />
@@ -204,7 +254,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718305170147</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Auth Fixed">
+      <option name="closed" value="true" />
+      <created>1718847432559</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1718847432559</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -214,6 +272,7 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Deleted Added" />
     <MESSAGE value="All Service completed" />
-    <option name="LAST_COMMIT_MESSAGE" value="All Service completed" />
+    <MESSAGE value="Auth Fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Auth Fixed" />
   </component>
 </project>
