@@ -1,6 +1,6 @@
 package com.nortic.posdash.us.auth.repository;
 
-import com.nortic.posdash.us.models.entity.UserEntity;
+import com.nortic.posdash.models.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

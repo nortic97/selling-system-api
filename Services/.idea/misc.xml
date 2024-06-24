@@ -9,6 +9,7 @@
         <option value="$PROJECT_DIR$/authUS/pom.xml" />
         <option value="$PROJECT_DIR$/Utility/authUS/pom.xml" />
         <option value="$PROJECT_DIR$/UserConfigurationMS/pom.xml" />
+        <option value="$PROJECT_DIR$/Microservice/UserConfigurationMS/pom.xml" />
       </list>
     </option>
   </component>

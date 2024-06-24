@@ -1,12 +1,12 @@
 package com.nortic.posdash.es.users.service;
 
-import com.nortic.posdash.es.users.utils.CustomException;
-import com.nortic.posdash.us.models.dto.UserDTO;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-
 import java.util.List;
 import java.util.UUID;
+
+import org.springframework.data.domain.Page;
+
+import com.nortic.posdash.es.users.utils.CustomException;
+import com.nortic.posdash.models.dto.UserDTO;
 
 public interface IUserService {
     /**

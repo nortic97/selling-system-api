@@ -1,10 +1,9 @@
 package com.nortic.posdash.es.users.config;
 
-import com.nortic.posdash.es.users.utils.CustomException;
-import com.nortic.posdash.es.users.utils.ResponseBody;
-import com.nortic.posdash.us.models.enums.StatusEnum;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.nortic.posdash.models.enums.StatusEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -13,8 +12,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.nortic.posdash.es.users.utils.CustomException;
+import com.nortic.posdash.es.users.utils.ResponseBody;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {

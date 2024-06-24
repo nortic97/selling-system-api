@@ -1,11 +1,12 @@
 package com.nortic.posdash.es.users.repository;
 
-import com.nortic.posdash.us.models.entity.UserEntity;
+import java.util.Optional;
+import java.util.UUID;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-import java.util.UUID;
+import com.nortic.posdash.models.entity.UserEntity;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, UUID> {

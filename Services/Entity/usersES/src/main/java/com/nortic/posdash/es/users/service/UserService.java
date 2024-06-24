@@ -1,12 +1,9 @@
 package com.nortic.posdash.es.users.service;
 
-import com.nortic.posdash.es.users.repository.UserRepository;
-import com.nortic.posdash.es.users.utils.CustomException;
-import com.nortic.posdash.es.users.utils.Mapper;
-import com.nortic.posdash.es.users.utils.PasswordUtils;
-import com.nortic.posdash.us.models.dto.UserDTO;
-import com.nortic.posdash.us.models.entity.RoleEntity;
-import com.nortic.posdash.us.models.entity.UserEntity;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +13,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import com.nortic.posdash.es.users.repository.UserRepository;
+import com.nortic.posdash.es.users.utils.CustomException;
+import com.nortic.posdash.es.users.utils.Mapper;
+import com.nortic.posdash.es.users.utils.PasswordUtils;
+import com.nortic.posdash.models.dto.UserDTO;
+import com.nortic.posdash.models.entity.RoleEntity;
+import com.nortic.posdash.models.entity.UserEntity;
 
 @Service
 public class UserService implements IUserService {

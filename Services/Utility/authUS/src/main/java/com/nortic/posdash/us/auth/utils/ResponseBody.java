@@ -1,6 +1,6 @@
 package com.nortic.posdash.us.auth.utils;
 
-import com.nortic.posdash.us.models.enums.StatusEnum;
+import com.nortic.posdash.models.enums.StatusEnum;
 
 import java.time.LocalDate;
 import java.util.LinkedHashMap;

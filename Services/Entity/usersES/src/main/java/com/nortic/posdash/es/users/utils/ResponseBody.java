@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.nortic.posdash.us.models.enums.*;
+import com.nortic.posdash.models.enums.StatusEnum;
 
 public class ResponseBody<T> {
 
