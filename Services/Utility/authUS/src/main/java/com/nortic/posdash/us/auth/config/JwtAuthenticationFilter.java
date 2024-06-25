@@ -50,20 +50,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String httpMethod = request.getMethod();
         String requestURI = request.getRequestURI();
+        String authorizationHeader = request.getHeader(AUTHORIZATION_HEADER);
 
-        if (urlExceptions(requestURI)) {
+        if (authorizationHeader == null || !authorizationHeader.startsWith(BEARER_PREFIX)) {
+            log.warn("Missing or malformed Authorization header");
             filterChain.doFilter(request, response);
             return;
         }
 
-        String authorizationHeader = request.getHeader(AUTHORIZATION_HEADER);
-        if (authorizationHeader == null || !authorizationHeader.startsWith(BEARER_PREFIX)) {
-            log.warn("Missing or invalid Authorization header for request: {} {}", httpMethod, requestURI);
-            sendErrorResponse(response, "Missing or invalid Authorization header");
-            return;
-        }
-
         String token = authorizationHeader.substring(BEARER_PREFIX.length());
+
         try {
             Claims claims = Jwts.parserBuilder()
                     .setSigningKey(getSignInKey())
@@ -88,11 +84,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         } catch (ExpiredJwtException e) {
             log.warn("Token expired: {}", e.getMessage());
             sendErrorResponse(response, "Token expired");
-            return;
         } catch (Exception e) {
             log.error("Failed to parse JWT token: {}", e.getMessage());
             sendErrorResponse(response, "Failed to parse JWT token");
-            return;
         }
 
         filterChain.doFilter(request, response);
@@ -109,12 +103,4 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    private boolean urlExceptions(String url) {
-        return url.startsWith("/login") ||
-                url.startsWith("/api/v1/us/auth/login") ||
-                url.startsWith("/swagger-ui") ||
-                url.startsWith("/v3") ||
-                url.startsWith("/swagger") ||
-                url.startsWith("/actuator");
-    }
 }

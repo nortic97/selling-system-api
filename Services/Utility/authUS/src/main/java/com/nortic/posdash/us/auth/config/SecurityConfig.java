@@ -20,7 +20,12 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/api/v1/us/auth/login", "/actuator/**", "/swagger/**","/v3/**", "/swagger-ui/**").permitAll()
+                        .requestMatchers(
+                                "/actuator/**",
+                                "/swagger/**",
+                                "/v3/**",
+                                "/swagger-ui/**",
+                                "/api/v1/us/auth/login").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

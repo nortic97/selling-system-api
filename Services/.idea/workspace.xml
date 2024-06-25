@@ -4,70 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="58665b10-b644-4986-ad33-5cb857a8250d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.project" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utility/models/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+    <list default="true" id="58665b10-b644-4986-ad33-5cb857a8250d" name="Changes" comment="Some Errors Fixed">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/usersES/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/UsersEsApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/UsersEsApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/config/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/config/GlobalExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/config/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/config/JwtAuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/controller/UsersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/controller/UsersController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/service/IUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/service/IUserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/utils/Mapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/utils/Mapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/utils/ResponseBody.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/utils/ResponseBody.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Microservice/UserConfigurationMS/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Microservice/UserConfigurationMS/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Microservice/UserConfigurationMS/mvnw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Microservice/UserConfigurationMS/mvnw.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Microservice/UserConfigurationMS/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Microservice/UserConfigurationMS/src/main/java/com/nortic/posdash/ms/userconfigurationms/ServletInitializer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Microservice/UserConfigurationMS/src/main/java/com/nortic/posdash/ms/userconfigurationms/UserConfigurationMsApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Microservice/UserConfigurationMS/src/main/resources/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Microservice/UserConfigurationMS/src/test/java/com/nortic/posdash/ms/userconfigurationms/UserConfigurationMsApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/models/src/test/java/com/nortic/posdash/models/ModelsApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserConfigurationMS/UserConfigurationMS.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserConfigurationMS/target/classes/com/nortic/posdash/ms/userconfigurationms/ServletInitializer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserConfigurationMS/target/classes/com/nortic/posdash/ms/userconfigurationms/UserConfigurationMsApplication.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/authUS/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/authUS/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/AuthUsApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/AuthUsApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/config/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/config/GlobalExceptionHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/config/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/config/JwtAuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/controller/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/repository/RoleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/repository/RoleRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/service/AuthService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/service/IAuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/service/IAuthService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/utils/ResponseBody.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/utils/ResponseBody.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/authUS/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/authUS/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/authUS/src/test/java/com/nortic/posdash/us/auth/AuthUsApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/authUS/src/test/java/com/nortic/posdash/us/auth/AuthUsApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/models/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/models/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/models/mvnw" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/models/mvnw" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/models/mvnw.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/models/mvnw.cmd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/models/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/models/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/us/models/ModelsApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/us/models/dto/AuthRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/models/dto/AuthRequestDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/us/models/dto/RoleDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/models/dto/RoleDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/us/models/dto/TokenDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/models/dto/TokenDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/us/models/dto/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/models/dto/UserDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/us/models/entity/MenuEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/models/entity/MenuEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/us/models/entity/PermissionsEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/models/entity/PermissionsEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/us/models/entity/RoleEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/models/entity/RoleEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/us/models/entity/SubMenuEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/models/entity/SubMenuEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/us/models/entity/UserEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/models/entity/UserEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/us/models/enums/StatusEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/models/enums/StatusEnum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/models/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/config/SecurityConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,56 +57,56 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "JUnit.ModelsApplicationTests.executor": "Run",
-    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
-    "Maven.authUS [clean].executor": "Run",
-    "Maven.authUS [compile].executor": "Run",
-    "Maven.authUS [install].executor": "Run",
-    "Maven.authUS [org.apache.maven.plugins:maven-install-plugin:3.1.2:help].executor": "Run",
-    "Maven.authUS [org.apache.maven.plugins:maven-install-plugin:3.1.2:install-file].executor": "Run",
-    "Maven.authUS [org.apache.maven.plugins:maven-install-plugin:3.1.2:install].executor": "Run",
-    "Maven.authUS [package].executor": "Run",
-    "Maven.authUS [validate].executor": "Run",
-    "Maven.models [clean].executor": "Run",
-    "Maven.models [install].executor": "Run",
-    "Maven.models [package].executor": "Run",
-    "Maven.models [verify].executor": "Run",
-    "Maven.usersES [clean].executor": "Run",
-    "Maven.usersES [package].executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.AuthUsApplication.executor": "Run",
-    "Spring Boot.ModelsUsApplication.executor": "Run",
-    "Spring Boot.UsersEsApplication.executor": "Run",
-    "git-widget-placeholder": "dev",
-    "ignore.virus.scanning.warn.message": "true",
-    "jdk.selected.JAVA_MODULE": "21",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/usuario/Documents/PosDash/web-selling-system/Services/Utility",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.5275862",
-    "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "project.propCompiler",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;JUnit.ModelsApplicationTests.executor&quot;: &quot;Run&quot;,
+    &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.authUS [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.authUS [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.authUS [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.authUS [org.apache.maven.plugins:maven-install-plugin:3.1.2:help].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.authUS [org.apache.maven.plugins:maven-install-plugin:3.1.2:install-file].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.authUS [org.apache.maven.plugins:maven-install-plugin:3.1.2:install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.authUS [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.authUS [validate].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.models [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.models [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.models [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.models [verify].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.usersES [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.usersES [package].executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.AuthUsApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ModelsUsApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.UsersEsApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/usuario/Documents/PosDash/web-selling-system/Services/Utility&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.5275862&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propCompiler&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\usuario\Documents\PosDash\web-selling-system\Services\Utility\models\src\test\java" />
@@ -189,8 +129,14 @@
       </method>
     </configuration>
     <configuration name="AuthUsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="envFilePaths">
+        <option value="$PROJECT_DIR$/../../.env" />
+      </option>
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <module name="authUS" />
+      <selectedOptions>
+        <option name="environmentVariables" />
+      </selectedOptions>
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.nortic.posdash.us.auth.AuthUsApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -239,6 +185,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="JUnit.ModelsApplicationTests" />
+      <item itemvalue="Spring Boot.AuthUsApplication" />
+      <item itemvalue="Spring Boot.ModelsApplication" />
+      <item itemvalue="Spring Boot.ModelsUsApplication (1)" />
+      <item itemvalue="Spring Boot.UserConfigurationMsApplication" />
+      <item itemvalue="Spring Boot.UsersEsApplication" />
+      <item itemvalue="Spring Boot.ModelsUsApplication" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.ModelsApplicationTests" />
@@ -270,8 +225,20 @@
       <workItem from="1719260297117" duration="6377000" />
       <workItem from="1719266690725" duration="1012000" />
       <workItem from="1719268324839" duration="232000" />
-      <workItem from="1719268585378" duration="1366000" />
+      <workItem from="1719268585378" duration="2339000" />
+      <workItem from="1719271571088" duration="84000" />
+      <workItem from="1719275296551" duration="1959000" />
+      <workItem from="1719277587690" duration="1366000" />
     </task>
+    <task id="LOCAL-00001" summary="Some Errors Fixed">
+      <option name="closed" value="true" />
+      <created>1719270022989</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1719270022990</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -279,5 +246,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Some Errors Fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Some Errors Fixed" />
   </component>
 </project>
