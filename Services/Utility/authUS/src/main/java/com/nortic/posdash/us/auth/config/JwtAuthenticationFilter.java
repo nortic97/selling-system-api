@@ -48,8 +48,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain)
             throws ServletException, IOException {
 
-        String httpMethod = request.getMethod();
-        String requestURI = request.getRequestURI();
+        log.info("Request: {} {}", request.getMethod(), request.getRequestURI());
+
         String authorizationHeader = request.getHeader(AUTHORIZATION_HEADER);
 
         if (authorizationHeader == null || !authorizationHeader.startsWith(BEARER_PREFIX)) {
@@ -61,21 +61,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String token = authorizationHeader.substring(BEARER_PREFIX.length());
 
         try {
-            Claims claims = Jwts.parserBuilder()
-                    .setSigningKey(getSignInKey())
-                    .build()
-                    .parseClaimsJws(token)
-                    .getBody();
-
+            Claims claims = validateToken(token);
             String username = claims.getSubject();
             Date expiration = claims.getExpiration();
 
             if (username != null && expiration != null && expiration.after(new Date())) {
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                        username, null, List.of());
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-                log.info("Access granted for request: {} {}", httpMethod, requestURI);
+                setUpAuthentication(username, request);
+                log.info("Access granted for request: {} {}", request.getMethod(), request.getRequestURI());
             } else {
                 log.warn("Token expired or invalid for user: {}", username);
                 sendErrorResponse(response, "Token expired or invalid");
@@ -84,12 +76,29 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         } catch (ExpiredJwtException e) {
             log.warn("Token expired: {}", e.getMessage());
             sendErrorResponse(response, "Token expired");
+            return;
         } catch (Exception e) {
             log.error("Failed to parse JWT token: {}", e.getMessage());
             sendErrorResponse(response, "Failed to parse JWT token");
+            return;
         }
 
         filterChain.doFilter(request, response);
+    }
+
+    private Claims validateToken(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(getSignInKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+    }
+
+    private void setUpAuthentication(String username, HttpServletRequest request) {
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                username, null, List.of());
+        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
     private void sendErrorResponse(HttpServletResponse response, String message) throws IOException {
@@ -102,5 +111,4 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
-
 }

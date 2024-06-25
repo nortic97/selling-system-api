@@ -1,10 +1,17 @@
 package com.nortic.posdash.es.users.config;
 
-import java.io.IOException;
-import java.security.Key;
-import java.util.Date;
-import java.util.List;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nortic.posdash.models.enums.StatusEnum;
+import com.nortic.posdash.es.users.utils.ResponseBody;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,19 +23,10 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nortic.posdash.es.users.utils.ResponseBody;
-import com.nortic.posdash.models.enums.StatusEnum;
-
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.security.Key;
+import java.util.Date;
+import java.util.List;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -50,38 +48,26 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain)
             throws ServletException, IOException {
 
-        String httpMethod = request.getMethod();
-        String requestURI = request.getRequestURI();
+        log.info("Request: {} {}", request.getMethod(), request.getRequestURI());
 
-        if (urlExceptions(requestURI)) {
+        String authorizationHeader = request.getHeader(AUTHORIZATION_HEADER);
+
+        if (authorizationHeader == null || !authorizationHeader.startsWith(BEARER_PREFIX)) {
+            log.warn("Missing or malformed Authorization header");
             filterChain.doFilter(request, response);
             return;
         }
 
-        String authorizationHeader = request.getHeader(AUTHORIZATION_HEADER);
-        if (authorizationHeader == null || !authorizationHeader.startsWith(BEARER_PREFIX)) {
-            log.warn("Missing or invalid Authorization header for request: {} {}", httpMethod, requestURI);
-            sendErrorResponse(response, "Missing or invalid Authorization header");
-            return;
-        }
-
         String token = authorizationHeader.substring(BEARER_PREFIX.length());
-        try {
-            Claims claims = Jwts.parserBuilder()
-                    .setSigningKey(getSignInKey())
-                    .build()
-                    .parseClaimsJws(token)
-                    .getBody();
 
+        try {
+            Claims claims = validateToken(token);
             String username = claims.getSubject();
             Date expiration = claims.getExpiration();
 
             if (username != null && expiration != null && expiration.after(new Date())) {
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                        username, null, List.of());
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-                log.info("Access granted for request: {} {}", httpMethod, requestURI);
+                setUpAuthentication(username, request);
+                log.info("Access granted for request: {} {}", request.getMethod(), request.getRequestURI());
             } else {
                 log.warn("Token expired or invalid for user: {}", username);
                 sendErrorResponse(response, "Token expired or invalid");
@@ -100,6 +86,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
+    private Claims validateToken(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(getSignInKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+    }
+
+    private void setUpAuthentication(String username, HttpServletRequest request) {
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                username, null, List.of());
+        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+    }
+
     private void sendErrorResponse(HttpServletResponse response, String message) throws IOException {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType("application/json");
@@ -109,12 +110,5 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private Key getSignInKey() {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
-    }
-
-    private boolean urlExceptions(String url) {
-        return url.startsWith("/swagger-ui") ||
-                url.startsWith("/v3") ||
-                url.startsWith("/swagger") ||
-                url.startsWith("/actuator");
     }
 }

@@ -14,9 +14,9 @@ public class MenuEntity {
 
     private String name;
 
-    private int position;
+    private Integer position;
 
-    private boolean hasSubmenu;
+    private Boolean hasSubmenu;
 
     private String url;
 
@@ -24,7 +24,7 @@ public class MenuEntity {
 
     private String description;
 
-    private boolean status;
+    private Boolean status;
 
     @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<SubMenuEntity> subMenus;
@@ -33,6 +33,30 @@ public class MenuEntity {
     private List<RoleEntity> roles;
 
     public MenuEntity() {
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Boolean getHasSubmenu() {
+        return hasSubmenu;
+    }
+
+    public void setHasSubmenu(Boolean hasSubmenu) {
+        this.hasSubmenu = hasSubmenu;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public UUID getId() {
@@ -51,51 +75,27 @@ public class MenuEntity {
         this.name = name;
     }
 
-    public int getPosition() {
+    public Integer getPosition() {
         return position;
     }
 
-    public void setPosition(int position) {
+    public void setPosition(Integer position) {
         this.position = position;
     }
 
-    public boolean isHasSubmenu() {
-        return hasSubmenu;
+    public List<RoleEntity> getRoles() {
+        return roles;
     }
 
-    public void setHasSubmenu(boolean hasSubmenu) {
-        this.hasSubmenu = hasSubmenu;
+    public void setRoles(List<RoleEntity> roles) {
+        this.roles = roles;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getIcon() {
-        return icon;
-    }
-
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public boolean isStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 
@@ -107,11 +107,11 @@ public class MenuEntity {
         this.subMenus = subMenus;
     }
 
-    public List<RoleEntity> getRoles() {
-        return roles;
+    public String getUrl() {
+        return url;
     }
 
-    public void setRoles(List<RoleEntity> roles) {
-        this.roles = roles;
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

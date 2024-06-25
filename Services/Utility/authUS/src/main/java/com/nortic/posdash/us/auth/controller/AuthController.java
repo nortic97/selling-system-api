@@ -6,6 +6,7 @@ import com.nortic.posdash.us.auth.utils.ResponseBody;
 import com.nortic.posdash.models.dto.AuthRequestDTO;
 import com.nortic.posdash.models.enums.StatusEnum;
 import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -42,6 +43,7 @@ public class AuthController {
     }
 
     @GetMapping("/{roleId}/permissions/exists")
+    @SecurityRequirement(name = "bearerAuth")
     public ResponseEntity<?> hasPermission(@PathVariable UUID roleId,
                                  @RequestParam String method,
                                  @RequestParam String url) {
