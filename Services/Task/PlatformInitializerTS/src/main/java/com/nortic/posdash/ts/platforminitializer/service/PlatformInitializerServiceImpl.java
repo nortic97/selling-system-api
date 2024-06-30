@@ -50,6 +50,7 @@ public class PlatformInitializerServiceImpl implements IPlatformInitializerServi
             adminRole.setStatus(true);
             roleRepository.save(adminRole);
             roleRepository.flush();
+            log.info("Admin role added");
         }
 
         // Insert users
@@ -69,6 +70,7 @@ public class PlatformInitializerServiceImpl implements IPlatformInitializerServi
             adminUser.setBirthDate(LocalDate.of(1997, 5, 22));
             userRepository.save(adminUser);
             userRepository.flush();
+            log.info("Admin user added");
         }
 
         // Insert menus
@@ -84,6 +86,7 @@ public class PlatformInitializerServiceImpl implements IPlatformInitializerServi
             dashboardMenu.setUrl("/home/dashboard");
             menuRepository.save(dashboardMenu);
             menuRepository.flush();
+            log.info("Dashboard menu added");
         }
 
         if (!menuRepository.existsByName("People")) {
@@ -98,6 +101,7 @@ public class PlatformInitializerServiceImpl implements IPlatformInitializerServi
             dashboardMenu.setUrl("/home/people");
             menuRepository.save(dashboardMenu);
             menuRepository.flush();
+            log.info("People menu added");
         }
 
         // Insert submenus
@@ -113,6 +117,7 @@ public class PlatformInitializerServiceImpl implements IPlatformInitializerServi
             userListSubmenu.setMenu(userMenu);
             submenuRepository.save(userListSubmenu);
             submenuRepository.flush();
+            log.info("Users submenu added");
         }
 
         // Add all permissions to the admin role
@@ -121,6 +126,7 @@ public class PlatformInitializerServiceImpl implements IPlatformInitializerServi
         adminRole.setPermissions(allPermissions);
         roleRepository.save(adminRole);
         roleRepository.flush();
+        log.info("Permissions added");
 
         // Add all menus to the admin role
         List<MenuEntity> allMenus = menuRepository.findAll();
@@ -128,6 +134,7 @@ public class PlatformInitializerServiceImpl implements IPlatformInitializerServi
         adminRole.setMenus(allMenus);
         roleRepository.save(adminRole);
         roleRepository.flush();
+        log.info("Menus added");
 
     }
 }
