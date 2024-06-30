@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="58665b10-b644-4986-ad33-5cb857a8250d" name="Changes" comment="New Service added">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Task/PlatformInitializerTS/src/main/java/com/nortic/posdash/ts/platforminitializer/service/PlatformInitializerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Task/PlatformInitializerTS/src/main/java/com/nortic/posdash/ts/platforminitializer/service/PlatformInitializerServiceImpl.java" afterDir="false" />
-    </list>
+    <list default="true" id="58665b10-b644-4986-ad33-5cb857a8250d" name="Changes" comment="New Service added" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -243,6 +240,7 @@
       <workItem from="1719706066498" duration="3095000" />
       <workItem from="1719709187255" duration="2357000" />
       <workItem from="1719711981795" duration="149000" />
+      <workItem from="1719712290047" duration="213000" />
     </task>
     <task id="LOCAL-00001" summary="Some Errors Fixed">
       <option name="closed" value="true" />
