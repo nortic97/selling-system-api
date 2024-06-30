@@ -19,7 +19,7 @@ public class SubMenuEntity {
 
     private String url;
 
-    private String status;
+    private Boolean status;
 
     @ManyToOne
     @JoinColumn(name = "menu_id", nullable = false)
@@ -68,11 +68,11 @@ public class SubMenuEntity {
         this.url = url;
     }
 
-    public String getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 

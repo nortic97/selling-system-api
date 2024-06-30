@@ -11,6 +11,7 @@
         <option value="$PROJECT_DIR$/UserConfigurationMS/pom.xml" />
         <option value="$PROJECT_DIR$/Microservice/UserConfigurationMS/pom.xml" />
         <option value="$PROJECT_DIR$/Microservice/UserSettingsMS/pom.xml" />
+        <option value="$PROJECT_DIR$/Task/PlatformInitializerTS/pom.xml" />
       </list>
     </option>
   </component>

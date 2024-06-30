@@ -6,5 +6,5 @@ import java.util.List;
 import java.util.UUID;
 
 public interface IFunctionsSqlRepository {
-    List<MenuByRoleDTO> getMenuByRole(UUID roleId);
+    List<Object[]> getMenuByRole(UUID roleId);
 }

@@ -4,7 +4,7 @@ CREATE OR REPLACE FUNCTION get_menu_by_role(p_role_id UUID)
 RETURNS TABLE(
     menu_id UUID,
     menu_name VARCHAR,
-	menu_icon VARCHAR,
+	menu_icon TEXT,
 	menu_position INT,
     menu_url VARCHAR,
     submenu_id UUID,

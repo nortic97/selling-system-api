@@ -4,6 +4,7 @@
     <file url="file://$PROJECT_DIR$/Entity/usersES/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Microservice/UserConfigurationMS/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Microservice/UserSettingsMS/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Task/PlatformInitializerTS/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Utility/authUS/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Utility/models/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Utility/models/src/main/resources" charset="UTF-8" />

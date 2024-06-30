@@ -20,6 +20,7 @@ public class MenuEntity {
 
     private String url;
 
+    @Column(columnDefinition = "TEXT")
     private String icon;
 
     private String description;
