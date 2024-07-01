@@ -8,29 +8,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="58665b10-b644-4986-ad33-5cb857a8250d" name="Changes" comment="New Service added">
-      <change afterPath="$PROJECT_DIR$/Microservice/ChatMS/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Microservice/ChatMS/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Microservice/ChatMS/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Microservice/ChatMS/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Microservice/ChatMS/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Microservice/ChatMS/src/main/java/com/nortic/posdash/ms/chat/ChatMsApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Microservice/ChatMS/src/main/java/com/nortic/posdash/ms/chat/ServletInitializer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Microservice/ChatMS/src/main/java/com/nortic/posdash/ms/chat/config/WebSocketConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Microservice/ChatMS/src/main/java/com/nortic/posdash/ms/chat/controller/ChatController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Microservice/ChatMS/src/main/java/com/nortic/posdash/ms/chat/repository/MessageRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Microservice/ChatMS/src/main/java/com/nortic/posdash/ms/chat/repository/UserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Microservice/ChatMS/src/main/java/com/nortic/posdash/ms/chat/service/IUserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Microservice/ChatMS/src/main/java/com/nortic/posdash/ms/chat/service/MessageService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Microservice/ChatMS/src/main/java/com/nortic/posdash/ms/chat/service/UserServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Microservice/ChatMS/src/main/java/com/nortic/posdash/ms/chat/utils/Mapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Microservice/ChatMS/src/main/resources/application.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Microservice/ChatMS/src/test/java/com/nortic/posdash/ms/chat/ChatMsApplicationTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/models/dto/MessageDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/models/entity/MessageEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Microservice/ChatMS/src/main/java/com/nortic/posdash/ms/chat/controller/ActiveUsersWebSocketHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Microservice/ChatMS/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Microservice/ChatMS/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Microservice/ChatMS/src/main/java/com/nortic/posdash/ms/chat/config/WebSocketConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Microservice/ChatMS/src/main/java/com/nortic/posdash/ms/chat/config/WebSocketConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Microservice/ChatMS/src/main/java/com/nortic/posdash/ms/chat/controller/ChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Microservice/ChatMS/src/main/java/com/nortic/posdash/ms/chat/controller/ChatWebSocketHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Microservice/ChatMS/src/main/java/com/nortic/posdash/ms/chat/repository/MessageRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Microservice/ChatMS/src/main/java/com/nortic/posdash/ms/chat/repository/MessageRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Microservice/ChatMS/src/main/java/com/nortic/posdash/ms/chat/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Microservice/ChatMS/src/main/java/com/nortic/posdash/ms/chat/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Microservice/ChatMS/src/main/java/com/nortic/posdash/ms/chat/service/IUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Microservice/ChatMS/src/main/java/com/nortic/posdash/ms/chat/service/IUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Microservice/ChatMS/src/main/java/com/nortic/posdash/ms/chat/service/MessageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Microservice/ChatMS/src/main/java/com/nortic/posdash/ms/chat/service/MessageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Microservice/ChatMS/src/main/java/com/nortic/posdash/ms/chat/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Microservice/ChatMS/src/main/java/com/nortic/posdash/ms/chat/service/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Microservice/ChatMS/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Microservice/ChatMS/src/main/resources/application.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -286,6 +275,9 @@
       <workItem from="1719711981795" duration="149000" />
       <workItem from="1719712290047" duration="213000" />
       <workItem from="1719764343842" duration="12084000" />
+      <workItem from="1719776975540" duration="2948000" />
+      <workItem from="1719793322873" duration="10242000" />
+      <workItem from="1719809734617" duration="2452000" />
     </task>
     <task id="LOCAL-00001" summary="Some Errors Fixed">
       <option name="closed" value="true" />
@@ -339,16 +331,5 @@
     <MESSAGE value="Some Errors Fixed" />
     <MESSAGE value="New Service added" />
     <option name="LAST_COMMIT_MESSAGE" value="New Service added" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Microservice/ChatMS/src/main/java/com/nortic/posdash/ms/chat/controller/ChatController.java</url>
-          <line>43</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

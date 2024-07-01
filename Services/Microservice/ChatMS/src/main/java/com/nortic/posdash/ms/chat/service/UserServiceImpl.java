@@ -7,8 +7,7 @@ import com.nortic.posdash.ms.chat.utils.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -23,8 +22,14 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public UserEntity findById(UUID id) {
+    public UserDTO findById(UUID id) {
         Optional<UserEntity> user = userRepository.findById(id);
-        return user.orElse(null);
+        return mapper.convertToDto(user, UserDTO.class);
+    }
+
+    @Override
+    public List<UserDTO> findByIds(Set<UUID> userIds) {
+        List<UserEntity> users = userRepository.findAllByIdIn(userIds);
+        return mapper.convertToDtoList(users, UserDTO.class);
     }
 }
