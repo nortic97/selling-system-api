@@ -69,10 +69,12 @@ public class AuthService implements IAuthService {
         log.info("Start getAdditionalUserDetails Service");
         Map<String, Object> additionalClaims = new LinkedHashMap<>();
         additionalClaims.put("username", userEntity.getUserName());
-        additionalClaims.put("role", userEntity.getRole().getName());
+        additionalClaims.put("fullName", userEntity.getFullName());
+        additionalClaims.put("lastName", userEntity.getLastName());
+        additionalClaims.put("roleName", userEntity.getRole().getName());
+        additionalClaims.put("roleId", userEntity.getRole().getId());
         additionalClaims.put("email", userEntity.getEmail());
         additionalClaims.put("pic", userEntity.getPhoto());
-        additionalClaims.put("fullName", userEntity.getFullName());
         log.info("End getAdditionalUserDetails Service");
 
         return additionalClaims;
