@@ -22,7 +22,6 @@ import java.util.function.Function;
 public class JwtUtil {
 
     private static final Logger log = LoggerFactory.getLogger(JwtUtil.class);
-    private final Date jwtExpiration = new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10);
     private final String SECRET_KEY;
 
     @Autowired
@@ -41,7 +40,7 @@ public class JwtUtil {
 
     public String generateToken(String userId, Map<String, Object> extraClaims) {
         log.info("Generate JWT Token");
-        return buildToken(extraClaims, userId, jwtExpiration);
+        return buildToken(extraClaims, userId, new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10));
     }
 
     public String generateRefreshToken(String userId) {
@@ -50,7 +49,7 @@ public class JwtUtil {
     }
 
     public Date getExpirationTime() {
-        return jwtExpiration;
+        return new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10);
     }
 
     private String buildToken(Map<String, Object> extraClaims, String subject, Date expiration) {

@@ -9,7 +9,7 @@
   <component name="ChangeListManager">
     <list default="true" id="58665b10-b644-4986-ad33-5cb857a8250d" name="Changes" comment="New Service added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/service/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/config/JwtUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/config/JwtUtil.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -269,6 +269,10 @@
       <workItem from="1719793322873" duration="10242000" />
       <workItem from="1719809734617" duration="2452000" />
       <workItem from="1719857569783" duration="928000" />
+      <workItem from="1719866778492" duration="560000" />
+      <workItem from="1719871013907" duration="248000" />
+      <workItem from="1719887824315" duration="1257000" />
+      <workItem from="1719943172374" duration="56000" />
     </task>
     <task id="LOCAL-00001" summary="Some Errors Fixed">
       <option name="closed" value="true" />
