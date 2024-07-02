@@ -8,6 +8,7 @@ public class MenuByRoleDTO {
     private String menuName;
     private String menuIcon;
     private Integer menuPosition;
+    private Boolean hasSubmenu;
     private String menuUrl;
     private List<SubMenuByRoleDTO> subMenus;
 
@@ -60,5 +61,13 @@ public class MenuByRoleDTO {
 
     public void setSubMenus(List<SubMenuByRoleDTO> subMenus) {
         this.subMenus = subMenus;
+    }
+
+    public Boolean getHasSubmenu() {
+        return hasSubmenu;
+    }
+
+    public void setHasSubmenu(Boolean hasSubmenu) {
+        this.hasSubmenu = hasSubmenu;
     }
 }

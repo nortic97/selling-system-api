@@ -8,8 +8,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="58665b10-b644-4986-ad33-5cb857a8250d" name="Changes" comment="New Service added">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/50bb0f24-7f49-4514-a9c9-64a0d2bfc035.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/50bb0f24-7f49-4514-a9c9-64a0d2bfc035.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/50bb0f24-7f49-4514-a9c9-64a0d2bfc035/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/50bb0f24-7f49-4514-a9c9-64a0d2bfc035/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/config/JwtUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/config/JwtUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Microservice/UserSettingsMS/src/main/java/com/nortic/posdash/ms/usersettings/service/UserSettingsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Microservice/UserSettingsMS/src/main/java/com/nortic/posdash/ms/usersettings/service/UserSettingsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Task/PlatformInitializerTS/src/main/java/com/nortic/posdash/ts/platforminitializer/service/PlatformInitializerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Task/PlatformInitializerTS/src/main/java/com/nortic/posdash/ts/platforminitializer/service/PlatformInitializerServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Task/PlatformInitializerTS/src/main/java/com/nortic/posdash/ts/platforminitializer/utils/Icons.java" beforeDir="false" afterPath="$PROJECT_DIR$/Task/PlatformInitializerTS/src/main/java/com/nortic/posdash/ts/platforminitializer/utils/Icons.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/models/dto/MenuByRoleDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/models/dto/MenuByRoleDTO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,60 +69,66 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;JUnit.ModelsApplicationTests.executor&quot;: &quot;Run&quot;,
-    &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.authUS [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.authUS [compile].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.authUS [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.authUS [org.apache.maven.plugins:maven-install-plugin:3.1.2:help].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.authUS [org.apache.maven.plugins:maven-install-plugin:3.1.2:install-file].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.authUS [org.apache.maven.plugins:maven-install-plugin:3.1.2:install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.authUS [package].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.authUS [validate].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.models [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.models [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.models [package].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.models [verify].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.usersES [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.usersES [package].executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.AuthUsApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.ChatMsApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.ModelsUsApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.PlatformInitializerTsApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.UserSettingsMsApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.UsersEsApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/usuario/Documents/PosDash/web-selling-system/Services/Microservice&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.5275862&quot;,
-    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "JUnit.ModelsApplicationTests.executor": "Run",
+    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
+    "Maven.PlatformInitializerTS [clean].executor": "Run",
+    "Maven.PlatformInitializerTS [package].executor": "Run",
+    "Maven.UserSettingsMS [clean].executor": "Run",
+    "Maven.UserSettingsMS [install].executor": "Run",
+    "Maven.UserSettingsMS [package].executor": "Run",
+    "Maven.UserSettingsMS [verify].executor": "Run",
+    "Maven.authUS [clean].executor": "Run",
+    "Maven.authUS [compile].executor": "Run",
+    "Maven.authUS [install].executor": "Run",
+    "Maven.authUS [org.apache.maven.plugins:maven-install-plugin:3.1.2:help].executor": "Run",
+    "Maven.authUS [org.apache.maven.plugins:maven-install-plugin:3.1.2:install-file].executor": "Run",
+    "Maven.authUS [org.apache.maven.plugins:maven-install-plugin:3.1.2:install].executor": "Run",
+    "Maven.authUS [package].executor": "Run",
+    "Maven.authUS [validate].executor": "Run",
+    "Maven.models [clean].executor": "Run",
+    "Maven.models [install].executor": "Run",
+    "Maven.models [package].executor": "Run",
+    "Maven.models [verify].executor": "Run",
+    "Maven.usersES [clean].executor": "Run",
+    "Maven.usersES [package].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.AuthUsApplication.executor": "Run",
+    "Spring Boot.ChatMsApplication.executor": "Run",
+    "Spring Boot.ModelsUsApplication.executor": "Run",
+    "Spring Boot.PlatformInitializerTsApplication.executor": "Run",
+    "Spring Boot.UserSettingsMsApplication.executor": "Run",
+    "Spring Boot.UsersEsApplication.executor": "Run",
+    "git-widget-placeholder": "dev",
+    "ignore.virus.scanning.warn.message": "true",
+    "jdk.selected.JAVA_MODULE": "21",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/usuario/Documents/PosDash/web-selling-system/Services/Microservice",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.5275862",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "MavenSettings",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\usuario\Documents\PosDash\web-selling-system\Services\Microservice\UserSettingsMS\src\main\java\com\nortic\posdash\ms\usersettings" />
@@ -139,7 +150,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.AuthUsApplication">
+  <component name="RunManager" selected="Spring Boot.UserSettingsMsApplication">
     <configuration name="AuthUsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="envFilePaths">
         <option value="$PROJECT_DIR$/../../.env" />
@@ -272,7 +283,9 @@
       <workItem from="1719866778492" duration="560000" />
       <workItem from="1719871013907" duration="248000" />
       <workItem from="1719887824315" duration="1257000" />
-      <workItem from="1719943172374" duration="56000" />
+      <workItem from="1719943172374" duration="315000" />
+      <workItem from="1719955614847" duration="524000" />
+      <workItem from="1719956214931" duration="4341000" />
     </task>
     <task id="LOCAL-00001" summary="Some Errors Fixed">
       <option name="closed" value="true" />
