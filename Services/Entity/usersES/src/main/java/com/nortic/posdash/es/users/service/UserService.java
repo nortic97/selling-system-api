@@ -95,9 +95,11 @@ public class UserService implements IUserService {
         userEntity.setBirthDate(user.getBirthDate());
         userEntity.setPhoto(user.getPhoto());
 
-        if (user.getPassword() != null && !passwordUtils.verifyPassword(user.getPassword(), userEntity.getPassword())) {
-            log.info("Password Changed");
-            userEntity.setPassword(passwordUtils.encryptPassword(user.getPassword()));
+        if (user.getPassword() != null && !user.getPassword().equals(userEntity.getPassword())) {
+            if (!passwordUtils.verifyPassword(user.getPassword(), userEntity.getPassword())) {
+                log.info("Password Changed");
+                userEntity.setPassword(passwordUtils.encryptPassword(user.getPassword()));
+            }
         }
 
         if (user.getRole() != null && !user.getRole().getId().equals(userEntity.getRole().getId())) {
