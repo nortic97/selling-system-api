@@ -215,9 +215,9 @@ public class PlatformInitializerServiceImpl implements IPlatformInitializerServi
             menu = menuRepository.findByName("Products");
             SubMenuEntity addProductsSubmenu = new SubMenuEntity();
             addProductsSubmenu.setId(UUID.randomUUID());
-            addProductsSubmenu.setName("List Product");
+            addProductsSubmenu.setName("Add Product");
             addProductsSubmenu.setPosition(2);
-            addProductsSubmenu.setDescription("List Product submenu");
+            addProductsSubmenu.setDescription("Add Product submenu");
             addProductsSubmenu.setStatus(true);
             addProductsSubmenu.setUrl("/home/products/addProduct");
             addProductsSubmenu.setMenu(menu);
