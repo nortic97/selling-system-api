@@ -8,10 +8,11 @@
         <outputRelativeToContentRoot value="true" />
         <module name="models" />
         <module name="ChatMS" />
-        <module name="authUS" />
         <module name="PlatformInitializerTS" />
-        <module name="usersES" />
         <module name="UserSettingsMS" />
+        <module name="FileStorage" />
+        <module name="authUS" />
+        <module name="usersES" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -21,6 +22,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ChatMS" options="-parameters" />
+      <module name="FileStorage" options="-parameters" />
       <module name="PlatformInitializerTS" options="-parameters" />
       <module name="UserConfigurationMS" options="" />
       <module name="UserSettingsMS" options="-parameters" />
