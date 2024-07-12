@@ -9,11 +9,11 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.nortic.posdash.us</groupId>
-	<artifactId>FileStorage</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>fileStorage</artifactId>
+	<version>0.0.1</version>
 	<packaging>war</packaging>
-	<name>FileStorageUS</name>
-	<description>FileStorageUS</description>
+	<name>fileStorageUS</name>
+	<description>fileStorageUS</description>
 	<url/>
 	<licenses>
 		<license/>
