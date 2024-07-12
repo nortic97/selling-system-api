@@ -14,3 +14,6 @@ springdoc:
   swagger-ui:
     path: '/swagger'
   show-actuator: true
+
+server:
+  port: 8081

@@ -7,7 +7,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="58665b10-b644-4986-ad33-5cb857a8250d" name="Changes" comment="bugs fixed" />
+    <list default="true" id="58665b10-b644-4986-ad33-5cb857a8250d" name="Changes" comment="bugs fixed">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/service/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/authUS/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/authUS/src/main/resources/application.yaml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -142,7 +147,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.UserSettingsMsApplication">
+  <component name="RunManager" selected="Spring Boot.AuthUsApplication">
     <configuration name="AuthUsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="envFilePaths">
         <option value="$PROJECT_DIR$/../../.env" />
@@ -282,6 +287,8 @@
       <workItem from="1720132220329" duration="16000" />
       <workItem from="1720138474757" duration="6000" />
       <workItem from="1720140694995" duration="134000" />
+      <workItem from="1720141513091" duration="354000" />
+      <workItem from="1720787215252" duration="696000" />
     </task>
     <task id="LOCAL-00001" summary="Some Errors Fixed">
       <option name="closed" value="true" />
@@ -315,7 +322,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720140816223</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="bugs fixed">
+      <option name="closed" value="true" />
+      <created>1720141804570</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1720141804570</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -337,6 +352,17 @@
     <option featureType="dependencySupport" implementationName="java:org.springframework:spring-messaging" />
     <option featureType="dependencySupport" implementationName="java:org.springframework.boot:spring-boot" />
     <option featureType="dependencySupport" implementationName="java:jakarta.xml.ws:jakarta.xml.ws-api" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />

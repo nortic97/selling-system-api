@@ -81,7 +81,7 @@ public class AuthService implements IAuthService {
     }
 
     private UserEntity checkIfUserNameExists(String userName) throws CustomException {
-        Optional<UserEntity> searchedUserName = userRepository.findByUserName(userName);
+        Optional<UserEntity> searchedUserName = userRepository.findByUserNameContainingIgnoreCase(userName);
         if (searchedUserName.isEmpty()) {
             log.error("User name {} not found", userName);
             throw new CustomException("User does not exist");
