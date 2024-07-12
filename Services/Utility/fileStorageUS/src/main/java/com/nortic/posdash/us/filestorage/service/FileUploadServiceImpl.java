@@ -50,11 +50,15 @@ public class FileUploadServiceImpl implements IFileUpload {
 
         Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 
+        Path relativeRootPath = Paths.get(rootDirectory).toAbsolutePath().normalize();
+        Path relativePath =  relativeRootPath.relativize(targetLocation);
+        String relativePathString = relativePath.toString().replace("\\", "/");
+
         FileUploadDTO fileUpload = new FileUploadDTO();
         fileUpload.setFileName(file.getOriginalFilename());
         fileUpload.setFileType(file.getContentType());
         fileUpload.setFileSize(file.getSize());
-        fileUpload.setFileUrl(targetLocation.toString().substring(rootDirectory.length()));
+        fileUpload.setFileUrl("/"+relativePathString);
         fileUpload.setUploadDir(fileStorageLocation.toString());
 
         fileUploadRepository.save(mapper.convertToEntity(fileUpload, FileUploadEntity.class));
