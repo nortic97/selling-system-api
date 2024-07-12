@@ -7,34 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="58665b10-b644-4986-ad33-5cb857a8250d" name="Changes" comment="bugs fixed">
-      <change afterPath="$PROJECT_DIR$/Utility/FileStorageUS/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utility/FileStorageUS/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utility/FileStorageUS/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utility/FileStorageUS/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utility/FileStorageUS/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utility/FileStorageUS/src/main/java/com/nortic/posdash/us/filestorage/FileStorageUsApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utility/FileStorageUS/src/main/java/com/nortic/posdash/us/filestorage/ServletInitializer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utility/FileStorageUS/src/main/java/com/nortic/posdash/us/filestorage/config/GlobalExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utility/FileStorageUS/src/main/java/com/nortic/posdash/us/filestorage/config/JwtAuthenticationFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utility/FileStorageUS/src/main/java/com/nortic/posdash/us/filestorage/config/JwtUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utility/FileStorageUS/src/main/java/com/nortic/posdash/us/filestorage/config/OpenApiConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utility/FileStorageUS/src/main/java/com/nortic/posdash/us/filestorage/config/SecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utility/FileStorageUS/src/main/java/com/nortic/posdash/us/filestorage/controller/FileUploadController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utility/FileStorageUS/src/main/java/com/nortic/posdash/us/filestorage/repository/FileUploadRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utility/FileStorageUS/src/main/java/com/nortic/posdash/us/filestorage/service/FileUploadServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utility/FileStorageUS/src/main/java/com/nortic/posdash/us/filestorage/service/IFileUpload.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utility/FileStorageUS/src/main/java/com/nortic/posdash/us/filestorage/utils/CustomException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utility/FileStorageUS/src/main/java/com/nortic/posdash/us/filestorage/utils/Mapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utility/FileStorageUS/src/main/java/com/nortic/posdash/us/filestorage/utils/ResponseBody.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utility/FileStorageUS/src/main/resources/application.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utility/FileStorageUS/src/test/java/com/nortic/posdash/us/filestorage/FileStorageUsApplicationTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/models/dto/FileUploadDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/models/entity/FileUploadEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/models/enums/FileTypeEnum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="58665b10-b644-4986-ad33-5cb857a8250d" name="Changes" comment="New Service added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -91,67 +64,71 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "JUnit.ModelsApplicationTests.executor": "Run",
-    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
-    "Maven.PlatformInitializerTS [clean].executor": "Run",
-    "Maven.PlatformInitializerTS [package].executor": "Run",
-    "Maven.UserSettingsMS [clean].executor": "Run",
-    "Maven.UserSettingsMS [install].executor": "Run",
-    "Maven.UserSettingsMS [package].executor": "Run",
-    "Maven.UserSettingsMS [verify].executor": "Run",
-    "Maven.authUS [clean].executor": "Run",
-    "Maven.authUS [compile].executor": "Run",
-    "Maven.authUS [install].executor": "Run",
-    "Maven.authUS [org.apache.maven.plugins:maven-install-plugin:3.1.2:help].executor": "Run",
-    "Maven.authUS [org.apache.maven.plugins:maven-install-plugin:3.1.2:install-file].executor": "Run",
-    "Maven.authUS [org.apache.maven.plugins:maven-install-plugin:3.1.2:install].executor": "Run",
-    "Maven.authUS [package].executor": "Run",
-    "Maven.authUS [validate].executor": "Run",
-    "Maven.models [clean].executor": "Run",
-    "Maven.models [install].executor": "Run",
-    "Maven.models [package].executor": "Run",
-    "Maven.models [verify].executor": "Run",
-    "Maven.usersES [clean].executor": "Run",
-    "Maven.usersES [package].executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.AuthUsApplication.executor": "Run",
-    "Spring Boot.ChatMsApplication.executor": "Run",
-    "Spring Boot.FileStorageUsApplication.executor": "Run",
-    "Spring Boot.ModelsUsApplication.executor": "Run",
-    "Spring Boot.PlatformInitializerTsApplication.executor": "Run",
-    "Spring Boot.UserSettingsMsApplication.executor": "Run",
-    "Spring Boot.UsersEsApplication.executor": "Run",
-    "git-widget-placeholder": "dev",
-    "ignore.virus.scanning.warn.message": "true",
-    "jdk.selected.JAVA_MODULE": "21",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/usuario/Documents/PosDash/web-selling-system/Services/Utility/FileStorageUS/src/main/java/com/nortic/posdash/us/filestorage",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.5275862",
-    "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "MavenSettings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;JUnit.ModelsApplicationTests.executor&quot;: &quot;Run&quot;,
+    &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.FileStorage [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.FileStorage [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.PlatformInitializerTS [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.PlatformInitializerTS [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.UserSettingsMS [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.UserSettingsMS [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.UserSettingsMS [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.UserSettingsMS [verify].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.authUS [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.authUS [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.authUS [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.authUS [org.apache.maven.plugins:maven-install-plugin:3.1.2:help].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.authUS [org.apache.maven.plugins:maven-install-plugin:3.1.2:install-file].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.authUS [org.apache.maven.plugins:maven-install-plugin:3.1.2:install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.authUS [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.authUS [validate].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.models [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.models [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.models [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.models [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.models [validate].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.models [verify].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.usersES [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.usersES [package].executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.AuthUsApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ChatMsApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.FileStorageUsApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ModelsUsApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.PlatformInitializerTsApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.UserSettingsMsApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.UsersEsApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/usuario/Documents/PosDash/web-selling-system/Services/Utility/FileStorageUS/src/main/java/com/nortic/posdash/us/filestorage&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.5275862&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\usuario\Documents\PosDash\web-selling-system\Services\Utility\FileStorageUS\src\main\java\com\nortic\posdash\us\filestorage" />
@@ -330,7 +307,9 @@
       <workItem from="1720138474757" duration="6000" />
       <workItem from="1720140694995" duration="134000" />
       <workItem from="1720141513091" duration="354000" />
-      <workItem from="1720787215252" duration="12561000" />
+      <workItem from="1720787215252" duration="12715000" />
+      <workItem from="1720802443411" duration="169000" />
+      <workItem from="1720806443497" duration="1122000" />
     </task>
     <task id="LOCAL-00001" summary="Some Errors Fixed">
       <option name="closed" value="true" />
@@ -388,7 +367,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720788305645</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="New Service added">
+      <option name="closed" value="true" />
+      <created>1720800580820</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1720800580820</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -425,8 +412,8 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Some Errors Fixed" />
-    <MESSAGE value="New Service added" />
     <MESSAGE value="bugs fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="bugs fixed" />
+    <MESSAGE value="New Service added" />
+    <option name="LAST_COMMIT_MESSAGE" value="New Service added" />
   </component>
 </project>

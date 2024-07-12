@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 @Service
 public class FileUploadServiceImpl implements IFileUpload {
@@ -47,7 +48,7 @@ public class FileUploadServiceImpl implements IFileUpload {
         String fileName = fileUUID + getFileExtension(file);
         Path targetLocation = fileStorageLocation.resolve(fileName);
 
-        Files.copy(file.getInputStream(), targetLocation);
+        Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 
         FileUploadDTO fileUpload = new FileUploadDTO();
         fileUpload.setFileName(file.getOriginalFilename());
