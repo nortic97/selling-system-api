@@ -7,7 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="58665b10-b644-4986-ad33-5cb857a8250d" name="Changes" comment="files defined">
+    <list default="true" id="58665b10-b644-4986-ad33-5cb857a8250d" name="Changes" comment="Bug Fixed">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Utility/fileStorageUS/src/main/java/com/nortic/posdash/us/filestorage/service/FileUploadServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/fileStorageUS/src/main/java/com/nortic/posdash/us/filestorage/service/FileUploadServiceImpl.java" afterDir="false" />
     </list>
@@ -319,7 +319,9 @@
       <workItem from="1720808667242" duration="92000" />
       <workItem from="1720808779841" duration="61000" />
       <workItem from="1720823516775" duration="605000" />
-      <workItem from="1720824581976" duration="722000" />
+      <workItem from="1720824581976" duration="998000" />
+      <workItem from="1720826507396" duration="25000" />
+      <workItem from="1720826597336" duration="303000" />
     </task>
     <task id="LOCAL-00001" summary="Some Errors Fixed">
       <option name="closed" value="true" />
@@ -417,7 +419,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720824115037</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Bug Fixed">
+      <option name="closed" value="true" />
+      <created>1720825558264</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1720825558264</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -456,8 +466,8 @@
     <MESSAGE value="Some Errors Fixed" />
     <MESSAGE value="bugs fixed" />
     <MESSAGE value="New Service added" />
-    <MESSAGE value="Bug Fixed" />
     <MESSAGE value="files defined" />
-    <option name="LAST_COMMIT_MESSAGE" value="files defined" />
+    <MESSAGE value="Bug Fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Bug Fixed" />
   </component>
 </project>
