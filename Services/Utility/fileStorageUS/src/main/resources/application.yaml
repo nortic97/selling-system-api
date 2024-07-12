@@ -17,7 +17,7 @@ springdoc:
 
 file:
   storage:
-    root: "${user.home}/posdash_files"
+    root: "/home/posdash/posdash_files"
 
 server:
   port: 8081

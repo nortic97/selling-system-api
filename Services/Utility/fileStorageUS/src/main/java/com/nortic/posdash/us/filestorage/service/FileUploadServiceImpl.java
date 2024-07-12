@@ -54,7 +54,7 @@ public class FileUploadServiceImpl implements IFileUpload {
         fileUpload.setFileName(file.getOriginalFilename());
         fileUpload.setFileType(file.getContentType());
         fileUpload.setFileSize(file.getSize());
-        fileUpload.setFileUrl(targetLocation.toString());
+        fileUpload.setFileUrl(targetLocation.toString().substring(rootDirectory.length()));
         fileUpload.setUploadDir(fileStorageLocation.toString());
 
         fileUploadRepository.save(mapper.convertToEntity(fileUpload, FileUploadEntity.class));
