@@ -42,11 +42,13 @@ public class UserService implements IUserService {
         log.info("Start addUser Service");
 
         checkIfEmailExists(userDTO.getEmail());
-        checkIfUserNameExists(userDTO.getUserName());
+        checkIfUserNameExists(userDTO.getUserName().toLowerCase());
 
         // Encrypt password
         userDTO.setPassword(passwordUtils.encryptPassword(userDTO.getPassword()));
 
+        userDTO.setUserName(userDTO.getUserName().toLowerCase());
+        userDTO.setEmail(userDTO.getEmail().toLowerCase());
         // Convertir a entidad y guardar en la base de datos
         UserEntity userEntity = mapper.convertToEntity(userDTO, UserEntity.class);
         UserEntity savedUserEntity = userRepository.save(userEntity);

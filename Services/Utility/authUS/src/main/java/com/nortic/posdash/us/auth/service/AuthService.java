@@ -38,7 +38,7 @@ public class AuthService implements IAuthService {
     @Override
     public TokenDTO generateToken(AuthRequestDTO authRequest) throws CustomException {
         log.info("Start generateToken Service");
-        UserEntity userEntity = checkIfUserNameExists(authRequest.getUsername());
+        UserEntity userEntity = checkIfUserNameExists(authRequest.getUsername().toLowerCase());
 
         if (!passwordUtils.verifyPassword(authRequest.getPassword(), userEntity.getPassword())) {
             throw new CustomException("Incorrect password");
@@ -81,7 +81,7 @@ public class AuthService implements IAuthService {
     }
 
     private UserEntity checkIfUserNameExists(String userName) throws CustomException {
-        Optional<UserEntity> searchedUserName = userRepository.findByUserNameContainingIgnoreCase(userName);
+        Optional<UserEntity> searchedUserName = userRepository.findByUserName(userName);
         if (searchedUserName.isEmpty()) {
             log.error("User name {} not found", userName);
             throw new CustomException("User does not exist");

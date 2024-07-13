@@ -7,7 +7,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="58665b10-b644-4986-ad33-5cb857a8250d" name="Changes" comment="Bug Fixed" />
+    <list default="true" id="58665b10-b644-4986-ad33-5cb857a8250d" name="Changes" comment="Max post request 50MB">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Task/PlatformInitializerTS/src/main/java/com/nortic/posdash/ts/platforminitializer/service/PlatformInitializerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Task/PlatformInitializerTS/src/main/java/com/nortic/posdash/ts/platforminitializer/service/PlatformInitializerServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/service/AuthService.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -319,6 +325,8 @@
       <workItem from="1720824581976" duration="998000" />
       <workItem from="1720826507396" duration="25000" />
       <workItem from="1720826597336" duration="442000" />
+      <workItem from="1720827486145" duration="401000" />
+      <workItem from="1720833086359" duration="764000" />
     </task>
     <task id="LOCAL-00001" summary="Some Errors Fixed">
       <option name="closed" value="true" />
@@ -432,7 +440,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720827034981</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Max post request 50MB">
+      <option name="closed" value="true" />
+      <created>1720827875176</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1720827875176</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -473,6 +489,7 @@
     <MESSAGE value="New Service added" />
     <MESSAGE value="files defined" />
     <MESSAGE value="Bug Fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Bug Fixed" />
+    <MESSAGE value="Max post request 50MB" />
+    <option name="LAST_COMMIT_MESSAGE" value="Max post request 50MB" />
   </component>
 </project>

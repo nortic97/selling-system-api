@@ -54,13 +54,13 @@ public class PlatformInitializerServiceImpl implements IPlatformInitializerServi
         }
 
         // Insert users
-        if (!userRepository.existsByUserName("posdashAdmin")) {
+        if (!userRepository.existsByUserName("posdashadmin")) {
             adminRole = roleRepository.findByName("Administrator");
             UserEntity adminUser = new UserEntity();
             adminUser.setId(UUID.fromString("11111111-1111-1111-1111-111111111111"));
             adminUser.setFullName("PosDash");
             adminUser.setLastName("Admin");
-            adminUser.setUserName("posdashAdmin");
+            adminUser.setUserName("posdashadmin");
             adminUser.setPassword(passwordUtils.encryptPassword("PosdashAdmin2024*"));
             adminUser.setEmail("admin@posdash.com");
             adminUser.setPhone("1234567890");
