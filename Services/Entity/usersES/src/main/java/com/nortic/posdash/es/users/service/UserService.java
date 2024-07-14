@@ -70,7 +70,7 @@ public class UserService implements IUserService {
     @Override
     public List<UserDTO> getAllUsers() throws CustomException {
         log.info("Start getAllUsers Service");
-        List<UserEntity> userEntityList = userRepository.findAll(Sort.by("fullName").ascending());
+        List<UserEntity> userEntityList = userRepository.findAllByDeletedAtIsNull(Sort.by("fullName").ascending());
         log.info("End getAllUsers Service");
         return mapper.convertToDtoList(userEntityList, UserDTO.class);
     }
@@ -79,7 +79,7 @@ public class UserService implements IUserService {
     public Page<UserDTO> getAllUsers(int page, int size) throws CustomException {
         log.info("Start getAllUsers Service");
         Pageable pageable = PageRequest.of(page, size, Sort.by("fullName").ascending());
-        Page<UserEntity> userEntityPage = userRepository.findAll(pageable);
+        Page<UserEntity> userEntityPage = userRepository.findAllByDeletedAtIsNull(pageable);
         log.info("End getAllUsers Service");
         return mapper.convertToDtoPage(userEntityPage, UserDTO.class);
     }
