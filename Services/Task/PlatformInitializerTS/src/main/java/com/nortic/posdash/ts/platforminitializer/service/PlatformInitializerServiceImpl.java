@@ -39,7 +39,8 @@ public class PlatformInitializerServiceImpl implements IPlatformInitializerServi
     @Transactional
     @Override
     public void initializePlatform() {
-        insertRoleIfNotExist();
+        insertRoleIfNotExist("Administrator");
+        insertRoleIfNotExist("User");
         insertUserIfNotExist(LocalDate.of(1997, 5, 22));
         insertMenuIfNotExist("Dashboard", "Dashboard main menu", false, Icons.DASHBOARD, 1, "/home/dashboard");
         insertMenuIfNotExist("Products", "Products Menu", true, Icons.PRODUCTS, 2, "/home/products");
@@ -76,16 +77,16 @@ public class PlatformInitializerServiceImpl implements IPlatformInitializerServi
         addMenusToRole();
     }
 
-    private void insertRoleIfNotExist() {
-        if (!roleRepository.existsByName("Administrator")) {
+    private void insertRoleIfNotExist(String roleName) {
+        if (!roleRepository.existsByName(roleName)) {
             RoleEntity role = new RoleEntity();
             role.setId(UUID.fromString("11111111-1111-1111-1111-111111111111"));
-            role.setName("Administrator");
-            role.setDescription("Administrator role");
+            role.setName(roleName);
+            role.setDescription("Platform role created");
             role.setStatus(true);
             roleRepository.save(role);
             roleRepository.flush();
-            log.info("{} role added", "Administrator");
+            log.info("{} role added", roleName);
         }
     }
 
