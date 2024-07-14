@@ -86,6 +86,12 @@ public class AuthService implements IAuthService {
             log.error("User name {} not found", userName);
             throw new CustomException("User does not exist");
         }
+
+        if (!searchedUserName.get().getStatus()) {
+            log.error("User {} Inactive", userName);
+            throw new CustomException("User Inactive");
+        }
+
         return searchedUserName.get();
     }
 

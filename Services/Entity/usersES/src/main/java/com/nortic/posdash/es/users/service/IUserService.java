@@ -52,4 +52,18 @@ public interface IUserService {
      * Delete user from DB.
      */
     void deleteById(UUID id) throws CustomException;
+
+    /**
+     * Get a list of users deleted.
+     * @return
+     * @throws CustomException
+     */
+    Page<UserDTO> getDeletedUsers(int page, int size) throws CustomException;
+
+    /**
+     * delete permanently a user;
+     * @param id
+     * @throws CustomException
+     */
+    void permanentlyDeleteUser(UUID id) throws CustomException;
 }

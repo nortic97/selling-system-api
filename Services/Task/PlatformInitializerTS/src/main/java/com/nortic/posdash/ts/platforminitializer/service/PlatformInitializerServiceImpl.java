@@ -39,223 +39,126 @@ public class PlatformInitializerServiceImpl implements IPlatformInitializerServi
     @Transactional
     @Override
     public void initializePlatform() {
+        insertRoleIfNotExist();
+        insertUserIfNotExist(LocalDate.of(1997, 5, 22));
+        insertMenuIfNotExist("Dashboard", "Dashboard main menu", false, Icons.DASHBOARD, 1, "/home/dashboard");
+        insertMenuIfNotExist("Products", "Products Menu", true, Icons.PRODUCTS, 2, "/home/products");
+        insertMenuIfNotExist("Categories", "Categories Menu", true, Icons.CATEGORIES, 3, "/home/categories");
+        insertMenuIfNotExist("Sale", "Sale menu", true, Icons.SALE, 4, "/home/sale");
+        insertMenuIfNotExist("Purchases", "Purchases menu", true, Icons.PURCHASES, 5, "/home/purchases");
+        insertMenuIfNotExist("Returns", "Returns menu", true, Icons.RETURNS, 6, "/home/returns");
+        insertMenuIfNotExist("People", "People menu", true, Icons.PEOPLE, 7, "/home/people");
+        insertMenuIfNotExist("Reports", "Reports menu", false, Icons.REPORTS, 8, "/home/reports");
 
-        // Insert Roles
-        RoleEntity adminRole;
+        insertSubMenuIfNotExist("Products", "List Product", 1, "/home/products/listProducts", "List Product submenu");
+        insertSubMenuIfNotExist("Products", "Add Product", 2, "/home/products/addProduct", "Add Product submenu");
+        insertSubMenuIfNotExist("Products", "Trash Product", 3, "/home/products/trashProducts", "Trash Product submenu");
+
+        insertSubMenuIfNotExist("Categories", "List Categories", 1, "/home/categories/listCategories", "List Categories submenu");
+        insertSubMenuIfNotExist("Categories", "Add Categories", 2, "/home/categories/addCategories", "Add Categories submenu");
+        insertSubMenuIfNotExist("Categories", "Trash Categories", 3, "/home/categories/trashCategories", "Trash Categories submenu");
+
+        insertSubMenuIfNotExist("Sale", "List Sale", 1, "/home/sale/listSale", "List Sale submenu");
+        insertSubMenuIfNotExist("Sale", "Add Sale", 2, "/home/sale/addSale", "Add Sale submenu");
+        insertSubMenuIfNotExist("Sale", "Trash Sale", 3, "/home/sale/trashSale", "Trash Sale submenu");
+
+        insertSubMenuIfNotExist("Purchases", "List Purchases", 1, "/home/purchases/listPurchases", "List Purchases submenu");
+        insertSubMenuIfNotExist("Purchases", "Add Purchases", 2, "/home/purchases/addPurchases", "Add Purchases submenu");
+        insertSubMenuIfNotExist("Purchases", "Trash Purchases", 3, "/home/purchases/trashPurchases", "Trash Purchases submenu");
+
+        insertSubMenuIfNotExist("Returns", "List Returns", 1, "/home/returns/listReturns", "List Returns submenu");
+        insertSubMenuIfNotExist("Returns", "Add Returns", 2, "/home/returns/addReturns", "Add Returns submenu");
+        insertSubMenuIfNotExist("Returns", "Trash Returns", 3, "/home/returns/trashReturns", "Trash Returns submenu");
+
+        insertSubMenuIfNotExist("People", "Users", 3, "/home/people/users", "User list submenu");
+
+        addPermissionsToRole();
+        addMenusToRole();
+    }
+
+    private void insertRoleIfNotExist() {
         if (!roleRepository.existsByName("Administrator")) {
-            adminRole = new RoleEntity();
-            adminRole.setId(UUID.fromString("11111111-1111-1111-1111-111111111111"));
-            adminRole.setName("Administrator");
-            adminRole.setDescription("Administrator role");
-            adminRole.setStatus(true);
-            roleRepository.save(adminRole);
+            RoleEntity role = new RoleEntity();
+            role.setId(UUID.fromString("11111111-1111-1111-1111-111111111111"));
+            role.setName("Administrator");
+            role.setDescription("Administrator role");
+            role.setStatus(true);
+            roleRepository.save(role);
             roleRepository.flush();
-            log.info("Admin role added");
+            log.info("{} role added", "Administrator");
         }
+    }
 
-        // Insert users
+    private void insertUserIfNotExist(LocalDate birthDate) {
         if (!userRepository.existsByUserName("posdashadmin")) {
-            adminRole = roleRepository.findByName("Administrator");
-            UserEntity adminUser = new UserEntity();
-            adminUser.setId(UUID.fromString("11111111-1111-1111-1111-111111111111"));
-            adminUser.setFullName("PosDash");
-            adminUser.setLastName("Admin");
-            adminUser.setUserName("posdashadmin");
-            adminUser.setPassword(passwordUtils.encryptPassword("PosdashAdmin2024*"));
-            adminUser.setEmail("admin@posdash.com");
-            adminUser.setPhone("1234567890");
-            adminUser.setRole(adminRole);
-            adminUser.setStatus(true);
-            adminUser.setAddress("123 Main St");
-            adminUser.setBirthDate(LocalDate.of(1997, 5, 22));
-            userRepository.save(adminUser);
+            RoleEntity role = roleRepository.findByName("Administrator");
+            UserEntity user = new UserEntity();
+            user.setId(UUID.fromString("11111111-1111-1111-1111-111111111111"));
+            user.setFullName("PosDash");
+            user.setLastName("Admin");
+            user.setUserName("posdashadmin");
+            user.setPassword(passwordUtils.encryptPassword("PosdashAdmin2024*"));
+            user.setEmail("admin@posdash.com");
+            user.setPhone("1234567890");
+            user.setRole(role);
+            user.setStatus(true);
+            user.setAddress("123 Main St");
+            user.setBirthDate(birthDate);
+            userRepository.save(user);
             userRepository.flush();
-            log.info("Admin user added");
+            log.info("{} user added", "posdashadmin");
         }
+    }
 
-        // Insert menus
-        if (!menuRepository.existsByName("Dashboard")) {
-            MenuEntity dashboardMenu = new MenuEntity();
-            dashboardMenu.setId(UUID.randomUUID());
-            dashboardMenu.setName("Dashboard");
-            dashboardMenu.setDescription("Dashboard main menu");
-            dashboardMenu.setHasSubmenu(false);
-            dashboardMenu.setIcon(Icons.DASHBOARD);
-            dashboardMenu.setPosition(1);
-            dashboardMenu.setStatus(true);
-            dashboardMenu.setUrl("/home/dashboard");
-            menuRepository.save(dashboardMenu);
+    private void insertMenuIfNotExist(String name, String description, boolean hasSubmenu, String icon, int position, String url) {
+        if (!menuRepository.existsByName(name)) {
+            MenuEntity menu = new MenuEntity();
+            menu.setId(UUID.randomUUID());
+            menu.setName(name);
+            menu.setDescription(description);
+            menu.setHasSubmenu(hasSubmenu);
+            menu.setIcon(icon);
+            menu.setPosition(position);
+            menu.setStatus(true);
+            menu.setUrl(url);
+            menuRepository.save(menu);
             menuRepository.flush();
-            log.info("Dashboard menu added");
+            log.info("{} menu added", name);
         }
+    }
 
-        if (!menuRepository.existsByName("Products")) {
-            MenuEntity productsMenu = new MenuEntity();
-            productsMenu.setId(UUID.randomUUID());
-            productsMenu.setName("Products");
-            productsMenu.setDescription("Products Menu");
-            productsMenu.setHasSubmenu(true);
-            productsMenu.setIcon(Icons.PRODUCTS);
-            productsMenu.setPosition(2);
-            productsMenu.setStatus(true);
-            productsMenu.setUrl("/home/products");
-            menuRepository.save(productsMenu);
-            menuRepository.flush();
-            log.info("Products menu added");
-        }
-
-        if (!menuRepository.existsByName("Categories")) {
-            MenuEntity categoriesMenu = new MenuEntity();
-            categoriesMenu.setId(UUID.randomUUID());
-            categoriesMenu.setName("Categories");
-            categoriesMenu.setDescription("Categories Menu");
-            categoriesMenu.setHasSubmenu(true);
-            categoriesMenu.setIcon(Icons.CATEGORIES);
-            categoriesMenu.setPosition(3);
-            categoriesMenu.setStatus(true);
-            categoriesMenu.setUrl("/home/categories");
-            menuRepository.save(categoriesMenu);
-            menuRepository.flush();
-            log.info("Categories menu added");
-        }
-
-        if (!menuRepository.existsByName("Sale")) {
-            MenuEntity saleMenu = new MenuEntity();
-            saleMenu.setId(UUID.randomUUID());
-            saleMenu.setName("Sale");
-            saleMenu.setDescription("Sale menu");
-            saleMenu.setHasSubmenu(true);
-            saleMenu.setIcon(Icons.SALE);
-            saleMenu.setPosition(4);
-            saleMenu.setStatus(true);
-            saleMenu.setUrl("/home/sale");
-            menuRepository.save(saleMenu);
-            menuRepository.flush();
-            log.info("Sale menu added");
-        }
-
-        if (!menuRepository.existsByName("Purchases")) {
-            MenuEntity purchasesMenu = new MenuEntity();
-            purchasesMenu.setId(UUID.randomUUID());
-            purchasesMenu.setName("Purchases");
-            purchasesMenu.setDescription("Purchases menu");
-            purchasesMenu.setHasSubmenu(true);
-            purchasesMenu.setIcon(Icons.PURCHASES);
-            purchasesMenu.setPosition(5);
-            purchasesMenu.setStatus(true);
-            purchasesMenu.setUrl("/home/purchases");
-            menuRepository.save(purchasesMenu);
-            menuRepository.flush();
-            log.info("Purchases menu added");
-        }
-
-        if (!menuRepository.existsByName("Returns")) {
-            MenuEntity returnsMenu = new MenuEntity();
-            returnsMenu.setId(UUID.randomUUID());
-            returnsMenu.setName("Returns");
-            returnsMenu.setDescription("Returns menu");
-            returnsMenu.setHasSubmenu(true);
-            returnsMenu.setIcon(Icons.RETURNS);
-            returnsMenu.setPosition(6);
-            returnsMenu.setStatus(true);
-            returnsMenu.setUrl("/home/returns");
-            menuRepository.save(returnsMenu);
-            menuRepository.flush();
-            log.info("Returns menu added");
-        }
-
-        if (!menuRepository.existsByName("People")) {
-            MenuEntity peopleMenu = new MenuEntity();
-            peopleMenu.setId(UUID.randomUUID());
-            peopleMenu.setName("People");
-            peopleMenu.setDescription("People menu");
-            peopleMenu.setHasSubmenu(true);
-            peopleMenu.setIcon(Icons.PEOPLE);
-            peopleMenu.setPosition(7);
-            peopleMenu.setStatus(true);
-            peopleMenu.setUrl("/home/people");
-            menuRepository.save(peopleMenu);
-            menuRepository.flush();
-            log.info("People menu added");
-        }
-
-        if (!menuRepository.existsByName("Reports")) {
-            MenuEntity reportsMenu = new MenuEntity();
-            reportsMenu.setId(UUID.randomUUID());
-            reportsMenu.setName("Reports");
-            reportsMenu.setDescription("Reports menu");
-            reportsMenu.setHasSubmenu(false);
-            reportsMenu.setIcon(Icons.REPORTS);
-            reportsMenu.setPosition(8);
-            reportsMenu.setStatus(true);
-            reportsMenu.setUrl("/home/reports");
-            menuRepository.save(reportsMenu);
-            menuRepository.flush();
-            log.info("Reports menu added");
-        }
-
-        // Insert submenus
-        MenuEntity menu;
-        if (!submenuRepository.existsByName("List Product")) {
-            menu = menuRepository.findByName("Products");
-            SubMenuEntity productsListSubmenu = new SubMenuEntity();
-            productsListSubmenu.setId(UUID.randomUUID());
-            productsListSubmenu.setName("List Product");
-            productsListSubmenu.setPosition(1);
-            productsListSubmenu.setDescription("List Product submenu");
-            productsListSubmenu.setStatus(true);
-            productsListSubmenu.setUrl("/home/products/listProducts");
-            productsListSubmenu.setMenu(menu);
-            submenuRepository.save(productsListSubmenu);
+    private void insertSubMenuIfNotExist(String menuName, String subMenuName, int position, String url, String description) {
+        if (!submenuRepository.existsByName(subMenuName)) {
+            MenuEntity menu = menuRepository.findByName(menuName);
+            SubMenuEntity subMenu = new SubMenuEntity();
+            subMenu.setId(UUID.randomUUID());
+            subMenu.setName(subMenuName);
+            subMenu.setPosition(position);
+            subMenu.setDescription(description);
+            subMenu.setStatus(true);
+            subMenu.setUrl(url);
+            subMenu.setMenu(menu);
+            submenuRepository.save(subMenu);
             submenuRepository.flush();
-            log.info("List Product submenu added");
+            log.info("{} submenu added", subMenuName);
         }
+    }
 
-        if (!submenuRepository.existsByName("Add Product")) {
-            menu = menuRepository.findByName("Products");
-            SubMenuEntity addProductsSubmenu = new SubMenuEntity();
-            addProductsSubmenu.setId(UUID.randomUUID());
-            addProductsSubmenu.setName("Add Product");
-            addProductsSubmenu.setPosition(2);
-            addProductsSubmenu.setDescription("Add Product submenu");
-            addProductsSubmenu.setStatus(true);
-            addProductsSubmenu.setUrl("/home/products/addProduct");
-            addProductsSubmenu.setMenu(menu);
-            submenuRepository.save(addProductsSubmenu);
-            submenuRepository.flush();
-            log.info("Add Product submenu added");
-        }
-
-        if (!submenuRepository.existsByName("Users")) {
-            menu = menuRepository.findByName("People");
-            SubMenuEntity userListSubmenu = new SubMenuEntity();
-            userListSubmenu.setId(UUID.randomUUID());
-            userListSubmenu.setName("Users");
-            userListSubmenu.setPosition(3);
-            userListSubmenu.setDescription("User list submenu");
-            userListSubmenu.setStatus(true);
-            userListSubmenu.setUrl("/home/people/users");
-            userListSubmenu.setMenu(menu);
-            submenuRepository.save(userListSubmenu);
-            submenuRepository.flush();
-            log.info("Users submenu added");
-        }
-
-        // Add all permissions to the admin role
+    private void addPermissionsToRole() {
         List<PermissionsEntity> allPermissions = permissionRepository.findAll();
-        adminRole = roleRepository.findByName("Administrator");
-        adminRole.setPermissions(allPermissions);
-        roleRepository.save(adminRole);
+        RoleEntity role = roleRepository.findByName("Administrator");
+        role.setPermissions(allPermissions);
+        roleRepository.save(role);
         roleRepository.flush();
-        log.info("Permissions added");
+        log.info("Permissions added to " + "Administrator");
+    }
 
-        // Add all menus to the admin role
+    private void addMenusToRole() {
         List<MenuEntity> allMenus = menuRepository.findAll();
-        adminRole = roleRepository.findByName("Administrator");
-        adminRole.setMenus(allMenus);
-        roleRepository.save(adminRole);
+        RoleEntity role = roleRepository.findByName("Administrator");
+        role.setMenus(allMenus);
+        roleRepository.save(role);
         roleRepository.flush();
-        log.info("Menus added");
-
+        log.info("Menus added to " + "Administrator");
     }
 }

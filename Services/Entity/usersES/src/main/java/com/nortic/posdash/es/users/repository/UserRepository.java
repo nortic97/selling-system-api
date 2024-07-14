@@ -18,4 +18,5 @@ public interface UserRepository extends JpaRepository<UserEntity, UUID> {
     Optional<UserEntity> findByUserName(String username);
     Page<UserEntity> findAllByDeletedAtIsNull(Pageable pageable);
     List<UserEntity> findAllByDeletedAtIsNull(Sort sort);
+    Page<UserEntity> findAllByDeletedAtIsNotNull(Pageable pageable);
 }

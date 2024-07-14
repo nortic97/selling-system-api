@@ -74,7 +74,7 @@ public class UsersController {
             List<UserDTO> userDTO = userService.getAllUsers();
             log.info("End getAllUsers Controller");
             return ResponseEntity.ok(new ResponseBody<>(userDTO, StatusEnum.SUCCESS).getBody());
-        }catch (CustomException e) {
+        } catch (CustomException e) {
             log.error(e.getMessage());
             return ResponseEntity.internalServerError().body(new ResponseBody<>(e.getMessage(), StatusEnum.ERROR).getBody());
         }
@@ -84,10 +84,10 @@ public class UsersController {
     public ResponseEntity<?> getAllUsers(@PathVariable int size, @PathVariable int page) {
         log.info("Start getAllUsers by page Controller");
         try {
-            Page<UserDTO> userDTO = userService.getAllUsers(page,size);
+            Page<UserDTO> userDTO = userService.getAllUsers(page, size);
             log.info("End getAllUsers by page Controller");
             return ResponseEntity.ok(new ResponseBody<>(userDTO, StatusEnum.SUCCESS).getBody());
-        }catch (CustomException e) {
+        } catch (CustomException e) {
             log.error(e.getMessage());
             return ResponseEntity.internalServerError().body(new ResponseBody<>(e.getMessage(), StatusEnum.ERROR).getBody());
         }
@@ -114,6 +114,32 @@ public class UsersController {
             return ResponseEntity.ok(new ResponseBody<>("Deleted", StatusEnum.SUCCESS).getBody());
         } catch (CustomException ce) {
             return ResponseEntity.internalServerError().body(new ResponseBody<>(ce.getMessage(), StatusEnum.ERROR).getBody());
+        }
+    }
+
+    @GetMapping("/getAllDeletedUsers/{page}/{size}")
+    public ResponseEntity<?> getAllDeletedUsers(@PathVariable int page, @PathVariable int size) {
+        log.info("Start getAllDeletedUsers Controller");
+        try {
+            Page<UserDTO> deletedUserDTO = userService.getDeletedUsers(page, size);
+            log.info("End getAllDeletedUsers Controller");
+            return ResponseEntity.ok(new ResponseBody<>(deletedUserDTO, StatusEnum.SUCCESS).getBody());
+        } catch (CustomException e) {
+            log.error(e.getMessage());
+            return ResponseEntity.internalServerError().body(new ResponseBody<>(e.getMessage(), StatusEnum.ERROR).getBody());
+        }
+    }
+
+    @DeleteMapping("/deletePermanently/{id}")
+    public ResponseEntity<?> deletePermanently(@PathVariable UUID id) {
+        log.info("Start deletePermanently Controller for user id: {}", id);
+        try {
+            userService.permanentlyDeleteUser(id);
+            log.info("End deletePermanently Controller");
+            return ResponseEntity.ok(new ResponseBody<>("User permanently deleted", StatusEnum.SUCCESS).getBody());
+        } catch (CustomException e) {
+            log.error(e.getMessage());
+            return ResponseEntity.internalServerError().body(new ResponseBody<>(e.getMessage(), StatusEnum.ERROR).getBody());
         }
     }
 

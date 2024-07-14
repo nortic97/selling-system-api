@@ -126,6 +126,24 @@ public class UserService implements IUserService {
         log.info("End deleteById Service");
     }
 
+    @Override
+    public Page<UserDTO> getDeletedUsers(int page, int size) throws CustomException {
+        log.info("Start getDeletedUsers Service");
+        Pageable pageable = PageRequest.of(page, size, Sort.by("fullName").ascending());
+        Page<UserEntity> userEntityPage = userRepository.findAllByDeletedAtIsNotNull(pageable);
+        log.info("End getDeletedUsers Service");
+        return mapper.convertToDtoPage(userEntityPage, UserDTO.class);
+    }
+
+    @Override
+    public void permanentlyDeleteUser(UUID id) throws CustomException {
+        log.info("Start permanentlyDeleteUser Service for user id: {}", id);
+        UserEntity userEntity = checkIfIdExists(id);
+        userRepository.delete(userEntity);
+        log.info("User with id: {} permanently deleted", id);
+        log.info("End permanentlyDeleteUser Service");
+    }
+
     private UserEntity checkIfIdExists(UUID id) throws CustomException {
         Optional<UserEntity> searchedId = userRepository.findById(id);
         if (searchedId.isEmpty()) {

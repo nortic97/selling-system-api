@@ -7,11 +7,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="58665b10-b644-4986-ad33-5cb857a8250d" name="Changes" comment="Username only LowerCase">
+    <list default="true" id="58665b10-b644-4986-ad33-5cb857a8250d" name="Changes" comment="User entity fix bugs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/controller/UsersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/controller/UsersController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/service/IUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/service/IUserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Task/PlatformInitializerTS/src/main/java/com/nortic/posdash/ts/platforminitializer/service/PlatformInitializerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Task/PlatformInitializerTS/src/main/java/com/nortic/posdash/ts/platforminitializer/service/PlatformInitializerServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Task/PlatformInitializerTS/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Task/PlatformInitializerTS/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/authUS/src/main/java/com/nortic/posdash/us/auth/service/AuthService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,7 +163,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.UsersEsApplication">
+  <component name="RunManager" selected="Spring Boot.PlatformInitializerTsApplication">
     <configuration name="AuthUsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="envFilePaths">
         <option value="$PROJECT_DIR$/../../.env" />
@@ -326,7 +330,8 @@
       <workItem from="1720826597336" duration="442000" />
       <workItem from="1720827486145" duration="401000" />
       <workItem from="1720833086359" duration="854000" />
-      <workItem from="1720921521667" duration="995000" />
+      <workItem from="1720921521667" duration="2158000" />
+      <workItem from="1720978556314" duration="3937000" />
     </task>
     <task id="LOCAL-00001" summary="Some Errors Fixed">
       <option name="closed" value="true" />
@@ -456,7 +461,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720833934462</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="User entity fix bugs">
+      <option name="closed" value="true" />
+      <created>1720922839664</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1720922839664</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -499,6 +512,7 @@
     <MESSAGE value="Bug Fixed" />
     <MESSAGE value="Max post request 50MB" />
     <MESSAGE value="Username only LowerCase" />
-    <option name="LAST_COMMIT_MESSAGE" value="Username only LowerCase" />
+    <MESSAGE value="User entity fix bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="User entity fix bugs" />
   </component>
 </project>
