@@ -1,6 +1,7 @@
 package com.nortic.posdash.models.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -11,7 +12,8 @@ public class RoleDTO {
     @NotBlank(message = "Role name is mandatory")
     private String name;
     private String description;
-    private boolean status;
+    @NotNull(message = "Role status is mandatory")
+    private Boolean status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
@@ -43,11 +45,11 @@ public class RoleDTO {
         this.description = description;
     }
 
-    public boolean isStatus() {
+    public Boolean isStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 

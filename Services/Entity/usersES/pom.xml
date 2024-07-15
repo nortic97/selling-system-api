@@ -72,12 +72,6 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.nortic.posdash.us</groupId>
-			<artifactId>models</artifactId>
-			<version>0.0.1</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>

@@ -11,6 +11,7 @@
         <module name="PlatformInitializerTS" />
         <module name="UserSettingsMS" />
         <module name="FileStorage" />
+        <module name="rolesES" />
         <module name="authUS" />
         <module name="usersES" />
       </profile>
@@ -28,6 +29,7 @@
       <module name="UserSettingsMS" options="-parameters" />
       <module name="authUS" options="-parameters" />
       <module name="models" options="-parameters" />
+      <module name="rolesES" options="-parameters" />
       <module name="usersES" options="-parameters" />
     </option>
   </component>

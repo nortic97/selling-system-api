@@ -14,6 +14,7 @@
         <option value="$PROJECT_DIR$/Task/PlatformInitializerTS/pom.xml" />
         <option value="$PROJECT_DIR$/Microservice/ChatMS/pom.xml" />
         <option value="$PROJECT_DIR$/Utility/FileStorageUS/pom.xml" />
+        <option value="$PROJECT_DIR$/Entity/rolesES/pom.xml" />
       </list>
     </option>
   </component>
