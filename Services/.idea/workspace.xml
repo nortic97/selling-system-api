@@ -7,9 +7,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="58665b10-b644-4986-ad33-5cb857a8250d" name="Changes" comment="New Functions Added">
+    <list default="true" id="58665b10-b644-4986-ad33-5cb857a8250d" name="Changes" comment="New Role Initializer">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Task/PlatformInitializerTS/src/main/java/com/nortic/posdash/ts/platforminitializer/service/PlatformInitializerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Task/PlatformInitializerTS/src/main/java/com/nortic/posdash/ts/platforminitializer/service/PlatformInitializerServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/usersES/src/main/java/com/nortic/posdash/es/users/service/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -325,7 +325,9 @@
       <workItem from="1720827486145" duration="401000" />
       <workItem from="1720833086359" duration="854000" />
       <workItem from="1720921521667" duration="2158000" />
-      <workItem from="1720978556314" duration="4686000" />
+      <workItem from="1720978556314" duration="4880000" />
+      <workItem from="1720984348192" duration="34000" />
+      <workItem from="1721050738691" duration="1358000" />
     </task>
     <task id="LOCAL-00001" summary="Some Errors Fixed">
       <option name="closed" value="true" />
@@ -471,7 +473,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720982703800</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="New Role Initializer">
+      <option name="closed" value="true" />
+      <created>1720983449944</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1720983449944</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -516,6 +526,7 @@
     <MESSAGE value="Username only LowerCase" />
     <MESSAGE value="User entity fix bugs" />
     <MESSAGE value="New Functions Added" />
-    <option name="LAST_COMMIT_MESSAGE" value="New Functions Added" />
+    <MESSAGE value="New Role Initializer" />
+    <option name="LAST_COMMIT_MESSAGE" value="New Role Initializer" />
   </component>
 </project>

@@ -96,6 +96,8 @@ public class UserService implements IUserService {
         userEntity.setAddress(user.getAddress());
         userEntity.setBirthDate(user.getBirthDate());
         userEntity.setPhoto(user.getPhoto());
+        userEntity.setDeletedAt(user.getDeletedAt());
+        userEntity.setStatus(user.isStatus());
 
         if (user.getPassword() != null && !user.getPassword().equals(userEntity.getPassword())) {
             if (!passwordUtils.verifyPassword(user.getPassword(), userEntity.getPassword())) {
