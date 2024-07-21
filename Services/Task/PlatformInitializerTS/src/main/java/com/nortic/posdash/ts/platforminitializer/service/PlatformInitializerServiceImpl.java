@@ -50,6 +50,7 @@ public class PlatformInitializerServiceImpl implements IPlatformInitializerServi
         insertMenuIfNotExist("Returns", "Returns menu", true, Icons.RETURNS, 6, "/home/returns");
         insertMenuIfNotExist("People", "People menu", true, Icons.PEOPLE, 7, "/home/people");
         insertMenuIfNotExist("Reports", "Reports menu", false, Icons.REPORTS, 8, "/home/reports");
+        insertMenuIfNotExist("Settings", "Settings menu", true, Icons.SETTINGS, 8, "/home/settings");
 
         insertSubMenuIfNotExist("Products", "List Product", 1, "/home/products/listProducts", "List Product submenu");
         insertSubMenuIfNotExist("Products", "Add Product", 2, "/home/products/addProduct", "Add Product submenu");
@@ -72,6 +73,9 @@ public class PlatformInitializerServiceImpl implements IPlatformInitializerServi
         insertSubMenuIfNotExist("Returns", "Trash Returns", 3, "/home/returns/trashReturns", "Trash Returns submenu");
 
         insertSubMenuIfNotExist("People", "Users", 3, "/home/people/users", "User list submenu");
+
+        insertSubMenuIfNotExist("Settings", "Parameters", 1, "/home/settings/parameters", "Parameters submenu");
+        insertSubMenuIfNotExist("Settings", "Roles", 1, "/home/settings/roles", "Roles submenu");
 
         addPermissionsToRole();
         addMenusToRole();
