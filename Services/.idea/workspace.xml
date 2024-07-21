@@ -7,10 +7,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="58665b10-b644-4986-ad33-5cb857a8250d" name="Changes" comment="Roles Service added And fixed Bugs">
+    <list default="true" id="58665b10-b644-4986-ad33-5cb857a8250d" name="Changes" comment="New Menu Added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Task/PlatformInitializerTS/src/main/java/com/nortic/posdash/ts/platforminitializer/service/PlatformInitializerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Task/PlatformInitializerTS/src/main/java/com/nortic/posdash/ts/platforminitializer/service/PlatformInitializerServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Task/PlatformInitializerTS/src/main/java/com/nortic/posdash/ts/platforminitializer/utils/Icons.java" beforeDir="false" afterPath="$PROJECT_DIR$/Task/PlatformInitializerTS/src/main/java/com/nortic/posdash/ts/platforminitializer/utils/Icons.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -350,7 +349,8 @@
       <workItem from="1721050738691" duration="17700000" />
       <workItem from="1721244673095" duration="848000" />
       <workItem from="1721252722299" duration="1938000" />
-      <workItem from="1721584307013" duration="377000" />
+      <workItem from="1721584307013" duration="654000" />
+      <workItem from="1721585207053" duration="696000" />
     </task>
     <task id="LOCAL-00001" summary="Some Errors Fixed">
       <option name="closed" value="true" />
@@ -520,7 +520,15 @@
       <option name="project" value="LOCAL" />
       <updated>1721069820286</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="New Menu Added">
+      <option name="closed" value="true" />
+      <created>1721584795656</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1721584795656</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -568,6 +576,7 @@
     <MESSAGE value="New Role Initializer" />
     <MESSAGE value="Update user function updated" />
     <MESSAGE value="Roles Service added And fixed Bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Roles Service added And fixed Bugs" />
+    <MESSAGE value="New Menu Added" />
+    <option name="LAST_COMMIT_MESSAGE" value="New Menu Added" />
   </component>
 </project>
