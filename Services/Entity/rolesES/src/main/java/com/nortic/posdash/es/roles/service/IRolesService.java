@@ -48,4 +48,14 @@ public interface IRolesService {
      */
     void permanentlyDeleteRoleById(UUID id) throws CustomException;
 
+    /**
+     * Update role and menu relationship.
+     *
+     * @param roleId  UUID key search role information.
+     * @param menuIds List with UUID's key for search Menu information.
+     * @return RoleEntity
+     * @throws CustomException Error Information.
+     */
+    RoleDTO updateRoleMenus(UUID roleId, List<UUID> menuIds) throws CustomException;
+
 }

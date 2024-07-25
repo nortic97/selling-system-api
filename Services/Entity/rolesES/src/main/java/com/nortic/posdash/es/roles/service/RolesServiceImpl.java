@@ -1,9 +1,11 @@
 package com.nortic.posdash.es.roles.service;
 
+import com.nortic.posdash.es.roles.repository.MenuRepository;
 import com.nortic.posdash.es.roles.repository.RolesRepository;
 import com.nortic.posdash.es.roles.utils.CustomException;
 import com.nortic.posdash.es.roles.utils.Mapper;
 import com.nortic.posdash.models.dto.RoleDTO;
+import com.nortic.posdash.models.entity.MenuEntity;
 import com.nortic.posdash.models.entity.RoleEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,11 +27,13 @@ public class RolesServiceImpl implements IRolesService {
     private static final Logger log = LoggerFactory.getLogger(RolesServiceImpl.class);
     private final RolesRepository rolesRepository;
     private final Mapper mapper;
+    private final MenuRepository menuRepository;
 
     @Autowired
-    public RolesServiceImpl(RolesRepository rolesRepository, Mapper mapper) {
+    public RolesServiceImpl(RolesRepository rolesRepository, Mapper mapper, MenuRepository menuRepository) {
         this.rolesRepository = rolesRepository;
         this.mapper = mapper;
+        this.menuRepository = menuRepository;
     }
 
     @Override
@@ -122,6 +127,41 @@ public class RolesServiceImpl implements IRolesService {
         RoleEntity roleEntity = checkIfIdExists(id);
         rolesRepository.delete(roleEntity);
         log.info("End permanentlyDeleteRoleById Service: {}", id);
+    }
+
+    @Transactional
+    @Override
+    public RoleDTO updateRoleMenus(UUID roleId, List<UUID> menuIds) throws CustomException {
+        log.info("Start updateRoleMenus Service: {}", roleId);
+        Optional<RoleEntity> optionalRole = rolesRepository.findById(roleId);
+        if (optionalRole.isPresent()) {
+            RoleEntity role = optionalRole.get();
+            List<MenuEntity> newMenus = menuRepository.findAllById(menuIds);
+
+            // Add new menus
+            for (MenuEntity menu : newMenus) {
+                if (!role.getMenus().contains(menu)) {
+                    role.getMenus().add(menu);
+                }
+            }
+
+            // Remove old menus
+            List<MenuEntity> menusToRemove = role.getMenus().stream()
+                    .filter(menu -> !newMenus.contains(menu))
+                    .toList();
+
+            role.getMenus().removeAll(menusToRemove);
+
+            RoleEntity updatedRole = rolesRepository.save(role);
+
+            RoleDTO roleDTO = mapper.convertToDto(updatedRole, RoleDTO.class);
+
+            log.info("End updateRoleMenus Service: {}", roleId);
+
+            return roleDTO;
+        } else {
+            throw new CustomException("Role not found with");
+        }
     }
 
     private void checkIfRoleExists(String roleName) throws CustomException {

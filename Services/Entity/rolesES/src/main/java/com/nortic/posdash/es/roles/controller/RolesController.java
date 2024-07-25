@@ -26,10 +26,12 @@ public class RolesController {
     private static final Logger log = LoggerFactory.getLogger(RolesController.class);
 
     private final RolesServiceImpl rolesService;
+    private final RolesServiceImpl rolesServiceImpl;
 
     @Autowired
-    public RolesController(RolesServiceImpl rolesService) {
+    public RolesController(RolesServiceImpl rolesService, RolesServiceImpl rolesServiceImpl) {
         this.rolesService = rolesService;
+        this.rolesServiceImpl = rolesServiceImpl;
     }
 
     @PostMapping("/addRole")
@@ -132,6 +134,19 @@ public class RolesController {
         } catch (CustomException ce) {
             log.error(ce.getMessage());
             return ResponseEntity.internalServerError().body(new ResponseBody<>(ce.getMessage(), StatusEnum.ERROR).getBody());
+        }
+    }
+
+    @PutMapping("updateRoleMenus/{roleId}")
+    public ResponseEntity<?> updateRoleMenus(@PathVariable UUID roleId, @RequestBody List<UUID> menuIds) {
+        log.info("Start updateRoleMenus Controller");
+        try {
+            RoleDTO updatedRole = rolesServiceImpl.updateRoleMenus(roleId, menuIds);
+            log.info("End updateRoleMenus Controller");
+            return ResponseEntity.ok(new ResponseBody<>(updatedRole, StatusEnum.SUCCESS).getBody());
+        } catch (CustomException e) {
+            log.error(e.getMessage());
+            return ResponseEntity.internalServerError().body(new ResponseBody<>(e.getMessage(), StatusEnum.ERROR).getBody());
         }
     }
 

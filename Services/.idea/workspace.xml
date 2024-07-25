@@ -8,8 +8,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="58665b10-b644-4986-ad33-5cb857a8250d" name="Changes" comment="New Menu Added">
+      <change afterPath="$PROJECT_DIR$/Entity/rolesES/src/main/java/com/nortic/posdash/es/roles/repository/MenuRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Task/PlatformInitializerTS/src/main/java/com/nortic/posdash/ts/platforminitializer/service/PlatformInitializerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Task/PlatformInitializerTS/src/main/java/com/nortic/posdash/ts/platforminitializer/service/PlatformInitializerServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/rolesES/src/main/java/com/nortic/posdash/es/roles/controller/RolesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/rolesES/src/main/java/com/nortic/posdash/es/roles/controller/RolesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/rolesES/src/main/java/com/nortic/posdash/es/roles/service/IRolesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/rolesES/src/main/java/com/nortic/posdash/es/roles/service/IRolesService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/rolesES/src/main/java/com/nortic/posdash/es/roles/service/RolesServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/rolesES/src/main/java/com/nortic/posdash/es/roles/service/RolesServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,8 +23,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -351,6 +354,9 @@
       <workItem from="1721252722299" duration="1938000" />
       <workItem from="1721584307013" duration="654000" />
       <workItem from="1721585207053" duration="696000" />
+      <workItem from="1721910743332" duration="276000" />
+      <workItem from="1721911427511" duration="94000" />
+      <workItem from="1721911719551" duration="2996000" />
     </task>
     <task id="LOCAL-00001" summary="Some Errors Fixed">
       <option name="closed" value="true" />
