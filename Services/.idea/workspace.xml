@@ -7,10 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="58665b10-b644-4986-ad33-5cb857a8250d" name="Changes" comment="Sql Updated">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/models/entity/RoleEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/models/entity/RoleEntity.java" afterDir="false" />
-    </list>
+    <list default="true" id="58665b10-b644-4986-ad33-5cb857a8250d" name="Changes" comment="Fixed table name" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -358,7 +355,7 @@
       <workItem from="1721954246682" duration="4702000" />
       <workItem from="1721966836431" duration="78000" />
       <workItem from="1722000730442" duration="4417000" />
-      <workItem from="1722017832555" duration="1014000" />
+      <workItem from="1722017832555" duration="1104000" />
     </task>
     <task id="LOCAL-00001" summary="Some Errors Fixed">
       <option name="closed" value="true" />
@@ -560,7 +557,15 @@
       <option name="project" value="LOCAL" />
       <updated>1722004549381</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Fixed table name">
+      <option name="closed" value="true" />
+      <created>1722018930220</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1722018930220</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -612,6 +617,7 @@
     <MESSAGE value="Update menu role added" />
     <MESSAGE value="Fixed Bug Roles Menu" />
     <MESSAGE value="Sql Updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="Sql Updated" />
+    <MESSAGE value="Fixed table name" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed table name" />
   </component>
 </project>

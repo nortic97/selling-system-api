@@ -27,11 +27,14 @@ BEGIN
         sm.position AS submenu_position,
         sm.url AS submenu_url
     FROM
-        role_menu rm
+        role_menus rm
     JOIN
         menus m ON rm.menu_id = m.id
     LEFT JOIN
-        submenus sm ON sm.menu_id = m.id
+        (SELECT sm.*
+         FROM submenus sm
+         JOIN role_submenus rsm ON sm.id = rsm.submenu_id
+         WHERE rsm.role_id = p_role_id) sm ON sm.menu_id = m.id
     WHERE
         rm.role_id = p_role_id
     ORDER BY
