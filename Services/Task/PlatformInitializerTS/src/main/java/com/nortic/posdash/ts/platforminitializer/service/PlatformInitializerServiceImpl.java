@@ -42,6 +42,7 @@ public class PlatformInitializerServiceImpl implements IPlatformInitializerServi
         insertRoleIfNotExist("Administrator");
         insertRoleIfNotExist("User");
         insertUserIfNotExist(LocalDate.of(1997, 5, 22));
+
         insertMenuIfNotExist("Dashboard", "Dashboard main menu", false, Icons.DASHBOARD, 1, "/home/dashboard");
         insertMenuIfNotExist("Products", "Products Menu", true, Icons.PRODUCTS, 2, "/home/products");
         insertMenuIfNotExist("Categories", "Categories Menu", true, Icons.CATEGORIES, 3, "/home/categories");
@@ -78,7 +79,7 @@ public class PlatformInitializerServiceImpl implements IPlatformInitializerServi
         insertSubMenuIfNotExist("Settings", "Roles", 2, "/home/settings/roles", "Roles submenu");
 
         addPermissionsToRole();
-        addMenusToRole();
+        addMenusAndSubMenusToRole();
     }
 
     private void insertRoleIfNotExist(String roleName) {
@@ -158,12 +159,19 @@ public class PlatformInitializerServiceImpl implements IPlatformInitializerServi
         log.info("Permissions added to " + "Administrator");
     }
 
-    private void addMenusToRole() {
-        List<MenuEntity> allMenus = menuRepository.findAll();
+    private void addMenusAndSubMenusToRole() {
         RoleEntity role = roleRepository.findByName("Administrator");
+
+        // Associate main menus
+        List<MenuEntity> allMenus = menuRepository.findAll();
         role.setMenus(allMenus);
+
+        // Associate submenus
+        List<SubMenuEntity> allSubMenus = submenuRepository.findAll();
+        role.setSubMenus(allSubMenus);
+
         roleRepository.save(role);
         roleRepository.flush();
-        log.info("Menus added to " + "Administrator");
+        log.info("Menus and submenus added to " + "Administrator");
     }
 }

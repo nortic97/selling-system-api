@@ -1,6 +1,7 @@
 package com.nortic.posdash.models.entity;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -41,11 +42,19 @@ public class RoleEntity {
 
     @ManyToMany
     @JoinTable(
-            name = "role_menus",
+            name = "role_menu",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "menu_id")
     )
     private List<MenuEntity> menus;
+
+    @ManyToMany
+    @JoinTable(
+            name = "role_submenus",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "submenu_id")
+    )
+    private List<SubMenuEntity> subMenus;
 
     public RoleEntity() {
     }
@@ -74,7 +83,7 @@ public class RoleEntity {
         this.description = description;
     }
 
-    public Boolean isStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
@@ -128,6 +137,14 @@ public class RoleEntity {
 
     public void setMenus(List<MenuEntity> menus) {
         this.menus = menus;
+    }
+
+    public List<SubMenuEntity> getSubMenus() {
+        return subMenus;
+    }
+
+    public void setSubMenus(List<SubMenuEntity> subMenus) {
+        this.subMenus = subMenus;
     }
 
     @PrePersist

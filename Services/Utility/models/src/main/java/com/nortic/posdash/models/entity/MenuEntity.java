@@ -84,14 +84,6 @@ public class MenuEntity {
         this.position = position;
     }
 
-    public List<RoleEntity> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<RoleEntity> roles) {
-        this.roles = roles;
-    }
-
     public Boolean getStatus() {
         return status;
     }
@@ -114,5 +106,13 @@ public class MenuEntity {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public List<RoleEntity> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<RoleEntity> roles) {
+        this.roles = roles;
     }
 }

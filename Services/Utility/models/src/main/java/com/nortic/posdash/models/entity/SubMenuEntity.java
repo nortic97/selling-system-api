@@ -2,6 +2,7 @@ package com.nortic.posdash.models.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity(name = "submenus")
@@ -24,6 +25,9 @@ public class SubMenuEntity {
     @ManyToOne
     @JoinColumn(name = "menu_id", nullable = false)
     private MenuEntity menu;
+
+    @ManyToMany(mappedBy = "subMenus")
+    private List<RoleEntity> roles;
 
     public SubMenuEntity() {
     }

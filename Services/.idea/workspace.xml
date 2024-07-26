@@ -7,12 +7,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="58665b10-b644-4986-ad33-5cb857a8250d" name="Changes" comment="New Menu Added">
-      <change afterPath="$PROJECT_DIR$/Entity/rolesES/src/main/java/com/nortic/posdash/es/roles/repository/MenuRepository.java" afterDir="false" />
+    <list default="true" id="58665b10-b644-4986-ad33-5cb857a8250d" name="Changes" comment="Update menu role added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/rolesES/src/main/java/com/nortic/posdash/es/roles/controller/RolesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/rolesES/src/main/java/com/nortic/posdash/es/roles/controller/RolesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/rolesES/src/main/java/com/nortic/posdash/es/roles/service/IRolesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/rolesES/src/main/java/com/nortic/posdash/es/roles/service/IRolesService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/rolesES/src/main/java/com/nortic/posdash/es/roles/service/RolesServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/rolesES/src/main/java/com/nortic/posdash/es/roles/service/RolesServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Task/PlatformInitializerTS/src/main/java/com/nortic/posdash/ts/platforminitializer/service/PlatformInitializerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Task/PlatformInitializerTS/src/main/java/com/nortic/posdash/ts/platforminitializer/service/PlatformInitializerServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/models/entity/MenuEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/models/entity/MenuEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/models/entity/RoleEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/models/entity/RoleEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/models/entity/SubMenuEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/models/entity/SubMenuEntity.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,7 +164,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.RolesEsApplication">
+  <component name="RunManager" selected="Spring Boot.PlatformInitializerTsApplication">
     <configuration name="AuthUsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="envFilePaths">
         <option value="$PROJECT_DIR$/../../.env" />
@@ -356,7 +356,11 @@
       <workItem from="1721585207053" duration="696000" />
       <workItem from="1721910743332" duration="276000" />
       <workItem from="1721911427511" duration="94000" />
-      <workItem from="1721911719551" duration="2996000" />
+      <workItem from="1721911719551" duration="3097000" />
+      <workItem from="1721950224965" duration="48000" />
+      <workItem from="1721954246682" duration="4702000" />
+      <workItem from="1721966836431" duration="78000" />
+      <workItem from="1722000730442" duration="2840000" />
     </task>
     <task id="LOCAL-00001" summary="Some Errors Fixed">
       <option name="closed" value="true" />
@@ -534,7 +538,15 @@
       <option name="project" value="LOCAL" />
       <updated>1721584795656</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Update menu role added">
+      <option name="closed" value="true" />
+      <created>1721914821973</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1721914821973</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -583,6 +595,7 @@
     <MESSAGE value="Update user function updated" />
     <MESSAGE value="Roles Service added And fixed Bugs" />
     <MESSAGE value="New Menu Added" />
-    <option name="LAST_COMMIT_MESSAGE" value="New Menu Added" />
+    <MESSAGE value="Update menu role added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update menu role added" />
   </component>
 </project>
