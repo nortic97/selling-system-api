@@ -7,12 +7,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="58665b10-b644-4986-ad33-5cb857a8250d" name="Changes" comment="Update menu role added">
+    <list default="true" id="58665b10-b644-4986-ad33-5cb857a8250d" name="Changes" comment="Sql Updated">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Task/PlatformInitializerTS/src/main/java/com/nortic/posdash/ts/platforminitializer/service/PlatformInitializerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Task/PlatformInitializerTS/src/main/java/com/nortic/posdash/ts/platforminitializer/service/PlatformInitializerServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/models/entity/MenuEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/models/entity/MenuEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/models/entity/RoleEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/models/entity/RoleEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/models/entity/SubMenuEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/models/entity/SubMenuEntity.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -360,7 +357,8 @@
       <workItem from="1721950224965" duration="48000" />
       <workItem from="1721954246682" duration="4702000" />
       <workItem from="1721966836431" duration="78000" />
-      <workItem from="1722000730442" duration="2840000" />
+      <workItem from="1722000730442" duration="4417000" />
+      <workItem from="1722017832555" duration="1014000" />
     </task>
     <task id="LOCAL-00001" summary="Some Errors Fixed">
       <option name="closed" value="true" />
@@ -546,7 +544,23 @@
       <option name="project" value="LOCAL" />
       <updated>1721914821973</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Fixed Bug Roles Menu">
+      <option name="closed" value="true" />
+      <created>1722003880916</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1722003880916</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Sql Updated">
+      <option name="closed" value="true" />
+      <created>1722004549381</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1722004549381</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -596,6 +610,8 @@
     <MESSAGE value="Roles Service added And fixed Bugs" />
     <MESSAGE value="New Menu Added" />
     <MESSAGE value="Update menu role added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update menu role added" />
+    <MESSAGE value="Fixed Bug Roles Menu" />
+    <MESSAGE value="Sql Updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="Sql Updated" />
   </component>
 </project>

@@ -42,7 +42,7 @@ public class RoleEntity {
 
     @ManyToMany
     @JoinTable(
-            name = "role_menu",
+            name = "role_menus",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "menu_id")
     )
