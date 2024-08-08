@@ -58,4 +58,13 @@ public interface IRolesService {
      */
     RoleDTO updateRoleMenus(UUID roleId, List<UUID> menuIds) throws CustomException;
 
+    /**
+     * This method update role submenus.
+     *
+     * @param roleId     UUID key for role.
+     * @param subMenuIds UUID's of submenus for associate to role.
+     * @return RoleDTO
+     * @throws CustomException Error Information.
+     */
+    RoleDTO updateRoleSubMenus(UUID roleId, List<UUID> subMenuIds) throws CustomException;
 }

@@ -150,6 +150,19 @@ public class RolesController {
         }
     }
 
+    @PutMapping("updateRoleSubMenus/{roleId}")
+    public ResponseEntity<?> updateRoleSubMenus(@PathVariable UUID roleId, @RequestBody List<UUID> subMenusIds) {
+        log.info("Start updateRoleSubMenus Controller");
+        try {
+            RoleDTO updatedRole = rolesServiceImpl.updateRoleSubMenus(roleId, subMenusIds);
+            log.info("End updateRoleSubMenus Controller");
+            return ResponseEntity.ok(new ResponseBody<>(updatedRole, StatusEnum.SUCCESS).getBody());
+        } catch (CustomException e) {
+            log.error(e.getMessage());
+            return ResponseEntity.internalServerError().body(new ResponseBody<>(e.getMessage(), StatusEnum.ERROR).getBody());
+        }
+    }
+
     @Hidden
     @RequestMapping("/**")
     public ResponseEntity<?> handleInvalidRequests(HttpServletRequest request) {

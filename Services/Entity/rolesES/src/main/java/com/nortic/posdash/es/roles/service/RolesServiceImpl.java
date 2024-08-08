@@ -2,11 +2,13 @@ package com.nortic.posdash.es.roles.service;
 
 import com.nortic.posdash.es.roles.repository.MenuRepository;
 import com.nortic.posdash.es.roles.repository.RolesRepository;
+import com.nortic.posdash.es.roles.repository.SubMenuRepository;
 import com.nortic.posdash.es.roles.utils.CustomException;
 import com.nortic.posdash.es.roles.utils.Mapper;
 import com.nortic.posdash.models.dto.RoleDTO;
 import com.nortic.posdash.models.entity.MenuEntity;
 import com.nortic.posdash.models.entity.RoleEntity;
+import com.nortic.posdash.models.entity.SubMenuEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +19,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class RolesServiceImpl implements IRolesService {
@@ -28,12 +28,14 @@ public class RolesServiceImpl implements IRolesService {
     private final RolesRepository rolesRepository;
     private final Mapper mapper;
     private final MenuRepository menuRepository;
+    private final SubMenuRepository subMenuRepository;
 
     @Autowired
-    public RolesServiceImpl(RolesRepository rolesRepository, Mapper mapper, MenuRepository menuRepository) {
+    public RolesServiceImpl(RolesRepository rolesRepository, Mapper mapper, MenuRepository menuRepository, SubMenuRepository subMenuRepository) {
         this.rolesRepository = rolesRepository;
         this.mapper = mapper;
         this.menuRepository = menuRepository;
+        this.subMenuRepository = subMenuRepository;
     }
 
     @Override
@@ -133,36 +135,66 @@ public class RolesServiceImpl implements IRolesService {
     @Override
     public RoleDTO updateRoleMenus(UUID roleId, List<UUID> menuIds) throws CustomException {
         log.info("Start updateRoleMenus Service: {}", roleId);
+
         Optional<RoleEntity> optionalRole = rolesRepository.findById(roleId);
         if (optionalRole.isPresent()) {
             RoleEntity role = optionalRole.get();
+
             List<MenuEntity> newMenus = menuRepository.findAllById(menuIds);
 
             // Add new menus
+            Set<MenuEntity> currentMenus = new HashSet<>(role.getMenus());
             for (MenuEntity menu : newMenus) {
-                if (!role.getMenus().contains(menu)) {
+                if (!currentMenus.contains(menu)) {
                     role.getMenus().add(menu);
                 }
             }
 
             // Remove old menus
-            List<MenuEntity> menusToRemove = role.getMenus().stream()
-                    .filter(menu -> !newMenus.contains(menu))
-                    .toList();
-
-            role.getMenus().removeAll(menusToRemove);
+            role.getMenus().removeIf(menu -> !newMenus.contains(menu));
 
             RoleEntity updatedRole = rolesRepository.save(role);
-
             RoleDTO roleDTO = mapper.convertToDto(updatedRole, RoleDTO.class);
 
             log.info("End updateRoleMenus Service: {}", roleId);
 
             return roleDTO;
         } else {
-            throw new CustomException("Role not found with");
+            throw new CustomException("Role not found with ID: " + roleId);
         }
     }
+
+    @Transactional
+    @Override
+    public RoleDTO updateRoleSubMenus(UUID roleId, List<UUID> subMenuIds) throws CustomException {
+        log.info("Start updateRoleSubMenus Service: {}", roleId);
+
+        Optional<RoleEntity> optionalRole = rolesRepository.findById(roleId);
+        if (optionalRole.isPresent()) {
+            RoleEntity role = optionalRole.get();
+
+            List<SubMenuEntity> newSubMenus = subMenuRepository.findAllById(subMenuIds);
+
+            Set<SubMenuEntity> currentSubMenus = new HashSet<>(role.getSubMenus());
+            for (SubMenuEntity subMenu : newSubMenus) {
+                if (!currentSubMenus.contains(subMenu)) {
+                    role.getSubMenus().add(subMenu);
+                }
+            }
+
+            role.getSubMenus().removeIf(subMenu -> !newSubMenus.contains(subMenu));
+
+            RoleEntity updatedRole = rolesRepository.save(role);
+            RoleDTO roleDTO = mapper.convertToDto(updatedRole, RoleDTO.class);
+
+            log.info("End updateRoleSubMenus Service: {}", roleId);
+
+            return roleDTO;
+        } else {
+            throw new CustomException("Role not found with ID: " + roleId);
+        }
+    }
+
 
     private void checkIfRoleExists(String roleName) throws CustomException {
         Optional<RoleEntity> role = rolesRepository.findByName(roleName);
