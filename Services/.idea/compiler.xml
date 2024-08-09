@@ -10,6 +10,7 @@
         <module name="ChatMS" />
         <module name="PlatformInitializerTS" />
         <module name="UserSettingsMS" />
+        <module name="menusES" />
         <module name="FileStorage" />
         <module name="rolesES" />
         <module name="authUS" />
@@ -28,6 +29,7 @@
       <module name="UserConfigurationMS" options="" />
       <module name="UserSettingsMS" options="-parameters" />
       <module name="authUS" options="-parameters" />
+      <module name="menusES" options="-parameters" />
       <module name="models" options="-parameters" />
       <module name="rolesES" options="-parameters" />
       <module name="usersES" options="-parameters" />
