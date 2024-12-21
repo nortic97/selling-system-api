@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="posdash@localhost">
-  <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.52">
+  <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.53">
     <root id="1">
       <DateStyle>dmy</DateStyle>
       <Grants>1||-9223372036854775808|c|G
@@ -7672,24 +7672,24 @@ false Zulu
       <OwnerName>postgres</OwnerName>
     </table>
     <column id="519" parent="514" name="id">
-      <DasType>uuid|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>769</StateNumber>
+      <StoredType>uuid|0s</StoredType>
       <TypeId>2950</TypeId>
     </column>
     <column id="520" parent="514" name="nombre">
-      <DasType>varchar(25)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>769</StateNumber>
+      <StoredType>varchar(25)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <column id="521" parent="514" name="apellidos">
-      <DasType>varchar(25)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>769</StateNumber>
+      <StoredType>varchar(25)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <index id="522" parent="514" name="author_pkey">
@@ -7709,24 +7709,24 @@ false Zulu
       <UnderlyingIndexId>24622</UnderlyingIndexId>
     </key>
     <column id="524" parent="515" name="id">
-      <DasType>uuid|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>769</StateNumber>
+      <StoredType>uuid|0s</StoredType>
       <TypeId>2950</TypeId>
     </column>
     <column id="525" parent="515" name="titulo">
-      <DasType>varchar(50)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>769</StateNumber>
+      <StoredType>varchar(50)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <column id="526" parent="515" name="isbn">
-      <DasType>integer|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>769</StateNumber>
+      <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
     <index id="527" parent="515" name="book_pkey">
@@ -7746,17 +7746,17 @@ false Zulu
       <UnderlyingIndexId>24617</UnderlyingIndexId>
     </key>
     <column id="529" parent="516" name="book_id">
-      <DasType>uuid|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>769</StateNumber>
+      <StoredType>uuid|0s</StoredType>
       <TypeId>2950</TypeId>
     </column>
     <column id="530" parent="516" name="author_id">
-      <DasType>uuid|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>769</StateNumber>
+      <StoredType>uuid|0s</StoredType>
       <TypeId>2950</TypeId>
     </column>
     <foreign-key id="531" parent="516" name="book_author_book_id_fkey">
@@ -7776,17 +7776,17 @@ false Zulu
       <RefTableId>24619</RefTableId>
     </foreign-key>
     <column id="533" parent="517" name="book_id">
-      <DasType>uuid|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>769</StateNumber>
+      <StoredType>uuid|0s</StoredType>
       <TypeId>2950</TypeId>
     </column>
     <column id="534" parent="517" name="category_id">
-      <DasType>uuid|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>769</StateNumber>
+      <StoredType>uuid|0s</StoredType>
       <TypeId>2950</TypeId>
     </column>
     <foreign-key id="535" parent="517" name="book_category_book_id_fkey">
@@ -7806,17 +7806,17 @@ false Zulu
       <RefTableId>24624</RefTableId>
     </foreign-key>
     <column id="537" parent="518" name="id">
-      <DasType>uuid|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>769</StateNumber>
+      <StoredType>uuid|0s</StoredType>
       <TypeId>2950</TypeId>
     </column>
     <column id="538" parent="518" name="name">
-      <DasType>varchar|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>769</StateNumber>
+      <StoredType>varchar|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <index id="539" parent="518" name="category_pkey">

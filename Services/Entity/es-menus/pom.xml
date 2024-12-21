@@ -9,11 +9,11 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.nortic.posdash.es</groupId>
-    <artifactId>menusES</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>menus-es</artifactId>
+    <version>0.0.1</version>
     <packaging>war</packaging>
-    <name>menusES</name>
-    <description>menusES</description>
+    <name>es-menus</name>
+    <description>es-menus</description>
     <url/>
     <licenses>
         <license/>

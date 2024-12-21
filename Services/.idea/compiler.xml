@@ -10,14 +10,15 @@
         <module name="ChatMS" />
         <module name="PlatformInitializerTS" />
         <module name="UserSettingsMS" />
-        <module name="menusES" />
         <module name="FileStorage" />
-        <module name="rolesES" />
+        <module name="es-roles" />
+        <module name="es-users" />
         <module name="authUS" />
-        <module name="usersES" />
+        <module name="fileStorageUS" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="menusES" target="21" />
       <module name="UserConfigurationMS" target="1.5" />
     </bytecodeTargetLevel>
   </component>
@@ -29,10 +30,12 @@
       <module name="UserConfigurationMS" options="" />
       <module name="UserSettingsMS" options="-parameters" />
       <module name="authUS" options="-parameters" />
+      <module name="es-roles" options="-parameters" />
+      <module name="es-users" options="-parameters" />
+      <module name="fileStorageUS" options="-parameters" />
+      <module name="menus-es" options="-parameters" />
       <module name="menusES" options="-parameters" />
       <module name="models" options="-parameters" />
-      <module name="rolesES" options="-parameters" />
-      <module name="usersES" options="-parameters" />
     </option>
   </component>
 </project>

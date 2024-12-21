@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.nortic.posdash.ms</groupId>
-	<artifactId>UserSettingsMS</artifactId>
+	<artifactId>ms-user-settings</artifactId>
 	<version>0.0.1</version>
 	<packaging>war</packaging>
 	<name>UserSettingsMS</name>
