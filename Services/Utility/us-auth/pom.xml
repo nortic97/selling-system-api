@@ -18,6 +18,9 @@
         <java.version>21</java.version>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
+        <sonar.projectKey>us-auth</sonar.projectKey>
+        <sonar.host.url>${SONAR_HOST_URL}</sonar.host.url>
+        <sonar.login>${SONAR_LOGIN}</sonar.login>
     </properties>
     <dependencies>
         <dependency>
@@ -104,4 +107,14 @@
             <version>3.1.0</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.9.1.2184</version>
+            </plugin>
+        </plugins>
+    </build>
 </project>

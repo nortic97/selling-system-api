@@ -1,13 +1,13 @@
 package com.nortic.posdash.us.auth.service;
 
+import com.nortic.posdash.models.dto.AuthRequestDTO;
+import com.nortic.posdash.models.dto.TokenDTO;
+import com.nortic.posdash.models.entity.UserEntity;
 import com.nortic.posdash.us.auth.config.JwtUtil;
 import com.nortic.posdash.us.auth.repository.RoleRepository;
 import com.nortic.posdash.us.auth.repository.UserRepository;
 import com.nortic.posdash.us.auth.utils.CustomException;
 import com.nortic.posdash.us.auth.utils.PasswordUtils;
-import com.nortic.posdash.models.dto.AuthRequestDTO;
-import com.nortic.posdash.models.dto.TokenDTO;
-import com.nortic.posdash.models.entity.UserEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

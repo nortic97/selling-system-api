@@ -1,8 +1,8 @@
 package com.nortic.posdash.us.auth.config;
 
+import com.nortic.posdash.models.enums.StatusEnum;
 import com.nortic.posdash.us.auth.utils.CustomException;
 import com.nortic.posdash.us.auth.utils.ResponseBody;
-import com.nortic.posdash.models.enums.StatusEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
