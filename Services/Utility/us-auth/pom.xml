@@ -20,7 +20,7 @@
         <maven.compiler.target>21</maven.compiler.target>
         <sonar.projectKey>us-auth</sonar.projectKey>
         <sonar.host.url>${SONAR_HOST_URL}</sonar.host.url>
-        <sonar.login>${SONAR_LOGIN}</sonar.login>
+        <sonar.token>${SONAR_TOKEN}</sonar.token>
     </properties>
     <dependencies>
         <dependency>
