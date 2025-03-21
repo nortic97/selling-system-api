@@ -8,7 +8,10 @@
     <file url="file://$PROJECT_DIR$/Microservice/ChatMS/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Microservice/UserConfigurationMS/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Microservice/UserSettingsMS/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Microservice/ms-chat/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Microservice/ms-user-settings/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Task/PlatformInitializerTS/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Task/platform-initializer-ts/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Utility/authUS/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Utility/fileStorageUS/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Utility/models/src/main/java" charset="UTF-8" />

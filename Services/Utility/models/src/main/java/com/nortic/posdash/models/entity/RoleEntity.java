@@ -1,12 +1,17 @@
 package com.nortic.posdash.models.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 @Entity(name = "roles")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class RoleEntity {
 
     @Id
@@ -28,124 +33,6 @@ public class RoleEntity {
     private LocalDateTime updatedAt;
 
     private LocalDateTime deletedAt;
-
-    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<UserEntity> users;
-
-    @ManyToMany
-    @JoinTable(
-            name = "role_permissions",
-            joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "permission_id")
-    )
-    private List<PermissionsEntity> permissions;
-
-    @ManyToMany
-    @JoinTable(
-            name = "role_menus",
-            joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "menu_id")
-    )
-    private List<MenuEntity> menus;
-
-    @ManyToMany
-    @JoinTable(
-            name = "role_submenus",
-            joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "submenu_id")
-    )
-    private List<SubMenuEntity> subMenus;
-
-    public RoleEntity() {
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public LocalDateTime getDeletedAt() {
-        return deletedAt;
-    }
-
-    public void setDeletedAt(LocalDateTime deletedAt) {
-        this.deletedAt = deletedAt;
-    }
-
-    public List<UserEntity> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<UserEntity> users) {
-        this.users = users;
-    }
-
-    public List<PermissionsEntity> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(List<PermissionsEntity> permissions) {
-        this.permissions = permissions;
-    }
-
-    public List<MenuEntity> getMenus() {
-        return menus;
-    }
-
-    public void setMenus(List<MenuEntity> menus) {
-        this.menus = menus;
-    }
-
-    public List<SubMenuEntity> getSubMenus() {
-        return subMenus;
-    }
-
-    public void setSubMenus(List<SubMenuEntity> subMenus) {
-        this.subMenus = subMenus;
-    }
 
     @PrePersist
     protected void onCreate() {

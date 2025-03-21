@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.0</version>
+        <version>3.4.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.nortic.posdash</groupId>
@@ -29,7 +29,9 @@
     <properties>
         <java.version>21</java.version>
         <sonar.projectKey>models-library</sonar.projectKey>
+        <!--suppress UnresolvedMavenProperty -->
         <sonar.host.url>${SONAR_HOST_URL}</sonar.host.url>
+        <!--suppress UnresolvedMavenProperty -->
         <sonar.token>${SONAR_TOKEN}</sonar.token>
     </properties>
     <dependencies>
@@ -59,6 +61,14 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
 

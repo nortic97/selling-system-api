@@ -1,10 +1,16 @@
 package com.nortic.posdash.models.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
 @Entity(name = "permissions")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class PermissionsEntity {
 
     @Id
@@ -16,31 +22,4 @@ public class PermissionsEntity {
 
     @Column(nullable = false)
     private String method;
-
-    public PermissionsEntity() {
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getMethod() {
-        return method;
-    }
-
-    public void setMethod(String method) {
-        this.method = method;
-    }
 }

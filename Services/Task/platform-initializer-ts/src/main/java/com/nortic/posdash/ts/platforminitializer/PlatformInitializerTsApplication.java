@@ -1,6 +1,6 @@
 package com.nortic.posdash.ts.platforminitializer;
 
-import com.nortic.posdash.ts.platforminitializer.service.PlatformInitializerServiceImpl;
+import com.nortic.posdash.ts.platforminitializer.service.impl.PlatformInitializerSvcImpl;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,10 +16,8 @@ public class PlatformInitializerTsApplication {
 	}
 
 	@Bean
-	CommandLineRunner init(PlatformInitializerServiceImpl platformInitializerService) {
-		return args -> {
-			platformInitializerService.initializePlatform();
-		};
+	CommandLineRunner init(PlatformInitializerSvcImpl platformInitializerService) {
+		return args -> platformInitializerService.initializePlatform();
 	}
 
 }

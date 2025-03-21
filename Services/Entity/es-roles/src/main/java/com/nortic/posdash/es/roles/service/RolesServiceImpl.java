@@ -6,9 +6,8 @@ import com.nortic.posdash.es.roles.repository.SubMenuRepository;
 import com.nortic.posdash.es.roles.utils.CustomException;
 import com.nortic.posdash.es.roles.utils.Mapper;
 import com.nortic.posdash.models.dto.RoleDTO;
-import com.nortic.posdash.models.entity.MenuEntity;
+import com.nortic.posdash.models.entity.RoleNavigationMenuEntity;
 import com.nortic.posdash.models.entity.RoleEntity;
-import com.nortic.posdash.models.entity.SubMenuEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -140,11 +139,11 @@ public class RolesServiceImpl implements IRolesService {
         if (optionalRole.isPresent()) {
             RoleEntity role = optionalRole.get();
 
-            List<MenuEntity> newMenus = menuRepository.findAllById(menuIds);
+            List<RoleNavigationMenuEntity> newMenus = menuRepository.findAllById(menuIds);
 
             // Add new menus
-            Set<MenuEntity> currentMenus = new HashSet<>(role.getMenus());
-            for (MenuEntity menu : newMenus) {
+            Set<RoleNavigationMenuEntity> currentMenus = new HashSet<>(role.getMenus());
+            for (RoleNavigationMenuEntity menu : newMenus) {
                 if (!currentMenus.contains(menu)) {
                     role.getMenus().add(menu);
                 }
