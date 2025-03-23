@@ -23,6 +23,8 @@
         <option value="$PROJECT_DIR$/Microservice/ms-user-settings/pom.xml" />
         <option value="$PROJECT_DIR$/Task/ts-platform-initializer/pom.xml" />
         <option value="$PROJECT_DIR$/Task/platform-initializer-ts/pom.xml" />
+        <option value="$PROJECT_DIR$/Utility/us-auth/pom.xml" />
+        <option value="$PROJECT_DIR$/Utility/auth-us/pom.xml" />
       </list>
     </option>
   </component>

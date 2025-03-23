@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package auth;
+
+option java_multiple_files = true;
+option java_package = "com.nortic.posdash.us.auth.grpc.gen";
+option java_outer_classname = "AuthProto";
+
+service AuthService {
+  rpc Authenticate(AuthRequest) returns (AuthResponse);
+}
+
+message AuthRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message AuthResponse {
+  string access_token = 1;
+  string refresh_token = 2;
+  string type = 3;
+}
+
+message HttpError {
+  int32 code = 1;
+  string message = 2;
+}
