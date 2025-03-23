@@ -158,7 +158,6 @@
                     <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}
                     </pluginArtifact>
                     <protoSourceRoot>${project.basedir}/src/main/java/com/nortic/posdash/us/auth/grpc/contract</protoSourceRoot>
-                    <outputDirectory>${project.basedir}/src/main/java</outputDirectory>
                 </configuration>
                 <executions>
                     <execution>

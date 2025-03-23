@@ -8,47 +8,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="58665b10-b644-4986-ad33-5cb857a8250d" name="Changes" comment="New Mongo Database Integrated">
-      <change afterPath="$PROJECT_DIR$/../.idea/selling-system-api.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/swagger-settings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/50bb0f24-7f49-4514-a9c9-64a0d2bfc035.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/50bb0f24-7f49-4514-a9c9-64a0d2bfc035/storage_v2/_src_/database/posdash.5len6A.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/50bb0f24-7f49-4514-a9c9-64a0d2bfc035/storage_v2/_src_/database/posdash.5len6A/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/50bb0f24-7f49-4514-a9c9-64a0d2bfc035/storage_v2/_src_/database/posdash.5len6A/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/50bb0f24-7f49-4514-a9c9-64a0d2bfc035/storage_v2/_src_/database/postgres.edMnLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/50bb0f24-7f49-4514-a9c9-64a0d2bfc035/storage_v2/_src_/database/postgres.edMnLQ/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/50bb0f24-7f49-4514-a9c9-64a0d2bfc035/storage_v2/_src_/database/postgres.edMnLQ/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/50bb0f24-7f49-4514-a9c9-64a0d2bfc035/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/50a37bd2-9a55-4bc7-b5c5-ea0a0f1b136c.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/models/dto/AuthRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/models/src/main/java/com/nortic/posdash/models/dto/AuthRequestDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/us-auth/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/us-auth/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/us-auth/mvnw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/us-auth/mvnw.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/us-auth/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/us-auth/src/main/java/com/nortic/posdash/us/auth/AuthUsApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/us-auth/src/main/java/com/nortic/posdash/us/auth/ServletInitializer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/us-auth/src/main/java/com/nortic/posdash/us/auth/bean/AuthBeans.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/us-auth/src/main/java/com/nortic/posdash/us/auth/config/GlobalExceptionHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/us-auth/src/main/java/com/nortic/posdash/us/auth/config/JwtAuthenticationFilter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/us-auth/src/main/java/com/nortic/posdash/us/auth/config/JwtUtil.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/us-auth/src/main/java/com/nortic/posdash/us/auth/config/OpenApiConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/us-auth/src/main/java/com/nortic/posdash/us/auth/config/SecurityConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/us-auth/src/main/java/com/nortic/posdash/us/auth/controller/AuthController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/us-auth/src/main/java/com/nortic/posdash/us/auth/repository/RoleRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/us-auth/src/main/java/com/nortic/posdash/us/auth/repository/UserRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/us-auth/src/main/java/com/nortic/posdash/us/auth/service/AuthService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/us-auth/src/main/java/com/nortic/posdash/us/auth/service/IAuthService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/us-auth/src/main/java/com/nortic/posdash/us/auth/utils/CustomException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/us-auth/src/main/java/com/nortic/posdash/us/auth/utils/Mapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/us-auth/src/main/java/com/nortic/posdash/us/auth/utils/PasswordUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/us-auth/src/main/java/com/nortic/posdash/us/auth/utils/ResponseBody.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/us-auth/src/main/resources/application.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility/us-auth/src/test/java/com/nortic/posdash/us/auth/AuthUsApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utility/auth-us/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Utility/auth-us/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,6 +28,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -235,7 +203,7 @@
         <option value="$PROJECT_DIR$/../../.env" />
       </option>
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
-      <module name="authUS" />
+      <module name="auth-us" />
       <selectedOptions>
         <option name="environmentVariables" />
       </selectedOptions>
