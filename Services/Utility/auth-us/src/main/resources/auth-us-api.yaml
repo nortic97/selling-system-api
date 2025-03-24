@@ -17,6 +17,8 @@ paths:
     post:
       summary: Authenticates a user and returns a JWT token.
       operationId: auth
+      tags:
+        - Auth
       description: |
         This endpoint receives a user's credentials (username and password).
         If the credentials are valid, it returns an access token (accessToken), a refresh token (refreshToken),
@@ -98,6 +100,15 @@ components:
         - accessToken
         - refreshToken
         - type
+
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+      required:
+        - status
 
     HttpError:
       type: object
