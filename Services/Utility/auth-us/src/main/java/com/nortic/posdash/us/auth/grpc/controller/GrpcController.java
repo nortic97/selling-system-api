@@ -4,7 +4,7 @@ import com.nortic.posdash.us.auth.grpc.gen.AuthRequest;
 import com.nortic.posdash.us.auth.grpc.gen.AuthResponse;
 import com.nortic.posdash.us.auth.grpc.gen.AuthServiceGrpc;
 import io.grpc.stub.StreamObserver;
-import org.springframework.grpc.server.service.GrpcService;
+import net.devh.boot.grpc.server.service.GrpcService;
 
 @GrpcService
 public class GrpcController extends AuthServiceGrpc.AuthServiceImplBase {

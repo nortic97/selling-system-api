@@ -1,3 +1,11 @@
 spring:
   application:
     name: auth-us
+  grpc:
+    server:
+      reflection:
+        enabled: true
+      health:
+        actuator:
+          enabled: true
+      port: 9090
