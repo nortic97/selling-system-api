@@ -1,10 +1,7 @@
 syntax = "proto3";
 
-package auth;
-
 option java_multiple_files = true;
 option java_package = "com.nortic.posdash.us.auth.grpc.gen";
-option java_outer_classname = "AuthProto";
 
 service AuthService {
   rpc Authenticate(AuthRequest) returns (AuthResponse);

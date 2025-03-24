@@ -114,7 +114,7 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${project.basedir}/src/main/java/com/nortic/posdash/us/auth/rest/contract/auth-us-api.yaml</inputSpec>
+                            <inputSpec>${project.basedir}/src/main/resources/auth-us-api.yaml</inputSpec>
                             <generatorName>spring</generatorName>
                             <apiPackage>com.nortic.posdash.us.auth.rest.gen.api</apiPackage>
                             <modelPackage>com.nortic.posdash.us.auth.rest.gen.model</modelPackage>
@@ -157,7 +157,7 @@
                     <!--suppress UnresolvedMavenProperty -->
                     <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}
                     </pluginArtifact>
-                    <protoSourceRoot>${project.basedir}/src/main/java/com/nortic/posdash/us/auth/grpc/contract</protoSourceRoot>
+                    <protoSourceRoot>${project.basedir}/src/main/resources</protoSourceRoot>
                 </configuration>
                 <executions>
                     <execution>

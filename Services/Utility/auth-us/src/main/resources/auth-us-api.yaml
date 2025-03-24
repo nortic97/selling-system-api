@@ -13,7 +13,7 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 
 paths:
-  /auth:
+  /api/v1/us/auth:
     post:
       summary: Authenticates a user and returns a JWT token.
       operationId: auth
