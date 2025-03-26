@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/Entity/usersES/pom.xml" />
+        <option value="$PROJECT_DIR$/Utility/models/pom.xml" />
+        <option value="$PROJECT_DIR$/authUS/pom.xml" />
+        <option value="$PROJECT_DIR$/Utility/authUS/pom.xml" />
+        <option value="$PROJECT_DIR$/UserConfigurationMS/pom.xml" />
+        <option value="$PROJECT_DIR$/Microservice/UserConfigurationMS/pom.xml" />
+        <option value="$PROJECT_DIR$/Microservice/UserSettingsMS/pom.xml" />
+        <option value="$PROJECT_DIR$/Task/PlatformInitializerTS/pom.xml" />
+        <option value="$PROJECT_DIR$/Microservice/ChatMS/pom.xml" />
+        <option value="$PROJECT_DIR$/Utility/FileStorageUS/pom.xml" />
+        <option value="$PROJECT_DIR$/Entity/rolesES/pom.xml" />
+        <option value="$PROJECT_DIR$/Entity/menusES/pom.xml" />
+        <option value="$PROJECT_DIR$/Entity/es-menus/pom.xml" />
+        <option value="$PROJECT_DIR$/Entity/es-roles/pom.xml" />
+        <option value="$PROJECT_DIR$/Entity/es-users/pom.xml" />
+        <option value="$PROJECT_DIR$/Microservice/ms-chat/pom.xml" />
+        <option value="$PROJECT_DIR$/Microservice/ms-user-settings/pom.xml" />
+        <option value="$PROJECT_DIR$/Task/ts-platform-initializer/pom.xml" />
+        <option value="$PROJECT_DIR$/Task/platform-initializer-ts/pom.xml" />
+        <option value="$PROJECT_DIR$/Utility/us-auth/pom.xml" />
+        <option value="$PROJECT_DIR$/Utility/auth-us/pom.xml" />
+        <option value="$PROJECT_DIR$/Entity/users-es/pom.xml" />
+        <option value="$PROJECT_DIR$/Entity/stores-es/pom.xml" />
+      </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/Microservice/ms-chat/pom.xml" />
+        <option value="$PROJECT_DIR$/Microservice/ms-user-settings/pom.xml" />
+        <option value="$PROJECT_DIR$/Utility/fileStorageUS/pom.xml" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_23" default="true" project-jdk-name="23" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

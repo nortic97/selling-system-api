@@ -1,0 +1,165 @@
+openapi: 3.0.0
+info:
+  title: Stores Service API
+  version: 0.0.1
+  description: |
+    API for managing stores, including CRUD operations, soft delete, permanent delete, and search functionality.
+  contact:
+    name: Developer
+    email: nortic97@gmail.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+paths:
+  /api/v1/es/stores:
+    post:
+      summary: Create a new store
+      operationId: createStore
+      tags:
+        - Stores
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Store"
+      responses:
+        '201':
+          description: Store created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Store"
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+
+  /api/v1/es/stores/{id}:
+    get:
+      summary: Get a store by ID
+      operationId: getStoreById
+      tags:
+        - Stores
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Store ID.
+      responses:
+        '200':
+          description: Store retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Store"
+        '400':
+          description: Bad Request
+        '404':
+          description: Store not found
+        '500':
+          description: Internal Server Error
+
+    put:
+      summary: Update an existing store
+      operationId: updateStore
+      tags:
+        - Stores
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Store ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Store"
+      responses:
+        '200':
+          description: Store updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Store"
+        '400':
+          description: Bad Request
+        '404':
+          description: Store not found
+        '500':
+          description: Internal Server Error
+
+    delete:
+      summary: Permanently delete a store
+      operationId: deleteStore
+      tags:
+        - Stores
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Store ID.
+      responses:
+        '204':
+          description: Store deleted successfully.
+        '404':
+          description: Store not found
+        '500':
+          description: Internal Server Error
+
+components:
+  schemas:
+    Store:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        taxId:
+          type: string
+        name:
+          type: string
+        logo:
+          type: string
+        description:
+          type: string
+        slogan:
+          type: string
+        address:
+          type: string
+        stateProvince:
+          type: string
+        city:
+          type: string
+        phoneNumber:
+          type: string
+        email:
+          type: string
+        isActive:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        deletedAt:
+          type: string
+          format: date-time
+      required:
+        - taxId
+        - name
+        - email
+        - phoneNumber
+        - isActive
