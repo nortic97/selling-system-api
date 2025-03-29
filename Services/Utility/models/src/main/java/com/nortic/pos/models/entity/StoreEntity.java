@@ -43,8 +43,9 @@ public class StoreEntity {
     @PrePersist
     protected void onCreate() {
         LocalDateTime now = LocalDateTime.now();
-        createdAt = now;
-        updatedAt = now;
+        this.createdAt = now;
+        this.updatedAt = now;
+        this.isActive = Boolean.FALSE;
     }
 
     @PreUpdate
@@ -53,6 +54,16 @@ public class StoreEntity {
     }
 
     public void markAsDeleted() {
-        deletedAt = LocalDateTime.now();
+        this.deletedAt = LocalDateTime.now();
+        this.isActive = Boolean.FALSE;
+    }
+
+    public void changeStatus(Boolean status) {
+        if (Boolean.TRUE.equals(status)) {
+            this.isActive = Boolean.TRUE;
+            this.deletedAt = null;
+        } else {
+            this.isActive = Boolean.FALSE;
+        }
     }
 }

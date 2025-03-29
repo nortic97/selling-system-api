@@ -1,7 +1,13 @@
 package com.nortic.pos.es.stores.config;
 
+import com.nortic.pos.es.stores.util.CustomException;
+import com.nortic.pos.models.dto.HttpErrorDTO;
+import jakarta.persistence.PersistenceException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -15,8 +21,33 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<HttpErrorDTO> handleDataIntegrityViolation(DataIntegrityViolationException ex) {
+        log.error(ex.getMessage());
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(new HttpErrorDTO(HttpStatus.CONFLICT.value(), "Data integrity violation. Please check your input."));
+    }
+
+    @ExceptionHandler(PersistenceException.class)
+    public ResponseEntity<HttpErrorDTO> handlePersistenceException(PersistenceException ex) {
+        log.error(ex.getMessage());
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new HttpErrorDTO(HttpStatus.INTERNAL_SERVER_ERROR.value(), "A database error occurred. Please try again later."));
+    }
+
+    @ExceptionHandler(DataAccessException.class)
+    public ResponseEntity<HttpErrorDTO> handleDataAccessException(DataAccessException ex) {
+        log.error(ex.getMessage());
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new HttpErrorDTO(HttpStatus.INTERNAL_SERVER_ERROR.value(), "An error occurred while accessing the database."));
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, Object>> handleValidationExceptions(MethodArgumentNotValidException ex) {
@@ -56,20 +87,26 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(NoResourceFoundException.class)
-    public ResponseEntity<Map<String, Object>> handleNotFound(Exception ex, HttpServletRequest request) {
-        Map<String, Object> response = new LinkedHashMap<>();
-        response.put("code", 404);
-        response.put("status", "Request Not Found");
-        response.put("message", "The requested resource " + request.getRequestURI() + " was not found.");
+    public ResponseEntity<HttpErrorDTO> handleNotFound(Exception ex, HttpServletRequest request) {
+        log.error(ex.getMessage());
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(new HttpErrorDTO(HttpStatus.NOT_FOUND.value(), "The requested resource " + request.getRequestURI() + " was not found."));
+    }
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    @ExceptionHandler(CustomException.class)
+    public ResponseEntity<HttpErrorDTO> handleCustomException(CustomException ex) {
+        log.error(ex.getMessage());
+        return ResponseEntity
+                .status(ex.getErrorCode())
+                .body(new HttpErrorDTO(ex.getErrorCode(), ex.getMessage()));
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Map<String, Object>> handleGeneralException(Exception ex) {
-        Map<String, Object> response = new LinkedHashMap<>();
-        response.put("code", 500);
-        response.put("status", "Internal Server Error");
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+    public ResponseEntity<HttpErrorDTO> handleGeneralException(Exception ex) {
+        log.error(ex.getMessage());
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new HttpErrorDTO(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Internal Server Error"));
     }
 }

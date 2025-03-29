@@ -33,8 +33,16 @@ paths:
                 $ref: "#/components/schemas/Store"
         '400':
           description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
         '500':
           description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
 
   /api/v1/es/stores/{id}:
     get:
@@ -59,10 +67,22 @@ paths:
                 $ref: "#/components/schemas/Store"
         '400':
           description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
         '404':
           description: Store not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
         '500':
           description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
 
     put:
       summary: Update an existing store
@@ -92,10 +112,22 @@ paths:
                 $ref: "#/components/schemas/Store"
         '400':
           description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
         '404':
           description: Store not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
         '500':
           description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
 
     delete:
       summary: Permanently delete a store
@@ -111,14 +143,107 @@ paths:
             format: uuid
           description: Store ID.
       responses:
-        '204':
+        '200':
           description: Store deleted successfully.
         '404':
           description: Store not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
         '500':
           description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+
+  /api/v1/es/stores/{id}/soft-delete:
+    patch:
+      summary: Soft delete a store
+      operationId: softDeleteStore
+      tags:
+        - Stores
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Store ID.
+      responses:
+        '200':
+          description: Store marked as deleted successfully.
+        '404':
+          description: Store not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+
+  /api/v1/es/stores/{id}/status:
+    patch:
+      summary: Change store status (activate/deactivate)
+      operationId: changeStoreStatus
+      tags:
+        - Stores
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Store ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                isActive:
+                  type: boolean
+                  example: true
+              required:
+                - isActive
+      responses:
+        '200':
+          description: Store status updated successfully.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+        '404':
+          description: Store not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+
 
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
   schemas:
     Store:
       type: object
@@ -162,4 +287,24 @@ components:
         - name
         - email
         - phoneNumber
-        - isActive
+        - address
+        - stateProvince
+        - city
+
+    HttpError:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code.
+          example: 400
+        message:
+          type: string
+          description: Error message.
+          example: Invalid request body.
+      required:
+        - code
+        - message
+
+security:
+  - bearerAuth: [ ]

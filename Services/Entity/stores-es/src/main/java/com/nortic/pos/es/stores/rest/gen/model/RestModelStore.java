@@ -1,24 +1,30 @@
 package com.nortic.pos.es.stores.rest.gen.model;
 
+import java.net.URI;
+import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.annotation.Generated;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import java.time.LocalDateTime;
+import java.util.UUID;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.time.OffsetDateTime;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
+import io.swagger.v3.oas.annotations.media.Schema;
 
-import java.time.LocalDateTime;
-import java.util.Objects;
-import java.util.UUID;
+
+import java.util.*;
+import jakarta.annotation.Generated;
 
 /**
  * RestModelStore
  */
 
 @JsonTypeName("Store")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-03-26T18:11:08.875246400-05:00[America/Bogota]", comments = "Generator version: 7.12.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-03-29T17:39:54.358405900-05:00[America/Bogota]", comments = "Generator version: 7.12.0")
 public class RestModelStore {
 
   private @Nullable UUID id;
@@ -33,17 +39,17 @@ public class RestModelStore {
 
   private @Nullable String slogan;
 
-  private @Nullable String address;
+  private String address;
 
-  private @Nullable String stateProvince;
+  private String stateProvince;
 
-  private @Nullable String city;
+  private String city;
 
   private String phoneNumber;
 
   private String email;
 
-  private Boolean isActive;
+  private @Nullable Boolean isActive;
 
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
   private @Nullable LocalDateTime createdAt;
@@ -61,12 +67,14 @@ public class RestModelStore {
   /**
    * Constructor with only required parameters
    */
-  public RestModelStore(String taxId, String name, String phoneNumber, String email, Boolean isActive) {
+  public RestModelStore(String taxId, String name, String address, String stateProvince, String city, String phoneNumber, String email) {
     this.taxId = taxId;
     this.name = name;
+    this.address = address;
+    this.stateProvince = stateProvince;
+    this.city = city;
     this.phoneNumber = phoneNumber;
     this.email = email;
-    this.isActive = isActive;
   }
 
   public RestModelStore id(UUID id) {
@@ -198,8 +206,8 @@ public class RestModelStore {
    * Get address
    * @return address
    */
-  
-  @Schema(name = "address", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @NotNull 
+  @Schema(name = "address", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("address")
   public String getAddress() {
     return address;
@@ -218,8 +226,8 @@ public class RestModelStore {
    * Get stateProvince
    * @return stateProvince
    */
-  
-  @Schema(name = "stateProvince", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @NotNull 
+  @Schema(name = "stateProvince", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("stateProvince")
   public String getStateProvince() {
     return stateProvince;
@@ -238,8 +246,8 @@ public class RestModelStore {
    * Get city
    * @return city
    */
-  
-  @Schema(name = "city", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @NotNull 
+  @Schema(name = "city", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("city")
   public String getCity() {
     return city;
@@ -298,8 +306,8 @@ public class RestModelStore {
    * Get isActive
    * @return isActive
    */
-  @NotNull 
-  @Schema(name = "isActive", requiredMode = Schema.RequiredMode.REQUIRED)
+  
+  @Schema(name = "isActive", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("isActive")
   public Boolean getIsActive() {
     return isActive;

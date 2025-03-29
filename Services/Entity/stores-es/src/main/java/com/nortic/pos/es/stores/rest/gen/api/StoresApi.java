@@ -5,29 +5,37 @@
  */
 package com.nortic.pos.es.stores.rest.gen.api;
 
+import com.nortic.pos.es.stores.rest.gen.model.RestModelChangeStoreStatusRequest;
+import com.nortic.pos.es.stores.rest.gen.model.RestModelHttpError;
 import com.nortic.pos.es.stores.rest.gen.model.RestModelStore;
+import java.util.UUID;
+import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.annotation.Generated;
-import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-import java.util.UUID;
+import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-03-26T18:11:08.875246400-05:00[America/Bogota]", comments = "Generator version: 7.12.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-03-29T17:39:54.358405900-05:00[America/Bogota]", comments = "Generator version: 7.12.0")
 @Validated
 @Tag(name = "Stores", description = "the Stores API")
 public interface StoresApi {
@@ -35,6 +43,52 @@ public interface StoresApi {
     default Optional<NativeWebRequest> getRequest() {
         return Optional.empty();
     }
+
+    /**
+     * PATCH /api/v1/es/stores/{id}/status : Change store status (activate/deactivate)
+     *
+     * @param id Store ID. (required)
+     * @param restModelChangeStoreStatusRequest  (required)
+     * @return Store status updated successfully. (status code 200)
+     *         or Invalid request. (status code 400)
+     *         or Store not found. (status code 404)
+     *         or Internal Server Error. (status code 500)
+     */
+    @Operation(
+        operationId = "changeStoreStatus",
+        summary = "Change store status (activate/deactivate)",
+        tags = { "Stores" },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "Store status updated successfully."),
+            @ApiResponse(responseCode = "400", description = "Invalid request.", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = RestModelHttpError.class))
+            }),
+            @ApiResponse(responseCode = "404", description = "Store not found.", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = RestModelHttpError.class))
+            }),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = RestModelHttpError.class))
+            })
+        },
+        security = {
+            @SecurityRequirement(name = "bearerAuth")
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.PATCH,
+        value = "/api/v1/es/stores/{id}/status",
+        produces = { "application/json" },
+        consumes = { "application/json" }
+    )
+    
+    default ResponseEntity<Void> changeStoreStatus(
+        @Parameter(name = "id", description = "Store ID.", required = true, in = ParameterIn.PATH) @PathVariable("id") UUID id,
+        @Parameter(name = "RestModelChangeStoreStatusRequest", description = "", required = true) @Valid @RequestBody RestModelChangeStoreStatusRequest restModelChangeStoreStatusRequest
+    ) {
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
 
     /**
      * POST /api/v1/es/stores : Create a new store
@@ -52,8 +106,15 @@ public interface StoresApi {
             @ApiResponse(responseCode = "201", description = "Store created successfully.", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = RestModelStore.class))
             }),
-            @ApiResponse(responseCode = "400", description = "Bad Request"),
-            @ApiResponse(responseCode = "500", description = "Internal Server Error")
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = RestModelHttpError.class))
+            }),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = RestModelHttpError.class))
+            })
+        },
+        security = {
+            @SecurityRequirement(name = "bearerAuth")
         }
     )
     @RequestMapping(
@@ -75,7 +136,7 @@ public interface StoresApi {
      * DELETE /api/v1/es/stores/{id} : Permanently delete a store
      *
      * @param id Store ID. (required)
-     * @return Store deleted successfully. (status code 204)
+     * @return Store deleted successfully. (status code 200)
      *         or Store not found (status code 404)
      *         or Internal Server Error (status code 500)
      */
@@ -84,14 +145,22 @@ public interface StoresApi {
         summary = "Permanently delete a store",
         tags = { "Stores" },
         responses = {
-            @ApiResponse(responseCode = "204", description = "Store deleted successfully."),
-            @ApiResponse(responseCode = "404", description = "Store not found"),
-            @ApiResponse(responseCode = "500", description = "Internal Server Error")
+            @ApiResponse(responseCode = "200", description = "Store deleted successfully."),
+            @ApiResponse(responseCode = "404", description = "Store not found", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = RestModelHttpError.class))
+            }),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = RestModelHttpError.class))
+            })
+        },
+        security = {
+            @SecurityRequirement(name = "bearerAuth")
         }
     )
     @RequestMapping(
         method = RequestMethod.DELETE,
-        value = "/api/v1/es/stores/{id}"
+        value = "/api/v1/es/stores/{id}",
+        produces = { "application/json" }
     )
     
     default ResponseEntity<Void> deleteStore(
@@ -119,9 +188,18 @@ public interface StoresApi {
             @ApiResponse(responseCode = "200", description = "Store retrieved successfully.", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = RestModelStore.class))
             }),
-            @ApiResponse(responseCode = "400", description = "Bad Request"),
-            @ApiResponse(responseCode = "404", description = "Store not found"),
-            @ApiResponse(responseCode = "500", description = "Internal Server Error")
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = RestModelHttpError.class))
+            }),
+            @ApiResponse(responseCode = "404", description = "Store not found", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = RestModelHttpError.class))
+            }),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = RestModelHttpError.class))
+            })
+        },
+        security = {
+            @SecurityRequirement(name = "bearerAuth")
         }
     )
     @RequestMapping(
@@ -131,6 +209,45 @@ public interface StoresApi {
     )
     
     default ResponseEntity<RestModelStore> getStoreById(
+        @Parameter(name = "id", description = "Store ID.", required = true, in = ParameterIn.PATH) @PathVariable("id") UUID id
+    ) {
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
+
+    /**
+     * PATCH /api/v1/es/stores/{id}/soft-delete : Soft delete a store
+     *
+     * @param id Store ID. (required)
+     * @return Store marked as deleted successfully. (status code 200)
+     *         or Store not found. (status code 404)
+     *         or Internal Server Error. (status code 500)
+     */
+    @Operation(
+        operationId = "softDeleteStore",
+        summary = "Soft delete a store",
+        tags = { "Stores" },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "Store marked as deleted successfully."),
+            @ApiResponse(responseCode = "404", description = "Store not found.", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = RestModelHttpError.class))
+            }),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = RestModelHttpError.class))
+            })
+        },
+        security = {
+            @SecurityRequirement(name = "bearerAuth")
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.PATCH,
+        value = "/api/v1/es/stores/{id}/soft-delete",
+        produces = { "application/json" }
+    )
+    
+    default ResponseEntity<Void> softDeleteStore(
         @Parameter(name = "id", description = "Store ID.", required = true, in = ParameterIn.PATH) @PathVariable("id") UUID id
     ) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
@@ -156,9 +273,18 @@ public interface StoresApi {
             @ApiResponse(responseCode = "200", description = "Store updated successfully.", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = RestModelStore.class))
             }),
-            @ApiResponse(responseCode = "400", description = "Bad Request"),
-            @ApiResponse(responseCode = "404", description = "Store not found"),
-            @ApiResponse(responseCode = "500", description = "Internal Server Error")
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = RestModelHttpError.class))
+            }),
+            @ApiResponse(responseCode = "404", description = "Store not found", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = RestModelHttpError.class))
+            }),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = RestModelHttpError.class))
+            })
+        },
+        security = {
+            @SecurityRequirement(name = "bearerAuth")
         }
     )
     @RequestMapping(
