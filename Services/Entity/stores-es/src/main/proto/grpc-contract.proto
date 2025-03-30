@@ -1,12 +1,12 @@
 syntax = "proto3";
 
-package stores;
+package store;
 
 option java_multiple_files = true;
 option java_package = "com.nortic.pos.es.store.grpc.gen";
 option java_outer_classname = "StoreProto";
 
-service StoresService {
+service StoreService {
   rpc CreateStore (Store) returns (Store);
   rpc GetStoreById (StoreRequest) returns (Store);
   rpc UpdateStore (Store) returns (Store);
@@ -38,7 +38,7 @@ message StoreRequest {
 }
 
 message StoreResponse {
-  Store store = 1;
+  bool success = 1;;
 }
 
 message DeleteResponse {
@@ -47,5 +47,5 @@ message DeleteResponse {
 
 message ChangeStatusRequest {
   string id = 1;
-  bool is_active = 2;
+  bool status = 2;
 }
