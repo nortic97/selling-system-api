@@ -1,4 +1,4 @@
-package com.nortic.pos.es.stores.repository;
+package com.nortic.pos.es.store.repository;
 
 import com.nortic.pos.models.entity.StoreEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

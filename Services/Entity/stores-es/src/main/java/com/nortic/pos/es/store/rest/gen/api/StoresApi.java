@@ -3,11 +3,11 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-package com.nortic.pos.es.stores.rest.gen.api;
+package com.nortic.pos.es.store.rest.gen.api;
 
-import com.nortic.pos.es.stores.rest.gen.model.RestModelChangeStoreStatusRequest;
-import com.nortic.pos.es.stores.rest.gen.model.RestModelHttpError;
-import com.nortic.pos.es.stores.rest.gen.model.RestModelStore;
+import com.nortic.pos.es.store.rest.gen.model.RestModelChangeStoreStatusRequest;
+import com.nortic.pos.es.store.rest.gen.model.RestModelHttpError;
+import com.nortic.pos.es.store.rest.gen.model.RestModelStore;
 import java.util.UUID;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,7 +35,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-03-29T17:39:54.358405900-05:00[America/Bogota]", comments = "Generator version: 7.12.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-03-29T20:16:59.680500100-05:00[America/Bogota]", comments = "Generator version: 7.12.0")
 @Validated
 @Tag(name = "Stores", description = "the Stores API")
 public interface StoresApi {

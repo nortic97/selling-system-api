@@ -1,4 +1,4 @@
-package com.nortic.pos.es.stores.service;
+package com.nortic.pos.es.store.service;
 
 
 import com.nortic.pos.models.dto.StoreDTO;

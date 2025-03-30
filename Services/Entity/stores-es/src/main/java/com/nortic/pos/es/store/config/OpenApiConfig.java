@@ -1,4 +1,4 @@
-package com.nortic.pos.es.stores.config;
+package com.nortic.pos.es.store.config;
 
 import org.springdoc.core.configuration.SpringDocConfiguration;
 import org.springdoc.core.properties.SpringDocConfigProperties;

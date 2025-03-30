@@ -1,6 +1,6 @@
-package com.nortic.pos.es.stores.config;
+package com.nortic.pos.es.store.config;
 
-import com.nortic.pos.es.stores.util.CustomException;
+import com.nortic.pos.es.store.util.CustomException;
 import com.nortic.pos.models.dto.HttpErrorDTO;
 import jakarta.persistence.PersistenceException;
 import jakarta.servlet.http.HttpServletRequest;

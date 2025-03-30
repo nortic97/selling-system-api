@@ -1,8 +1,8 @@
-package com.nortic.pos.es.stores.service;
+package com.nortic.pos.es.store.service;
 
-import com.nortic.pos.es.stores.repository.StoreRepository;
-import com.nortic.pos.es.stores.util.CustomException;
-import com.nortic.pos.es.stores.util.StoreMapper;
+import com.nortic.pos.es.store.repository.StoreRepository;
+import com.nortic.pos.es.store.util.CustomException;
+import com.nortic.pos.es.store.util.RestMapper;
 import com.nortic.pos.models.dto.StoreDTO;
 import com.nortic.pos.models.entity.StoreEntity;
 import lombok.extern.slf4j.Slf4j;
@@ -16,27 +16,27 @@ import java.util.UUID;
 @Service
 public class StoreSvcImpl implements IStoreSvc {
 
-    private final StoreMapper storeMapper;
+    private final RestMapper restMapper;
     private final StoreRepository storeRepository;
 
     @Autowired
-    public StoreSvcImpl(StoreMapper storeMapper, StoreRepository storeRepository) {
-        this.storeMapper = storeMapper;
+    public StoreSvcImpl(RestMapper restMapper, StoreRepository storeRepository) {
+        this.restMapper = restMapper;
         this.storeRepository = storeRepository;
     }
 
     @Override
     public StoreDTO createStore(StoreDTO storeDTO) {
         log.info("Creating new store");
-        StoreEntity store = storeMapper.dtoToEntity(storeDTO);
-        return storeMapper.entityToDTO(storeRepository.save(store));
+        StoreEntity store = restMapper.dtoToEntity(storeDTO);
+        return restMapper.entityToDTO(storeRepository.save(store));
     }
 
     @Override
     public StoreDTO getStore(UUID id) {
         log.info("Retrieving store with id {}", id);
         return storeRepository.findById(id)
-                .map(storeMapper::entityToDTO)
+                .map(restMapper::entityToDTO)
                 .orElseThrow(() -> new CustomException(404, "ID: " + id + " Not Found"));
     }
 
@@ -57,7 +57,7 @@ public class StoreSvcImpl implements IStoreSvc {
         storeEntity.setCity(storeDTO.getCity());
         storeEntity.setPhoneNumber(storeDTO.getPhoneNumber());
 
-        return storeMapper.entityToDTO(storeRepository.save(storeEntity));
+        return restMapper.entityToDTO(storeRepository.save(storeEntity));
     }
 
     @Override

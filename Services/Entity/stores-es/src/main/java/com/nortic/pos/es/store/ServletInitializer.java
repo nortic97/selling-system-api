@@ -1,4 +1,4 @@
-package com.nortic.pos.es.stores;
+package com.nortic.pos.es.store;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

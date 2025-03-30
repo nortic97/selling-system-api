@@ -1,4 +1,4 @@
-package com.nortic.pos.es.stores.util;
+package com.nortic.pos.es.store.util;
 
 public class CustomException extends RuntimeException {
 
