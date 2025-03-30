@@ -7,8 +7,8 @@ import com.nortic.pos.models.dto.StoreDTO;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import lombok.extern.slf4j.Slf4j;
+import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.grpc.server.service.GrpcService;
 
 import java.util.UUID;
 
@@ -40,7 +40,7 @@ public class GrpcController extends StoresServiceGrpc.StoresServiceImplBase {
         } catch (Exception e){
             log.error(e.getMessage());
             responseObserver.onError(Status.INTERNAL
-                    .withDescription("Internal server error")
+                    .withDescription("Internal Server Error")
                     .asRuntimeException());
         }
     }
