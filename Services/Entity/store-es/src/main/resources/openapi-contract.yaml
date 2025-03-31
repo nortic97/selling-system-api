@@ -1,0 +1,332 @@
+openapi: 3.0.0
+info:
+  title: Stores Service API
+  version: 0.0.1
+  description: |
+    API for managing stores, including CRUD operations, soft delete, permanent delete, and search functionality.
+  contact:
+    name: Developer
+    email: nortic97@gmail.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: "{protocol}://{hostname}{port}{basePath}"
+    description: Configurable server (local or deployed)
+    variables:
+      protocol:
+        enum:
+          - http
+          - https
+        default: "http"
+      hostname:
+        default: "localhost"
+        description: Server hostname (e.g., localhost or deployed server)
+      port:
+        default: ":8080"
+        description: Server port
+      basePath:
+        default: ""
+        enum:
+          - ""
+          - "/store-es"
+        description: Optional path for the deployed version
+
+paths:
+  /api/v1/es/store:
+    post:
+      summary: Create a new store
+      operationId: createStore
+      tags:
+        - Store
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Store"
+      responses:
+        '201':
+          description: Store created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Store"
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+
+  /api/v1/es/store/{id}:
+    get:
+      summary: Get a store by ID
+      operationId: getStoreById
+      tags:
+        - Store
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Store ID.
+      responses:
+        '200':
+          description: Store retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Store"
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+        '404':
+          description: Store not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+
+    put:
+      summary: Update an existing store
+      operationId: updateStore
+      tags:
+        - Store
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Store ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Store"
+      responses:
+        '200':
+          description: Store updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Store"
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+        '404':
+          description: Store not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+
+    delete:
+      summary: Permanently delete a store
+      operationId: deleteStore
+      tags:
+        - Store
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Store ID.
+      responses:
+        '200':
+          description: Store deleted successfully.
+        '404':
+          description: Store not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+
+  /api/v1/es/store/{id}/soft-delete:
+    patch:
+      summary: Soft delete a store
+      operationId: softDeleteStore
+      tags:
+        - Store
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Store ID.
+      responses:
+        '200':
+          description: Store marked as deleted successfully.
+        '404':
+          description: Store not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+
+  /api/v1/es/store/{id}/status:
+    patch:
+      summary: Change store status (activate/deactivate)
+      operationId: changeStoreStatus
+      tags:
+        - Store
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Store ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                isActive:
+                  type: boolean
+                  example: true
+              required:
+                - isActive
+      responses:
+        '200':
+          description: Store status updated successfully.
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+        '404':
+          description: Store not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    Store:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        taxId:
+          type: string
+        name:
+          type: string
+        logo:
+          type: string
+        description:
+          type: string
+        slogan:
+          type: string
+        address:
+          type: string
+        stateProvince:
+          type: string
+        city:
+          type: string
+        phoneNumber:
+          type: string
+        email:
+          type: string
+        isActive:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        deletedAt:
+          type: string
+          format: date-time
+      required:
+        - taxId
+        - name
+        - email
+        - phoneNumber
+        - address
+        - stateProvince
+        - city
+
+    HttpError:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code.
+          example: 400
+        message:
+          type: string
+          description: Error message.
+          example: Invalid request body.
+      required:
+        - code
+        - message
+
+security:
+  - bearerAuth: [ ]
