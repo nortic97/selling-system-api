@@ -11,6 +11,28 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 
+servers:
+  - url: "{protocol}://{hostname}{port}{basePath}"
+    description: Configurable server (local or deployed)
+    variables:
+      protocol:
+        enum:
+          - http
+          - https
+        default: "http"
+      hostname:
+        default: "localhost"
+        description: Server hostname (e.g., localhost or deployed server)
+      port:
+        default: ":8080"
+        description: Server port
+      basePath:
+        default: ""
+        enum:
+          - ""
+          - "/store-es"
+        description: Optional path for the deployed version
+
 paths:
   /api/v1/es/stores:
     post:
