@@ -34,12 +34,12 @@ servers:
         description: Optional path for the deployed version
 
 paths:
-  /api/v1/es/stores:
+  /api/v1/es/store:
     post:
       summary: Create a new store
       operationId: createStore
       tags:
-        - Stores
+        - store
       requestBody:
         required: true
         content:
@@ -66,12 +66,12 @@ paths:
               schema:
                 $ref: "#/components/schemas/HttpError"
 
-  /api/v1/es/stores/{id}:
+  /api/v1/es/store/{id}:
     get:
       summary: Get a store by ID
       operationId: getStoreById
       tags:
-        - Stores
+        - store
       parameters:
         - name: id
           in: path
@@ -110,7 +110,7 @@ paths:
       summary: Update an existing store
       operationId: updateStore
       tags:
-        - Stores
+        - Store
       parameters:
         - name: id
           in: path
@@ -155,7 +155,7 @@ paths:
       summary: Permanently delete a store
       operationId: deleteStore
       tags:
-        - Stores
+        - Store
       parameters:
         - name: id
           in: path
@@ -180,12 +180,12 @@ paths:
               schema:
                 $ref: "#/components/schemas/HttpError"
 
-  /api/v1/es/stores/{id}/soft-delete:
+  /api/v1/es/store/{id}/soft-delete:
     patch:
       summary: Soft delete a store
       operationId: softDeleteStore
       tags:
-        - Stores
+        - Store
       parameters:
         - name: id
           in: path
@@ -210,12 +210,12 @@ paths:
               schema:
                 $ref: "#/components/schemas/HttpError"
 
-  /api/v1/es/stores/{id}/status:
+  /api/v1/es/store/{id}/status:
     patch:
       summary: Change store status (activate/deactivate)
       operationId: changeStoreStatus
       tags:
-        - Stores
+        - Store
       parameters:
         - name: id
           in: path

@@ -1,6 +1,6 @@
 package com.nortic.pos.es.store.rest.controller;
 
-import com.nortic.pos.es.store.rest.gen.api.StoresApi;
+import com.nortic.pos.es.store.rest.gen.api.StoreApi;
 import com.nortic.pos.es.store.rest.gen.model.RestModelChangeStoreStatusRequest;
 import com.nortic.pos.es.store.rest.gen.model.RestModelStore;
 import com.nortic.pos.es.store.service.StoreSvcImpl;
@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.UUID;
 
 @org.springframework.web.bind.annotation.RestController
-public class RestController implements StoresApi {
+public class RestController implements StoreApi {
 
     private final RestMapper restMapper;
     private final StoreSvcImpl storeSvc;
