@@ -35,7 +35,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-03-31T12:45:37.277966900-05:00[America/Bogota]", comments = "Generator version: 7.12.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-03-31T13:17:36.824252-05:00[America/Bogota]", comments = "Generator version: 7.12.0")
 @Validated
 @Tag(name = "Store", description = "the Store API")
 public interface StoreApi {
@@ -101,7 +101,7 @@ public interface StoreApi {
     @Operation(
         operationId = "createStore",
         summary = "Create a new store",
-        tags = { "store" },
+        tags = { "Store" },
         responses = {
             @ApiResponse(responseCode = "201", description = "Store created successfully.", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = RestModelStore.class))
@@ -183,7 +183,7 @@ public interface StoreApi {
     @Operation(
         operationId = "getStoreById",
         summary = "Get a store by ID",
-        tags = { "store" },
+        tags = { "Store" },
         responses = {
             @ApiResponse(responseCode = "200", description = "Store retrieved successfully.", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = RestModelStore.class))

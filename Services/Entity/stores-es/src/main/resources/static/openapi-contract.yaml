@@ -39,7 +39,7 @@ paths:
       summary: Create a new store
       operationId: createStore
       tags:
-        - store
+        - Store
       requestBody:
         required: true
         content:
@@ -71,7 +71,7 @@ paths:
       summary: Get a store by ID
       operationId: getStoreById
       tags:
-        - store
+        - Store
       parameters:
         - name: id
           in: path
