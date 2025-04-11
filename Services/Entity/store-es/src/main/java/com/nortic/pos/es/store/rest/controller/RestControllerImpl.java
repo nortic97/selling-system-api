@@ -9,17 +9,18 @@ import com.nortic.pos.models.dto.StoreDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
-@org.springframework.web.bind.annotation.RestController
-public class RestController implements StoreApi {
+@RestController
+public class RestControllerImpl implements StoreApi {
 
     private final RestMapper restMapper;
     private final StoreSvcImpl storeSvc;
 
     @Autowired
-    public RestController(RestMapper restMapper, StoreSvcImpl storeSvc) {
+    public RestControllerImpl(RestMapper restMapper, StoreSvcImpl storeSvc) {
         this.restMapper = restMapper;
         this.storeSvc = storeSvc;
     }

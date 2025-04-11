@@ -24,7 +24,7 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("Store")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-03-31T13:20:07.443517500-05:00[America/Bogota]", comments = "Generator version: 7.12.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-04-11T09:40:52.755346100-05:00[America/Bogota]", comments = "Generator version: 7.12.0")
 public class RestModelStore {
 
   private @Nullable UUID id;
@@ -286,7 +286,7 @@ public class RestModelStore {
    * Get email
    * @return email
    */
-  @NotNull 
+  @NotNull @jakarta.validation.constraints.Email 
   @Schema(name = "email", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("email")
   public String getEmail() {

@@ -293,6 +293,7 @@ components:
           type: string
         email:
           type: string
+          format: email
         isActive:
           type: boolean
         createdAt:
