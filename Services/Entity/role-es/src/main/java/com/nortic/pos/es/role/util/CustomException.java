@@ -1,4 +1,4 @@
-package com.nortic.pos.es.store.util;
+package com.nortic.pos.es.role.util;
 
 import lombok.Getter;
 

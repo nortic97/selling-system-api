@@ -1,4 +1,4 @@
-package com.nortic.pos.es.store.config;
+package com.nortic.pos.es.role.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

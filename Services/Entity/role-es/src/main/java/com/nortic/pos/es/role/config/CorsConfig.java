@@ -1,4 +1,4 @@
-package com.nortic.pos.es.store.config;
+package com.nortic.pos.es.role.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
