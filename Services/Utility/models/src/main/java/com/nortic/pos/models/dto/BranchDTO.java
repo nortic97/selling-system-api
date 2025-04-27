@@ -1,6 +1,5 @@
 package com.nortic.pos.models.dto;
 
-import com.nortic.pos.models.entity.StoreEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

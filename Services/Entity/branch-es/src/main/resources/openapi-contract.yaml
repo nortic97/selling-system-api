@@ -391,8 +391,6 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
                   $ref: "#/components/schemas/BranchPagination"
         '400':
           description: Bad Request
@@ -445,7 +443,7 @@ components:
         id:
           type: string
           format: uuid
-        storeId:
+        store:
           $ref: "#/components/schemas/Store"
         name:
           type: string
@@ -468,7 +466,7 @@ components:
           type: string
           format: date-time
       required:
-        - storeId
+        - store
         - name
         - address
         - phoneNumber
@@ -516,10 +514,14 @@ components:
     BranchPagination:
       type: object
       properties:
-        total:
+        totalItems:
           type: integer
           description: Total number of branches matching the query in that store
           example: 300
+        totalPages:
+          type: integer
+          description: Total number of pages
+          example: 30
         page:
           type: integer
           description: Current page number

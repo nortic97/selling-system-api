@@ -36,7 +36,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-04-26T19:17:26.500439300-05:00[America/Bogota]", comments = "Generator version: 7.12.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-04-27T01:16:06.193378700-05:00[America/Bogota]", comments = "Generator version: 7.12.0")
 @Validated
 @Tag(name = "Branch", description = "the Branch API")
 public interface BranchApi {
@@ -236,7 +236,7 @@ public interface BranchApi {
         tags = { "Branch" },
         responses = {
             @ApiResponse(responseCode = "200", description = "Branches retrieved successfully", content = {
-                @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = RestModelBranchPagination.class)))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = RestModelBranchPagination.class))
             }),
             @ApiResponse(responseCode = "400", description = "Bad Request", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = RestModelHttpError.class))
@@ -258,7 +258,7 @@ public interface BranchApi {
         produces = { "application/json" }
     )
     
-    default ResponseEntity<List<RestModelBranchPagination>> listBranchesByStore(
+    default ResponseEntity<RestModelBranchPagination> listBranchesByStore(
         @Parameter(name = "storeId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("storeId") UUID storeId,
         @Parameter(name = "page", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "page", required = false) Integer page,
         @Parameter(name = "limit", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "limit", required = false) Integer limit,

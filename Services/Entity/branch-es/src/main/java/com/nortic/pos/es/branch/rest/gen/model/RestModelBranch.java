@@ -25,12 +25,12 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("Branch")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-04-26T19:17:26.500439300-05:00[America/Bogota]", comments = "Generator version: 7.12.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-04-27T01:16:06.193378700-05:00[America/Bogota]", comments = "Generator version: 7.12.0")
 public class RestModelBranch {
 
   private @Nullable UUID id;
 
-  private RestModelStore storeId;
+  private RestModelStore store;
 
   private String name;
 
@@ -58,8 +58,8 @@ public class RestModelBranch {
   /**
    * Constructor with only required parameters
    */
-  public RestModelBranch(RestModelStore storeId, String name, String address, String phoneNumber, String email) {
-    this.storeId = storeId;
+  public RestModelBranch(RestModelStore store, String name, String address, String phoneNumber, String email) {
+    this.store = store;
     this.name = name;
     this.address = address;
     this.phoneNumber = phoneNumber;
@@ -86,24 +86,24 @@ public class RestModelBranch {
     this.id = id;
   }
 
-  public RestModelBranch storeId(RestModelStore storeId) {
-    this.storeId = storeId;
+  public RestModelBranch store(RestModelStore store) {
+    this.store = store;
     return this;
   }
 
   /**
-   * Get storeId
-   * @return storeId
+   * Get store
+   * @return store
    */
   @NotNull @Valid 
-  @Schema(name = "storeId", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("storeId")
-  public RestModelStore getStoreId() {
-    return storeId;
+  @Schema(name = "store", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("store")
+  public RestModelStore getStore() {
+    return store;
   }
 
-  public void setStoreId(RestModelStore storeId) {
-    this.storeId = storeId;
+  public void setStore(RestModelStore store) {
+    this.store = store;
   }
 
   public RestModelBranch name(String name) {
@@ -276,7 +276,7 @@ public class RestModelBranch {
     }
     RestModelBranch branch = (RestModelBranch) o;
     return Objects.equals(this.id, branch.id) &&
-        Objects.equals(this.storeId, branch.storeId) &&
+        Objects.equals(this.store, branch.store) &&
         Objects.equals(this.name, branch.name) &&
         Objects.equals(this.address, branch.address) &&
         Objects.equals(this.phoneNumber, branch.phoneNumber) &&
@@ -289,7 +289,7 @@ public class RestModelBranch {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, storeId, name, address, phoneNumber, email, isActive, createdAt, updatedAt, deletedAt);
+    return Objects.hash(id, store, name, address, phoneNumber, email, isActive, createdAt, updatedAt, deletedAt);
   }
 
   @Override
@@ -297,7 +297,7 @@ public class RestModelBranch {
     StringBuilder sb = new StringBuilder();
     sb.append("class RestModelBranch {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    storeId: ").append(toIndentedString(storeId)).append("\n");
+    sb.append("    store: ").append(toIndentedString(store)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    address: ").append(toIndentedString(address)).append("\n");
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");

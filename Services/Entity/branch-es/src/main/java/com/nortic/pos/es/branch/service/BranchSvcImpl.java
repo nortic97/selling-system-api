@@ -2,13 +2,21 @@ package com.nortic.pos.es.branch.service;
 
 import com.nortic.pos.es.branch.repository.BranchRepository;
 import com.nortic.pos.es.branch.util.CustomException;
+import com.nortic.pos.es.branch.util.Filters;
 import com.nortic.pos.es.branch.util.RestMapper;
 import com.nortic.pos.models.dto.BranchDTO;
+import com.nortic.pos.models.dto.BranchPaginationDTO;
 import com.nortic.pos.models.entity.BranchEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -101,5 +109,68 @@ public class BranchSvcImpl implements IBranchSvc{
         branchRepository.save(branchEntity);
     }
 
+    @Override
+    public BranchPaginationDTO listBranchesByStore(UUID storeId, Integer page, Integer limit, String name, Boolean isActive) {
+
+        log.info("Listing branches by store");
+
+        boolean hasFilters = page != null || limit != null ||  name != null || isActive != null;
+        page = (page == null) ? 1 : page;
+        limit = (limit == null) ? 50 : limit;
+
+        if(!hasFilters) {
+            return getAllBranches(storeId);
+        }
+
+        Specification<BranchEntity> spec = Filters.storeIdEquals(storeId);
+
+        if (name != null) {
+            spec = spec.and(Filters.nameContains(name));
+        }
+        if (isActive != null) {
+            spec = spec.and(Filters.isActiveEquals(isActive));
+        }
+
+        Pageable pageable = PageRequest.of(page - 1, limit);
+
+        Page<BranchEntity> branchPage = branchRepository.findAll(spec, pageable);
+
+        return BranchPaginationDTO
+                .builder()
+                .totalItems((int) branchPage.getTotalElements())
+                .totalPages(branchPage.getTotalPages())
+                .page(page)
+                .limit(limit)
+                .hasNextPage(branchPage.hasNext())
+                .hasPreviousPage(branchPage.hasPrevious())
+                .branchesList(restMapper.entityListToDTOList(branchPage.getContent()))
+                .build();
+    }
+
+    private BranchPaginationDTO getAllBranches(UUID storeId) {
+        int batchSize = 1000;
+        int batchPage = 0;
+
+        Page<BranchEntity> batch;
+        List<BranchEntity> allBranches = new ArrayList<>();
+
+        do {
+            Pageable pageable = PageRequest.of(batchPage, batchSize);
+            batch = branchRepository.findAllByStoreId(storeId, pageable);
+            allBranches.addAll(batch.getContent());
+            batchPage++;
+        } while (batch.hasNext());
+
+        return BranchPaginationDTO
+                .builder()
+                .totalItems((int) batch.getTotalElements())
+                .totalPages(batch.getTotalPages())
+                .page(1)
+                .limit((int) batch.getTotalElements())
+                .hasNextPage(false)
+                .hasPreviousPage(false)
+                .branchesList(restMapper.entityListToDTOList(allBranches))
+                .build();
+    }
 
 }

@@ -7,6 +7,7 @@ import com.nortic.pos.es.branch.rest.gen.model.RestModelChangeBranchStatusReques
 import com.nortic.pos.es.branch.service.BranchSvcImpl;
 import com.nortic.pos.es.branch.util.RestMapper;
 import com.nortic.pos.models.dto.BranchDTO;
+import com.nortic.pos.models.dto.BranchPaginationDTO;
 import com.nortic.pos.models.dto.StoreDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ public class RestControllerImpl implements BranchApi {
     private final RestMapper restMapper;
     private final BranchSvcImpl branchSvc;
 
-    RestControllerImpl(RestMapper restMapper, BranchSvcImpl branchSvc) {
+    RestControllerImpl(RestMapper restMapper, BranchSvcImpl branchSvc, BranchSvcImpl branchSvcImpl) {
         this.restMapper = restMapper;
         this.branchSvc = branchSvc;
     }
@@ -58,8 +59,10 @@ public class RestControllerImpl implements BranchApi {
     }
 
     @Override
-    public ResponseEntity<List<RestModelBranchPagination>> listBranchesByStore(UUID storeId, Integer page, Integer limit, String name, Boolean isActive) {
-        return BranchApi.super.listBranchesByStore(storeId, page, limit, name, isActive);
+    public ResponseEntity<RestModelBranchPagination> listBranchesByStore(UUID storeId, Integer page, Integer limit, String name, Boolean isActive) {
+        log.info("Getting branches by store: {}", storeId);
+        BranchPaginationDTO pagination = branchSvc.listBranchesByStore(storeId, page, limit, name, isActive);
+        return ResponseEntity.ok(restMapper.restPaginationToDTO(pagination));
     }
 
     @Override
