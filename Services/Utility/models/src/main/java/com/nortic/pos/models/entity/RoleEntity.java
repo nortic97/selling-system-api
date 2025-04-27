@@ -35,7 +35,7 @@ public class RoleEntity {
         LocalDateTime now = LocalDateTime.now();
         this.createdAt = now;
         this.updatedAt = now;
-        this.isActive = Boolean.FALSE;
+        this.isActive = Boolean.TRUE;
     }
 
     @PreUpdate

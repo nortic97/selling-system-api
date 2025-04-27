@@ -25,10 +25,12 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("RolePagination")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-04-26T15:52:48.614779800-05:00[America/Bogota]", comments = "Generator version: 7.12.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-04-27T12:02:19.118506100-05:00[America/Bogota]", comments = "Generator version: 7.12.0")
 public class RestModelRolePagination {
 
-  private Integer total;
+  private @Nullable Integer totalItems;
+
+  private @Nullable Integer totalPages;
 
   private Integer page;
 
@@ -48,32 +50,51 @@ public class RestModelRolePagination {
   /**
    * Constructor with only required parameters
    */
-  public RestModelRolePagination(Integer total, Integer page, Integer limit, Boolean hasNextPage, Boolean hasPreviousPage) {
-    this.total = total;
+  public RestModelRolePagination(Integer page, Integer limit, Boolean hasNextPage, Boolean hasPreviousPage) {
     this.page = page;
     this.limit = limit;
     this.hasNextPage = hasNextPage;
     this.hasPreviousPage = hasPreviousPage;
   }
 
-  public RestModelRolePagination total(Integer total) {
-    this.total = total;
+  public RestModelRolePagination totalItems(Integer totalItems) {
+    this.totalItems = totalItems;
     return this;
   }
 
   /**
    * Total number of roles matching the query in that store
-   * @return total
+   * @return totalItems
    */
-  @NotNull 
-  @Schema(name = "total", example = "300", description = "Total number of roles matching the query in that store", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("total")
-  public Integer getTotal() {
-    return total;
+  
+  @Schema(name = "totalItems", example = "300", description = "Total number of roles matching the query in that store", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("totalItems")
+  public Integer getTotalItems() {
+    return totalItems;
   }
 
-  public void setTotal(Integer total) {
-    this.total = total;
+  public void setTotalItems(Integer totalItems) {
+    this.totalItems = totalItems;
+  }
+
+  public RestModelRolePagination totalPages(Integer totalPages) {
+    this.totalPages = totalPages;
+    return this;
+  }
+
+  /**
+   * Total number of pages
+   * @return totalPages
+   */
+  
+  @Schema(name = "totalPages", example = "30", description = "Total number of pages", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("totalPages")
+  public Integer getTotalPages() {
+    return totalPages;
+  }
+
+  public void setTotalPages(Integer totalPages) {
+    this.totalPages = totalPages;
   }
 
   public RestModelRolePagination page(Integer page) {
@@ -193,7 +214,8 @@ public class RestModelRolePagination {
       return false;
     }
     RestModelRolePagination rolePagination = (RestModelRolePagination) o;
-    return Objects.equals(this.total, rolePagination.total) &&
+    return Objects.equals(this.totalItems, rolePagination.totalItems) &&
+        Objects.equals(this.totalPages, rolePagination.totalPages) &&
         Objects.equals(this.page, rolePagination.page) &&
         Objects.equals(this.limit, rolePagination.limit) &&
         Objects.equals(this.hasNextPage, rolePagination.hasNextPage) &&
@@ -203,14 +225,15 @@ public class RestModelRolePagination {
 
   @Override
   public int hashCode() {
-    return Objects.hash(total, page, limit, hasNextPage, hasPreviousPage, rolesList);
+    return Objects.hash(totalItems, totalPages, page, limit, hasNextPage, hasPreviousPage, rolesList);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class RestModelRolePagination {\n");
-    sb.append("    total: ").append(toIndentedString(total)).append("\n");
+    sb.append("    totalItems: ").append(toIndentedString(totalItems)).append("\n");
+    sb.append("    totalPages: ").append(toIndentedString(totalPages)).append("\n");
     sb.append("    page: ").append(toIndentedString(page)).append("\n");
     sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
     sb.append("    hasNextPage: ").append(toIndentedString(hasNextPage)).append("\n");

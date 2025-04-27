@@ -21,7 +21,7 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("HttpError")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-04-26T15:52:48.614779800-05:00[America/Bogota]", comments = "Generator version: 7.12.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-04-27T12:02:19.118506100-05:00[America/Bogota]", comments = "Generator version: 7.12.0")
 public class RestModelHttpError {
 
   private Integer code;

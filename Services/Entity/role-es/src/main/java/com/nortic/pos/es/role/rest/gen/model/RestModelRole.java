@@ -25,12 +25,12 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("Role")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-04-26T15:52:48.614779800-05:00[America/Bogota]", comments = "Generator version: 7.12.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-04-27T12:02:19.118506100-05:00[America/Bogota]", comments = "Generator version: 7.12.0")
 public class RestModelRole {
 
   private @Nullable UUID id;
 
-  private RestModelStore storeId;
+  private RestModelStore store;
 
   private String name;
 
@@ -54,8 +54,8 @@ public class RestModelRole {
   /**
    * Constructor with only required parameters
    */
-  public RestModelRole(RestModelStore storeId, String name) {
-    this.storeId = storeId;
+  public RestModelRole(RestModelStore store, String name) {
+    this.store = store;
     this.name = name;
   }
 
@@ -79,24 +79,24 @@ public class RestModelRole {
     this.id = id;
   }
 
-  public RestModelRole storeId(RestModelStore storeId) {
-    this.storeId = storeId;
+  public RestModelRole store(RestModelStore store) {
+    this.store = store;
     return this;
   }
 
   /**
-   * Get storeId
-   * @return storeId
+   * Get store
+   * @return store
    */
   @NotNull @Valid 
-  @Schema(name = "storeId", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("storeId")
-  public RestModelStore getStoreId() {
-    return storeId;
+  @Schema(name = "store", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("store")
+  public RestModelStore getStore() {
+    return store;
   }
 
-  public void setStoreId(RestModelStore storeId) {
-    this.storeId = storeId;
+  public void setStore(RestModelStore store) {
+    this.store = store;
   }
 
   public RestModelRole name(String name) {
@@ -229,7 +229,7 @@ public class RestModelRole {
     }
     RestModelRole role = (RestModelRole) o;
     return Objects.equals(this.id, role.id) &&
-        Objects.equals(this.storeId, role.storeId) &&
+        Objects.equals(this.store, role.store) &&
         Objects.equals(this.name, role.name) &&
         Objects.equals(this.description, role.description) &&
         Objects.equals(this.isActive, role.isActive) &&
@@ -240,7 +240,7 @@ public class RestModelRole {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, storeId, name, description, isActive, createdAt, updatedAt, deletedAt);
+    return Objects.hash(id, store, name, description, isActive, createdAt, updatedAt, deletedAt);
   }
 
   @Override
@@ -248,7 +248,7 @@ public class RestModelRole {
     StringBuilder sb = new StringBuilder();
     sb.append("class RestModelRole {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    storeId: ").append(toIndentedString(storeId)).append("\n");
+    sb.append("    store: ").append(toIndentedString(store)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    isActive: ").append(toIndentedString(isActive)).append("\n");

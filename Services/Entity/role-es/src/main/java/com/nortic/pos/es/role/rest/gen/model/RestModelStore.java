@@ -24,14 +24,14 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("Store")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-04-26T15:52:48.614779800-05:00[America/Bogota]", comments = "Generator version: 7.12.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-04-27T12:02:19.118506100-05:00[America/Bogota]", comments = "Generator version: 7.12.0")
 public class RestModelStore {
 
   private @Nullable UUID id;
 
-  private String taxId;
+  private @Nullable String taxId;
 
-  private String name;
+  private @Nullable String name;
 
   private @Nullable String logo;
 
@@ -39,15 +39,15 @@ public class RestModelStore {
 
   private @Nullable String slogan;
 
-  private String address;
+  private @Nullable String address;
 
-  private String stateProvince;
+  private @Nullable String stateProvince;
 
-  private String city;
+  private @Nullable String city;
 
-  private String phoneNumber;
+  private @Nullable String phoneNumber;
 
-  private String email;
+  private @Nullable String email;
 
   private @Nullable Boolean isActive;
 
@@ -59,23 +59,6 @@ public class RestModelStore {
 
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
   private @Nullable LocalDateTime deletedAt;
-
-  public RestModelStore() {
-    super();
-  }
-
-  /**
-   * Constructor with only required parameters
-   */
-  public RestModelStore(String taxId, String name, String address, String stateProvince, String city, String phoneNumber, String email) {
-    this.taxId = taxId;
-    this.name = name;
-    this.address = address;
-    this.stateProvince = stateProvince;
-    this.city = city;
-    this.phoneNumber = phoneNumber;
-    this.email = email;
-  }
 
   public RestModelStore id(UUID id) {
     this.id = id;
@@ -106,8 +89,8 @@ public class RestModelStore {
    * Get taxId
    * @return taxId
    */
-  @NotNull 
-  @Schema(name = "taxId", requiredMode = Schema.RequiredMode.REQUIRED)
+  
+  @Schema(name = "taxId", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("taxId")
   public String getTaxId() {
     return taxId;
@@ -126,8 +109,8 @@ public class RestModelStore {
    * Get name
    * @return name
    */
-  @NotNull 
-  @Schema(name = "name", requiredMode = Schema.RequiredMode.REQUIRED)
+  
+  @Schema(name = "name", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("name")
   public String getName() {
     return name;
@@ -206,8 +189,8 @@ public class RestModelStore {
    * Get address
    * @return address
    */
-  @NotNull 
-  @Schema(name = "address", requiredMode = Schema.RequiredMode.REQUIRED)
+  
+  @Schema(name = "address", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("address")
   public String getAddress() {
     return address;
@@ -226,8 +209,8 @@ public class RestModelStore {
    * Get stateProvince
    * @return stateProvince
    */
-  @NotNull 
-  @Schema(name = "stateProvince", requiredMode = Schema.RequiredMode.REQUIRED)
+  
+  @Schema(name = "stateProvince", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("stateProvince")
   public String getStateProvince() {
     return stateProvince;
@@ -246,8 +229,8 @@ public class RestModelStore {
    * Get city
    * @return city
    */
-  @NotNull 
-  @Schema(name = "city", requiredMode = Schema.RequiredMode.REQUIRED)
+  
+  @Schema(name = "city", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("city")
   public String getCity() {
     return city;
@@ -266,8 +249,8 @@ public class RestModelStore {
    * Get phoneNumber
    * @return phoneNumber
    */
-  @NotNull 
-  @Schema(name = "phoneNumber", requiredMode = Schema.RequiredMode.REQUIRED)
+  
+  @Schema(name = "phoneNumber", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("phoneNumber")
   public String getPhoneNumber() {
     return phoneNumber;
@@ -286,8 +269,8 @@ public class RestModelStore {
    * Get email
    * @return email
    */
-  @NotNull @jakarta.validation.constraints.Email 
-  @Schema(name = "email", requiredMode = Schema.RequiredMode.REQUIRED)
+  @jakarta.validation.constraints.Email 
+  @Schema(name = "email", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("email")
   public String getEmail() {
     return email;

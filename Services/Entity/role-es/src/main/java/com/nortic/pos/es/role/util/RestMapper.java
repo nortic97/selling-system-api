@@ -1,13 +1,14 @@
 package com.nortic.pos.es.role.util;
 
-import com.nortic.pos.models.dto.StoreDTO;
-import com.nortic.pos.models.entity.StoreEntity;
+import com.nortic.pos.es.role.rest.gen.model.RestModelRole;
+import com.nortic.pos.models.dto.RoleDTO;
+import com.nortic.pos.models.entity.RoleEntity;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface RestMapper {
-//    StoreDTO restModelToDTO(RestModelStore restModelStore);
-//    StoreEntity dtoToEntity(StoreDTO storeDTO);
-//    StoreDTO entityToDTO(StoreEntity storeEntity);
-//    RestModelStore dtoToRestModel(StoreDTO storeDTO);
+    RoleDTO restModelToDTO(RestModelRole restModelRole);
+    RoleEntity dtoToEntity(RoleDTO roleDTO);
+    RoleDTO entityToDTO(RoleEntity roleEntity);
+    RestModelRole dtoToRestModel(RoleDTO roleDTO);
 }
