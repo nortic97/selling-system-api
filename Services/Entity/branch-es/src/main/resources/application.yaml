@@ -1,0 +1,40 @@
+spring:
+  web:
+    resources:
+      add-mappings: true
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:selling_system}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:123456}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+  application:
+    name: branches-es
+
+springdoc:
+  api-docs:
+    enabled: false
+    path: openapi-contract.yaml
+  swagger-ui:
+    operationsSorter: method
+    path: /swagger
+    url: openapi-contract.yaml
+  show-actuator: true
+
+grpc:
+  server:
+    port: ${GRPC_PORT:9090}
+    health-service-enabled: true
+    reflection-service-enabled: true
+
+server:
+  port: ${REST_PORT:8089}
+  error:
+    whitelabel:
+      enabled: false
+
+variables:
+  env: ${ENV:LOCAL}

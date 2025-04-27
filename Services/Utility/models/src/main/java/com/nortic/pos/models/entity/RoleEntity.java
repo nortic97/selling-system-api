@@ -19,36 +19,41 @@ public class RoleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id", nullable = false)
+    private StoreEntity store;
     @Column(unique = true, nullable = false)
     private String name;
-
     private String description;
-
-    @Column(nullable = false)
-    private Boolean status;
-
-    @Column(nullable = false, updatable = false)
+    private Boolean isActive;
     private LocalDateTime createdAt;
-
-    @Column(nullable = false)
     private LocalDateTime updatedAt;
-
     private LocalDateTime deletedAt;
 
     @PrePersist
     protected void onCreate() {
         LocalDateTime now = LocalDateTime.now();
-        createdAt = now;
-        updatedAt = now;
+        this.createdAt = now;
+        this.updatedAt = now;
+        this.isActive = Boolean.FALSE;
     }
 
     @PreUpdate
     protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
     public void markAsDeleted() {
-        deletedAt = LocalDateTime.now();
+        this.deletedAt = LocalDateTime.now();
+        this.isActive = Boolean.FALSE;
+    }
+
+    public void changeStatus(Boolean status) {
+        if (Boolean.TRUE.equals(status)) {
+            this.isActive = Boolean.TRUE;
+            this.deletedAt = null;
+        } else {
+            this.isActive = Boolean.FALSE;
+        }
     }
 }

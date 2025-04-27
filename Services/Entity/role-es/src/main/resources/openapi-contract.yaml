@@ -13,10 +13,12 @@ info:
 
 servers:
   - url: "{protocol}://{hostname}{port}{basePath}"
-    description: Configurable server
+    description: Configurable server (local or deployed)
     variables:
       protocol:
-        enum: [http, https]
+        enum:
+          - http
+          - https
         default: http
       hostname:
         default: localhost
@@ -24,7 +26,10 @@ servers:
         default: ":8080"
       basePath:
         default: ""
-        enum: ["", "/role-es"]
+        enum:
+          - ""
+          - "/role-es"
+        description: Optional path for the deployed version
 
 paths:
   /api/v1/es/role:
@@ -50,85 +55,26 @@ paths:
           description: Bad Request
           content:
             application/json:
+              examples:
+                error:
+                  summary: Example of error response
+                  value:
+                    code: 400
+                    message: "Field Name is Mandatory"
               schema:
                 $ref: "#/components/schemas/HttpError"
         '500':
           description: Internal Server Error
           content:
             application/json:
+              examples:
+                error:
+                  summary: Example of error response
+                  value:
+                    code: 500
+                    message: "Internal Server Error"
               schema:
                 $ref: "#/components/schemas/HttpError"
-
-    get:
-      summary: List all roles
-      operationId: listRoles
-      tags:
-        - Role
-      parameters:
-        - name: name
-          in: query
-          schema:
-            type: string
-        - name: isActive
-          in: query
-          schema:
-            type: boolean
-      responses:
-        '200':
-          description: Roles retrieved successfully
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Role"
-
-  /api/v1/es/role/paginated:
-    get:
-      summary: List roles with pagination
-      operationId: listRolesPaginated
-      tags:
-        - Role
-      parameters:
-        - name: page
-          in: query
-          schema:
-            type: integer
-            default: 1
-        - name: limit
-          in: query
-          schema:
-            type: integer
-            default: 10
-        - name: name
-          in: query
-          schema:
-            type: string
-        - name: isActive
-          in: query
-          schema:
-            type: boolean
-      responses:
-        '200':
-          description: Paginated roles retrieved successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/Role"
-                  pagination:
-                    type: object
-                    properties:
-                      total:
-                        type: integer
-                      page:
-                        type: integer
-                      limit:
-                        type: integer
 
   /api/v1/es/role/{id}:
     get:
@@ -151,9 +97,27 @@ paths:
               schema:
                 $ref: "#/components/schemas/Role"
         '404':
-          description: Role not found
+          description: Not Found
           content:
             application/json:
+              examples:
+                error:
+                  summary: Example of error response
+                  value:
+                    code: 404
+                    message: "Role not Found"
+              schema:
+                $ref: "#/components/schemas/HttpError"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Example of error response
+                  value:
+                    code: 500
+                    message: "Internal Server Error"
               schema:
                 $ref: "#/components/schemas/HttpError"
 
@@ -182,10 +146,40 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Role"
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Example of error response
+                  value:
+                    code: 400
+                    message: "Name is Mandatory"
+              schema:
+                $ref: "#/components/schemas/HttpError"
         '404':
           description: Role not found
           content:
             application/json:
+              examples:
+                error:
+                  summary: Example of error response
+                  value:
+                    code: 404
+                    message: "Role not Found"
+              schema:
+                $ref: "#/components/schemas/HttpError"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Example of error response
+                  value:
+                    code: 500
+                    message: "Internal Server Error"
               schema:
                 $ref: "#/components/schemas/HttpError"
 
@@ -208,6 +202,24 @@ paths:
           description: Role not found
           content:
             application/json:
+              examples:
+                error:
+                  summary: Example of error response
+                  value:
+                    code: 404
+                    message: "Role not Found"
+              schema:
+                $ref: "#/components/schemas/HttpError"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Example of error response
+                  value:
+                    code: 500
+                    message: "Internal Server Error"
               schema:
                 $ref: "#/components/schemas/HttpError"
 
@@ -231,6 +243,101 @@ paths:
           description: Role not found
           content:
             application/json:
+              examples:
+                error:
+                  summary: Example of error response
+                  value:
+                    code: 404
+                    message: "Role not Found"
+              schema:
+                $ref: "#/components/schemas/HttpError"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Example of error response
+                  value:
+                    code: 500
+                    message: "Internal Server Error"
+              schema:
+                $ref: "#/components/schemas/HttpError"
+
+  /api/v1/es/role/list/{storeId}:
+    get:
+      summary: List roles of a store, optionally paginated
+      operationId: listRolesOfStore
+      tags:
+        - Role
+      parameters:
+        - name: storeId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: name
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: isActive
+          in: query
+          required: false
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Roles retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RolePagination"
+        '400':
+          description: Invalid parameters (e.g., invalid UUID format, bad query params)
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Example of error response
+                  value:
+                    code: 400
+                    message: "Invalid UUID format for storeId"
+              schema:
+                $ref: "#/components/schemas/HttpError"
+        '404':
+          description: Store not found or no roles found
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Example of error response
+                  value:
+                    code: 404
+                    message: "Store not found or no roles found"
+              schema:
+                $ref: "#/components/schemas/HttpError"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Example of error response
+                  value:
+                    code: 500
+                    message: "Internal Server Error"
               schema:
                 $ref: "#/components/schemas/HttpError"
 
@@ -261,10 +368,34 @@ paths:
       responses:
         '200':
           description: Role status updated successfully
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
         '404':
           description: Role not found
           content:
             application/json:
+              examples:
+                error:
+                  summary: Example of error response
+                  value:
+                    code: 404
+                    message: "Role not Found"
+              schema:
+                $ref: "#/components/schemas/HttpError"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Example of error response
+                  value:
+                    code: 500
+                    message: "Internal Server Error"
               schema:
                 $ref: "#/components/schemas/HttpError"
 
@@ -276,12 +407,61 @@ components:
       bearerFormat: JWT
 
   schemas:
+    Store:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        taxId:
+          type: string
+        name:
+          type: string
+        logo:
+          type: string
+        description:
+          type: string
+        slogan:
+          type: string
+        address:
+          type: string
+        stateProvince:
+          type: string
+        city:
+          type: string
+        phoneNumber:
+          type: string
+        email:
+          type: string
+          format: email
+        isActive:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        deletedAt:
+          type: string
+          format: date-time
+      required:
+        - taxId
+        - name
+        - email
+        - phoneNumber
+        - address
+        - stateProvince
+        - city
+
     Role:
       type: object
       properties:
         id:
           type: string
           format: uuid
+        storeId:
+          $ref: "#/components/schemas/Store"
         name:
           type: string
         description:
@@ -298,7 +478,43 @@ components:
           type: string
           format: date-time
       required:
+        - storeId
         - name
+
+    RolePagination:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of roles matching the query in that store
+          example: 300
+        page:
+          type: integer
+          description: Current page number
+          example: 2
+        limit:
+          type: integer
+          description: Number of roles per page
+          example: 10
+        hasNextPage:
+          type: boolean
+          description: True if there is a next page
+          example: true
+        hasPreviousPage:
+          type: boolean
+          description: True if there is a previous page
+          example: true
+        rolesList:
+          type: array
+          items:
+            $ref: "#/components/schemas/Role"
+      required:
+        - total
+        - page
+        - limit
+        - hasNextPage
+        - hasPreviousPage
+
 
     HttpError:
       type: object
