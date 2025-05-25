@@ -115,8 +115,8 @@ public class BranchSvcImpl implements IBranchSvc{
         log.info("Listing branches by store");
 
         boolean hasFilters = page != null || limit != null ||  name != null || isActive != null;
-        page = (page == null) ? 1 : page;
-        limit = (limit == null) ? 50 : limit;
+        page = (page == null || page == 0) ? 1 : page;
+        limit = (limit == null || limit == 0) ? 50 : limit;
 
         if(!hasFilters) {
             return getAllBranches(storeId);
