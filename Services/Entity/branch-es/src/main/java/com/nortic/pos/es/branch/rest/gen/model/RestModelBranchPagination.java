@@ -25,7 +25,7 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("BranchPagination")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-04-27T01:16:06.193378700-05:00[America/Bogota]", comments = "Generator version: 7.12.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-05-26T09:11:53.008208800-05:00[America/Bogota]", comments = "Generator version: 7.12.0")
 public class RestModelBranchPagination {
 
   private @Nullable Integer totalItems;

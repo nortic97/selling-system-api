@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity(name = "roles")
@@ -24,11 +25,15 @@ public class RoleEntity {
     private StoreEntity store;
     @Column(unique = true, nullable = false)
     private String name;
+    @Column(columnDefinition = "TEXT")
     private String description;
     private Boolean isActive;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
+
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<UserEntity> users;
 
     @PrePersist
     protected void onCreate() {

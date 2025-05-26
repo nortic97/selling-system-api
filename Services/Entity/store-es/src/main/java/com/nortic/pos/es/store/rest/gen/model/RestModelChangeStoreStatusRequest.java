@@ -21,7 +21,7 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("changeStoreStatus_request")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-04-23T10:10:53.128752400-05:00[America/Bogota]", comments = "Generator version: 7.12.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-05-26T11:29:01.156013200-05:00[America/Bogota]", comments = "Generator version: 7.12.0")
 public class RestModelChangeStoreStatusRequest {
 
   private Boolean isActive;

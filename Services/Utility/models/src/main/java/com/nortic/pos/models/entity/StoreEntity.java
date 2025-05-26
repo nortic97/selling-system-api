@@ -45,6 +45,8 @@ public class StoreEntity {
     private List<RoleEntity> roles;
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<BranchEntity> branches;
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<UserEntity> users;
 
     @PrePersist
     protected void onCreate() {
