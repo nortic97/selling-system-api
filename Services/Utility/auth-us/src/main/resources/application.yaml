@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: auth-us
+grpc:
+  server:
+    port: ${AUTH_GRPC_PORT:9090}
+    health-service-enabled: true
+    reflection-service-enabled: true
+server:
+  port: ${AUTH_REST_PORT:8080}

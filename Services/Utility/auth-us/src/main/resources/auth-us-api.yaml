@@ -1,0 +1,126 @@
+openapi: 3.0.0
+info:
+  title: Authentication Service API
+  version: 0.0.1
+  description: |
+    API for authentication and role-based access control.
+    This service allows authenticating users and generating access and refresh tokens.
+  contact:
+    name: Developer
+    email: nortic97@gmail.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+paths:
+  /api/v1/us/auth:
+    post:
+      summary: Authenticates a user and returns a JWT token.
+      operationId: auth
+      tags:
+        - Auth
+      description: |
+        This endpoint receives a user's credentials (username and password).
+        If the credentials are valid, it returns an access token (accessToken), a refresh token (refreshToken),
+        and the token type (type).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthRequest"
+      responses:
+        '200':
+          description: Successful authentication.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        '400':
+          description: Bad Request. The request body is invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+              example:
+                code: 400
+                message: Invalid request body.
+        '401':
+          description: Unauthorized. Invalid credentials.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+              example:
+                code: 401
+                message: Invalid username or password.
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+              example:
+                code: 500
+                message: An unexpected error occurred.
+
+components:
+  schemas:
+    AuthRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          example: ThnG123
+          description: User Name.
+        password:
+          type: string
+          example: Password123*
+          description: User Password.
+      required:
+        - username
+        - password
+
+    AuthResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+          description: JWT access token.
+        refreshToken:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+          description: JWT refresh token.
+        type:
+          type: string
+          example: Bearer
+          description: Token type (usually "Bearer").
+      required:
+        - accessToken
+        - refreshToken
+        - type
+
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+      required:
+        - status
+
+    HttpError:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code.
+          example: 400
+        message:
+          type: string
+          description: Error message.
+          example: Invalid request body.
+      required:
+        - code
+        - message
