@@ -27,6 +27,9 @@
         <option value="$PROJECT_DIR$/Utility/auth-us/pom.xml" />
         <option value="$PROJECT_DIR$/Entity/users-es/pom.xml" />
         <option value="$PROJECT_DIR$/Entity/stores-es/pom.xml" />
+        <option value="$PROJECT_DIR$/Entity/branch-es/pom.xml" />
+        <option value="$PROJECT_DIR$/Entity/role-es/pom.xml" />
+        <option value="$PROJECT_DIR$/Entity/store-es/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

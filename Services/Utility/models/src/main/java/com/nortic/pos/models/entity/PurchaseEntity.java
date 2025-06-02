@@ -52,7 +52,4 @@ public class PurchaseEntity {
 
     @Column(nullable = false)
     private Double total;
-
-    @ManyToMany(mappedBy = "purchases", fetch = FetchType.LAZY)
-    private Set<ProductEntity> products;
 }

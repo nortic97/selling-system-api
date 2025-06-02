@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/Entity/branch-es/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Entity/es-menus/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Entity/es-roles/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Entity/es-users/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Entity/menusES/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Entity/role-es/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Entity/store-es/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Entity/stores-es/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Entity/users-es/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Microservice/ChatMS/src/main/java" charset="UTF-8" />

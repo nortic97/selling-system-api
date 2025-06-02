@@ -8,35 +8,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="models" />
         <module name="platform-initializer-ts" />
         <module name="FileStorage" />
         <module name="auth-us" />
-      </profile>
-      <profile name="Annotation profile for users" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/unknown/mapstruct-processor-unknown.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.6.3/mapstruct-processor-1.6.3.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.6.3/mapstruct-1.6.3.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.6.3/lombok-1.6.3.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.6.3/mapstruct-processor-1.6.3.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.6.3/mapstruct-1.6.3.jar" />
-        </processorPath>
-        <module name="users" />
-      </profile>
-      <profile name="Annotation profile for stores-es" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
-        </processorPath>
-        <module name="users-es" />
       </profile>
       <profile name="Annotation profile for stores" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -52,6 +26,40 @@
         </processorPath>
         <module name="stores" />
       </profile>
+      <profile name="Annotation profile for models" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
+        </processorPath>
+        <module name="users-es" />
+        <module name="models" />
+      </profile>
+      <profile name="Annotation profile for branch-es" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.6.3/mapstruct-processor-1.6.3.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.6.3/mapstruct-1.6.3.jar" />
+        </processorPath>
+        <module name="branch" />
+      </profile>
+      <profile name="Annotation profile for role-es" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.6.3/mapstruct-processor-1.6.3.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.6.3/mapstruct-1.6.3.jar" />
+        </processorPath>
+        <module name="users" />
+        <module name="store" />
+        <module name="role" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="es-roles" target="21" />
@@ -65,6 +73,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="auth-us" options="-parameters" />
+      <module name="branch" options="-parameters" />
       <module name="es-roles" options="-parameters" />
       <module name="es-users" options="-parameters" />
       <module name="fileStorageUS" options="-parameters" />
@@ -73,6 +82,8 @@
       <module name="ms-chat" options="-parameters" />
       <module name="ms-user-settings" options="-parameters" />
       <module name="platform-initializer-ts" options="-parameters" />
+      <module name="role" options="-parameters" />
+      <module name="store" options="-parameters" />
       <module name="stores" options="-parameters" />
       <module name="users" options="-parameters" />
       <module name="users-es" options="-parameters" />
