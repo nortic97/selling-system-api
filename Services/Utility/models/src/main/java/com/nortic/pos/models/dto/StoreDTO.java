@@ -13,19 +13,20 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StoreDTO {
-    UUID id;
-    String taxId;
-    String name;
-    String logo;
-    String description;
-    String slogan;
-    String address;
-    String stateProvince;
-    String city;
-    String phoneNumber;
-    String email;
-    Boolean isActive;
-    LocalDateTime createdAt;
-    LocalDateTime updatedAt;
-    LocalDateTime deletedAt;
+    private UUID id;
+    private String taxId;
+    private String name;
+    private String logo;
+    private String description;
+    private String slogan;
+    private String address;
+    private String country;
+    private String stateProvince;
+    private String city;
+    private String phoneNumber;
+    private String email;
+    private Boolean isActive;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private LocalDateTime deletedAt;
 }

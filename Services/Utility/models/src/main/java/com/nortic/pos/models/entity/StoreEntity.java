@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -16,37 +17,77 @@ import java.util.UUID;
 @Builder
 @Entity(name = "stores")
 public class StoreEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+
     @Column(nullable = false, unique = true)
     private String taxId;
+
     @Column(nullable = false)
     private String name;
+
     private String logo;
+
     private String description;
+
     private String slogan;
+
     @Column(nullable = false)
     private String address;
+
+    private String country;
+
     @Column(nullable = false)
     private String stateProvince;
+
     @Column(nullable = false)
     private String city;
+
     @Column(nullable = false)
     private String phoneNumber;
+
     @Column(nullable = false, unique = true)
     private String email;
+
     private Boolean isActive;
+
     private LocalDateTime createdAt;
+
     private LocalDateTime updatedAt;
+
     private LocalDateTime deletedAt;
-    // Relations
-    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<RoleEntity> roles;
-    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<BranchEntity> branches;
-    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<UserEntity> users;
+
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<BranchEntity> branches;
+
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, fetch = FetchType.LAZY,orphanRemoval = true)
+    private Set<SupplierEntity> suppliers;
+
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, fetch = FetchType.LAZY ,orphanRemoval = true)
+    private Set<UserEntity> users;
+
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, fetch = FetchType.LAZY,orphanRemoval = true)
+    private Set<RoleEntity> roles;
+
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<CategoryEntity> categories;
+
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<SubcategoryEntity> subcategories;
+
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<ProductEntity> products;
+
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<SaleEntity> sales;
+
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<PurchaseEntity> purchases;
+
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<ReturnEntity> returns;
 
     @PrePersist
     protected void onCreate() {

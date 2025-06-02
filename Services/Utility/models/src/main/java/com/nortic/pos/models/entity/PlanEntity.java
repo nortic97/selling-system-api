@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -14,16 +15,23 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Entity(name = "plans")
-public class PlansEntity {
+public class PlanEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+
     private String name;
+
     @Column(columnDefinition = "TEXT")
     private String description;
+
     private Double price;
+
     @Enumerated(EnumType.STRING)
     private TypeOfPlanEnum typeOfPlan;
+
+    @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<UserPlanPaymentEntity> userPlanPayments;
 
 }
