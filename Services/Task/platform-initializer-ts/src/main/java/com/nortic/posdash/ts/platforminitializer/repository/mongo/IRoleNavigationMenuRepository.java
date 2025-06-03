@@ -1,10 +1,10 @@
 package com.nortic.posdash.ts.platforminitializer.repository.mongo;
 
-import com.nortic.posdash.models.entity.RoleNavigationMenuEntity;
+import com.nortic.pos.models.document.PlatformNavigationMenuDocument;
 
 import java.util.Optional;
 
 public interface IRoleNavigationMenuRepository {
-    Optional<RoleNavigationMenuEntity> findByRoleId(String roleId);
-    void upsertByRoleId(String roleId, RoleNavigationMenuEntity entity);
+    Optional<PlatformNavigationMenuDocument> findByRoleId(String roleId);
+    void upsertByRoleId(String roleId, PlatformNavigationMenuDocument entity);
 }

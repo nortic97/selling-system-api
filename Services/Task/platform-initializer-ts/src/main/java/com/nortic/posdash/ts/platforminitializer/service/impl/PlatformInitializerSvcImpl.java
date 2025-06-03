@@ -29,9 +29,9 @@ public class PlatformInitializerSvcImpl implements IPlatformInitializerService {
     @Override
     public void initializePlatform() {
         log.info("Initializing platform...");
-        roleCmd.execute(Constants.ROLE_ADMIN);
-        roleCmd.execute(Constants.ROLE_USER);
-        userCmd.execute();
+//        roleCmd.execute(Constants.ROLE_ADMIN);
+//        roleCmd.execute(Constants.ROLE_USER);
+//        userCmd.execute();
         roleNavigationMenuCmd.execute();
         log.info("Initializing platform complete.");
     }

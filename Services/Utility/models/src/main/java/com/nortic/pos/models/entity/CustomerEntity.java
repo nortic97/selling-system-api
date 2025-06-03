@@ -2,7 +2,10 @@ package com.nortic.pos.models.entity;
 
 import com.nortic.pos.models.enums.DocumentTypeEnum;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.Set;

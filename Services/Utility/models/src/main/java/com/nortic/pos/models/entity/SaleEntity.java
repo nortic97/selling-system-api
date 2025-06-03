@@ -3,10 +3,12 @@ package com.nortic.pos.models.entity;
 import com.nortic.pos.models.enums.PaymentStatusEnum;
 import com.nortic.pos.models.enums.SaleStatusEnum;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 

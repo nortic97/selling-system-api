@@ -1,7 +1,6 @@
 package com.nortic.posdash.ts.platforminitializer.service.impl;
 
-import com.nortic.posdash.models.entity.RoleEntity;
-import com.nortic.posdash.models.entity.RoleNavigationMenuEntity;
+import com.nortic.pos.models.entity.RoleEntity;
 import com.nortic.posdash.ts.platforminitializer.repository.mongo.RoleNavigationMenuRepositoryImpl;
 import com.nortic.posdash.ts.platforminitializer.service.contract.IRoleNavigationMenuSvc;
 import com.nortic.posdash.ts.platforminitializer.utils.Constants;

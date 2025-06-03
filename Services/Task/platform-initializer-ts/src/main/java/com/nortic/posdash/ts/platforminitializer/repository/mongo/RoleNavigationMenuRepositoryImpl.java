@@ -1,6 +1,7 @@
 package com.nortic.posdash.ts.platforminitializer.repository.mongo;
 
-import com.nortic.posdash.models.entity.RoleNavigationMenuEntity;
+import com.nortic.pos.models.document.NavigationMenuDocument;
+import com.nortic.pos.models.document.PlatformNavigationMenuDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -21,17 +22,17 @@ public class RoleNavigationMenuRepositoryImpl implements IRoleNavigationMenuRepo
     }
 
     @Override
-    public Optional<RoleNavigationMenuEntity> findByRoleId(String roleId) {
+    public Optional<PlatformNavigationMenuDocument> findByRoleId(String roleId) {
         Query query = new Query(Criteria.where("_id").is(roleId));
-        RoleNavigationMenuEntity entity = mongoTemplate.findOne(query, RoleNavigationMenuEntity.class);
+        PlatformNavigationMenuDocument entity = mongoTemplate.findOne(query, PlatformNavigationMenuDocument.class);
         return Optional.ofNullable(entity);
     }
 
     @Override
-    public void upsertByRoleId(String roleId, RoleNavigationMenuEntity entity) {
+    public void upsertByRoleId(String roleId, PlatformNavigationMenuDocument entity) {
         Query query = new Query(Criteria.where("_id").is(roleId));
         Update update = new Update()
                 .set("navigationMenus", entity.getNavigationMenus());
-        mongoTemplate.upsert(query, update, RoleNavigationMenuEntity.class);
+        mongoTemplate.upsert(query, update, NavigationMenuDocument.class);
     }
 }
