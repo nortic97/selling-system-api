@@ -1,11 +1,12 @@
 package com.nortic.pos.models.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity(name = "purchases")
@@ -52,7 +53,4 @@ public class PurchaseEntity {
 
     @Column(nullable = false)
     private Double total;
-
-    @ManyToMany(mappedBy = "purchases", fetch = FetchType.LAZY)
-    private Set<ProductEntity> products;
 }

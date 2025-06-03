@@ -5,15 +5,15 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.4.4</version>
+		<version>3.4.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.nortic.posdash.ts</groupId>
+	<groupId>com.nortic.pos.ts</groupId>
 	<artifactId>platform-initializer-ts</artifactId>
 	<version>0.0.1</version>
 	<packaging>war</packaging>
-	<name>PlatformInitializerTS</name>
-	<description>PlatformInitializerTS</description>
+	<name>platform-initializer-ts</name>
+	<description>platform-initializer-ts</description>
 	<url/>
 	<licenses>
 		<license/>
