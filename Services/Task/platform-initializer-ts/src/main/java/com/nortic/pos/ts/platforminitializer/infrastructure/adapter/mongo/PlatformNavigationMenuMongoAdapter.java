@@ -6,6 +6,8 @@ import com.nortic.pos.ts.platforminitializer.infrastructure.adapter.mongo.reposi
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class PlatformNavigationMenuMongoAdapter implements PlatformNavigationMenuPort {
 
@@ -14,6 +16,11 @@ public class PlatformNavigationMenuMongoAdapter implements PlatformNavigationMen
     @Autowired
     public PlatformNavigationMenuMongoAdapter(PlatformNavigationMenuMongoRepository repository) {
         this.repository = repository;
+    }
+
+    @Override
+    public Optional<PlatformNavigationMenuDocument> findById(String id) {
+        return repository.findById(id);
     }
 
     @Override
