@@ -6,6 +6,8 @@ import com.nortic.pos.ts.platforminitializer.infrastructure.adapter.sql.reposito
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class StoreAdapter implements StorePort {
 
@@ -19,6 +21,11 @@ public class StoreAdapter implements StorePort {
     @Override
     public StoreEntity save(StoreEntity store) {
         return repository.save(store);
+    }
+
+    @Override
+    public Optional<StoreEntity> findByTaxId(String taxId) {
+        return repository.findByTaxId(taxId);
     }
 
     @Override

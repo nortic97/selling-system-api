@@ -285,6 +285,8 @@ components:
           type: string
         address:
           type: string
+        country:
+          type: string
         stateProvince:
           type: string
         city:

@@ -1,5 +1,7 @@
 package com.nortic.pos.ts.platforminitializer.infrastructure.util;
 
+import java.util.UUID;
+
 public class Constants {
     public static final String ROLE_ADMIN = "Administrator";
     public static final String ROLE_USER = "User";
@@ -42,4 +44,6 @@ public class Constants {
 
     // Versions
     public static final String PLATFORM_NAVIGATION_MENU_VERSION = "PlatformNavigationMenusV0.0.1";
+    // Global UUID
+    public static final UUID GLOBAL_UUID = UUID.fromString("11111111-1111-1111-1111-111111111111");
 }

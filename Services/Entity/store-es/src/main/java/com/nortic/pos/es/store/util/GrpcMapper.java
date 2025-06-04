@@ -29,6 +29,7 @@ public interface GrpcMapper {
     @Mapping(source = "description", target = "description", qualifiedByName = "emptyStringToNull")
     @Mapping(source = "slogan", target = "slogan", qualifiedByName = "emptyStringToNull")
     @Mapping(source = "address", target = "address", qualifiedByName = "emptyStringToNull")
+    @Mapping(source = "country", target = "country", qualifiedByName = "emptyStringToNull")
     @Mapping(source = "stateProvince", target = "stateProvince", qualifiedByName = "emptyStringToNull")
     @Mapping(source = "city", target = "city", qualifiedByName = "emptyStringToNull")
     @Mapping(source = "phoneNumber", target = "phoneNumber", qualifiedByName = "emptyStringToNull")

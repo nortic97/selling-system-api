@@ -5,6 +5,7 @@ import com.nortic.pos.models.entity.StoreEntity;
 public class StoreGenerator {
     public static StoreEntity generateInitialStore(){
         return StoreEntity.builder()
+                .id(Constants.GLOBAL_UUID)
                 .taxId("1069759007")
                 .name("Nortic")
                 .logo(null)

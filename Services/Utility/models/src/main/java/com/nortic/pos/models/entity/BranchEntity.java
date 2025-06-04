@@ -17,7 +17,6 @@ import java.util.UUID;
 @Entity(name = "branches")
 public class BranchEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -67,6 +66,7 @@ public class BranchEntity {
     @PrePersist
     protected void onCreate() {
         LocalDateTime now = LocalDateTime.now();
+        this.id = this.id == null ? UUID.randomUUID() : this.id;
         this.createdAt = now;
         this.updatedAt = now;
         this.isActive = Boolean.FALSE;

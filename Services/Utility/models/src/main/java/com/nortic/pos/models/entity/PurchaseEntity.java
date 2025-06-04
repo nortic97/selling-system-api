@@ -16,7 +16,6 @@ import java.util.UUID;
 @Builder
 public class PurchaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -53,4 +52,9 @@ public class PurchaseEntity {
 
     @Column(nullable = false)
     private Double total;
+
+    @PrePersist
+    protected void onCreate() {
+        this.id = this.id == null ? UUID.randomUUID() : this.id;
+    }
 }

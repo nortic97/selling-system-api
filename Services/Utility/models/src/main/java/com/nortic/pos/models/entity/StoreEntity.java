@@ -18,7 +18,6 @@ import java.util.UUID;
 public class StoreEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @Column(nullable = false, unique = true)
@@ -91,6 +90,7 @@ public class StoreEntity {
     @PrePersist
     protected void onCreate() {
         LocalDateTime now = LocalDateTime.now();
+        this.id = this.id == null ? UUID.randomUUID() : this.id;
         this.createdAt = now;
         this.updatedAt = now;
         this.isActive = Boolean.FALSE;

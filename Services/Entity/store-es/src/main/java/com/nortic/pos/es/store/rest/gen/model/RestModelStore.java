@@ -24,7 +24,7 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("Store")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-05-26T11:29:01.156013200-05:00[America/Bogota]", comments = "Generator version: 7.12.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-06-03T18:41:57.156205300-05:00[America/Bogota]", comments = "Generator version: 7.12.0")
 public class RestModelStore {
 
   private @Nullable UUID id;
@@ -40,6 +40,8 @@ public class RestModelStore {
   private @Nullable String slogan;
 
   private String address;
+
+  private @Nullable String country;
 
   private String stateProvince;
 
@@ -215,6 +217,26 @@ public class RestModelStore {
 
   public void setAddress(String address) {
     this.address = address;
+  }
+
+  public RestModelStore country(String country) {
+    this.country = country;
+    return this;
+  }
+
+  /**
+   * Get country
+   * @return country
+   */
+  
+  @Schema(name = "country", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("country")
+  public String getCountry() {
+    return country;
+  }
+
+  public void setCountry(String country) {
+    this.country = country;
   }
 
   public RestModelStore stateProvince(String stateProvince) {
@@ -393,6 +415,7 @@ public class RestModelStore {
         Objects.equals(this.description, store.description) &&
         Objects.equals(this.slogan, store.slogan) &&
         Objects.equals(this.address, store.address) &&
+        Objects.equals(this.country, store.country) &&
         Objects.equals(this.stateProvince, store.stateProvince) &&
         Objects.equals(this.city, store.city) &&
         Objects.equals(this.phoneNumber, store.phoneNumber) &&
@@ -405,7 +428,7 @@ public class RestModelStore {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, taxId, name, logo, description, slogan, address, stateProvince, city, phoneNumber, email, isActive, createdAt, updatedAt, deletedAt);
+    return Objects.hash(id, taxId, name, logo, description, slogan, address, country, stateProvince, city, phoneNumber, email, isActive, createdAt, updatedAt, deletedAt);
   }
 
   @Override
@@ -419,6 +442,7 @@ public class RestModelStore {
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    slogan: ").append(toIndentedString(slogan)).append("\n");
     sb.append("    address: ").append(toIndentedString(address)).append("\n");
+    sb.append("    country: ").append(toIndentedString(country)).append("\n");
     sb.append("    stateProvince: ").append(toIndentedString(stateProvince)).append("\n");
     sb.append("    city: ").append(toIndentedString(city)).append("\n");
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");

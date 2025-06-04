@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 
@@ -18,7 +19,6 @@ import java.util.UUID;
 public class PlanEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     private String name;
@@ -34,4 +34,9 @@ public class PlanEntity {
     @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<UserPlanPaymentEntity> userPlanPayments;
 
+    @PrePersist
+    protected void onCreate() {
+        LocalDateTime now = LocalDateTime.now();
+        this.id = this.id == null ? UUID.randomUUID() : this.id;
+    }
 }

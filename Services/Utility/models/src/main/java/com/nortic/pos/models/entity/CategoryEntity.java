@@ -18,7 +18,6 @@ import java.util.UUID;
 class CategoryEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -52,6 +51,7 @@ class CategoryEntity {
     @PrePersist
     protected void onCreate() {
         LocalDateTime now = LocalDateTime.now();
+        this.id = this.id == null ? UUID.randomUUID() : this.id;
         this.createdAt = now;
         this.updatedAt = now;
     }

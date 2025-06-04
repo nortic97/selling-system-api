@@ -17,7 +17,6 @@ import java.util.UUID;
 class ReturnEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -54,4 +53,9 @@ class ReturnEntity {
 
     @Column(nullable = false)
     private Boolean isResellable = false;
+
+    @PrePersist
+    protected void onCreate() {
+        this.id = this.id == null ? UUID.randomUUID() : this.id;
+    }
 }

@@ -19,7 +19,6 @@ import java.util.UUID;
 class CustomerEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     private String firstName;
@@ -50,6 +49,7 @@ class CustomerEntity {
     @PrePersist
     protected void onCreate() {
         LocalDateTime now = LocalDateTime.now();
+        this.id = this.id == null ? UUID.randomUUID() : this.id;
         this.createdAt = now;
         this.updatedAt = now;
     }
