@@ -16,15 +16,25 @@ spring:
 
 springdoc:
   api-docs:
-    enabled: false
+    enabled: true
+    path: /v3/api-docs
   swagger-ui:
     operationsSorter: method
     path: /swagger
-    url: openapi-contract.yaml
+    url: /openapi-contract.yaml
   show-actuator: true
 
+grpc:
+  server:
+    port: ${GRPC_PORT:9090}
+    health-service-enabled: true
+    reflection-service-enabled: true
+
 server:
-  port: 8089
+  port: ${REST_PORT:8089}
   error:
     whitelabel:
       enabled: false
+
+variables:
+  env: ${ENV:LOCAL}

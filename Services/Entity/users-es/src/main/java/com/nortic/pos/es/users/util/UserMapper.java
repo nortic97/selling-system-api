@@ -1,9 +1,8 @@
 package com.nortic.pos.es.users.util;
 
-import com.nortic.pos.es.users.rest.gen.model.RestModelUser;
-import com.nortic.posdash.models.dto.UserDTO;
+import com.nortic.pos.es.users.model.RestModelUser;
+import com.nortic.pos.models.dto.UserDTO;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {

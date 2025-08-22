@@ -1,41 +1,65 @@
 package com.nortic.pos.es.users.rest.controller;
 
-import com.nortic.pos.es.users.rest.gen.api.UsersApi;
-import com.nortic.pos.es.users.rest.gen.model.RestModelUser;
-import com.nortic.pos.es.users.util.UserMapper;
-import com.nortic.posdash.models.dto.UserDTO;
-import io.swagger.v3.oas.annotations.Hidden;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import com.nortic.pos.es.users.controller.UsersApi;
+import com.nortic.pos.es.users.model.RestModelAccountType;
+import com.nortic.pos.es.users.model.RestModelChangeUserStatusRequest;
+import com.nortic.pos.es.users.model.RestModelPaginatedUsers;
+import com.nortic.pos.es.users.model.RestModelUser;
+import com.nortic.pos.es.users.service.IUserSvc;
+import com.nortic.pos.es.users.util.RestMapper;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.UUID;
 
+@Slf4j
 @RestController
+@RequiredArgsConstructor
 public class UserController implements UsersApi {
 
-    private final UserMapper userMapper;
+    private final IUserSvc userSvc;
+    private final RestMapper restMapper;
 
-    @Autowired
-    UserController(UserMapper userMapper) {
-        this.userMapper = userMapper;
+
+    @Override
+    public ResponseEntity<RestModelUser> changeUserStatus(UUID id, RestModelChangeUserStatusRequest restModelChangeUserStatusRequest) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<RestModelUser> createUser(RestModelUser restModelUser) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteUser(UUID id) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<RestModelPaginatedUsers> getAllUsers(Integer page, Integer size, String sort, UUID storeId, UUID branchId, UUID roleId, RestModelAccountType accountType, Boolean isActive, String search) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<RestModelPaginatedUsers> getDeletedUsers(Integer page, Integer size, String sort, UUID storeId, UUID branchId, UUID roleId, RestModelAccountType accountType, Boolean isActive, String search) {
+        return null;
     }
 
     @Override
     public ResponseEntity<RestModelUser> getUserById(UUID id) {
-        return new ResponseEntity<>(userMapper.toRestModel(new UserDTO()), HttpStatus.OK);
+        return null;
     }
 
-    @Hidden
-    @RequestMapping("**")
-    public ResponseEntity<Map<String, Object>> handleUnknownRoutes() {
-        Map<String, Object> response = new LinkedHashMap<>();
-        response.put("code", 404);
-        response.put("status", "Request Not Found");
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    @Override
+    public ResponseEntity<Void> permanentDeleteUser(UUID id) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<RestModelUser> updateUser(UUID id, RestModelUser restModelUser) {
+        return null;
     }
 }

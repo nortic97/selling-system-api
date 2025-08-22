@@ -8,13 +8,11 @@ import com.nortic.pos.es.branch.service.BranchSvcImpl;
 import com.nortic.pos.es.branch.util.RestMapper;
 import com.nortic.pos.models.dto.BranchDTO;
 import com.nortic.pos.models.dto.BranchPaginationDTO;
-import com.nortic.pos.models.dto.StoreDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.UUID;
 
 @Slf4j

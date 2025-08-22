@@ -5,8 +5,8 @@ import com.nortic.pos.es.store.util.CustomException;
 import com.nortic.pos.es.store.util.RestMapper;
 import com.nortic.pos.models.dto.StoreDTO;
 import com.nortic.pos.models.entity.StoreEntity;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -14,16 +14,11 @@ import java.util.UUID;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class StoreSvcImpl implements IStoreSvc {
 
     private final RestMapper restMapper;
     private final StoreRepository storeRepository;
-
-    @Autowired
-    public StoreSvcImpl(RestMapper restMapper, StoreRepository storeRepository) {
-        this.restMapper = restMapper;
-        this.storeRepository = storeRepository;
-    }
 
     @Override
     public StoreDTO createStore(StoreDTO storeDTO) {

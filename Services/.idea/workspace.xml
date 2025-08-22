@@ -132,6 +132,7 @@
     "Maven.users [clean].executor": "Run",
     "Maven.users [compile].executor": "Run",
     "Maven.users [install].executor": "Run",
+    "Maven.users [package].executor": "Run",
     "Maven.users [validate].executor": "Run",
     "Maven.usersES [clean].executor": "Run",
     "Maven.usersES [package].executor": "Run",
@@ -160,7 +161,7 @@
     "ignore.virus.scanning.warn.message": "true",
     "jdk.selected.JAVA_MODULE": "21",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/akile/Documents/Proyectos/Nortic/Selling System/selling-system-api/Services/Entity/store-es/src/main/resources/static",
+    "last_opened_file_path": "C:/Users/akile/Documents/Proyectos/Nortic/Selling System/selling-system-api/Services/Entity/users-es/src/main/java/com/nortic/pos/es/users/util",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -182,11 +183,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\akile\Documents\Proyectos\Nortic\Selling System\selling-system-api\Services\Entity\users-es\src\main\java\com\nortic\pos\es\users\util" />
+      <recent name="C:\Users\akile\Documents\Proyectos\Nortic\Selling System\selling-system-api\Services\Entity\users-es\src\main\java\com\nortic\pos\es\users\config" />
       <recent name="C:\Users\akile\Documents\Proyectos\Nortic\Selling System\selling-system-api\Services\Entity\store-es\src\main\resources\static" />
       <recent name="C:\Users\akile\OneDrive\Documentos\Proyectos\Nortic\Selling System\selling-system-api\Services\Entity\stores-es\src\main\resources\static" />
       <recent name="C:\Users\akile\OneDrive\Documentos\Proyectos\Nortic\Selling System\selling-system-api\Services\Entity\stores-es\src\main\java\com\nortic\pos\es\stores" />
-      <recent name="C:\Users\akile\OneDrive\Documentos\Proyectos\Nortic\Selling System\selling-system-api\Services\Entity\stores-es\src\main\resources" />
-      <recent name="C:\Users\usuario\Documents\PosDash\web-selling-system\Services\Entity\menusES\src\main\java\com\nortic\posdash\es\menus" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\usuario\Documents\PosDash\web-selling-system\Services\Utility\models\src\test\java" />
@@ -240,6 +241,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="UsersEsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="users" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.nortic.pos.es.users.UsersEsApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.PlatformInitializerTsApplication" />
@@ -249,8 +258,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26053.27" />
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.26053.27" />
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26574.91" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.26574.91" />
       </set>
     </attachedChunks>
   </component>
@@ -347,6 +356,9 @@
       <workItem from="1748993194547" duration="1296000" />
       <workItem from="1749012257562" duration="743000" />
       <workItem from="1749040452814" duration="10406000" />
+      <workItem from="1755889710907" duration="222000" />
+      <workItem from="1755889948668" duration="3053000" />
+      <workItem from="1755893026232" duration="5977000" />
     </task>
     <task id="LOCAL-00001" summary="Some Errors Fixed">
       <option name="closed" value="true" />

@@ -1,15 +1,37 @@
 openapi: 3.0.0
 info:
   title: Users Service API
-  version: 0.0.2
+  version: 0.0.3
   description: |
-    API for managing users within stores and branches, including CRUD operations, soft delete, permanent delete, and search functionality.
+    API for managing users within stores and branches, including CRUD operations, soft delete, permanent delete, and advanced search functionality with dynamic filters.
   contact:
     name: Developer
     email: nortic97@gmail.com
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: "{protocol}://{hostname}{port}{basePath}"
+    description: Configurable server (local or deployed)
+    variables:
+      protocol:
+        enum:
+          - http
+          - https
+        default: "http"
+      hostname:
+        default: "localhost"
+        description: Server hostname (e.g., localhost or deployed server)
+      port:
+        default: ":8080"
+        description: Server port
+      basePath:
+        default: ""
+        enum:
+          - ""
+          - "/users-es"
+        description: Optional path for the deployed version
 
 paths:
   /api/v1/es/users:
@@ -26,57 +48,172 @@ paths:
               $ref: "#/components/schemas/User"
       responses:
         '201':
-          description: User created successfully.
+          description: User created successfully
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/User"
         '400':
-          description: Bad Request
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+        '409':
+          description: User already exists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
         '500':
-          description: Internal Server Error
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+      security:
+        - bearerAuth: []
+
+    get:
+      summary: Get all active users with dynamic filtering and pagination
+      operationId: getAllUsers
+      tags:
+        - Users
+      parameters:
+        - name: page
+          in: query
+          description: Page number (0-based)
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+        - name: size
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+        - name: sort
+          in: query
+          description: Sort criteria in the format property,direction (e.g., firstName,asc)
+          required: false
+          schema:
+            type: string
+            default: "createdAt,desc"
+        - name: storeId
+          in: query
+          description: Filter by store ID (optional - null returns all stores)
+          required: false
+          schema:
+            type: string
+            format: uuid
+        - name: branchId
+          in: query
+          description: Filter by branch ID (optional - null returns all branches)
+          required: false
+          schema:
+            type: string
+            format: uuid
+        - name: roleId
+          in: query
+          description: Filter by role ID (optional - null returns all roles)
+          required: false
+          schema:
+            type: string
+            format: uuid
+        - name: accountType
+          in: query
+          description: Filter by account type (optional - null returns all types)
+          required: false
+          schema:
+            $ref: "#/components/schemas/AccountType"
+        - name: isActive
+          in: query
+          description: Filter by active status (optional - null returns all statuses)
+          required: false
+          schema:
+            type: boolean
+        - name: search
+          in: query
+          description: Search in firstName, lastName, email, or userName (optional - empty returns all)
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of active users retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedUsers"
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+      security:
+        - bearerAuth: []
 
   /api/v1/es/users/{id}:
     get:
-      summary: Get an user by id
+      summary: Get user by ID
       operationId: getUserById
       tags:
         - Users
       parameters:
         - name: id
           in: path
+          description: User ID
           required: true
           schema:
             type: string
             format: uuid
-          description: User ID.
       responses:
         '200':
-          description: User updated successfully.
+          description: User retrieved successfully
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/User"
-        '400':
-          description: Bad Request
         '404':
           description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
         '500':
-          description: Internal Server Error
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+      security:
+        - bearerAuth: []
 
     put:
-      summary: Update an existing user
+      summary: Update user by ID
       operationId: updateUser
       tags:
         - Users
       parameters:
         - name: id
           in: path
+          description: User ID
           required: true
           schema:
             type: string
             format: uuid
-          description: User ID.
       requestBody:
         required: true
         content:
@@ -85,198 +222,246 @@ paths:
               $ref: "#/components/schemas/User"
       responses:
         '200':
-          description: User updated successfully.
+          description: User updated successfully
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/User"
         '400':
-          description: Bad Request
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
         '404':
           description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+        '409':
+          description: Conflict - duplicate data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
         '500':
-          description: Internal Server Error
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+      security:
+        - bearerAuth: []
 
     delete:
-      summary: Permanently delete a user
+      summary: Soft delete user by ID
       operationId: deleteUser
       tags:
         - Users
       parameters:
         - name: id
           in: path
+          description: User ID
           required: true
           schema:
             type: string
             format: uuid
-          description: User ID.
       responses:
         '204':
-          description: User deleted successfully.
+          description: User soft deleted successfully
         '404':
           description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
         '500':
-          description: Internal Server Error
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+      security:
+        - bearerAuth: []
 
-  /api/v1/es/users/{id}/mark-as-deleted:
+  /api/v1/es/users/{id}/status:
     patch:
-      summary: Mark delete a user
-      operationId: markAsDeleteUser
+      summary: Change user active status
+      operationId: changeUserStatus
       tags:
         - Users
       parameters:
         - name: id
           in: path
+          description: User ID
           required: true
           schema:
             type: string
             format: uuid
-          description: User ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                isActive:
+                  type: boolean
+                  description: New active status for the user
+              required:
+                - isActive
       responses:
-        '204':
-          description: User marked as deleted successfully.
+        '200':
+          description: User status changed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
         '404':
           description: User not found
-        '500':
-          description: Internal Server Error
-
-  /api/v1/es/users/deleted/{storeId}/{branchId}/{page}/{size}:
-    get:
-      summary: Get paginated list of soft-deleted users
-      operationId: getSoftDeletedUsers
-      tags:
-        - Users
-      parameters:
-        - name: storeId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-          description: Store ID to filter soft-deleted users.
-        - name: branchId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-          description: Branch ID to filter soft-deleted users.
-        - name: page
-          in: path
-          required: true
-          schema:
-            type: integer
-            example: 0
-          description: Page number (starts from 0).
-        - name: size
-          in: path
-          required: true
-          schema:
-            type: integer
-            example: 10
-          description: Number of records per page.
-        - name: username
-          in: query
-          required: false
-          schema:
-            type: string
-          description: Filter users by username.
-        - name: email
-          in: query
-          required: false
-          schema:
-            type: string
-          description: Filter users by email.
-        - name: documentNumber
-          in: query
-          required: false
-          schema:
-            type: string
-          description: Filter users by document number.
-      responses:
-        '200':
-          description: Paginated list of soft-deleted users.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/PaginatedUsers"
-        '400':
-          description: Bad Request
-        '500':
-          description: Internal Server Error
-
-  /api/v1/es/users/{storeId}/{branchId}/{page}/{size}:
-    get:
-      summary: Get paginated list of users for a branch or store
-      operationId: getUsers
-      tags:
-        - Users
-      parameters:
-        - name: storeId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-          description: Store ID. If used alone, retrieves all users in the store.
-        - name: branchId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-          description: Branch ID. Retrieves only the users of a specific branch.
-        - name: page
-          in: path
-          required: true
-          schema:
-            type: integer
-            example: 0
-          description: Page number (starts from 0).
-        - name: size
-          in: path
-          required: true
-          schema:
-            type: integer
-            example: 10
-          description: Number of records per page.
-        - name: username
-          in: query
-          required: false
-          schema:
-            type: string
-          description: Filter users by username.
-        - name: email
-          in: query
-          required: false
-          schema:
-            type: string
-          description: Filter users by email.
-        - name: documentNumber
-          in: query
-          required: false
-          schema:
-            type: string
-          description: Filter users by document number.
-      responses:
-        '200':
-          description: Paginated list of users.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/PaginatedUsers"
-        '400':
-          description: Bad Request
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/HttpError"
         '500':
-          description: Internal Server Error
+          description: Internal server error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/HttpError"
+      security:
+        - bearerAuth: []
+
+  /api/v1/es/users/{id}/permanent:
+    delete:
+      summary: Permanently delete user by ID
+      operationId: permanentDeleteUser
+      tags:
+        - Users
+      parameters:
+        - name: id
+          in: path
+          description: User ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: User permanently deleted successfully
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+      security:
+        - bearerAuth: []
+
+  /api/v1/es/users/deleted:
+    get:
+      summary: Get all soft deleted users with the SAME dynamic filtering and pagination as getAllUsers
+      operationId: getDeletedUsers
+      tags:
+        - Users
+      parameters:
+        - name: page
+          in: query
+          description: Page number (0-based)
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+        - name: size
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+        - name: sort
+          in: query
+          description: Sort criteria in the format property,direction (e.g., deletedAt,desc)
+          required: false
+          schema:
+            type: string
+            default: "deletedAt,desc"
+        - name: storeId
+          in: query
+          description: Filter by store ID (optional - null returns all stores)
+          required: false
+          schema:
+            type: string
+            format: uuid
+        - name: branchId
+          in: query
+          description: Filter by branch ID (optional - null returns all branches)
+          required: false
+          schema:
+            type: string
+            format: uuid
+        - name: roleId
+          in: query
+          description: Filter by role ID (optional - null returns all roles)
+          required: false
+          schema:
+            type: string
+            format: uuid
+        - name: accountType
+          in: query
+          description: Filter by account type (optional - null returns all types)
+          required: false
+          schema:
+            $ref: "#/components/schemas/AccountType"
+        - name: isActive
+          in: query
+          description: Filter by active status (optional - null returns all statuses)
+          required: false
+          schema:
+            type: boolean
+        - name: search
+          in: query
+          description: Search in firstName, lastName, email, or userName (optional - empty returns all)
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of deleted users retrieved successfully with same filtering capabilities
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedUsers"
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HttpError"
+      security:
+        - bearerAuth: []
 
 components:
   securitySchemes:
@@ -292,101 +477,205 @@ components:
         id:
           type: string
           format: uuid
-          example: "a5e4d903-f4d2-4ee5-b3a9-71924cb8eaf8"
+          description: Unique identifier for the user
+          example: "123e4567-e89b-12d3-a456-426614174000"
         storeId:
           type: string
           format: uuid
-          example: "b7254411-2819-4975-89af-6de3e039883c"
+          description: ID of the store the user belongs to
+          example: "123e4567-e89b-12d3-a456-426614174001"
         branchId:
           type: string
           format: uuid
-          example: "95b8c8a7-9f2b-4234-b86f-6a491cc0903b"
+          description: ID of the branch the user is assigned to (optional)
+          example: "123e4567-e89b-12d3-a456-426614174002"
         firstName:
           type: string
+          description: User's first name
+          example: "John"
+          minLength: 1
+          maxLength: 50
         lastName:
           type: string
+          description: User's last name
+          example: "Doe"
+          minLength: 1
+          maxLength: 50
         documentType:
           $ref: "#/components/schemas/DocumentType"
-        username:
+        documentNumber:
           type: string
+          description: User's document number (unique)
+          example: "12345678"
+          minLength: 1
+          maxLength: 20
+        userName:
+          type: string
+          description: User's username (unique)
           example: "johndoe"
+          minLength: 3
+          maxLength: 30
         password:
           type: string
-          example: "Password123*"
+          description: User's password (write-only)
+          example: "securePassword123"
+          minLength: 8
+          writeOnly: true
         email:
           type: string
           format: email
-          example: "johndoe@example.com"
+          description: User's email address (unique)
+          example: "john.doe@example.com"
         phone:
           type: string
-          example: "(+57) 3258965540"
+          description: User's phone number (optional)
+          example: "+1234567890"
+          maxLength: 20
         roleId:
           type: string
           format: uuid
-          example: "005b66c8-2cc0-468e-b584-3ae9395adfe1"
+          description: ID of the user's role
+          example: "123e4567-e89b-12d3-a456-426614174003"
         accountType:
           $ref: "#/components/schemas/AccountType"
         isActive:
           type: boolean
+          description: Whether the user account is active
           example: true
         isPrincipalAdmin:
           type: boolean
+          description: Whether the user is a principal administrator
           example: false
         address:
           type: string
-          example: "AV 12 - 4 Cra 15"
-        dateOfBirth:
+          description: User's address (optional)
+          example: "123 Main St, City, Country"
+          maxLength: 200
+        birthDate:
           type: string
           format: date
+          description: User's birth date
+          example: "1990-01-15"
         photo:
           type: string
-          example: "https://pic.com"
+          description: URL or path to user's photo (optional)
+          example: "/images/users/johndoe.jpg"
         createdAt:
           type: string
           format: date-time
+          description: Timestamp when the user was created
+          example: "2023-01-15T10:30:00Z"
+          readOnly: true
         updatedAt:
           type: string
           format: date-time
+          description: Timestamp when the user was last updated
+          example: "2023-01-15T10:30:00Z"
+          readOnly: true
         deletedAt:
           type: string
           format: date-time
+          description: Timestamp when the user was soft deleted (null if not deleted)
+          example: "2023-01-15T10:30:00Z"
+          readOnly: true
       required:
-        - id
         - storeId
-        - branchId
         - firstName
         - lastName
         - documentType
-        - username
+        - documentNumber
+        - userName
         - password
         - email
-        - phone
         - roleId
         - accountType
-        - isActive
-        - isPrincipalAdmin
-        - address
-        - dateOfBirth
+        - birthDate
 
     PaginatedUsers:
       type: object
       properties:
-        totalPages:
-          type: integer
-          example: 5
-        totalElements:
-          type: integer
-          example: 50
-        size:
-          type: integer
-          example: 10
-        currentPage:
-          type: integer
-          example: 1
-        users:
+        content:
           type: array
           items:
             $ref: "#/components/schemas/User"
+          description: List of users in the current page
+        pageable:
+          type: object
+          properties:
+            pageNumber:
+              type: integer
+              description: Current page number (0-based)
+              example: 0
+            pageSize:
+              type: integer
+              description: Number of items per page
+              example: 20
+            sort:
+              type: object
+              properties:
+                sorted:
+                  type: boolean
+                  example: true
+                unsorted:
+                  type: boolean
+                  example: false
+                empty:
+                  type: boolean
+                  example: false
+            offset:
+              type: integer
+              description: Offset of the current page
+              example: 0
+            paged:
+              type: boolean
+              example: true
+            unpaged:
+              type: boolean
+              example: false
+        totalElements:
+          type: integer
+          description: Total number of users
+          example: 100
+        totalPages:
+          type: integer
+          description: Total number of pages
+          example: 5
+        last:
+          type: boolean
+          description: Whether this is the last page
+          example: false
+        first:
+          type: boolean
+          description: Whether this is the first page
+          example: true
+        numberOfElements:
+          type: integer
+          description: Number of elements in the current page
+          example: 20
+        size:
+          type: integer
+          description: Page size
+          example: 20
+        number:
+          type: integer
+          description: Current page number (0-based)
+          example: 0
+        sort:
+          type: object
+          properties:
+            sorted:
+              type: boolean
+              example: true
+            unsorted:
+              type: boolean
+              example: false
+            empty:
+              type: boolean
+              example: false
+        empty:
+          type: boolean
+          description: Whether the page is empty
+          example: false
 
     DocumentType:
       type: string
@@ -395,6 +684,13 @@ components:
         - TI
         - PP
         - CE
+      description: |
+        Document type:
+        * CC - Cédula de Ciudadanía
+        * TI - Tarjeta de Identidad
+        * PP - Pasaporte
+        * CE - Cédula de Extranjería
+      example: "CC"
 
     AccountType:
       type: string
@@ -402,21 +698,40 @@ components:
         - Internal
         - Store owner
         - Employee
+      description: |
+        Account type:
+        * Internal - Internal system account
+        * Store owner - Store owner account
+        * Employee - Employee account
+      example: "Employee"
 
     HttpError:
       type: object
       properties:
-        code:
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the error occurred
+          example: "2023-01-15T10:30:00Z"
+        status:
           type: integer
-          description: HTTP status code.
+          description: HTTP status code
           example: 400
+        error:
+          type: string
+          description: Error type
+          example: "Bad Request"
         message:
           type: string
-          description: Error message.
-          example: Invalid request body.
+          description: Error message
+          example: "Validation failed for field 'email'"
+        path:
+          type: string
+          description: Request path that caused the error
+          example: "/api/v1/es/users"
       required:
-        - code
+        - timestamp
+        - status
+        - error
         - message
-
-security:
-  - bearerAuth: [ ]
+        - path

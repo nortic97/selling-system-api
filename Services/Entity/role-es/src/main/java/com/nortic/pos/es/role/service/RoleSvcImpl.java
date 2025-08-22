@@ -1,10 +1,10 @@
 package com.nortic.pos.es.role.service;
 
 import com.nortic.pos.es.role.repository.RoleRepository;
+import com.nortic.pos.es.role.util.CustomException;
 import com.nortic.pos.es.role.util.RestMapper;
 import com.nortic.pos.models.dto.RoleDTO;
 import com.nortic.pos.models.entity.RoleEntity;
-import com.nortic.pos.es.role.util.CustomException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

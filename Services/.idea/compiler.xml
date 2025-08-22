@@ -47,7 +47,7 @@
         </processorPath>
         <module name="branch" />
       </profile>
-      <profile name="Annotation profile for role-es" enabled="true">
+      <profile name="Annotation profile for users-es" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />

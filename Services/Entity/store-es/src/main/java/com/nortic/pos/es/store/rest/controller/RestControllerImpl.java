@@ -6,26 +6,21 @@ import com.nortic.pos.es.store.model.RestModelStore;
 import com.nortic.pos.es.store.service.StoreSvcImpl;
 import com.nortic.pos.es.store.util.RestMapper;
 import com.nortic.pos.models.dto.StoreDTO;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
-@RestController
 @Slf4j
+@RestController
+@RequiredArgsConstructor
 public class RestControllerImpl implements StoreApi {
 
     private final RestMapper restMapper;
     private final StoreSvcImpl storeSvc;
-
-    @Autowired
-    public RestControllerImpl(RestMapper restMapper, StoreSvcImpl storeSvc) {
-        this.restMapper = restMapper;
-        this.storeSvc = storeSvc;
-    }
 
     @Override
     public ResponseEntity<RestModelStore> createStore(RestModelStore restModelStore) {

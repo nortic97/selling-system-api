@@ -21,6 +21,7 @@ public class UserDTO{
     private String firstName;
     private String lastName;
     private DocumentTypeEnum documentType;
+    private String documentNumber;
     private String userName;
     private String password;
     private String email;
