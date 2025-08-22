@@ -28,11 +28,13 @@ public class GrpcServiceImpl extends StoreServiceGrpc.StoreServiceImplBase {
 
     @Override
     public void createStore(Store request, StreamObserver<Store> responseObserver) {
-        log.info("Creating store gRPC Service");
+        log.info("Create Store gRPC Service Start...");
         try {
+            log.info("Creating store gRPC Service");
             StoreDTO store = storeSvc.createStore(grpcMapper.grpcModelToDto(request));
             responseObserver.onNext(grpcMapper.dtoToGrpcModel(store));
             responseObserver.onCompleted();
+            log.info("Create Store gRPC Service End...");
         } catch (Exception e) {
             handleError(e, responseObserver);
         }
@@ -40,11 +42,13 @@ public class GrpcServiceImpl extends StoreServiceGrpc.StoreServiceImplBase {
 
     @Override
     public void getStoreById(StoreRequest request, StreamObserver<Store> responseObserver) {
-        log.info("Get Store by Id gRPC service");
+        log.info("Get Store By Id gRPC Service Start...");
         try {
+            log.info("Get Store by Id gRPC service");
             StoreDTO store = storeSvc.getStore(UUID.fromString(request.getId()));
             responseObserver.onNext(grpcMapper.dtoToGrpcModel(store));
             responseObserver.onCompleted();
+            log.info("Get Store By Id gRPC Service End...");
         } catch (Exception e) {
             handleError(e, responseObserver);
         }
@@ -52,11 +56,13 @@ public class GrpcServiceImpl extends StoreServiceGrpc.StoreServiceImplBase {
 
     @Override
     public void updateStore(Store request, StreamObserver<Store> responseObserver) {
-        log.info("Update Store gRPC Service");
+        log.info("Update Store gRPC Service Start...");
         try {
+            log.info("Update Store gRPC Service");
             StoreDTO store = storeSvc.updateStore(UUID.fromString(request.getId()), grpcMapper.grpcModelToDto(request));
             responseObserver.onNext(grpcMapper.dtoToGrpcModel(store));
             responseObserver.onCompleted();
+            log.info("Update Store gRPC Service End...");
         } catch (Exception e) {
             handleError(e, responseObserver);
         }
@@ -64,11 +70,13 @@ public class GrpcServiceImpl extends StoreServiceGrpc.StoreServiceImplBase {
 
     @Override
     public void deleteStore(StoreRequest request, StreamObserver<DeleteResponse> responseObserver) {
-        log.info("Delete Store gRPC Service");
+        log.info("Delete Store gRPC Service Start...");
         try {
+            log.info("Delete Store gRPC Service");
             storeSvc.deleteStore(UUID.fromString(request.getId()));
             responseObserver.onNext(DeleteResponse.newBuilder().setSuccess(true).build());
             responseObserver.onCompleted();
+            log.info("Delete Store gRPC Service End...");
         } catch (Exception e) {
             handleError(e, responseObserver);
         }
@@ -76,11 +84,13 @@ public class GrpcServiceImpl extends StoreServiceGrpc.StoreServiceImplBase {
 
     @Override
     public void softDeleteStore(StoreRequest request, StreamObserver<DeleteResponse> responseObserver) {
-        log.info("Soft Delete Store gRPC Service");
+        log.info("Soft Delete Store gRPC Service Start...");
         try {
+            log.info("Soft Delete Store gRPC Service");
             storeSvc.softDeleteStore(UUID.fromString(request.getId()));
             responseObserver.onNext(DeleteResponse.newBuilder().setSuccess(true).build());
             responseObserver.onCompleted();
+            log.info("Soft Delete Store gRPC Service End...");
         } catch (Exception e) {
             handleError(e, responseObserver);
         }
@@ -88,11 +98,13 @@ public class GrpcServiceImpl extends StoreServiceGrpc.StoreServiceImplBase {
 
     @Override
     public void changeStoreStatus(ChangeStatusRequest request, StreamObserver<StoreResponse> responseObserver) {
-        log.info("Change Store Status gRPC Service");
+        log.info("Change Store Status gRPC Service Start...");
         try {
+            log.info("Change Store Status gRPC Service");
             storeSvc.changeStoreStatus(UUID.fromString(request.getId()), request.getStatus());
             responseObserver.onNext(StoreResponse.newBuilder().setSuccess(true).build());
             responseObserver.onCompleted();
+            log.info("Change Store Status gRPC Service End...");
         } catch (Exception e) {
             handleError(e, responseObserver);
         }

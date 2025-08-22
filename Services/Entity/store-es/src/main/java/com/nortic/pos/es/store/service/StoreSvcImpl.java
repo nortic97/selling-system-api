@@ -27,21 +27,28 @@ public class StoreSvcImpl implements IStoreSvc {
 
     @Override
     public StoreDTO createStore(StoreDTO storeDTO) {
+        log.info("Create Store Service Start...");
         log.info("Creating new store");
         StoreEntity store = restMapper.dtoToEntity(storeDTO);
-        return restMapper.entityToDTO(storeRepository.save(store));
+        StoreDTO result = restMapper.entityToDTO(storeRepository.save(store));
+        log.info("Create Store Service End...");
+        return result;
     }
 
     @Override
     public StoreDTO getStore(UUID id) {
+        log.info("Get Store Service Start...");
         log.info("Retrieving store with id {}", id);
-        return storeRepository.findById(id)
+        StoreDTO result = storeRepository.findById(id)
                 .map(restMapper::entityToDTO)
                 .orElseThrow(() -> new CustomException(404, "ID: " + id + " Not Found"));
+        log.info("Get Store Service End...");
+        return result;
     }
 
     @Override
     public StoreDTO updateStore(UUID id, StoreDTO storeDTO) {
+        log.info("Update Store Service Start...");
         log.info("Updating store with id {}", id);
 
         StoreEntity storeEntity = storeRepository.findById(id)
@@ -57,20 +64,25 @@ public class StoreSvcImpl implements IStoreSvc {
         storeEntity.setCity(storeDTO.getCity());
         storeEntity.setPhoneNumber(storeDTO.getPhoneNumber());
 
-        return restMapper.entityToDTO(storeRepository.save(storeEntity));
+        StoreDTO result = restMapper.entityToDTO(storeRepository.save(storeEntity));
+        log.info("Update Store Service End...");
+        return result;
     }
 
     @Override
     public void deleteStore(UUID id) {
+        log.info("Delete Store Service Start...");
         log.info("Deleting store with id {}", id);
         if (!storeRepository.existsById(id)) {
             throw new CustomException(404, "ID: " + id + " Not Found");
         }
         storeRepository.deleteById(id);
+        log.info("Delete Store Service End...");
     }
 
     @Override
     public void softDeleteStore(UUID id) {
+        log.info("Soft Delete Store Service Start...");
         log.info("Mark as deleted store with id {}", id);
 
         StoreEntity storeEntity = storeRepository.findById(id)
@@ -85,10 +97,12 @@ public class StoreSvcImpl implements IStoreSvc {
         storeEntity.markAsDeleted();
 
         storeRepository.save(storeEntity);
+        log.info("Soft Delete Store Service End...");
     }
 
     @Override
     public void changeStoreStatus(UUID id, Boolean status) {
+        log.info("Change Store Status Service Start...");
         log.info("Changing store status with id {} to status {}", id, status);
 
         StoreEntity storeEntity = storeRepository.findById(id)
@@ -101,5 +115,6 @@ public class StoreSvcImpl implements IStoreSvc {
 
         storeEntity.changeStatus(status);
         storeRepository.save(storeEntity);
+        log.info("Change Store Status Service End...");
     }
 }

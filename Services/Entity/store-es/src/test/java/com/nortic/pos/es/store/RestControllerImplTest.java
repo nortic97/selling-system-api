@@ -1,7 +1,7 @@
 package com.nortic.pos.es.store;
 
+import com.nortic.pos.es.store.model.RestModelStore;
 import com.nortic.pos.es.store.rest.controller.RestControllerImpl;
-import com.nortic.pos.es.store.rest.gen.model.RestModelStore;
 import com.nortic.pos.es.store.service.StoreSvcImpl;
 import com.nortic.pos.es.store.util.RestMapper;
 import com.nortic.pos.models.dto.StoreDTO;
