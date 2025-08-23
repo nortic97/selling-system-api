@@ -97,6 +97,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+        <!-- Spring Security para BCrypt -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
@@ -129,6 +134,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- H2 Database for Testing -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -193,12 +204,23 @@
                             <modelPackage>${project.groupId}.${project.artifactId}.model</modelPackage>
                             <modelNamePrefix>RestModel</modelNamePrefix>
                             <supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
+                            <schemaMappings>
+                                <schemaMapping>
+                                    AccountType=String
+                                </schemaMapping>
+                            </schemaMappings>
                             <configOptions>
                                 <delegatePattern>false</delegatePattern>
                                 <interfaceOnly>true</interfaceOnly>
                                 <useSpringBoot3>true</useSpringBoot3>
                                 <useTags>true</useTags>
                                 <skipDefaultInterface>true</skipDefaultInterface>
+                                <additionalModelTypeAnnotations>
+                                    @lombok.Data
+                                    @lombok.Builder
+                                    @lombok.NoArgsConstructor
+                                    @lombok.AllArgsConstructor
+                                </additionalModelTypeAnnotations>
                                 <dateLibrary>java8-localdatetime</dateLibrary>
                             </configOptions>
                             <generateSupportingFiles>false</generateSupportingFiles>

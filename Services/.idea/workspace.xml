@@ -88,6 +88,9 @@
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "JUnit.ModelsApplicationTests.executor": "Run",
+    "JUnit.UserControllerTest.deleteUser_ShouldReturnOk_WhenUserExists.executor": "Run",
+    "JUnit.UserControllerTest.executor": "Run",
+    "JUnit.UserSvcImplTest.executor": "Run",
     "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
     "Maven.FileStorage [clean].executor": "Run",
     "Maven.FileStorage [package].executor": "Run",
@@ -133,6 +136,7 @@
     "Maven.users [compile].executor": "Run",
     "Maven.users [install].executor": "Run",
     "Maven.users [package].executor": "Run",
+    "Maven.users [site].executor": "Run",
     "Maven.users [validate].executor": "Run",
     "Maven.usersES [clean].executor": "Run",
     "Maven.usersES [package].executor": "Run",
@@ -156,7 +160,7 @@
     "Spring Boot.RolesEsApplication.executor": "Run",
     "Spring Boot.StoresEsApplication.executor": "Run",
     "Spring Boot.UserSettingsMsApplication.executor": "Run",
-    "Spring Boot.UsersEsApplication.executor": "Run",
+    "Spring Boot.UsersEsApplication.executor": "Debug",
     "git-widget-placeholder": "dev",
     "ignore.virus.scanning.warn.message": "true",
     "jdk.selected.JAVA_MODULE": "21",
@@ -172,7 +176,7 @@
     "project.structure.side.proportion": "0.5275862",
     "run.code.analysis.last.selected.profile": "pProject Default",
     "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "preferences.keymap",
+    "settings.editor.selected.configurable": "com.codeium.AppSettingsConfigurable",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -204,7 +208,53 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.PlatformInitializerTsApplication">
+  <component name="RunManager" selected="JUnit.UserControllerTest">
+    <configuration name="UserControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="users" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.nortic.pos.es.users.rest.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.nortic.pos.es.users.rest.controller" />
+      <option name="MAIN_CLASS_NAME" value="com.nortic.pos.es.users.rest.controller.UserControllerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserControllerTest.deleteUser_ShouldReturnOk_WhenUserExists" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="users" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.nortic.pos.es.users.rest.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.nortic.pos.es.users.rest.controller" />
+      <option name="MAIN_CLASS_NAME" value="com.nortic.pos.es.users.rest.controller.UserControllerTest" />
+      <option name="METHOD_NAME" value="deleteUser_ShouldReturnOk_WhenUserExists" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserSvcImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="users" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.nortic.pos.es.users.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.nortic.pos.es.users.service" />
+      <option name="MAIN_CLASS_NAME" value="com.nortic.pos.es.users.service.UserSvcImplTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="BranchEsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <module name="branch" />
@@ -251,6 +301,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.UserControllerTest" />
+        <item itemvalue="JUnit.UserControllerTest.deleteUser_ShouldReturnOk_WhenUserExists" />
+        <item itemvalue="JUnit.UserSvcImplTest" />
         <item itemvalue="Spring Boot.PlatformInitializerTsApplication" />
       </list>
     </recent_temporary>
@@ -358,7 +411,7 @@
       <workItem from="1749040452814" duration="10406000" />
       <workItem from="1755889710907" duration="222000" />
       <workItem from="1755889948668" duration="3053000" />
-      <workItem from="1755893026232" duration="5977000" />
+      <workItem from="1755893026232" duration="23112000" />
     </task>
     <task id="LOCAL-00001" summary="Some Errors Fixed">
       <option name="closed" value="true" />

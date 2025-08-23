@@ -187,6 +187,12 @@
                                 <useTags>true</useTags>
                                 <skipDefaultInterface>true</skipDefaultInterface>
                                 <dateLibrary>java8-localdatetime</dateLibrary>
+                                <additionalModelTypeAnnotations>
+                                    @lombok.Data
+                                    @lombok.Builder
+                                    @lombok.NoArgsConstructor
+                                    @lombok.AllArgsConstructor
+                                </additionalModelTypeAnnotations>
                             </configOptions>
                             <generateSupportingFiles>false</generateSupportingFiles>
                             <skipOperationExample>true</skipOperationExample>
