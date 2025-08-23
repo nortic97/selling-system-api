@@ -12,6 +12,7 @@ service UserService {
   rpc UpdateUser (User) returns (User);
   rpc DeleteUser (UserRequest) returns (DeleteResponse);
   rpc SoftDeleteUser (UserRequest) returns (DeleteResponse);
+  rpc PermanentDeleteUser (UserRequest) returns (DeleteResponse);
   rpc ChangeUserStatus (ChangeStatusRequest) returns (UserResponse);
   rpc GetAllUsers (GetUsersRequest) returns (UserListResponse);
   rpc GetDeletedUsers (GetUsersRequest) returns (UserListResponse);
@@ -24,18 +25,21 @@ message User {
   string email = 4;
   string user_name = 5;
   string password = 6;
-  string document_number = 7;
-  optional string phone = 8;
-  optional string address = 9;
-  optional string photo = 10;
-  string store_id = 11;
-  optional string branch_id = 12;
-  string role_id = 13;
-  AccountType account_type = 14;
-  optional bool is_active = 15;
-  optional string created_at = 16;
-  optional string updated_at = 17;
-  optional string deleted_at = 18;
+  DocumentType document_type = 7;
+  string document_number = 8;
+  optional string phone = 9;
+  optional string address = 10;
+  optional string photo = 11;
+  string store_id = 12;
+  optional string branch_id = 13;
+  string role_id = 14;
+  AccountType account_type = 15;
+  optional bool is_active = 16;
+  optional bool is_principal_admin = 17;
+  optional string birth_date = 18;
+  optional string created_at = 19;
+  optional string updated_at = 20;
+  optional string deleted_at = 21;
 }
 
 message UserRequest {
@@ -78,7 +82,14 @@ message UserListResponse {
 }
 
 enum AccountType {
-  ADMIN = 0;
-  EMPLOYEE = 1;
-  CUSTOMER = 2;
+  INTERNAL = 0;
+  STORE_OWNER = 1;
+  EMPLOYEE = 2;
+}
+
+enum DocumentType {
+  CC = 0;
+  TI = 1;
+  PP = 2;
+  CE = 3;
 }

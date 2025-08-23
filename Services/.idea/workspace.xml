@@ -87,9 +87,13 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
+    "JUnit.GrpcMapperTest.dtoToProtoUser_Success.executor": "Run",
+    "JUnit.GrpcMapperTest.executor": "Run",
+    "JUnit.GrpcMapperTest.pageToUserListResponse_Success.executor": "Debug",
     "JUnit.ModelsApplicationTests.executor": "Run",
     "JUnit.UserControllerTest.deleteUser_ShouldReturnOk_WhenUserExists.executor": "Run",
     "JUnit.UserControllerTest.executor": "Run",
+    "JUnit.UserGrpcSvcImplTest.executor": "Run",
     "JUnit.UserSvcImplTest.executor": "Run",
     "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
     "Maven.FileStorage [clean].executor": "Run",
@@ -160,7 +164,7 @@
     "Spring Boot.RolesEsApplication.executor": "Run",
     "Spring Boot.StoresEsApplication.executor": "Run",
     "Spring Boot.UserSettingsMsApplication.executor": "Run",
-    "Spring Boot.UsersEsApplication.executor": "Debug",
+    "Spring Boot.UsersEsApplication.executor": "Run",
     "git-widget-placeholder": "dev",
     "ignore.virus.scanning.warn.message": "true",
     "jdk.selected.JAVA_MODULE": "21",
@@ -208,7 +212,54 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.UserControllerTest">
+  <component name="RunManager" selected="JUnit.GrpcMapperTest.pageToUserListResponse_Success">
+    <configuration name="GrpcMapperTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="users" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.nortic.pos.es.users.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.nortic.pos.es.users.util" />
+      <option name="MAIN_CLASS_NAME" value="com.nortic.pos.es.users.util.GrpcMapperTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GrpcMapperTest.dtoToProtoUser_Success" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="users" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.nortic.pos.es.users.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.nortic.pos.es.users.util" />
+      <option name="MAIN_CLASS_NAME" value="com.nortic.pos.es.users.util.GrpcMapperTest" />
+      <option name="METHOD_NAME" value="dtoToProtoUser_Success" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GrpcMapperTest.pageToUserListResponse_Success" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="users" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.nortic.pos.es.users.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.nortic.pos.es.users.util" />
+      <option name="MAIN_CLASS_NAME" value="com.nortic.pos.es.users.util.GrpcMapperTest" />
+      <option name="METHOD_NAME" value="pageToUserListResponse_Success" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="UserControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="users" />
       <extension name="coverage">
@@ -224,32 +275,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserControllerTest.deleteUser_ShouldReturnOk_WhenUserExists" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserGrpcSvcImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="users" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.nortic.pos.es.users.rest.controller.*" />
+          <option name="PATTERN" value="com.nortic.pos.es.users.grpc.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.nortic.pos.es.users.rest.controller" />
-      <option name="MAIN_CLASS_NAME" value="com.nortic.pos.es.users.rest.controller.UserControllerTest" />
-      <option name="METHOD_NAME" value="deleteUser_ShouldReturnOk_WhenUserExists" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UserSvcImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="users" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.nortic.pos.es.users.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.nortic.pos.es.users.service" />
-      <option name="MAIN_CLASS_NAME" value="com.nortic.pos.es.users.service.UserSvcImplTest" />
+      <option name="PACKAGE_NAME" value="com.nortic.pos.es.users.grpc" />
+      <option name="MAIN_CLASS_NAME" value="com.nortic.pos.es.users.grpc.UserGrpcSvcImplTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -259,19 +294,6 @@
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <module name="branch" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.nortic.pos.es.branch.BranchEsApplication" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PlatformInitializerTsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <module name="platform-initializer-ts" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.nortic.pos.ts.platforminitializer.PlatformInitializerTsApplication" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.nortic.pos.ts.platforminitializer.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -301,10 +323,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.GrpcMapperTest.pageToUserListResponse_Success" />
+        <item itemvalue="JUnit.GrpcMapperTest" />
         <item itemvalue="JUnit.UserControllerTest" />
-        <item itemvalue="JUnit.UserControllerTest.deleteUser_ShouldReturnOk_WhenUserExists" />
-        <item itemvalue="JUnit.UserSvcImplTest" />
-        <item itemvalue="Spring Boot.PlatformInitializerTsApplication" />
+        <item itemvalue="JUnit.UserGrpcSvcImplTest" />
+        <item itemvalue="JUnit.GrpcMapperTest.dtoToProtoUser_Success" />
       </list>
     </recent_temporary>
   </component>
@@ -411,7 +434,8 @@
       <workItem from="1749040452814" duration="10406000" />
       <workItem from="1755889710907" duration="222000" />
       <workItem from="1755889948668" duration="3053000" />
-      <workItem from="1755893026232" duration="23112000" />
+      <workItem from="1755893026232" duration="23331000" />
+      <workItem from="1755970104159" duration="7464000" />
     </task>
     <task id="LOCAL-00001" summary="Some Errors Fixed">
       <option name="closed" value="true" />

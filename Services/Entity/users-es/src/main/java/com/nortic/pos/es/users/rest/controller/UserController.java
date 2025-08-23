@@ -109,7 +109,8 @@ public class UserController implements UsersApi {
     }
 
     private Pageable createPageable(Integer page, Integer size, String sort) {
-        int pageNumber = page != null ? page : 0;
+
+        int pageNumber = (page != null && page > 0) ? page - 1 : 0;
         int pageSize = size != null ? size : 10;
         
         if (sort != null && !sort.trim().isEmpty()) {

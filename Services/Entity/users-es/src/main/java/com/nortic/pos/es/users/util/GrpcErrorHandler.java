@@ -3,11 +3,13 @@ package com.nortic.pos.es.users.util;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 @Slf4j
+@Component
 public class GrpcErrorHandler {
 
-    public static void handleError(Exception e, StreamObserver<?> responseObserver) {
+    public void handleError(Exception e, StreamObserver<?> responseObserver) {
         switch (e) {
             case IllegalArgumentException ex -> {
                 log.warn("Invalid UUID format: {}", ex.getMessage());

@@ -82,7 +82,7 @@ paths:
       parameters:
         - name: page
           in: query
-          description: Page number (0-based)
+          description: Page number (1-based)
           required: false
           schema:
             type: integer
@@ -380,7 +380,7 @@ paths:
       parameters:
         - name: page
           in: query
-          description: Page number (0-based)
+          description: Page number (1-based)
           required: false
           schema:
             type: integer
@@ -604,7 +604,7 @@ components:
           properties:
             pageNumber:
               type: integer
-              description: Current page number (0-based)
+              description: Current page number (1-based)
               example: 0
             pageSize:
               type: integer
@@ -658,7 +658,7 @@ components:
           example: 20
         number:
           type: integer
-          description: Current page number (0-based)
+          description: Current page number (1-based)
           example: 0
         sort:
           type: object
