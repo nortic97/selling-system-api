@@ -25,23 +25,23 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserController implements UsersApi {
 
-    private final RestMapper restMapper;
+    private final RestMapper mapper;
     private final UserSvcImpl userSvc;
 
     @Override
     public ResponseEntity<RestModelUser> createUser(RestModelUser restModelUser) {
         log.info("Create User Rest Controller Start...");
-        UserDTO userDTO = userSvc.createUser(restMapper.restModelToDTO(restModelUser));
+        UserDTO userDTO = userSvc.createUser(mapper.restModelToDTO(restModelUser));
         log.info("Create User Rest Controller End...");
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(restMapper.dtoToRestModel(userDTO));
+                .body(mapper.dtoToRestModel(userDTO));
     }
 
     @Override
     public ResponseEntity<RestModelUser> getUserById(UUID id) {
         log.info("Get User By Id Rest Controller Start...");
-        RestModelUser user = restMapper.dtoToRestModel(userSvc.getUser(id));
+        RestModelUser user = mapper.dtoToRestModel(userSvc.getUser(id));
         log.info("Get User By Id Rest Controller End...");
         return ResponseEntity.ok(user);
     }
@@ -49,11 +49,11 @@ public class UserController implements UsersApi {
     @Override
     public ResponseEntity<RestModelUser> updateUser(UUID id, RestModelUser restModelUser) {
         log.info("Update User Rest Controller Start...");
-        UserDTO userDTO = userSvc.updateUser(id, restMapper.restModelToDTO(restModelUser));
+        UserDTO userDTO = userSvc.updateUser(id, mapper.restModelToDTO(restModelUser));
         log.info("Update User Rest Controller End...");
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(restMapper.dtoToRestModel(userDTO));
+                .body(mapper.dtoToRestModel(userDTO));
     }
 
     @Override
@@ -88,7 +88,7 @@ public class UserController implements UsersApi {
         AccountTypeEnum accountTypeEnum = accountType != null ? AccountTypeEnum.fromValue(accountType) : null;
         
         Page<UserDTO> result = userSvc.getAllUsers(pageable, storeId, branchId, roleId, accountTypeEnum, isActive, search);
-        RestModelPaginatedUsers response = restMapper.pageToRestModelPaginatedUsers(result);
+        RestModelPaginatedUsers response = mapper.pageToRestModelPaginatedUsers(result);
         
         log.info("Get All Users Rest Controller End...");
         return ResponseEntity.ok(response);
@@ -102,7 +102,7 @@ public class UserController implements UsersApi {
         AccountTypeEnum accountTypeEnum = accountType != null ? AccountTypeEnum.fromValue(accountType) : null;
         
         Page<UserDTO> result = userSvc.getDeletedUsers(pageable, storeId, branchId, roleId, accountTypeEnum, isActive, search);
-        RestModelPaginatedUsers response = restMapper.pageToRestModelPaginatedUsers(result);
+        RestModelPaginatedUsers response = mapper.pageToRestModelPaginatedUsers(result);
         
         log.info("Get Deleted Users Rest Controller End...");
         return ResponseEntity.ok(response);

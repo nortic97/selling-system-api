@@ -17,8 +17,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -95,6 +95,7 @@
     "JUnit.RestControllerImplTest.executor": "Run",
     "JUnit.UserControllerTest.deleteUser_ShouldReturnOk_WhenUserExists.executor": "Run",
     "JUnit.UserControllerTest.executor": "Run",
+    "JUnit.UserControllerTest.shouldOnlyHaveOneRestMapperBean.executor": "Run",
     "JUnit.UserGrpcSvcImplTest.executor": "Run",
     "JUnit.UserSvcImplTest.executor": "Run",
     "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
@@ -138,13 +139,16 @@
     "Maven.rolesES [package].executor": "Run",
     "Maven.store [clean].executor": "Run",
     "Maven.store [install].executor": "Run",
+    "Maven.store [package].executor": "Run",
     "Maven.store [test].executor": "Run",
     "Maven.store-es [install].executor": "Run",
     "Maven.stores [clean].executor": "Run",
     "Maven.stores [compile].executor": "Run",
     "Maven.stores [install].executor": "Run",
     "Maven.user [clean].executor": "Run",
+    "Maven.user [compile].executor": "Run",
     "Maven.user [install].executor": "Run",
+    "Maven.user [package].executor": "Run",
     "Maven.user [test].executor": "Run",
     "Maven.user-es [clean].executor": "Run",
     "Maven.user-es [install].executor": "Run",
@@ -192,7 +196,7 @@
     "project.structure.side.proportion": "0.5275862",
     "run.code.analysis.last.selected.profile": "pProject Default",
     "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "com.codeium.AppSettingsConfigurable",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -224,23 +228,8 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.RestControllerImplTest">
-    <configuration name="GrpcMapperTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="user-es" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.nortic.pos.es.user.util.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.nortic.pos.es.users.util" />
-      <option name="MAIN_CLASS_NAME" value="com.nortic.pos.es.user.util.GrpcMapperTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="GrpcMapperTest.getUsersRequestToPageable_WithAllParameters" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Spring Boot.UsersEsApplication">
+    <configuration name="GrpcServiceMapperTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="user-es" />
       <extension name="coverage">
         <pattern>
@@ -249,14 +238,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.nortic.pos.es.user.util" />
-      <option name="MAIN_CLASS_NAME" value="com.nortic.pos.es.user.util.GrpcMapperTest" />
-      <option name="METHOD_NAME" value="getUsersRequestToPageable_WithAllParameters" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="com.nortic.pos.es.user.util.GrpcServiceMapperTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GrpcMapperTest.pageToUserListResponse_Success" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GrpcServiceMapperTest.getUsersRequestToPageable_WithAllParameters" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="user-es" />
       <extension name="coverage">
         <pattern>
@@ -264,8 +252,24 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.nortic.pos.es.users.util" />
-      <option name="MAIN_CLASS_NAME" value="com.nortic.pos.es.user.util.GrpcMapperTest" />
+      <option name="PACKAGE_NAME" value="com.nortic.pos.es.user.util" />
+      <option name="MAIN_CLASS_NAME" value="com.nortic.pos.es.user.util.GrpcServiceMapperTest" />
+      <option name="METHOD_NAME" value="getUsersRequestToPageable_WithAllParameters" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GrpcServiceMapperTest.pageToUserListResponse_Success" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="user-es" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.nortic.pos.es.user.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.nortic.pos.es.user.util" />
+      <option name="MAIN_CLASS_NAME" value="com.nortic.pos.es.user.util.GrpcServiceMapperTest" />
       <option name="METHOD_NAME" value="pageToUserListResponse_Success" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
@@ -287,17 +291,18 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserGrpcSvcImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserControllerTest.shouldOnlyHaveOneRestMapperBean" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="user-es" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.nortic.pos.es.user.grpc.*" />
+          <option name="PATTERN" value="com.nortic.pos.es.user.rest.controller.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.nortic.pos.es.users.grpc" />
-      <option name="MAIN_CLASS_NAME" value="com.nortic.pos.es.user.grpc.UserGrpcSvcImplTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="com.nortic.pos.es.user.rest.controller" />
+      <option name="MAIN_CLASS_NAME" value="com.nortic.pos.es.user.rest.controller.UserControllerTest" />
+      <option name="METHOD_NAME" value="shouldOnlyHaveOneRestMapperBean" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -335,11 +340,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.UserControllerTest.shouldOnlyHaveOneRestMapperBean" />
         <item itemvalue="JUnit.RestControllerImplTest" />
-        <item itemvalue="JUnit.GrpcMapperTest.getUsersRequestToPageable_WithAllParameters" />
-        <item itemvalue="JUnit.GrpcMapperTest.pageToUserListResponse_Success" />
-        <item itemvalue="JUnit.GrpcMapperTest" />
-        <item itemvalue="JUnit.UserGrpcSvcImplTest" />
+        <item itemvalue="JUnit.GrpcServiceMapperTest.getUsersRequestToPageable_WithAllParameters" />
+        <item itemvalue="JUnit.GrpcServiceMapperTest.pageToUserListResponse_Success" />
+        <item itemvalue="JUnit.GrpcServiceMapperTest" />
       </list>
     </recent_temporary>
   </component>
@@ -449,7 +454,8 @@
       <workItem from="1755893026232" duration="23331000" />
       <workItem from="1755970104159" duration="7464000" />
       <workItem from="1756437618776" duration="410000" />
-      <workItem from="1756478494013" duration="6083000" />
+      <workItem from="1756478494013" duration="8963000" />
+      <workItem from="1756487524201" duration="689000" />
     </task>
     <task id="LOCAL-00001" summary="Some Errors Fixed">
       <option name="closed" value="true" />

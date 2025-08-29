@@ -1,9 +1,9 @@
 package com.nortic.pos.es.user.grpc;
 
+import com.nortic.pos.es.user.grpc.gen.*;
 import com.nortic.pos.es.user.service.IUserSvc;
 import com.nortic.pos.es.user.util.GrpcErrorHandler;
 import com.nortic.pos.es.user.util.GrpcMapper;
-import com.nortic.pos.es.user.grpc.gen.*;
 import com.nortic.pos.models.dto.UserDTO;
 import com.nortic.pos.models.enums.AccountTypeEnum;
 import io.grpc.stub.StreamObserver;

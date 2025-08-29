@@ -34,7 +34,7 @@ import static org.mockito.Mockito.*;
 class UserControllerTest {
 
     @Mock
-    private RestMapper restMapper;
+    private RestMapper mapper;
 
     @Mock
     private UserSvcImpl userSvc;
@@ -94,9 +94,9 @@ class UserControllerTest {
     @Test
     void createUser_ShouldReturnCreatedUser_WhenValidInput() {
 
-        when(restMapper.restModelToDTO(testRestModelUser)).thenReturn(testUserDTO);
+        when(mapper.restModelToDTO(testRestModelUser)).thenReturn(testUserDTO);
         when(userSvc.createUser(testUserDTO)).thenReturn(testUserDTO);
-        when(restMapper.dtoToRestModel(testUserDTO)).thenReturn(testRestModelUser);
+        when(mapper.dtoToRestModel(testUserDTO)).thenReturn(testRestModelUser);
 
 
         ResponseEntity<RestModelUser> response = userController.createUser(testRestModelUser);
@@ -108,16 +108,16 @@ class UserControllerTest {
         assertEquals(testRestModelUser.getFirstName(), response.getBody().getFirstName());
         assertEquals(testRestModelUser.getEmail(), response.getBody().getEmail());
 
-        verify(restMapper).restModelToDTO(testRestModelUser);
+        verify(mapper).restModelToDTO(testRestModelUser);
         verify(userSvc).createUser(testUserDTO);
-        verify(restMapper).dtoToRestModel(testUserDTO);
+        verify(mapper).dtoToRestModel(testUserDTO);
     }
 
     @Test
     void getUser_ShouldReturnUser_WhenUserExists() {
 
         when(userSvc.getUser(testUserId)).thenReturn(testUserDTO);
-        when(restMapper.dtoToRestModel(testUserDTO)).thenReturn(testRestModelUser);
+        when(mapper.dtoToRestModel(testUserDTO)).thenReturn(testRestModelUser);
 
 
         ResponseEntity<RestModelUser> response = userController.getUserById(testUserId);
@@ -128,15 +128,15 @@ class UserControllerTest {
         assertEquals(testRestModelUser.getId(), response.getBody().getId());
 
         verify(userSvc).getUser(testUserId);
-        verify(restMapper).dtoToRestModel(testUserDTO);
+        verify(mapper).dtoToRestModel(testUserDTO);
     }
 
     @Test
     void updateUser_ShouldReturnUpdatedUser_WhenValidInput() {
 
-        when(restMapper.restModelToDTO(testRestModelUser)).thenReturn(testUserDTO);
+        when(mapper.restModelToDTO(testRestModelUser)).thenReturn(testUserDTO);
         when(userSvc.updateUser(testUserId, testUserDTO)).thenReturn(testUserDTO);
-        when(restMapper.dtoToRestModel(testUserDTO)).thenReturn(testRestModelUser);
+        when(mapper.dtoToRestModel(testUserDTO)).thenReturn(testRestModelUser);
 
 
         ResponseEntity<RestModelUser> response = userController.updateUser(testUserId, testRestModelUser);
@@ -146,9 +146,9 @@ class UserControllerTest {
         assertNotNull(response.getBody());
         assertEquals(testRestModelUser.getId(), response.getBody().getId());
 
-        verify(restMapper).restModelToDTO(testRestModelUser);
+        verify(mapper).restModelToDTO(testRestModelUser);
         verify(userSvc).updateUser(testUserId, testUserDTO);
-        verify(restMapper).dtoToRestModel(testUserDTO);
+        verify(mapper).dtoToRestModel(testUserDTO);
     }
 
     @Test
@@ -187,7 +187,7 @@ class UserControllerTest {
 
         when(userSvc.getAllUsers(any(Pageable.class), isNull(), isNull(), isNull(), isNull(), isNull(), isNull()))
                 .thenReturn(userPage);
-        when(restMapper.pageToRestModelPaginatedUsers(userPage)).thenReturn(testPaginatedResponse);
+        when(mapper.pageToRestModelPaginatedUsers(userPage)).thenReturn(testPaginatedResponse);
 
 
         ResponseEntity<RestModelPaginatedUsers> response = userController.getAllUsers(
@@ -198,7 +198,7 @@ class UserControllerTest {
         assertNotNull(response.getBody());
 
         verify(userSvc).getAllUsers(any(Pageable.class), isNull(), isNull(), isNull(), isNull(), isNull(), isNull());
-        verify(restMapper).pageToRestModelPaginatedUsers(userPage);
+        verify(mapper).pageToRestModelPaginatedUsers(userPage);
     }
 
     @Test
@@ -209,7 +209,7 @@ class UserControllerTest {
 
         when(userSvc.getAllUsers(any(Pageable.class), isNull(), isNull(), isNull(), eq(AccountTypeEnum.EMPLOYEE), isNull(), isNull()))
                 .thenReturn(userPage);
-        when(restMapper.pageToRestModelPaginatedUsers(userPage)).thenReturn(testPaginatedResponse);
+        when(mapper.pageToRestModelPaginatedUsers(userPage)).thenReturn(testPaginatedResponse);
 
         ResponseEntity<RestModelPaginatedUsers> response = userController.getAllUsers(
                 0, 10, "firstName,asc", null, null, null, "Employee", null, null);
@@ -218,7 +218,7 @@ class UserControllerTest {
         assertNotNull(response.getBody());
 
         verify(userSvc).getAllUsers(any(Pageable.class), isNull(), isNull(), isNull(), eq(AccountTypeEnum.EMPLOYEE), isNull(), isNull());
-        verify(restMapper).pageToRestModelPaginatedUsers(userPage);
+        verify(mapper).pageToRestModelPaginatedUsers(userPage);
     }
 
     @Test
@@ -229,7 +229,7 @@ class UserControllerTest {
 
         when(userSvc.getAllUsers(any(Pageable.class), isNull(), isNull(), isNull(), eq(AccountTypeEnum.STORE_OWNER), isNull(), isNull()))
                 .thenReturn(userPage);
-        when(restMapper.pageToRestModelPaginatedUsers(userPage)).thenReturn(testPaginatedResponse);
+        when(mapper.pageToRestModelPaginatedUsers(userPage)).thenReturn(testPaginatedResponse);
 
         ResponseEntity<RestModelPaginatedUsers> response = userController.getAllUsers(
                 0, 10, "firstName,asc", null, null, null, "Store owner", null, null);
@@ -238,7 +238,7 @@ class UserControllerTest {
         assertNotNull(response.getBody());
 
         verify(userSvc).getAllUsers(any(Pageable.class), isNull(), isNull(), isNull(), eq(AccountTypeEnum.STORE_OWNER), isNull(), isNull());
-        verify(restMapper).pageToRestModelPaginatedUsers(userPage);
+        verify(mapper).pageToRestModelPaginatedUsers(userPage);
     }
 
     @Test
@@ -249,7 +249,7 @@ class UserControllerTest {
 
         when(userSvc.getDeletedUsers(any(Pageable.class), isNull(), isNull(), isNull(), isNull(), isNull(), isNull()))
                 .thenReturn(userPage);
-        when(restMapper.pageToRestModelPaginatedUsers(userPage)).thenReturn(testPaginatedResponse);
+        when(mapper.pageToRestModelPaginatedUsers(userPage)).thenReturn(testPaginatedResponse);
 
 
         ResponseEntity<RestModelPaginatedUsers> response = userController.getDeletedUsers(
@@ -259,7 +259,7 @@ class UserControllerTest {
         assertNotNull(response.getBody());
 
         verify(userSvc).getDeletedUsers(any(Pageable.class), isNull(), isNull(), isNull(), isNull(), isNull(), isNull());
-        verify(restMapper).pageToRestModelPaginatedUsers(userPage);
+        verify(mapper).pageToRestModelPaginatedUsers(userPage);
     }
 
     @Test
@@ -270,7 +270,7 @@ class UserControllerTest {
 
         when(userSvc.getDeletedUsers(any(Pageable.class), isNull(), isNull(), isNull(), eq(AccountTypeEnum.INTERNAL), isNull(), isNull()))
                 .thenReturn(userPage);
-        when(restMapper.pageToRestModelPaginatedUsers(userPage)).thenReturn(testPaginatedResponse);
+        when(mapper.pageToRestModelPaginatedUsers(userPage)).thenReturn(testPaginatedResponse);
 
         ResponseEntity<RestModelPaginatedUsers> response = userController.getDeletedUsers(
                 0, 10, "firstName,asc", null, null, null, "Internal", null, null);
@@ -279,7 +279,7 @@ class UserControllerTest {
         assertNotNull(response.getBody());
 
         verify(userSvc).getDeletedUsers(any(Pageable.class), isNull(), isNull(), isNull(), eq(AccountTypeEnum.INTERNAL), isNull(), isNull());
-        verify(restMapper).pageToRestModelPaginatedUsers(userPage);
+        verify(mapper).pageToRestModelPaginatedUsers(userPage);
     }
 
     @Test

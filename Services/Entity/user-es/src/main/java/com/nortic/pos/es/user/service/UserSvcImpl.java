@@ -2,7 +2,7 @@ package com.nortic.pos.es.user.service;
 
 import com.nortic.pos.es.user.repository.UserRepository;
 import com.nortic.pos.es.user.util.CustomException;
-import com.nortic.pos.es.user.util.RestMapper;
+import com.nortic.pos.es.user.util.ServiceMapper;
 import com.nortic.pos.es.user.util.UserFilters;
 import com.nortic.pos.models.dto.UserDTO;
 import com.nortic.pos.models.entity.UserEntity;
@@ -23,7 +23,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserSvcImpl implements IUserSvc {
 
-    private final RestMapper restMapper;
+    private final ServiceMapper serviceMapper;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -38,8 +38,8 @@ public class UserSvcImpl implements IUserSvc {
             log.info("Password encrypted successfully");
         }
         
-        UserEntity user = restMapper.dtoToEntity(userDTO);
-        UserDTO result = restMapper.entityToDTO(userRepository.save(user));
+        UserEntity user = serviceMapper.dtoToEntity(userDTO);
+        UserDTO result = serviceMapper.entityToDTO(userRepository.save(user));
         log.info("Create User Service End...");
         return result;
     }
@@ -49,7 +49,7 @@ public class UserSvcImpl implements IUserSvc {
         log.info("Get User Service Start...");
         log.info("Retrieving user with id {}", id);
         UserDTO result = userRepository.findById(id)
-                .map(restMapper::entityToDTO)
+                .map(serviceMapper::entityToDTO)
                 .orElseThrow(() -> new CustomException(404, "ID: " + id + " Not Found"));
         log.info("Get User Service End...");
         return result;
@@ -81,7 +81,7 @@ public class UserSvcImpl implements IUserSvc {
         userEntity.setPhoto(userDTO.getPhoto());
         userEntity.setAccountType(userDTO.getAccountType());
 
-        UserDTO result = restMapper.entityToDTO(userRepository.save(userEntity));
+        UserDTO result = serviceMapper.entityToDTO(userRepository.save(userEntity));
         log.info("Update User Service End...");
         return result;
     }
@@ -141,7 +141,7 @@ public class UserSvcImpl implements IUserSvc {
         Specification<UserEntity> spec = buildSpecification(storeId, branchId, roleId, accountType, isActive, search, false);
         
         Page<UserDTO> result = userRepository.findAll(spec, pageable)
-                .map(restMapper::entityToDTO);
+                .map(serviceMapper::entityToDTO);
         
         log.info("Get All Users Service End...");
         return result;
@@ -154,7 +154,7 @@ public class UserSvcImpl implements IUserSvc {
         Specification<UserEntity> spec = buildSpecification(storeId, branchId, roleId, accountType, isActive, search, true);
         
         Page<UserDTO> result = userRepository.findAll(spec, pageable)
-                .map(restMapper::entityToDTO);
+                .map(serviceMapper::entityToDTO);
         
         log.info("Get Deleted Users Service End...");
         return result;

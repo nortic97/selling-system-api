@@ -2,7 +2,7 @@ package com.nortic.pos.es.store.service;
 
 import com.nortic.pos.es.store.repository.StoreRepository;
 import com.nortic.pos.es.store.util.CustomException;
-import com.nortic.pos.es.store.util.RestMapper;
+import com.nortic.pos.es.store.util.ServiceMapper;
 import com.nortic.pos.models.dto.StoreDTO;
 import com.nortic.pos.models.entity.StoreEntity;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class StoreSvcImpl implements IStoreSvc {
 
-    private final RestMapper restMapper;
+    private final ServiceMapper restMapper;
     private final StoreRepository storeRepository;
 
     @Override

@@ -2,12 +2,11 @@ package com.nortic.pos.es.role.service;
 
 import com.nortic.pos.es.role.repository.RoleRepository;
 import com.nortic.pos.es.role.util.CustomException;
-import com.nortic.pos.es.role.util.RestMapper;
+import com.nortic.pos.es.role.util.ServiceMapper;
 import com.nortic.pos.models.dto.RoleDTO;
 import com.nortic.pos.models.entity.RoleEntity;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,38 +19,76 @@ import java.util.UUID;
 public class RoleSvcImpl implements IRoleSvc {
 
     private final RoleRepository roleRepository;
-    private final RestMapper restMapper;
+    private final ServiceMapper mapper;
 
     @Override
     public RoleDTO createRole(RoleDTO roleDTO) {
-        log.info("Create role service");
-        RoleEntity role = restMapper.dtoToEntity(roleDTO);
-        return restMapper.entityToDTO(roleRepository.save(role));
+        log.info("Create role service Started...");
+        RoleEntity role = mapper.dtoToEntity(roleDTO);
+        log.info("Role entity created: {}", role.getId());
+        log.info("Create role service Finished...");
+        return mapper.entityToDTO(roleRepository.save(role));
     }
 
     @Override
     public RoleDTO getRole(UUID id) {
-        return null;
+        log.info("Get role service Started...");
+        log.info("Get role service Finished...");
+        return mapper.entityToDTO(roleRepository.findById(id)
+                .orElseThrow(() -> new CustomException(404, "ID: " + id + " Not Found")));
     }
 
     @Override
     public RoleDTO updateRole(UUID id, RoleDTO roleDTO) {
-        return null;
+        log.info("Update role service Started...");
+
+         var role = roleRepository.findById(id)
+                .orElseThrow(() -> new CustomException(404, "ID: " + id + " Not Found"));
+
+        role.setName(roleDTO.getName());
+        role.setDescription(roleDTO.getDescription());
+
+        var roleUpdated = mapper.entityToDTO(roleRepository.save(role));
+
+        log.info("Role updated: {}", roleUpdated.getId());
+        log.info("Update role service Finished...");
+
+        return roleUpdated;
     }
 
     @Override
     public void deleteRole(UUID id) {
-
+        log.info("Delete role service Started...");
+        roleRepository.deleteById(id);
+        log.info("Role deleted: {}", id);
+        log.info("Delete role service Finished...");
     }
 
     @Override
     public void softDeleteRole(UUID id) {
+        log.info("Soft delete role service Started...");
+        var role = roleRepository.findById(id)
+                .orElseThrow(() -> new CustomException(404, "ID: " + id + " Not Found"));
 
+        role.markAsDeleted();
+
+        roleRepository.save(role);
+        log.info("Role soft deleted: {}", role.getId());
+        log.info("Soft delete role service Finished...");
     }
 
     @Override
     public void changeRoleStatus(UUID id, Boolean status) {
+        log.info("Change role status service Started...");
+        var role = roleRepository.findById(id)
+                .orElseThrow(() -> new CustomException(404, "ID: " + id + " Not Found"));
 
+        role.changeStatus(status);
+
+        roleRepository.save(role);
+
+        log.info("Role status changed: {}", role.getId());
+        log.info("Change role status service Finished...");
     }
 
     @Override
