@@ -26,19 +26,7 @@ public class RoleSvcImpl implements IRoleSvc {
     @Override
     public RoleDTO createRole(RoleDTO roleDTO) {
         log.info("Create role Service Start...");
-
-        var roleEntity = roleRepository.findByNameIgnoreCaseAndStore(
-                roleDTO.getName(),
-                StoreEntity
-                        .builder()
-                        .id(roleDTO.getStore().getId())
-                        .build());
-
-        if (roleEntity.isPresent()) {
-            log.warn("Role with name {} already exists", roleDTO.getName());
-            throw new CustomException(409, "Role with name " + roleDTO.getName() + " already exists");
-        }
-
+        validateRoleName(roleDTO.getName(), roleDTO.getStore().getId());
         var role = serviceMapper.dtoToEntity(roleDTO);
         log.info("Role entity created: {}", role.getId());
         log.info("Create role Service End...");
@@ -57,6 +45,8 @@ public class RoleSvcImpl implements IRoleSvc {
     public RoleDTO updateRole(UUID id, RoleDTO roleDTO) {
         log.info("Update role Service Start...");
         log.info("Updating role with id {}", id);
+
+        validateRoleName(roleDTO.getName(), roleDTO.getStore().getId());
 
         var role = getRoleEntity(id);
 
@@ -135,4 +125,17 @@ public class RoleSvcImpl implements IRoleSvc {
                 .orElseThrow(() -> new CustomException(404, "ID: " + id + " Not Found"));
     }
 
+    private void validateRoleName(String name, UUID storeId) {
+        var roleEntity = roleRepository.findByNameIgnoreCaseAndStore(
+                name,
+                StoreEntity
+                        .builder()
+                        .id(storeId)
+                        .build());
+
+        if (roleEntity.isPresent()) {
+            log.warn("Role with name {} already exists", roleEntity.get().getName());
+            throw new CustomException(409, "Role with name " + roleEntity.get().getName() + " already exists");
+        }
+    }
 }

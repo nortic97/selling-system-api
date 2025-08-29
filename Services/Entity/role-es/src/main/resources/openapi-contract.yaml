@@ -371,9 +371,6 @@ components:
 
     RoleRequest:
       type: object
-      required:
-        - storeId
-        - name
       properties:
         storeId:
           type: string
@@ -388,6 +385,7 @@ components:
           type: string
           maxLength: 255
           description: Description of the role.
+      required: [ storeId, name ]
 
     StatusRequest:
       type: object

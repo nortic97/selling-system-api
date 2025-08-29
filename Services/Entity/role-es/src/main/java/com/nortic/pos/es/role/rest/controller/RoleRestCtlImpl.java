@@ -27,7 +27,10 @@ public class RoleRestCtlImpl implements RolesApi {
 
     @Override
     public ResponseEntity<Void> changeRoleStatus(UUID id, RestModelStatusRequest restModelStatusRequest) {
-        return null;
+        log.info("Change Role Status Rest Controller start...");
+        roleSvc.changeRoleStatus(id, restModelStatusRequest.getIsActive());
+        log.info("Change Role Status Rest Controller end...");
+        return ResponseEntity.ok().build();
     }
 
     @Override
@@ -60,16 +63,26 @@ public class RoleRestCtlImpl implements RolesApi {
 
     @Override
     public ResponseEntity<Void> permanentDeleteRole(UUID id) {
-        return null;
+        log.info("Permanent Delete Role Rest Controller start...");
+        roleSvc.deleteRole(id);
+        log.info("Permanent Delete Role Rest Controller end...");
+        return ResponseEntity.noContent().build();
     }
 
     @Override
     public ResponseEntity<Void> softDeleteRole(UUID id) {
-        return null;
+        log.info("Soft Delete Role Rest Controller start...");
+        roleSvc.softDeleteRole(id);
+        log.info("Soft Delete Role Rest Controller end...");
+        return ResponseEntity.noContent().build();
     }
 
     @Override
     public ResponseEntity<RestModelRole> updateRole(UUID id, RestModelRoleRequest restModelRoleRequest) {
-        return null;
+        log.info("Update Role Rest Controller start...");
+        var roleDTO = restMapper.roleRequestToDTO(restModelRoleRequest);
+        var updatedRole = roleSvc.updateRole(id, roleDTO);
+        log.info("Update Role Rest Controller end...");
+        return ResponseEntity.ok(restMapper.dtoToRes(updatedRole));
     }
 }

@@ -134,7 +134,9 @@
     "Maven.platform-initializer-ts [clean].executor": "Run",
     "Maven.platform-initializer-ts [org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar].executor": "Run",
     "Maven.role [clean].executor": "Run",
+    "Maven.role [compile].executor": "Run",
     "Maven.role [install].executor": "Run",
+    "Maven.role [package].executor": "Run",
     "Maven.rolesES [clean].executor": "Run",
     "Maven.rolesES [package].executor": "Run",
     "Maven.store [clean].executor": "Run",
@@ -308,6 +310,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="AuthUsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="auth-us" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.nortic.posdash.us.auth.AuthUsApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="BranchEsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <module name="branch-es" />
@@ -456,7 +466,7 @@
       <workItem from="1755970104159" duration="7464000" />
       <workItem from="1756437618776" duration="410000" />
       <workItem from="1756478494013" duration="8963000" />
-      <workItem from="1756487524201" duration="9247000" />
+      <workItem from="1756487524201" duration="19967000" />
     </task>
     <task id="LOCAL-00001" summary="Some Errors Fixed">
       <option name="closed" value="true" />
