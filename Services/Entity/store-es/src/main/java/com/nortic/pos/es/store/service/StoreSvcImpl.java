@@ -46,8 +46,7 @@ public class StoreSvcImpl implements IStoreSvc {
         log.info("Update Store Service Start...");
         log.info("Updating store with id {}", id);
 
-        StoreEntity storeEntity = storeRepository.findById(id)
-                .orElseThrow(() -> new CustomException(404, "ID: " + id + " Not Found"));
+        StoreEntity storeEntity = getStoreEntity(id);
 
         storeEntity.setTaxId(storeDTO.getTaxId());
         storeEntity.setName(storeDTO.getName());
@@ -68,10 +67,8 @@ public class StoreSvcImpl implements IStoreSvc {
     public void deleteStore(UUID id) {
         log.info("Delete Store Service Start...");
         log.info("Deleting store with id {}", id);
-        if (!storeRepository.existsById(id)) {
-            throw new CustomException(404, "ID: " + id + " Not Found");
-        }
-        storeRepository.deleteById(id);
+        var role = getStoreEntity(id);
+        storeRepository.deleteById(role.getId());
         log.info("Delete Store Service End...");
     }
 
@@ -80,9 +77,7 @@ public class StoreSvcImpl implements IStoreSvc {
         log.info("Soft Delete Store Service Start...");
         log.info("Mark as deleted store with id {}", id);
 
-        StoreEntity storeEntity = storeRepository.findById(id)
-                .orElseThrow(() -> new CustomException(404, "ID: " + id + " Not Found"));
-
+        StoreEntity storeEntity = getStoreEntity(id);
 
         if (storeEntity.getDeletedAt() != null) {
             log.error("Store with ID: {} is already deleted", id);
@@ -100,8 +95,7 @@ public class StoreSvcImpl implements IStoreSvc {
         log.info("Change Store Status Service Start...");
         log.info("Changing store status with id {} to status {}", id, status);
 
-        StoreEntity storeEntity = storeRepository.findById(id)
-                .orElseThrow(() -> new CustomException(404, "ID: " + id + " Not Found"));
+        var storeEntity = getStoreEntity(id);
 
         if (Objects.equals(storeEntity.getIsActive(), status)) {
             log.warn("Store with id {} already has status {}", id, status);
@@ -111,5 +105,10 @@ public class StoreSvcImpl implements IStoreSvc {
         storeEntity.changeStatus(status);
         storeRepository.save(storeEntity);
         log.info("Change Store Status Service End...");
+    }
+
+    private StoreEntity getStoreEntity(UUID id) {
+        return storeRepository.findById(id)
+                .orElseThrow(() -> new CustomException(404, "ID: " + id + " Not Found"));
     }
 }

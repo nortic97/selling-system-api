@@ -60,8 +60,7 @@ public class UserSvcImpl implements IUserSvc {
         log.info("Update User Service Start...");
         log.info("Updating user with id {}", id);
 
-        UserEntity userEntity = userRepository.findById(id)
-                .orElseThrow(() -> new CustomException(404, "ID: " + id + " Not Found"));
+        var userEntity = getUserEntity(id);
 
         userEntity.setFirstName(userDTO.getFirstName());
         userEntity.setLastName(userDTO.getLastName());
@@ -102,8 +101,7 @@ public class UserSvcImpl implements IUserSvc {
         log.info("Soft Delete User Service Start...");
         log.info("Mark as deleted user with id {}", id);
 
-        UserEntity userEntity = userRepository.findById(id)
-                .orElseThrow(() -> new CustomException(404, "ID: " + id + " Not Found"));
+        var userEntity = getUserEntity(id);
 
         if (userEntity.getDeletedAt() != null) {
             log.error("User with ID: {} is already deleted", id);
@@ -121,8 +119,7 @@ public class UserSvcImpl implements IUserSvc {
         log.info("Change User Status Service Start...");
         log.info("Changing user status with id {} to status {}", id, status);
 
-        UserEntity userEntity = userRepository.findById(id)
-                .orElseThrow(() -> new CustomException(404, "ID: " + id + " Not Found"));
+        var userEntity = getUserEntity(id);
 
         if (Objects.equals(userEntity.getIsActive(), status)) {
             log.warn("User with id {} already has status {}", id, status);
@@ -196,5 +193,10 @@ public class UserSvcImpl implements IUserSvc {
         }
         
         return spec;
+    }
+
+    private UserEntity getUserEntity(UUID id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new CustomException(404, "ID: " + id + " Not Found"));
     }
 }
