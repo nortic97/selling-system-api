@@ -32,427 +32,56 @@ servers:
         description: Optional path for the deployed version
 
 paths:
-  /api/v1/es/role:
-    post:
-      summary: Create a new role
-      operationId: createRole
-      tags:
-        - Role
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/RoleRequest"
-      responses:
-        '201':
-          description: Role created successfully
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Role"
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              examples:
-                error:
-                  summary: Example of error response
-                  value:
-                    code: 400
-                    message: "Field Name is Mandatory"
-              schema:
-                $ref: "#/components/schemas/HttpError"
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              examples:
-                error:
-                  summary: Example of error response
-                  value:
-                    code: 500
-                    message: "Internal Server Error"
-              schema:
-                $ref: "#/components/schemas/HttpError"
-
-  /api/v1/es/role/{id}:
-    get:
-      summary: Get a role by ID
-      operationId: getRoleById
-      tags:
-        - Role
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '200':
-          description: Role retrieved successfully
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Role"
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              examples:
-                error:
-                  summary: Example of error response
-                  value:
-                    code: 404
-                    message: "Role not Found"
-              schema:
-                $ref: "#/components/schemas/HttpError"
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              examples:
-                error:
-                  summary: Example of error response
-                  value:
-                    code: 500
-                    message: "Internal Server Error"
-              schema:
-                $ref: "#/components/schemas/HttpError"
-
-    put:
-      summary: Update a role
-      operationId: updateRole
-      tags:
-        - Role
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/RoleRequest"
-      responses:
-        '200':
-          description: Role updated successfully
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Role"
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              examples:
-                error:
-                  summary: Example of error response
-                  value:
-                    code: 400
-                    message: "Name is Mandatory"
-              schema:
-                $ref: "#/components/schemas/HttpError"
-        '404':
-          description: Role not found
-          content:
-            application/json:
-              examples:
-                error:
-                  summary: Example of error response
-                  value:
-                    code: 404
-                    message: "Role not Found"
-              schema:
-                $ref: "#/components/schemas/HttpError"
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              examples:
-                error:
-                  summary: Example of error response
-                  value:
-                    code: 500
-                    message: "Internal Server Error"
-              schema:
-                $ref: "#/components/schemas/HttpError"
-
-    delete:
-      summary: Permanently delete a role
-      operationId: deleteRole
-      tags:
-        - Role
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '200':
-          description: Role deleted successfully
-        '404':
-          description: Role not found
-          content:
-            application/json:
-              examples:
-                error:
-                  summary: Example of error response
-                  value:
-                    code: 404
-                    message: "Role not Found"
-              schema:
-                $ref: "#/components/schemas/HttpError"
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              examples:
-                error:
-                  summary: Example of error response
-                  value:
-                    code: 500
-                    message: "Internal Server Error"
-              schema:
-                $ref: "#/components/schemas/HttpError"
-
-  /api/v1/es/role/{id}/soft-delete:
-    patch:
-      summary: Soft delete a role
-      operationId: softDeleteRole
-      tags:
-        - Role
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '200':
-          description: Role soft deleted successfully
-        '404':
-          description: Role not found
-          content:
-            application/json:
-              examples:
-                error:
-                  summary: Example of error response
-                  value:
-                    code: 404
-                    message: "Role not Found"
-              schema:
-                $ref: "#/components/schemas/HttpError"
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              examples:
-                error:
-                  summary: Example of error response
-                  value:
-                    code: 500
-                    message: "Internal Server Error"
-              schema:
-                $ref: "#/components/schemas/HttpError"
-
-  /api/v1/es/role/{id}/status:
-    patch:
-      summary: Change role status (activate/deactivate)
-      operationId: changeRoleStatus
-      tags:
-        - Role
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                isActive:
-                  type: boolean
-              required:
-                - isActive
-      responses:
-        '200':
-          description: Role status updated successfully
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/HttpError"
-        '404':
-          description: Role not found
-          content:
-            application/json:
-              examples:
-                error:
-                  summary: Example of error response
-                  value:
-                    code: 404
-                    message: "Role not Found"
-              schema:
-                $ref: "#/components/schemas/HttpError"
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              examples:
-                error:
-                  summary: Example of error response
-                  value:
-                    code: 500
-                    message: "Internal Server Error"
-              schema:
-                $ref: "#/components/schemas/HttpError"
-
-  /api/v1/es/role/list/{storeId}:
-    get:
-      summary: List roles of a store, optionally paginated
-      operationId: listRolesOfStore
-      tags:
-        - Role
-      parameters:
-        - name: storeId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-        - name: page
-          in: query
-          required: false
-          schema:
-            type: integer
-        - name: limit
-          in: query
-          required: false
-          schema:
-            type: integer
-        - name: name
-          in: query
-          required: false
-          schema:
-            type: string
-        - name: isActive
-          in: query
-          required: false
-          schema:
-            type: boolean
-      responses:
-        '200':
-          description: Roles retrieved successfully
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RolePagination"
-        '400':
-          description: Invalid parameters (e.g., invalid UUID format, bad query params)
-          content:
-            application/json:
-              examples:
-                error:
-                  summary: Example of error response
-                  value:
-                    code: 400
-                    message: "Invalid UUID format for storeId"
-              schema:
-                $ref: "#/components/schemas/HttpError"
-        '404':
-          description: Store not found or no roles found
-          content:
-            application/json:
-              examples:
-                error:
-                  summary: Example of error response
-                  value:
-                    code: 404
-                    message: "Store not found or no roles found"
-              schema:
-                $ref: "#/components/schemas/HttpError"
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              examples:
-                error:
-                  summary: Example of error response
-                  value:
-                    code: 500
-                    message: "Internal Server Error"
-              schema:
-                $ref: "#/components/schemas/HttpError"
-
   /api/v1/es/roles:
     get:
-      summary: Obtener una lista paginada de roles
+      summary: Get a paginated list of roles
       description: >
-        Permite obtener una lista paginada de roles, con la capacidad de filtrar por múltiples criterios.
+        Retrieve a paginated list of roles with advanced filtering capabilities.
       operationId: getRoles
       tags:
         - Roles
       parameters:
         - name: storeId
           in: query
-          description: ID de la tienda para filtrar los roles.
+          description: Filter roles by store ID.
           required: false
           schema:
             type: string
             format: uuid
         - name: name
           in: query
-          description: Filtrar roles por nombre (búsqueda exacta, insensible a mayúsculas).
+          description: Filter roles by name (case-insensitive partial match).
           required: false
           schema:
             type: string
         - name: isActive
           in: query
-          description: Filtrar roles por su estado activo o inactivo.
+          description: Filter roles by active status.
           required: false
           schema:
             type: boolean
-        - name: search
-          in: query
-          description: >
-            Búsqueda de texto libre en campos relevantes como nombre y descripción.
-          required: false
-          schema:
-            type: string
         - name: page
           in: query
-          description: Número de la página a obtener (basado en 0).
+          description: Page number to retrieve (0-based).
           required: false
           schema:
             type: integer
             default: 0
+            minimum: 0
         - name: size
           in: query
-          description: Número de elementos por página.
+          description: Number of elements per page.
           required: false
           schema:
             type: integer
             default: 20
+            minimum: 1
+            maximum: 100
         - name: sort
           in: query
           description: >
-            Criterios de ordenación en el formato: `propiedad,(asc|desc)`.
-            El orden por defecto es ascendente. Se permite ordenación múltiple.
+            Sort criteria in the format: `property,(asc|desc)`.
+            Default order is ascending. Multiple sort criteria supported.
           required: false
           style: form
           explode: true
@@ -462,7 +91,7 @@ paths:
               type: string
       responses:
         '200':
-          description: Lista paginada de roles obtenida exitosamente.
+          description: Paginated list of roles retrieved successfully.
           content:
             application/json:
               schema:
@@ -472,54 +101,74 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 
+    post:
+      summary: Create a new role
+      description: Create a new role within a store.
+      operationId: createRole
+      tags:
+        - Roles
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RoleRequest"
+      responses:
+        '201':
+          description: Role created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Role"
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
   /api/v1/es/roles/deleted:
     get:
-      summary: Obtener una lista paginada de roles eliminados
+      summary: Get a paginated list of deleted roles
       description: >
-        Permite obtener una lista paginada de roles que han sido eliminados lógicamente (soft delete).
+        Retrieve a paginated list of roles that have been soft deleted.
       operationId: getDeletedRoles
       tags:
         - Roles
       parameters:
         - name: storeId
           in: query
-          description: ID de la tienda para filtrar los roles.
+          description: Filter roles by store ID.
           required: false
           schema:
             type: string
             format: uuid
         - name: name
           in: query
-          description: Filtrar roles por nombre (búsqueda exacta, insensible a mayúsculas).
-          required: false
-          schema:
-            type: string
-        - name: search
-          in: query
-          description: >
-            Búsqueda de texto libre en campos relevantes como nombre y descripción.
+          description: Filter roles by name (case-insensitive partial match).
           required: false
           schema:
             type: string
         - name: page
           in: query
-          description: Número de la página a obtener (basado en 0).
+          description: Page number to retrieve (0-based).
           required: false
           schema:
             type: integer
             default: 0
+            minimum: 0
         - name: size
           in: query
-          description: Número de elementos por página.
+          description: Number of elements per page.
           required: false
           schema:
             type: integer
             default: 20
+            minimum: 1
+            maximum: 100
         - name: sort
           in: query
           description: >
-            Criterios de ordenación en el formato: `propiedad,(asc|desc)`.
-            El orden por defecto es ascendente. Se permite ordenación múltiple.
+            Sort criteria in the format: `property,(asc|desc)`.
+            Default order is ascending. Multiple sort criteria supported.
           required: false
           style: form
           explode: true
@@ -529,13 +178,150 @@ paths:
               type: string
       responses:
         '200':
-          description: Lista paginada de roles eliminados obtenida exitosamente.
+          description: Paginated list of deleted roles retrieved successfully.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/RolePage'
         '400':
           $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /api/v1/es/roles/{id}:
+    get:
+      summary: Get a role by ID
+      description: Retrieve a specific role by its unique identifier.
+      operationId: getRoleById
+      tags:
+        - Roles
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The unique identifier of the role.
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Role retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Role"
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+    put:
+      summary: Update a role
+      description: Update an existing role's information.
+      operationId: updateRole
+      tags:
+        - Roles
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The unique identifier of the role.
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RoleRequest"
+      responses:
+        '200':
+          description: Role updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Role"
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+    delete:
+      summary: Permanently delete a role
+      description: Permanently remove a role from the system.
+      operationId: permanentDeleteRole
+      tags:
+        - Roles
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The unique identifier of the role.
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Role permanently deleted successfully.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /api/v1/es/roles/{id}/soft-delete:
+    patch:
+      summary: Soft delete a role
+      description: Mark a role as deleted without permanently removing it.
+      operationId: softDeleteRole
+      tags:
+        - Roles
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The unique identifier of the role.
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Role soft deleted successfully.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /api/v1/es/roles/{id}/status:
+    patch:
+      summary: Change role status
+      description: Activate or deactivate a role.
+      operationId: changeRoleStatus
+      tags:
+        - Roles
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The unique identifier of the role.
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StatusRequest'
+      responses:
+        '204':
+          description: Role status updated successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/InternalServerError'
 
@@ -547,45 +333,6 @@ components:
       bearerFormat: JWT
 
   schemas:
-    Store:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        taxId:
-          type: string
-        name:
-          type: string
-        logo:
-          type: string
-        description:
-          type: string
-        slogan:
-          type: string
-        address:
-          type: string
-        stateProvince:
-          type: string
-        city:
-          type: string
-        phoneNumber:
-          type: string
-        email:
-          type: string
-          format: email
-        isActive:
-          type: boolean
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-        deletedAt:
-          type: string
-          format: date-time
-
     Role:
       type: object
       properties:
@@ -593,94 +340,41 @@ components:
           type: string
           format: uuid
           readOnly: true
+          description: Unique identifier of the role.
         storeId:
           type: string
           format: uuid
+          description: ID of the store this role belongs to.
         name:
           type: string
           minLength: 3
           maxLength: 50
+          description: Name of the role.
         description:
           type: string
           maxLength: 255
+          nullable: true
+          description: Description of the role.
         isActive:
           type: boolean
           readOnly: true
+          description: Whether the role is active.
         createdAt:
           type: string
           format: date-time
           readOnly: true
+          description: Timestamp when the role was created.
         updatedAt:
           type: string
           format: date-time
           readOnly: true
+          description: Timestamp when the role was last updated.
         deletedAt:
           type: string
           format: date-time
           nullable: true
           readOnly: true
-
-    RolePage:
-      type: object
-      properties:
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/Role'
-        pageable:
-          $ref: '#/components/schemas/Pageable'
-        last:
-          type: boolean
-        totalPages:
-          type: integer
-          format: int32
-        totalElements:
-          type: integer
-          format: int64
-        size:
-          type: integer
-          format: int32
-        number:
-          type: integer
-          format: int32
-        sort:
-          $ref: '#/components/schemas/Sort'
-        first:
-          type: boolean
-        numberOfElements:
-          type: integer
-          format: int32
-        empty:
-          type: boolean
-
-    Pageable:
-      type: object
-      properties:
-        pageNumber:
-          type: integer
-          format: int32
-        pageSize:
-          type: integer
-          format: int32
-        sort:
-          $ref: '#/components/schemas/Sort'
-        offset:
-          type: integer
-          format: int64
-        paged:
-          type: boolean
-        unpaged:
-          type: boolean
-
-    Sort:
-      type: object
-      properties:
-        empty:
-          type: boolean
-        sorted:
-          type: boolean
-        unsorted:
-          type: boolean
+          description: Timestamp when the role was deleted (null if not deleted).
 
     RoleRequest:
       type: object
@@ -691,79 +385,160 @@ components:
         storeId:
           type: string
           format: uuid
+          description: ID of the store this role belongs to.
         name:
           type: string
           minLength: 3
           maxLength: 50
+          description: Name of the role.
         description:
           type: string
           maxLength: 255
+          nullable: true
+          description: Description of the role.
 
-    RolePagination:
+    StatusRequest:
+      type: object
+      required:
+        - isActive
+      properties:
+        isActive:
+          type: boolean
+          description: The desired active status for the role.
+
+    RolePage:
       type: object
       properties:
-        totalItems:
-          type: integer
-          description: Total number of roles matching the query in that store
-          example: 300
-        totalPages:
-          type: integer
-          description: Total number of pages
-          example: 30
-        page:
-          type: integer
-          description: Current page number
-          example: 2
-        limit:
-          type: integer
-          description: Number of roles per page
-          example: 10
-        hasNextPage:
-          type: boolean
-          description: True if there is a next page
-          example: true
-        hasPreviousPage:
-          type: boolean
-          description: True if there is a previous page
-          example: true
-        rolesList:
+        content:
           type: array
           items:
-            $ref: "#/components/schemas/Role"
-      required:
-        - total
-        - page
-        - limit
-        - hasNextPage
-        - hasPreviousPage
+            $ref: '#/components/schemas/Role'
+          description: List of roles in the current page.
+        pageable:
+          $ref: '#/components/schemas/Pageable'
+        last:
+          type: boolean
+          description: Whether this is the last page.
+        totalPages:
+          type: integer
+          format: int32
+          description: Total number of pages.
+        totalElements:
+          type: integer
+          format: int64
+          description: Total number of elements across all pages.
+        size:
+          type: integer
+          format: int32
+          description: Size of the current page.
+        number:
+          type: integer
+          format: int32
+          description: Current page number (0-based).
+        sort:
+          $ref: '#/components/schemas/Sort'
+        first:
+          type: boolean
+          description: Whether this is the first page.
+        numberOfElements:
+          type: integer
+          format: int32
+          description: Number of elements in the current page.
+        empty:
+          type: boolean
+          description: Whether the page is empty.
+
+    Pageable:
+      type: object
+      properties:
+        pageNumber:
+          type: integer
+          format: int32
+          description: Current page number (0-based).
+        pageSize:
+          type: integer
+          format: int32
+          description: Size of the page.
+        sort:
+          $ref: '#/components/schemas/Sort'
+        offset:
+          type: integer
+          format: int64
+          description: Offset of the first element in the page.
+        paged:
+          type: boolean
+          description: Whether the result is paged.
+        unpaged:
+          type: boolean
+          description: Whether the result is unpaged.
+
+    Sort:
+      type: object
+      properties:
+        empty:
+          type: boolean
+          description: Whether the sort is empty.
+        sorted:
+          type: boolean
+          description: Whether the result is sorted.
+        unsorted:
+          type: boolean
+          description: Whether the result is unsorted.
 
     HttpError:
       type: object
       properties:
         code:
           type: integer
+          description: HTTP status code.
           example: 400
         message:
           type: string
-          example: Invalid request
+          description: Error message.
+          example: Invalid request body.
       required:
         - code
         - message
 
   responses:
     BadRequest:
-      description: Bad Request
+      description: Bad Request - Invalid input parameters or request body.
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/HttpError"
+          examples:
+            validation_error:
+              summary: Validation error
+              value:
+                code: 400
+                message: "Field 'name' is mandatory"
+
+    NotFound:
+      description: Not Found - The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/HttpError"
+          examples:
+            role_not_found:
+              summary: Role not found
+              value:
+                code: 404
+                message: "Role not found"
 
     InternalServerError:
-      description: Internal Server Error
+      description: Internal Server Error - An unexpected error occurred.
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/HttpError"
+          examples:
+            server_error:
+              summary: Internal server error
+              value:
+                code: 500
+                message: "Internal server error"
 
 security:
   - bearerAuth: []
