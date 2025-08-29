@@ -45,9 +45,9 @@
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.6.3/mapstruct-processor-1.6.3.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.6.3/mapstruct-1.6.3.jar" />
         </processorPath>
-        <module name="branch" />
+        <module name="branch-es" />
       </profile>
-      <profile name="Annotation profile for users-es" enabled="true">
+      <profile name="Annotation profile for role-es" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -56,9 +56,9 @@
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.6.3/mapstruct-processor-1.6.3.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.6.3/mapstruct-1.6.3.jar" />
         </processorPath>
-        <module name="users" />
-        <module name="store" />
-        <module name="role" />
+        <module name="role-es" />
+        <module name="user-es" />
+        <module name="store-es" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -73,7 +73,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="auth-us" options="-parameters" />
-      <module name="branch" options="-parameters" />
+      <module name="branch-es" options="-parameters" />
       <module name="es-roles" options="-parameters" />
       <module name="es-users" options="-parameters" />
       <module name="fileStorageUS" options="-parameters" />
@@ -82,10 +82,10 @@
       <module name="ms-chat" options="-parameters" />
       <module name="ms-user-settings" options="-parameters" />
       <module name="platform-initializer-ts" options="-parameters" />
-      <module name="role" options="-parameters" />
-      <module name="store" options="-parameters" />
+      <module name="role-es" options="-parameters" />
+      <module name="store-es" options="-parameters" />
       <module name="stores" options="-parameters" />
-      <module name="users" options="-parameters" />
+      <module name="user-es" options="-parameters" />
       <module name="users-es" options="-parameters" />
     </option>
   </component>

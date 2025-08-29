@@ -66,8 +66,8 @@ paths:
           required: false
           schema:
             type: integer
-            default: 0
-            minimum: 0
+            default: 1
+            minimum: 1
         - name: size
           in: query
           description: Number of elements per page.
@@ -153,8 +153,8 @@ paths:
           required: false
           schema:
             type: integer
-            default: 0
-            minimum: 0
+            default: 1
+            minimum: 1
         - name: size
           in: query
           description: Number of elements per page.

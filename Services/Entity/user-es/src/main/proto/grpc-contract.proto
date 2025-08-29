@@ -1,0 +1,95 @@
+syntax = "proto3";
+
+package user;
+
+option java_multiple_files = true;
+option java_package = "com.nortic.pos.es.user.grpc.gen";
+option java_outer_classname = "UserProto";
+
+service UserService {
+  rpc CreateUser (User) returns (User);
+  rpc GetUserById (UserRequest) returns (User);
+  rpc UpdateUser (User) returns (User);
+  rpc DeleteUser (UserRequest) returns (DeleteResponse);
+  rpc SoftDeleteUser (UserRequest) returns (DeleteResponse);
+  rpc PermanentDeleteUser (UserRequest) returns (DeleteResponse);
+  rpc ChangeUserStatus (ChangeStatusRequest) returns (UserResponse);
+  rpc GetAllUsers (GetUsersRequest) returns (UserListResponse);
+  rpc GetDeletedUsers (GetUsersRequest) returns (UserListResponse);
+}
+
+message User {
+  optional string id = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string email = 4;
+  string user_name = 5;
+  string password = 6;
+  DocumentType document_type = 7;
+  string document_number = 8;
+  optional string phone = 9;
+  optional string address = 10;
+  optional string photo = 11;
+  string store_id = 12;
+  optional string branch_id = 13;
+  string role_id = 14;
+  AccountType account_type = 15;
+  optional bool is_active = 16;
+  optional bool is_principal_admin = 17;
+  optional string birth_date = 18;
+  optional string created_at = 19;
+  optional string updated_at = 20;
+  optional string deleted_at = 21;
+}
+
+message UserRequest {
+  string id = 1;
+}
+
+message UserResponse {
+  bool success = 1;
+}
+
+message DeleteResponse {
+  bool success = 1;
+}
+
+message ChangeStatusRequest {
+  string id = 1;
+  bool status = 2;
+}
+
+message GetUsersRequest {
+  optional int32 page = 1;
+  optional int32 size = 2;
+  optional string sort = 3;
+  optional string store_id = 4;
+  optional string branch_id = 5;
+  optional string role_id = 6;
+  optional AccountType account_type = 7;
+  optional bool is_active = 8;
+  optional string search = 9;
+}
+
+message UserListResponse {
+  repeated User users = 1;
+  int32 total_elements = 2;
+  int32 total_pages = 3;
+  int32 current_page = 4;
+  int32 page_size = 5;
+  bool has_next = 6;
+  bool has_previous = 7;
+}
+
+enum AccountType {
+  INTERNAL = 0;
+  STORE_OWNER = 1;
+  EMPLOYEE = 2;
+}
+
+enum DocumentType {
+  CC = 0;
+  TI = 1;
+  PP = 2;
+  CE = 3;
+}

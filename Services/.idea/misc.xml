@@ -30,6 +30,7 @@
         <option value="$PROJECT_DIR$/Entity/branch-es/pom.xml" />
         <option value="$PROJECT_DIR$/Entity/role-es/pom.xml" />
         <option value="$PROJECT_DIR$/Entity/store-es/pom.xml" />
+        <option value="$PROJECT_DIR$/Entity/user-es/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

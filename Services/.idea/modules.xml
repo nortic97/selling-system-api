@@ -4,9 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Services.iml" filepath="$PROJECT_DIR$/.idea/Services.iml" />
       <module fileurl="file://$PROJECT_DIR$/Utility/auth-us/auth-us.iml" filepath="$PROJECT_DIR$/Utility/auth-us/auth-us.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Entity/branch-es/branch.iml" filepath="$PROJECT_DIR$/Entity/branch-es/branch.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Entity/store-es/store.iml" filepath="$PROJECT_DIR$/Entity/store-es/store.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Entity/users-es/users.iml" filepath="$PROJECT_DIR$/Entity/users-es/users.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Entity/branch-es/branch-es.iml" filepath="$PROJECT_DIR$/Entity/branch-es/branch-es.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Entity/store-es/store-es.iml" filepath="$PROJECT_DIR$/Entity/store-es/store-es.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Entity/user-es/user-es.iml" filepath="$PROJECT_DIR$/Entity/user-es/user-es.iml" />
     </modules>
   </component>
 </project>
