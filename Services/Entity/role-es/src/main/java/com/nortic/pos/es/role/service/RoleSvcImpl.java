@@ -5,24 +5,22 @@ import com.nortic.pos.es.role.util.CustomException;
 import com.nortic.pos.es.role.util.RestMapper;
 import com.nortic.pos.models.dto.RoleDTO;
 import com.nortic.pos.models.entity.RoleEntity;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
 @Slf4j
 @Service
+@AllArgsConstructor
 public class RoleSvcImpl implements IRoleSvc {
 
     private final RoleRepository roleRepository;
     private final RestMapper restMapper;
-
-    @Autowired
-    RoleSvcImpl(RoleRepository roleRepository, RestMapper restMapper) {
-        this.roleRepository = roleRepository;
-        this.restMapper = restMapper;
-    }
 
     @Override
     public RoleDTO createRole(RoleDTO roleDTO) {
@@ -32,10 +30,37 @@ public class RoleSvcImpl implements IRoleSvc {
     }
 
     @Override
-    public RoleDTO getRoleById(UUID id) {
-        log.info("Get role bi id: {}", id);
-        return roleRepository.findById(id)
-                .map(restMapper::entityToDTO)
-                .orElseThrow(() -> new CustomException(404, "ID: " + id + " Not Found"));
+    public RoleDTO getRole(UUID id) {
+        return null;
+    }
+
+    @Override
+    public RoleDTO updateRole(UUID id, RoleDTO roleDTO) {
+        return null;
+    }
+
+    @Override
+    public void deleteRole(UUID id) {
+
+    }
+
+    @Override
+    public void softDeleteRole(UUID id) {
+
+    }
+
+    @Override
+    public void changeRoleStatus(UUID id, Boolean status) {
+
+    }
+
+    @Override
+    public Page<RoleDTO> getRoles(Pageable pageable, UUID storeId, String name, Boolean isActive) {
+        return null;
+    }
+
+    @Override
+    public Page<RoleDTO> getDeletedRoles(Pageable pageable, UUID storeId, String name) {
+        return null;
     }
 }

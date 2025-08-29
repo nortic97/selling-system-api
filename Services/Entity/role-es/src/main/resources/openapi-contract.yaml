@@ -339,7 +339,6 @@ components:
         id:
           type: string
           format: uuid
-          readOnly: true
           description: Unique identifier of the role.
         storeId:
           type: string
@@ -353,27 +352,21 @@ components:
         description:
           type: string
           maxLength: 255
-          nullable: true
           description: Description of the role.
         isActive:
           type: boolean
-          readOnly: true
           description: Whether the role is active.
         createdAt:
           type: string
           format: date-time
-          readOnly: true
           description: Timestamp when the role was created.
         updatedAt:
           type: string
           format: date-time
-          readOnly: true
           description: Timestamp when the role was last updated.
         deletedAt:
           type: string
           format: date-time
-          nullable: true
-          readOnly: true
           description: Timestamp when the role was deleted (null if not deleted).
 
     RoleRequest:
@@ -394,7 +387,6 @@ components:
         description:
           type: string
           maxLength: 255
-          nullable: true
           description: Description of the role.
 
     StatusRequest:

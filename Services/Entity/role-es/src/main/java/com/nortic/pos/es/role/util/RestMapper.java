@@ -1,6 +1,6 @@
 package com.nortic.pos.es.role.util;
 
-import com.nortic.pos.es.role.rest.gen.model.RestModelRole;
+import com.nortic.pos.es.role.model.*;
 import com.nortic.pos.models.dto.RoleDTO;
 import com.nortic.pos.models.entity.RoleEntity;
 import org.mapstruct.Mapper;

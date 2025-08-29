@@ -31,9 +31,64 @@
         <java.version>21</java.version>
         <grpc.version>1.70.0</grpc.version>
         <protobuf-java.version>3.25.6</protobuf-java.version>
-        <spring-grpc.version>0.7.0</spring-grpc.version>
+        <spring-grpc.version>0.5.0</spring-grpc.version>
+        <!-- Dependency versions -->
+        <mapstruct.version>1.6.3</mapstruct.version>
+        <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
+        <jackson-databind-nullable.version>0.2.6</jackson-databind-nullable.version>
+        <swagger-annotations.version>2.2.36</swagger-annotations.version>
+        <springdoc-openapi.version>2.8.6</springdoc-openapi.version>
+        <openapi-generator.version>7.12.0</openapi-generator.version>
+        <grpc-spring-boot-starter.version>3.1.0.RELEASE</grpc-spring-boot-starter.version>
+        <os-maven-plugin.version>1.7.1</os-maven-plugin.version>
+        <protobuf-maven-plugin.version>0.6.1</protobuf-maven-plugin.version>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <!-- MapStruct -->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
+        </dependency>
+        <!-- MapStruct Processor (para que funcione en tiempo de compilación) -->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>${mapstruct.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Necesario para que Lombok y MapStruct funcionen juntos -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok-mapstruct-binding</artifactId>
+            <version>${lombok-mapstruct-binding.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- OpenApi Generator-->
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+            <version>${jackson-databind-nullable.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>${swagger-annotations.version}</version>
+        </dependency>
+        <!-- Models -->
+        <dependency>
+            <groupId>com.nortic.pos</groupId>
+            <artifactId>models</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
@@ -43,39 +98,9 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <!-- MapStruct -->
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <version>1.6.2</version>
-        </dependency>
-        <!-- MapStruct Processor (para que funcione en tiempo de compilación) -->
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct-processor</artifactId>
-            <version>1.6.1</version>
-            <scope>provided</scope>
-        </dependency>
-        <!-- Necesario para que Lombok y MapStruct funcionen juntos -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok-mapstruct-binding</artifactId>
-            <version>0.2.0</version>
-            <scope>compile</scope>
-        </dependency>
-        <!-- OpenApi Generator-->
-        <dependency>
-            <groupId>org.openapitools</groupId>
-            <artifactId>jackson-databind-nullable</artifactId>
-            <version>0.2.6</version>
-        </dependency>
-        <dependency>
-            <groupId>io.swagger.core.v3</groupId>
-            <artifactId>swagger-annotations</artifactId>
-            <version>2.2.25</version>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>io.grpc</groupId>
@@ -84,23 +109,17 @@
         <dependency>
             <groupId>net.devh</groupId>
             <artifactId>grpc-spring-boot-starter</artifactId>
-            <version>3.1.0.RELEASE</version>
-        </dependency>
-        <!-- Models -->
-        <dependency>
-            <groupId>com.nortic.pos</groupId>
-            <artifactId>models</artifactId>
-            <version>0.0.1</version>
+            <version>${grpc-spring-boot-starter.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -120,12 +139,7 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.8.6</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
+            <version>${springdoc-openapi.version}</version>
         </dependency>
     </dependencies>
     <dependencyManagement>
@@ -141,12 +155,32 @@
     </dependencyManagement>
 
     <build>
+        <!-- Add generated sources to classpath -->
         <plugins>
+            <!-- Build Helper Plugin para agregar fuentes generadas -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.build.directory}/generated-sources/openapi/src/main/java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <!-- Plugin de OpenAPI Generator -->
             <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
-                <version>7.12.0</version>
+                <version>${openapi-generator.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -155,16 +189,22 @@
                         <configuration>
                             <inputSpec>${project.basedir}/src/main/resources/openapi-contract.yaml</inputSpec>
                             <generatorName>spring</generatorName>
-                            <apiPackage>${project.groupId}.${project.artifactId}.rest.gen.api</apiPackage>
-                            <modelPackage>${project.groupId}.${project.artifactId}.rest.gen.model</modelPackage>
-                            <invokerPackage>${project.groupId}.${project.artifactId}.rest.gen.invoker</invokerPackage>
+                            <apiPackage>${project.groupId}.${project.artifactId}.controller</apiPackage>
+                            <modelPackage>${project.groupId}.${project.artifactId}.model</modelPackage>
                             <modelNamePrefix>RestModel</modelNamePrefix>
-                            <output>${project.basedir}</output>
+                            <supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
                             <configOptions>
-                                <sourceFolder>src/main/java</sourceFolder>
+                                <delegatePattern>false</delegatePattern>
                                 <interfaceOnly>true</interfaceOnly>
                                 <useSpringBoot3>true</useSpringBoot3>
                                 <useTags>true</useTags>
+                                <skipDefaultInterface>true</skipDefaultInterface>
+                                <additionalModelTypeAnnotations>
+                                    @lombok.Data
+                                    @lombok.Builder
+                                    @lombok.NoArgsConstructor
+                                    @lombok.AllArgsConstructor
+                                </additionalModelTypeAnnotations>
                                 <dateLibrary>java8-localdatetime</dateLibrary>
                             </configOptions>
                             <generateSupportingFiles>false</generateSupportingFiles>
@@ -185,7 +225,7 @@
                         <path>
                             <groupId>org.mapstruct</groupId>
                             <artifactId>mapstruct-processor</artifactId>
-                            <version>1.6.3</version>
+                            <version>${mapstruct.version}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
@@ -193,7 +233,7 @@
             <plugin>
                 <groupId>kr.motd.maven</groupId>
                 <artifactId>os-maven-plugin</artifactId>
-                <version>1.7.1</version>
+                <version>${os-maven-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>initialize</id>
@@ -207,7 +247,7 @@
             <plugin>
                 <groupId>org.xolstice.maven.plugins</groupId>
                 <artifactId>protobuf-maven-plugin</artifactId>
-                <version>0.6.1</version>
+                <version>${protobuf-maven-plugin.version}</version>
                 <configuration>
                     <!--suppress UnresolvedMavenProperty -->
                     <protocArtifact>com.google.protobuf:protoc:${protobuf-java.version}:exe:${os.detected.classifier}
