@@ -376,15 +376,18 @@ components:
           type: string
           format: uuid
           description: ID of the store this role belongs to.
+          x-field-extra-annotation: '@NotNull(message = "Store ID is required")'
         name:
           type: string
           minLength: 3
           maxLength: 50
           description: Name of the role.
+          x-field-extra-annotation: '@NotBlank(message = "Role name is required") @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")'
         description:
           type: string
           maxLength: 255
           description: Description of the role.
+          x-field-extra-annotation: '@Size(max = 255, message = "Description cannot exceed 255 characters")'
       required: [ storeId, name ]
 
     StatusRequest:
@@ -395,6 +398,7 @@ components:
         isActive:
           type: boolean
           description: The desired active status for the role.
+          x-field-extra-annotation: '@NotNull(message = "Active status is required")'
 
     RolePage:
       type: object
