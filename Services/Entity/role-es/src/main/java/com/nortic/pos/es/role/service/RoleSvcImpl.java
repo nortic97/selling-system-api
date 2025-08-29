@@ -5,6 +5,7 @@ import com.nortic.pos.es.role.util.CustomException;
 import com.nortic.pos.es.role.util.ServiceMapper;
 import com.nortic.pos.models.dto.RoleDTO;
 import com.nortic.pos.models.entity.RoleEntity;
+import com.nortic.pos.models.entity.StoreEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -25,7 +26,20 @@ public class RoleSvcImpl implements IRoleSvc {
     @Override
     public RoleDTO createRole(RoleDTO roleDTO) {
         log.info("Create role Service Start...");
-        RoleEntity role = serviceMapper.dtoToEntity(roleDTO);
+
+        var roleEntity = roleRepository.findByNameIgnoreCaseAndStore(
+                roleDTO.getName(),
+                StoreEntity
+                        .builder()
+                        .id(roleDTO.getStore().getId())
+                        .build());
+
+        if (roleEntity.isPresent()) {
+            log.warn("Role with name {} already exists", roleDTO.getName());
+            throw new CustomException(409, "Role with name " + roleDTO.getName() + " already exists");
+        }
+
+        var role = serviceMapper.dtoToEntity(roleDTO);
         log.info("Role entity created: {}", role.getId());
         log.info("Create role Service End...");
         return serviceMapper.entityToDTO(roleRepository.save(role));

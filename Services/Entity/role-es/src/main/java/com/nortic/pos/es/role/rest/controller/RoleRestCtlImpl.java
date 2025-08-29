@@ -32,7 +32,9 @@ public class RoleRestCtlImpl implements RolesApi {
 
     @Override
     public ResponseEntity<RestModelRole> createRole(RestModelRoleRequest restModelRoleRequest) {
-        return null;
+        log.info("Create Role Rest Controller start...");
+        var role = roleSvc.createRole(restMapper.roleRequestToDTO(restModelRoleRequest));
+        return ResponseEntity.ok(restMapper.dtoToRes(role));
     }
 
     @Override
@@ -44,7 +46,7 @@ public class RoleRestCtlImpl implements RolesApi {
     public ResponseEntity<RestModelRole> getRoleById(UUID id) {
         log.info("Get Role By Id Rest Controller Start...");
 
-        var role = restMapper.toDTO(roleSvc.getRoleById(id));
+        var role = restMapper.dtoToRes(roleSvc.getRoleById(id));
 
         log.info("Get Role By Id Rest Controller End...");
 
