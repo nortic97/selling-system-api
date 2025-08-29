@@ -17,15 +17,15 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class StoreSvcImpl implements IStoreSvc {
 
-    private final ServiceMapper restMapper;
+    private final ServiceMapper serviceMapper;
     private final StoreRepository storeRepository;
 
     @Override
     public StoreDTO createStore(StoreDTO storeDTO) {
         log.info("Create Store Service Start...");
         log.info("Creating new store");
-        StoreEntity store = restMapper.dtoToEntity(storeDTO);
-        StoreDTO result = restMapper.entityToDTO(storeRepository.save(store));
+        StoreEntity store = serviceMapper.dtoToEntity(storeDTO);
+        StoreDTO result = serviceMapper.entityToDTO(storeRepository.save(store));
         log.info("Create Store Service End...");
         return result;
     }
@@ -35,7 +35,7 @@ public class StoreSvcImpl implements IStoreSvc {
         log.info("Get Store Service Start...");
         log.info("Retrieving store with id {}", id);
         StoreDTO result = storeRepository.findById(id)
-                .map(restMapper::entityToDTO)
+                .map(serviceMapper::entityToDTO)
                 .orElseThrow(() -> new CustomException(404, "ID: " + id + " Not Found"));
         log.info("Get Store Service End...");
         return result;
@@ -59,7 +59,7 @@ public class StoreSvcImpl implements IStoreSvc {
         storeEntity.setCity(storeDTO.getCity());
         storeEntity.setPhoneNumber(storeDTO.getPhoneNumber());
 
-        StoreDTO result = restMapper.entityToDTO(storeRepository.save(storeEntity));
+        StoreDTO result = serviceMapper.entityToDTO(storeRepository.save(storeEntity));
         log.info("Update Store Service End...");
         return result;
     }

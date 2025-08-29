@@ -5,7 +5,7 @@ import com.nortic.pos.es.role.util.CustomException;
 import com.nortic.pos.es.role.util.ServiceMapper;
 import com.nortic.pos.models.dto.RoleDTO;
 import com.nortic.pos.models.entity.RoleEntity;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,26 +15,26 @@ import java.util.UUID;
 
 @Slf4j
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class RoleSvcImpl implements IRoleSvc {
 
     private final RoleRepository roleRepository;
-    private final ServiceMapper mapper;
+    private final ServiceMapper serviceMapper;
 
     @Override
     public RoleDTO createRole(RoleDTO roleDTO) {
         log.info("Create role service Started...");
-        RoleEntity role = mapper.dtoToEntity(roleDTO);
+        RoleEntity role = serviceMapper.dtoToEntity(roleDTO);
         log.info("Role entity created: {}", role.getId());
         log.info("Create role service Finished...");
-        return mapper.entityToDTO(roleRepository.save(role));
+        return serviceMapper.entityToDTO(roleRepository.save(role));
     }
 
     @Override
     public RoleDTO getRole(UUID id) {
         log.info("Get role service Started...");
         log.info("Get role service Finished...");
-        return mapper.entityToDTO(roleRepository.findById(id)
+        return serviceMapper.entityToDTO(roleRepository.findById(id)
                 .orElseThrow(() -> new CustomException(404, "ID: " + id + " Not Found")));
     }
 
@@ -48,7 +48,7 @@ public class RoleSvcImpl implements IRoleSvc {
         role.setName(roleDTO.getName());
         role.setDescription(roleDTO.getDescription());
 
-        var roleUpdated = mapper.entityToDTO(roleRepository.save(role));
+        var roleUpdated = serviceMapper.entityToDTO(roleRepository.save(role));
 
         log.info("Role updated: {}", roleUpdated.getId());
         log.info("Update role service Finished...");

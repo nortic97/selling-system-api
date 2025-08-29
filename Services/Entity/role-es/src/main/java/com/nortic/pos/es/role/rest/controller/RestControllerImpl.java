@@ -8,7 +8,7 @@ import com.nortic.pos.es.role.model.RestModelRoleRequest;
 import com.nortic.pos.es.role.model.RestModelStatusRequest;
 import com.nortic.pos.es.role.service.RoleSvcImpl;
 import com.nortic.pos.es.role.util.RestMapper;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,8 +17,8 @@ import java.util.List;
 import java.util.UUID;
 
 @Slf4j
-@AllArgsConstructor
 @RestController
+@RequiredArgsConstructor
 public class RestControllerImpl implements RolesApi {
 
     private final RoleSvcImpl roleSvc;
