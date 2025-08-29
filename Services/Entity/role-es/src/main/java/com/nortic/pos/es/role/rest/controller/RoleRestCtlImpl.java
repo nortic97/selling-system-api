@@ -19,7 +19,7 @@ import java.util.UUID;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-public class RestControllerImpl implements RolesApi {
+public class RoleRestCtlImpl implements RolesApi {
 
     private final RoleSvcImpl roleSvc;
     private final RestMapper restMapper;
@@ -42,7 +42,13 @@ public class RestControllerImpl implements RolesApi {
 
     @Override
     public ResponseEntity<RestModelRole> getRoleById(UUID id) {
-        return null;
+        log.info("Get Role By Id Rest Controller Start...");
+
+        var role = restMapper.toDTO(roleSvc.getRoleById(id));
+
+        log.info("Get Role By Id Rest Controller End...");
+
+        return ResponseEntity.ok(role);
     }
 
     @Override

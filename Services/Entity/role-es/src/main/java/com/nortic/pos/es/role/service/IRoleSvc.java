@@ -16,7 +16,7 @@ public interface IRoleSvc {
     /**
      * Get role by ID (only active roles)
      */
-    RoleDTO getRole(UUID id);
+    RoleDTO getRoleById(UUID id);
 
     /**
      * Update role by ID

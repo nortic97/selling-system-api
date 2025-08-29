@@ -16,12 +16,12 @@ spring:
 
 springdoc:
   api-docs:
-    enabled: false
-    path: openapi-contract.yaml
+    enabled: true
+    path: /v3/api-docs
   swagger-ui:
     operationsSorter: method
     path: /swagger
-    url: openapi-contract.yaml
+    url: /openapi-contract.yaml
   show-actuator: true
 
 grpc:

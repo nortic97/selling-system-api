@@ -177,6 +177,7 @@
     "Spring Boot.ModelsUsApplication.executor": "Run",
     "Spring Boot.PlatformInitializerTsApplication (1).executor": "Run",
     "Spring Boot.PlatformInitializerTsApplication.executor": "Run",
+    "Spring Boot.RoleEsApplication.executor": "Run",
     "Spring Boot.RolesEsApplication.executor": "Run",
     "Spring Boot.StoresEsApplication.executor": "Run",
     "Spring Boot.UserSettingsMsApplication.executor": "Run",
@@ -228,7 +229,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.UsersEsApplication">
+  <component name="RunManager" selected="Spring Boot.RoleEsApplication">
     <configuration name="GrpcServiceMapperTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="user-es" />
       <extension name="coverage">
@@ -455,7 +456,7 @@
       <workItem from="1755970104159" duration="7464000" />
       <workItem from="1756437618776" duration="410000" />
       <workItem from="1756478494013" duration="8963000" />
-      <workItem from="1756487524201" duration="3522000" />
+      <workItem from="1756487524201" duration="5990000" />
     </task>
     <task id="LOCAL-00001" summary="Some Errors Fixed">
       <option name="closed" value="true" />

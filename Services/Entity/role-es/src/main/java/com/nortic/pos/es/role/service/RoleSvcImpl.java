@@ -32,7 +32,7 @@ public class RoleSvcImpl implements IRoleSvc {
     }
 
     @Override
-    public RoleDTO getRole(UUID id) {
+    public RoleDTO getRoleById(UUID id) {
         log.info("Get role Service Start...");
         log.info("Retrieving role with id {}", id);
         log.info("Get role Service End...");
