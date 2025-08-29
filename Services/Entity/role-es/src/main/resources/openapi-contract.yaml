@@ -43,7 +43,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Role"
+              $ref: "#/components/schemas/RoleRequest"
       responses:
         '201':
           description: Role created successfully
@@ -138,7 +138,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Role"
+              $ref: "#/components/schemas/RoleRequest"
       responses:
         '200':
           description: Role updated successfully
@@ -399,6 +399,146 @@ paths:
               schema:
                 $ref: "#/components/schemas/HttpError"
 
+  /api/v1/es/roles:
+    get:
+      summary: Obtener una lista paginada de roles
+      description: >
+        Permite obtener una lista paginada de roles, con la capacidad de filtrar por múltiples criterios.
+      operationId: getRoles
+      tags:
+        - Roles
+      parameters:
+        - name: storeId
+          in: query
+          description: ID de la tienda para filtrar los roles.
+          required: false
+          schema:
+            type: string
+            format: uuid
+        - name: name
+          in: query
+          description: Filtrar roles por nombre (búsqueda exacta, insensible a mayúsculas).
+          required: false
+          schema:
+            type: string
+        - name: isActive
+          in: query
+          description: Filtrar roles por su estado activo o inactivo.
+          required: false
+          schema:
+            type: boolean
+        - name: search
+          in: query
+          description: >
+            Búsqueda de texto libre en campos relevantes como nombre y descripción.
+          required: false
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: Número de la página a obtener (basado en 0).
+          required: false
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          description: Número de elementos por página.
+          required: false
+          schema:
+            type: integer
+            default: 20
+        - name: sort
+          in: query
+          description: >
+            Criterios de ordenación en el formato: `propiedad,(asc|desc)`.
+            El orden por defecto es ascendente. Se permite ordenación múltiple.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: Lista paginada de roles obtenida exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RolePage'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /api/v1/es/roles/deleted:
+    get:
+      summary: Obtener una lista paginada de roles eliminados
+      description: >
+        Permite obtener una lista paginada de roles que han sido eliminados lógicamente (soft delete).
+      operationId: getDeletedRoles
+      tags:
+        - Roles
+      parameters:
+        - name: storeId
+          in: query
+          description: ID de la tienda para filtrar los roles.
+          required: false
+          schema:
+            type: string
+            format: uuid
+        - name: name
+          in: query
+          description: Filtrar roles por nombre (búsqueda exacta, insensible a mayúsculas).
+          required: false
+          schema:
+            type: string
+        - name: search
+          in: query
+          description: >
+            Búsqueda de texto libre en campos relevantes como nombre y descripción.
+          required: false
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: Número de la página a obtener (basado en 0).
+          required: false
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          description: Número de elementos por página.
+          required: false
+          schema:
+            type: integer
+            default: 20
+        - name: sort
+          in: query
+          description: >
+            Criterios de ordenación en el formato: `propiedad,(asc|desc)`.
+            El orden por defecto es ascendente. Se permite ordenación múltiple.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: Lista paginada de roles eliminados obtenida exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RolePage'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
 components:
   securitySchemes:
     bearerAuth:
@@ -452,26 +592,112 @@ components:
         id:
           type: string
           format: uuid
-        store:
-          $ref: "#/components/schemas/Store"
+          readOnly: true
+        storeId:
+          type: string
+          format: uuid
         name:
           type: string
+          minLength: 3
+          maxLength: 50
         description:
           type: string
+          maxLength: 255
         isActive:
           type: boolean
+          readOnly: true
         createdAt:
           type: string
           format: date-time
+          readOnly: true
         updatedAt:
           type: string
           format: date-time
+          readOnly: true
         deletedAt:
           type: string
           format: date-time
+          nullable: true
+          readOnly: true
+
+    RolePage:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Role'
+        pageable:
+          $ref: '#/components/schemas/Pageable'
+        last:
+          type: boolean
+        totalPages:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        size:
+          type: integer
+          format: int32
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/Sort'
+        first:
+          type: boolean
+        numberOfElements:
+          type: integer
+          format: int32
+        empty:
+          type: boolean
+
+    Pageable:
+      type: object
+      properties:
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/Sort'
+        offset:
+          type: integer
+          format: int64
+        paged:
+          type: boolean
+        unpaged:
+          type: boolean
+
+    Sort:
+      type: object
+      properties:
+        empty:
+          type: boolean
+        sorted:
+          type: boolean
+        unsorted:
+          type: boolean
+
+    RoleRequest:
+      type: object
       required:
-        - store
+        - storeId
         - name
+      properties:
+        storeId:
+          type: string
+          format: uuid
+        name:
+          type: string
+          minLength: 3
+          maxLength: 50
+        description:
+          type: string
+          maxLength: 255
 
     RolePagination:
       type: object
@@ -511,7 +737,6 @@ components:
         - hasNextPage
         - hasPreviousPage
 
-
     HttpError:
       type: object
       properties:
@@ -524,6 +749,21 @@ components:
       required:
         - code
         - message
+
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/HttpError"
+
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/HttpError"
 
 security:
   - bearerAuth: []

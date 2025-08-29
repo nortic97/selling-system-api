@@ -1,31 +1,40 @@
 package com.nortic.pos.es.role.rest.gen.model;
 
+import java.net.URI;
+import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.annotation.Generated;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.UUID;
+import org.openapitools.jackson.nullable.JsonNullable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
+import java.util.NoSuchElementException;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.time.OffsetDateTime;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
+import io.swagger.v3.oas.annotations.media.Schema;
 
-import java.time.LocalDateTime;
-import java.util.Objects;
-import java.util.UUID;
+
+import java.util.*;
+import jakarta.annotation.Generated;
 
 /**
  * RestModelRole
  */
 
 @JsonTypeName("Role")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-05-26T11:34:35.336979600-05:00[America/Bogota]", comments = "Generator version: 7.12.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-08-29T09:58:34.784626200-05:00[America/Bogota]", comments = "Generator version: 7.12.0")
 public class RestModelRole {
 
   private @Nullable UUID id;
 
-  private RestModelStore store;
+  private @Nullable UUID storeId;
 
-  private String name;
+  private @Nullable String name;
 
   private @Nullable String description;
 
@@ -38,19 +47,7 @@ public class RestModelRole {
   private @Nullable LocalDateTime updatedAt;
 
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-  private @Nullable LocalDateTime deletedAt;
-
-  public RestModelRole() {
-    super();
-  }
-
-  /**
-   * Constructor with only required parameters
-   */
-  public RestModelRole(RestModelStore store, String name) {
-    this.store = store;
-    this.name = name;
-  }
+  private JsonNullable<LocalDateTime> deletedAt = JsonNullable.<LocalDateTime>undefined();
 
   public RestModelRole id(UUID id) {
     this.id = id;
@@ -62,7 +59,7 @@ public class RestModelRole {
    * @return id
    */
   @Valid 
-  @Schema(name = "id", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "id", accessMode = Schema.AccessMode.READ_ONLY, requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("id")
   public UUID getId() {
     return id;
@@ -72,24 +69,24 @@ public class RestModelRole {
     this.id = id;
   }
 
-  public RestModelRole store(RestModelStore store) {
-    this.store = store;
+  public RestModelRole storeId(UUID storeId) {
+    this.storeId = storeId;
     return this;
   }
 
   /**
-   * Get store
-   * @return store
+   * Get storeId
+   * @return storeId
    */
-  @NotNull @Valid 
-  @Schema(name = "store", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("store")
-  public RestModelStore getStore() {
-    return store;
+  @Valid 
+  @Schema(name = "storeId", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("storeId")
+  public UUID getStoreId() {
+    return storeId;
   }
 
-  public void setStore(RestModelStore store) {
-    this.store = store;
+  public void setStoreId(UUID storeId) {
+    this.storeId = storeId;
   }
 
   public RestModelRole name(String name) {
@@ -101,8 +98,8 @@ public class RestModelRole {
    * Get name
    * @return name
    */
-  @NotNull 
-  @Schema(name = "name", requiredMode = Schema.RequiredMode.REQUIRED)
+  @Size(min = 3, max = 50) 
+  @Schema(name = "name", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("name")
   public String getName() {
     return name;
@@ -121,7 +118,7 @@ public class RestModelRole {
    * Get description
    * @return description
    */
-  
+  @Size(max = 255) 
   @Schema(name = "description", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("description")
   public String getDescription() {
@@ -142,7 +139,7 @@ public class RestModelRole {
    * @return isActive
    */
   
-  @Schema(name = "isActive", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "isActive", accessMode = Schema.AccessMode.READ_ONLY, requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("isActive")
   public Boolean getIsActive() {
     return isActive;
@@ -162,7 +159,7 @@ public class RestModelRole {
    * @return createdAt
    */
   @Valid 
-  @Schema(name = "createdAt", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "createdAt", accessMode = Schema.AccessMode.READ_ONLY, requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("createdAt")
   public LocalDateTime getCreatedAt() {
     return createdAt;
@@ -182,7 +179,7 @@ public class RestModelRole {
    * @return updatedAt
    */
   @Valid 
-  @Schema(name = "updatedAt", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "updatedAt", accessMode = Schema.AccessMode.READ_ONLY, requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("updatedAt")
   public LocalDateTime getUpdatedAt() {
     return updatedAt;
@@ -193,7 +190,7 @@ public class RestModelRole {
   }
 
   public RestModelRole deletedAt(LocalDateTime deletedAt) {
-    this.deletedAt = deletedAt;
+    this.deletedAt = JsonNullable.of(deletedAt);
     return this;
   }
 
@@ -202,13 +199,13 @@ public class RestModelRole {
    * @return deletedAt
    */
   @Valid 
-  @Schema(name = "deletedAt", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "deletedAt", accessMode = Schema.AccessMode.READ_ONLY, requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("deletedAt")
-  public LocalDateTime getDeletedAt() {
+  public JsonNullable<LocalDateTime> getDeletedAt() {
     return deletedAt;
   }
 
-  public void setDeletedAt(LocalDateTime deletedAt) {
+  public void setDeletedAt(JsonNullable<LocalDateTime> deletedAt) {
     this.deletedAt = deletedAt;
   }
 
@@ -222,18 +219,29 @@ public class RestModelRole {
     }
     RestModelRole role = (RestModelRole) o;
     return Objects.equals(this.id, role.id) &&
-        Objects.equals(this.store, role.store) &&
+        Objects.equals(this.storeId, role.storeId) &&
         Objects.equals(this.name, role.name) &&
         Objects.equals(this.description, role.description) &&
         Objects.equals(this.isActive, role.isActive) &&
         Objects.equals(this.createdAt, role.createdAt) &&
         Objects.equals(this.updatedAt, role.updatedAt) &&
-        Objects.equals(this.deletedAt, role.deletedAt);
+        equalsNullable(this.deletedAt, role.deletedAt);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, store, name, description, isActive, createdAt, updatedAt, deletedAt);
+    return Objects.hash(id, storeId, name, description, isActive, createdAt, updatedAt, hashCodeNullable(deletedAt));
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override
@@ -241,7 +249,7 @@ public class RestModelRole {
     StringBuilder sb = new StringBuilder();
     sb.append("class RestModelRole {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    store: ").append(toIndentedString(store)).append("\n");
+    sb.append("    storeId: ").append(toIndentedString(storeId)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    isActive: ").append(toIndentedString(isActive)).append("\n");

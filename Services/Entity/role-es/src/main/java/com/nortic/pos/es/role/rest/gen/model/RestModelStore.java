@@ -1,23 +1,30 @@
 package com.nortic.pos.es.role.rest.gen.model;
 
+import java.net.URI;
+import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.annotation.Generated;
-import jakarta.validation.Valid;
+import java.time.LocalDateTime;
+import java.util.UUID;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.time.OffsetDateTime;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
+import io.swagger.v3.oas.annotations.media.Schema;
 
-import java.time.LocalDateTime;
-import java.util.Objects;
-import java.util.UUID;
+
+import java.util.*;
+import jakarta.annotation.Generated;
 
 /**
  * RestModelStore
  */
 
 @JsonTypeName("Store")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-05-26T11:34:35.336979600-05:00[America/Bogota]", comments = "Generator version: 7.12.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-08-29T09:58:34.784626200-05:00[America/Bogota]", comments = "Generator version: 7.12.0")
 public class RestModelStore {
 
   private @Nullable UUID id;

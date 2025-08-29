@@ -24,7 +24,7 @@ public class RoleEntity {
     @JoinColumn(name = "store_id", nullable = false)
     private StoreEntity store;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String name;
 
     @Column(columnDefinition = "TEXT")

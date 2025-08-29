@@ -9,26 +9,35 @@ import com.nortic.pos.es.role.rest.gen.model.RestModelChangeRoleStatusRequest;
 import com.nortic.pos.es.role.rest.gen.model.RestModelHttpError;
 import com.nortic.pos.es.role.rest.gen.model.RestModelRole;
 import com.nortic.pos.es.role.rest.gen.model.RestModelRolePagination;
+import com.nortic.pos.es.role.rest.gen.model.RestModelRoleRequest;
+import java.util.UUID;
+import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.annotation.Generated;
-import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-import java.util.UUID;
+import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-05-26T11:34:35.336979600-05:00[America/Bogota]", comments = "Generator version: 7.12.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-08-29T09:58:34.784626200-05:00[America/Bogota]", comments = "Generator version: 7.12.0")
 @Validated
 @Tag(name = "Role", description = "the Role API")
 public interface RoleApi {
@@ -86,7 +95,7 @@ public interface RoleApi {
     /**
      * POST /api/v1/es/role : Create a new role
      *
-     * @param restModelRole  (required)
+     * @param restModelRoleRequest  (required)
      * @return Role created successfully (status code 201)
      *         or Bad Request (status code 400)
      *         or Internal Server Error (status code 500)
@@ -118,7 +127,7 @@ public interface RoleApi {
     )
     
     default ResponseEntity<RestModelRole> createRole(
-        @Parameter(name = "RestModelRole", description = "", required = true) @Valid @RequestBody RestModelRole restModelRole
+        @Parameter(name = "RestModelRoleRequest", description = "", required = true) @Valid @RequestBody RestModelRoleRequest restModelRoleRequest
     ) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
@@ -301,7 +310,7 @@ public interface RoleApi {
      * PUT /api/v1/es/role/{id} : Update a role
      *
      * @param id  (required)
-     * @param restModelRole  (required)
+     * @param restModelRoleRequest  (required)
      * @return Role updated successfully (status code 200)
      *         or Bad Request (status code 400)
      *         or Role not found (status code 404)
@@ -338,7 +347,7 @@ public interface RoleApi {
     
     default ResponseEntity<RestModelRole> updateRole(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") UUID id,
-        @Parameter(name = "RestModelRole", description = "", required = true) @Valid @RequestBody RestModelRole restModelRole
+        @Parameter(name = "RestModelRoleRequest", description = "", required = true) @Valid @RequestBody RestModelRoleRequest restModelRoleRequest
     ) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
