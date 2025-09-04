@@ -234,6 +234,7 @@ paths:
                 isActive:
                   type: boolean
                   example: true
+                  x-field-extra-annotation: '@NotNull'
               required:
                 - isActive
       responses:
@@ -275,38 +276,68 @@ components:
           format: uuid
         taxId:
           type: string
+          description: Identification number of store.
+          x-field-extra-annotation: '@NotBlank'
         name:
           type: string
+          minLength: 3
+          maxLength: 50
+          description: Name of the store.
+          x-field-extra-annotation: '@NotBlank @Size(min = 3, max = 50)'
         logo:
           type: string
+          description: Route logo.
         description:
           type: string
+          maxLength: 500
+          description: Detailed description of the store.
         slogan:
           type: string
+          maxLength: 100
+          description: Store's marketing slogan or tagline.
         address:
           type: string
+          description: Physical address of the store.
+          x-field-extra-annotation: '@NotBlank'
         country:
           type: string
+          description: Country where the store is located.
         stateProvince:
           type: string
+          description: State or province where the store is located.
+          x-field-extra-annotation: '@NotBlank'
         city:
           type: string
+          description: City where the store is located.
+          x-field-extra-annotation: '@NotBlank'
         phoneNumber:
           type: string
+          description: Contact phone number of the store. Accepts international and local formats.
+          example: "(+57) 300 1234567"
+          x-field-extra-annotation: '@NotBlank'
         email:
           type: string
           format: email
+          description: Contact email address of the store.
+          x-field-extra-annotation: '@NotBlank @Email'
         isActive:
           type: boolean
+          description: Indicates whether the store is currently active.
         createdAt:
           type: string
           format: date-time
+          description: Timestamp when the store was created.
+          readOnly: true
         updatedAt:
           type: string
           format: date-time
+          description: Timestamp when the store was last updated.
+          readOnly: true
         deletedAt:
           type: string
           format: date-time
+          description: Timestamp when the store was soft deleted (null if not deleted).
+          readOnly: true
       required:
         - taxId
         - name
