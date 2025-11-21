@@ -34,76 +34,27 @@ servers:
 paths:
   /api/v1/es/roles:
     get:
-      summary: Get a paginated list of roles
+      summary: Get all roles (without pagination)
       description: >
-        Retrieve a paginated list of roles with advanced filtering capabilities.
-      operationId: getRoles
+        Retrieve all roles without pagination. Use this endpoint when you need to fetch all roles at once.
+      operationId: getAllRoles
       tags:
         - Roles
-      parameters:
-        - name: storeId
-          in: query
-          description: Filter roles by store ID.
-          required: false
-          schema:
-            type: string
-            format: uuid
-        - name: name
-          in: query
-          description: Filter roles by name (case-insensitive partial match).
-          required: false
-          schema:
-            type: string
-        - name: isActive
-          in: query
-          description: Filter roles by active status.
-          required: false
-          schema:
-            type: boolean
-        - name: page
-          in: query
-          description: Page number to retrieve (0-based).
-          required: false
-          schema:
-            type: integer
-            default: 1
-            minimum: 1
-        - name: size
-          in: query
-          description: Number of elements per page.
-          required: false
-          schema:
-            type: integer
-            default: 20
-            minimum: 1
-            maximum: 100
-        - name: sort
-          in: query
-          description: >
-            Sort criteria in the format: `property,(asc|desc)`.
-            Default order is ascending. Multiple sort criteria supported.
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: array
-            items:
-              type: string
       responses:
         '200':
-          description: Paginated list of roles retrieved successfully.
+          description: List of all roles retrieved successfully.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RolePage'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Role'
         '500':
           $ref: '#/components/responses/InternalServerError'
-
+          
     post:
       summary: Create a new role
-      description: Create a new role within a store.
+      description: Create a new role with the provided details.
       operationId: createRole
       tags:
         - Roles
@@ -112,14 +63,40 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/RoleRequest"
+              $ref: '#/components/schemas/RoleRequest'
       responses:
         '201':
           description: Role created successfully.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Role"
+                $ref: '#/components/schemas/Role'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /api/v1/es/roles/search:
+    post:
+      summary: Search roles with filters and pagination
+      description: >
+        Search roles with advanced filtering, sorting and pagination capabilities.
+      operationId: searchRoles
+      tags:
+        - Roles
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoleSearchRequest'
+      responses:
+        '200':
+          description: Search results matching criteria.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
         '500':
@@ -127,62 +104,46 @@ paths:
 
   /api/v1/es/roles/deleted:
     get:
-      summary: Get a paginated list of deleted roles
-      description: >
-        Retrieve a paginated list of roles that have been soft deleted.
-      operationId: getDeletedRoles
+      summary: Get all deleted roles (without pagination)
+      description: Retrieve a list of all soft-deleted roles without pagination.
+      operationId: getAllDeletedRoles
       tags:
         - Roles
-      parameters:
-        - name: storeId
-          in: query
-          description: Filter roles by store ID.
-          required: false
-          schema:
-            type: string
-            format: uuid
-        - name: name
-          in: query
-          description: Filter roles by name (case-insensitive partial match).
-          required: false
-          schema:
-            type: string
-        - name: page
-          in: query
-          description: Page number to retrieve (0-based).
-          required: false
-          schema:
-            type: integer
-            default: 1
-            minimum: 1
-        - name: size
-          in: query
-          description: Number of elements per page.
-          required: false
-          schema:
-            type: integer
-            default: 20
-            minimum: 1
-            maximum: 100
-        - name: sort
-          in: query
-          description: >
-            Sort criteria in the format: `property,(asc|desc)`.
-            Default order is ascending. Multiple sort criteria supported.
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: array
-            items:
-              type: string
       responses:
         '200':
-          description: Paginated list of deleted roles retrieved successfully.
+          description: List of deleted roles retrieved successfully.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RolePage'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Role'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /api/v1/es/roles/deleted/search:
+    post:
+      summary: Search deleted roles with filters and pagination
+      description: >
+        Search deleted roles with advanced filtering, sorting and pagination capabilities.
+      operationId: searchDeletedRoles
+      tags:
+        - Roles
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoleSearchRequest'
+      responses:
+        '200':
+          description: Search results matching criteria.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
         '500':
@@ -400,84 +361,78 @@ components:
           description: The desired active status for the role.
           x-field-extra-annotation: '@NotNull'
 
-    RolePage:
+    RoleSearchRequest:
       type: object
       properties:
-        content:
+        filters:
+          type: object
+          properties:
+            storeId:
+              type: string
+              format: uuid
+              description: Filter by store ID.
+            name:
+              type: string
+              description: Filter by name (case-insensitive contains).
+            isActive:
+              type: boolean
+              description: Filter by active status.
+        pagination:
+          type: object
+          properties:
+            page:
+              type: integer
+              minimum: 1
+              default: 1
+              description: Page number (1-based).
+            size:
+              type: integer
+              minimum: 20
+              maximum: 100
+              default: 20
+              description: Number of items per page (min 20, max 100).
+        sort:
+          type: array
+          items:
+            type: object
+            properties:
+              property:
+                type: string
+                enum: [name, createdAt, updatedAt]
+                description: Field to sort by.
+              direction:
+                type: string
+                enum: [ASC, DESC]
+                default: ASC
+                description: Sort direction.
+          description: Sorting criteria.
+
+    PaginatedResponse:
+      type: object
+      properties:
+        data:
           type: array
           items:
             $ref: '#/components/schemas/Role'
-          description: List of roles in the current page.
-        pageable:
-          $ref: '#/components/schemas/Pageable'
-        last:
-          type: boolean
-          description: Whether this is the last page.
-        totalPages:
+          description: List of items in the current page.
+        page:
           type: integer
-          format: int32
-          description: Total number of pages.
-        totalElements:
-          type: integer
-          format: int64
-          description: Total number of elements across all pages.
+          description: Current page number.
         size:
           type: integer
-          format: int32
-          description: Size of the current page.
-        number:
+          description: Number of items per page.
+        totalItems:
           type: integer
-          format: int32
-          description: Current page number (0-based).
-        sort:
-          $ref: '#/components/schemas/Sort'
-        first:
-          type: boolean
-          description: Whether this is the first page.
-        numberOfElements:
+          description: Total number of items across all pages.
+        totalPages:
           type: integer
-          format: int32
-          description: Number of elements in the current page.
-        empty:
-          type: boolean
-          description: Whether the page is empty.
-
-    Pageable:
-      type: object
-      properties:
-        pageNumber:
-          type: integer
-          format: int32
-          description: Current page number (0-based).
-        pageSize:
-          type: integer
-          format: int32
-          description: Size of the page.
-        sort:
-          $ref: '#/components/schemas/Sort'
-        offset:
-          type: integer
-          format: int64
-          description: Offset of the first element in the page.
-        paged:
-          type: boolean
-          description: Whether the result is paged.
-        unpaged:
-          type: boolean
-          description: Whether the result is unpaged.
-
-    Sort:
-      type: object
-      properties:
-        empty:
-          type: boolean
-          description: Whether the sort is empty.
-        sorted:
-          type: boolean
-          description: Whether the result is sorted.
-        unsorted:
-          type: boolean
-          description: Whether the result is unsorted.
+          description: Total number of pages.
+      required:
+        - data
+        - page
+        - size
+        - totalItems
+        - totalPages
 
     HttpError:
       type: object
