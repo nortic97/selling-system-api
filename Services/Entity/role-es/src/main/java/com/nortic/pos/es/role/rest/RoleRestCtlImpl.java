@@ -1,11 +1,8 @@
-package com.nortic.pos.es.role.rest.controller;
+package com.nortic.pos.es.role.rest;
 
 
 import com.nortic.pos.es.role.controller.RolesApi;
-import com.nortic.pos.es.role.model.RestModelRole;
-import com.nortic.pos.es.role.model.RestModelRolePage;
-import com.nortic.pos.es.role.model.RestModelRoleRequest;
-import com.nortic.pos.es.role.model.RestModelStatusRequest;
+import com.nortic.pos.es.role.model.*;
 import com.nortic.pos.es.role.service.RoleSvcImpl;
 import com.nortic.pos.es.role.util.RestMapper;
 import lombok.RequiredArgsConstructor;
@@ -26,22 +23,41 @@ public class RoleRestCtlImpl implements RolesApi {
 
 
     @Override
-    public ResponseEntity<Void> changeRoleStatus(UUID id, RestModelStatusRequest restModelStatusRequest) {
+    public ResponseEntity<Void> changeRoleStatus(
+            UUID id,
+            RestModelStatusRequest restModelStatusRequest
+    ) {
         log.info("Change Role Status Rest Controller start...");
-        roleSvc.changeRoleStatus(id, restModelStatusRequest.getIsActive());
+        roleSvc.changeRoleStatus(
+                id,
+                restModelStatusRequest.getIsActive()
+        );
         log.info("Change Role Status Rest Controller end...");
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok()
+                             .build();
     }
 
     @Override
     public ResponseEntity<RestModelRole> createRole(RestModelRoleRequest restModelRoleRequest) {
         log.info("Create Role Rest Controller start...");
         var role = roleSvc.createRole(restMapper.roleRequestToDTO(restModelRoleRequest));
+        log.info("Create Role Rest Controller end...");
         return ResponseEntity.ok(restMapper.dtoToRes(role));
     }
 
     @Override
-    public ResponseEntity<RestModelRolePage> getDeletedRoles(UUID storeId, String name, Integer page, Integer size, List<String> sort) {
+    public ResponseEntity<List<RestModelPaginatedResponse>> getAllDeletedRoles(
+            Integer page,
+            Integer size
+    ) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<List<RestModelPaginatedResponse>> getAllRoles(
+            Integer page,
+            Integer size
+    ) {
         return null;
     }
 
@@ -57,16 +73,22 @@ public class RoleRestCtlImpl implements RolesApi {
     }
 
     @Override
-    public ResponseEntity<RestModelRolePage> getRoles(UUID storeId, String name, Boolean isActive, Integer page, Integer size, List<String> sort) {
-        return null;
-    }
-
-    @Override
     public ResponseEntity<Void> permanentDeleteRole(UUID id) {
         log.info("Permanent Delete Role Rest Controller start...");
         roleSvc.deleteRole(id);
         log.info("Permanent Delete Role Rest Controller end...");
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.noContent()
+                             .build();
+    }
+
+    @Override
+    public ResponseEntity<RestModelPaginatedResponse> searchDeletedRoles(RestModelRoleSearchRequest restModelRoleSearchRequest) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<RestModelPaginatedResponse> searchRoles(RestModelRoleSearchRequest restModelRoleSearchRequest) {
+        return null;
     }
 
     @Override
@@ -74,14 +96,21 @@ public class RoleRestCtlImpl implements RolesApi {
         log.info("Soft Delete Role Rest Controller start...");
         roleSvc.softDeleteRole(id);
         log.info("Soft Delete Role Rest Controller end...");
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.noContent()
+                             .build();
     }
 
     @Override
-    public ResponseEntity<RestModelRole> updateRole(UUID id, RestModelRoleRequest restModelRoleRequest) {
+    public ResponseEntity<RestModelRole> updateRole(
+            UUID id,
+            RestModelRoleRequest restModelRoleRequest
+    ) {
         log.info("Update Role Rest Controller start...");
         var roleDTO = restMapper.roleRequestToDTO(restModelRoleRequest);
-        var updatedRole = roleSvc.updateRole(id, roleDTO);
+        var updatedRole = roleSvc.updateRole(
+                id,
+                roleDTO
+        );
         log.info("Update Role Rest Controller end...");
         return ResponseEntity.ok(restMapper.dtoToRes(updatedRole));
     }

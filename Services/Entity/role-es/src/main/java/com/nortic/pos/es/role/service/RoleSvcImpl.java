@@ -26,9 +26,16 @@ public class RoleSvcImpl implements IRoleSvc {
     @Override
     public RoleDTO createRole(RoleDTO roleDTO) {
         log.info("Create role Service Start...");
-        validateRoleName(roleDTO.getName(), roleDTO.getStore().getId());
+        validateRoleName(
+                roleDTO.getName(),
+                roleDTO.getStore()
+                       .getId()
+        );
         var role = serviceMapper.dtoToEntity(roleDTO);
-        log.info("Role entity created: {}", role.getId());
+        log.info(
+                "Role entity created: {}",
+                role.getId()
+        );
         log.info("Create role Service End...");
         return serviceMapper.entityToDTO(roleRepository.save(role));
     }
@@ -36,26 +43,43 @@ public class RoleSvcImpl implements IRoleSvc {
     @Override
     public RoleDTO getRoleById(UUID id) {
         log.info("Get role Service Start...");
-        log.info("Retrieving role with id {}", id);
+        log.info(
+                "Retrieving role with id {}",
+                id
+        );
         log.info("Get role Service End...");
         return serviceMapper.entityToDTO(getRoleEntity(id));
     }
 
     @Override
-    public RoleDTO updateRole(UUID id, RoleDTO roleDTO) {
+    public RoleDTO updateRole(
+            UUID id,
+            RoleDTO roleDTO
+    ) {
         log.info("Update role Service Start...");
-        log.info("Updating role with id {}", id);
-
-        validateRoleName(roleDTO.getName(), roleDTO.getStore().getId());
+        log.info(
+                "Updating role with id {}",
+                id
+        );
 
         var role = getRoleEntity(id);
+
+        validateRoleName(
+                roleDTO.getName(),
+                roleDTO.getStore()
+                       .getId(),
+                id
+        );
 
         role.setName(roleDTO.getName());
         role.setDescription(roleDTO.getDescription());
 
         var roleUpdated = serviceMapper.entityToDTO(roleRepository.save(role));
 
-        log.info("Role updated: {}", roleUpdated.getId());
+        log.info(
+                "Role updated: {}",
+                roleUpdated.getId()
+        );
         log.info("Update role Service End...");
 
         return roleUpdated;
@@ -64,12 +88,18 @@ public class RoleSvcImpl implements IRoleSvc {
     @Override
     public void deleteRole(UUID id) {
         log.info("Delete role Service Start...");
-        log.info("Deleting role with id {}", id);
+        log.info(
+                "Deleting role with id {}",
+                id
+        );
 
         var role = getRoleEntity(id);
         roleRepository.deleteById(role.getId());
 
-        log.info("Role deleted: {}", role.getId());
+        log.info(
+                "Role deleted: {}",
+                role.getId()
+        );
         log.info("Delete role Service End...");
     }
 
@@ -80,62 +110,104 @@ public class RoleSvcImpl implements IRoleSvc {
         var role = getRoleEntity(id);
 
         if (role.getDeletedAt() != null) {
-            log.error("Role with ID: {} is already deleted", id);
-            throw new CustomException(409, "Role with ID: " + id + " is already deleted");
+            log.error(
+                    "Role with ID: {} is already deleted",
+                    id
+            );
+            throw new CustomException(
+                    409,
+                    "Role with ID: " + id + " is already deleted"
+            );
         }
 
         role.markAsDeleted();
 
         roleRepository.save(role);
-        log.info("Role soft deleted: {}", role.getId());
+        log.info(
+                "Role soft deleted: {}",
+                role.getId()
+        );
         log.info("Soft delete role Service End...");
     }
 
     @Override
-    public void changeRoleStatus(UUID id, Boolean status) {
+    public void changeRoleStatus(
+            UUID id,
+            Boolean status
+    ) {
         log.info("Change role status Service Start...");
 
         var role = getRoleEntity(id);
 
-        if (Objects.equals(role.getIsActive(), status)) {
-            log.warn("Role with id {} already has status {}", id, status);
-            throw new CustomException(409, "Role with id " + id + " already has status " + status);
+        if (Objects.equals(
+                role.getIsActive(),
+                status
+        )) {
+            log.warn(
+                    "Role with id {} already has status {}",
+                    id,
+                    status
+            );
+            throw new CustomException(
+                    409,
+                    "Role with id " + id + " already has status " + status
+            );
         }
 
         role.changeStatus(status);
 
         roleRepository.save(role);
 
-        log.info("Role status changed: {}", role.getId());
+        log.info(
+                "Role status changed: {}",
+                role.getId()
+        );
         log.info("Change role status Service End...");
-    }
-
-    @Override
-    public Page<RoleDTO> getRoles(Pageable pageable, UUID storeId, String name, Boolean isActive) {
-        return null;
-    }
-
-    @Override
-    public Page<RoleDTO> getDeletedRoles(Pageable pageable, UUID storeId, String name) {
-        return null;
     }
 
     private RoleEntity getRoleEntity(UUID id) {
         return roleRepository.findById(id)
-                .orElseThrow(() -> new CustomException(404, "ID: " + id + " Not Found"));
+                             .orElseThrow(() -> new CustomException(
+                                     404,
+                                     "ID: " + id + " Not Found"
+                             ));
     }
 
-    private void validateRoleName(String name, UUID storeId) {
+    private void validateRoleName(
+            String name,
+            UUID storeId,
+            UUID currentRoleId
+    ) {
         var roleEntity = roleRepository.findByNameIgnoreCaseAndStore(
                 name,
                 StoreEntity
                         .builder()
                         .id(storeId)
-                        .build());
+                        .build()
+        );
 
-        if (roleEntity.isPresent()) {
-            log.warn("Role with name {} already exists", roleEntity.get().getName());
-            throw new CustomException(409, "Role with name " + roleEntity.get().getName() + " already exists");
+        if (roleEntity.isPresent() && (currentRoleId == null || !roleEntity.get()
+                                                                           .getId()
+                                                                           .equals(currentRoleId))) {
+            log.warn(
+                    "Role with name {} already exists",
+                    name
+            );
+            throw new CustomException(
+                    409,
+                    "Role with name " + name + " already exists"
+            );
         }
+    }
+
+    private void validateRoleName(
+            String name,
+            UUID storeId
+    ) {
+        validateRoleName(
+                name,
+                storeId,
+                null
+        );
     }
 }

@@ -34,12 +34,27 @@ servers:
 paths:
   /api/v1/es/roles:
     get:
-      summary: Get all roles (without pagination)
+      summary: Get all roles
       description: >
-        Retrieve all roles without pagination. Use this endpoint when you need to fetch all roles at once.
+        Retrieve all roles.
       operationId: getAllRoles
       tags:
         - Roles
+      parameters:
+        - name: page
+          in: query
+          required: false
+          example: 1
+          description: page number.
+          schema:
+            type: integer
+        - name: size
+          in: query
+          required: false
+          example: 20
+          description: size number.
+          schema:
+            type: integer
       responses:
         '200':
           description: List of all roles retrieved successfully.
@@ -48,10 +63,12 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Role'
+                  $ref: '#/components/schemas/PaginatedResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/InternalServerError'
-          
+
     post:
       summary: Create a new role
       description: Create a new role with the provided details.
@@ -99,16 +116,33 @@ paths:
                 $ref: '#/components/schemas/PaginatedResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/InternalServerError'
 
   /api/v1/es/roles/deleted:
     get:
-      summary: Get all deleted roles (without pagination)
-      description: Retrieve a list of all soft-deleted roles without pagination.
+      summary: Get all deleted roles
+      description: Retrieve a list of all soft-deleted roles.
       operationId: getAllDeletedRoles
       tags:
         - Roles
+      parameters:
+        - name: page
+          in: query
+          required: false
+          example: 1
+          description: page number.
+          schema:
+            type: integer
+        - name: size
+          in: query
+          required: false
+          example: 20
+          description: size number.
+          schema:
+            type: integer
       responses:
         '200':
           description: List of deleted roles retrieved successfully.
@@ -117,9 +151,11 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Role'
+                  $ref: '#/components/schemas/PaginatedResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/InternalServerError'
 
@@ -349,7 +385,9 @@ components:
           maxLength: 255
           description: Description of the role.
           x-field-extra-annotation: '@Size(max = 255)'
-      required: [ storeId, name ]
+      required:
+        - storeId
+        - name
 
     StatusRequest:
       type: object
@@ -363,34 +401,40 @@ components:
 
     RoleSearchRequest:
       type: object
+      required:
+        - filters
+        - pagination
       properties:
         filters:
           type: object
+          required:
+            - storeId
+            - criteria
           properties:
             storeId:
               type: string
               format: uuid
-              description: Filter by store ID.
-            name:
+              x-field-extra-annotation: '@NotNull'
+            criteria:
               type: string
-              description: Filter by name (case-insensitive contains).
-            isActive:
-              type: boolean
-              description: Filter by active status.
+              x-field-extra-annotation: '@NotBlank @Size(max = 50)'
         pagination:
           type: object
+          required:
+            - page
+            - size
           properties:
             page:
               type: integer
               minimum: 1
               default: 1
-              description: Page number (1-based).
+              x-field-extra-annotation: '@NotNull @Positive @Min(1)'
             size:
               type: integer
               minimum: 20
               maximum: 100
               default: 20
-              description: Number of items per page (min 20, max 100).
+              x-field-extra-annotation: '@NotNull @Positive @Min(20) @Max(100)'
         sort:
           type: array
           items:
@@ -398,14 +442,18 @@ components:
             properties:
               property:
                 type: string
-                enum: [name, createdAt, updatedAt]
-                description: Field to sort by.
+                enum:
+                  - name
+                  - is_active
+                  - created_at
+                  - updated_at
+                  - deleted_at
               direction:
                 type: string
-                enum: [ASC, DESC]
+                enum:
+                  - ASC
+                  - DESC
                 default: ASC
-                description: Sort direction.
-          description: Sorting criteria.
 
     PaginatedResponse:
       type: object
@@ -427,12 +475,6 @@ components:
         totalPages:
           type: integer
           description: Total number of pages.
-      required:
-        - data
-        - page
-        - size
-        - totalItems
-        - totalPages
 
     HttpError:
       type: object
@@ -490,4 +532,4 @@ components:
                 message: "Internal server error"
 
 security:
-  - bearerAuth: []
+  - bearerAuth: [ ]
