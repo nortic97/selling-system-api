@@ -4,14 +4,16 @@ import com.nortic.pos.es.role.repository.RoleRepository;
 import com.nortic.pos.es.role.util.CustomException;
 import com.nortic.pos.es.role.util.ServiceMapper;
 import com.nortic.pos.models.dto.RoleDTO;
+import com.nortic.pos.models.dto.RolePaginationDTO;
 import com.nortic.pos.models.entity.RoleEntity;
 import com.nortic.pos.models.entity.StoreEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -38,6 +40,59 @@ public class RoleSvcImpl implements IRoleSvc {
         );
         log.info("Create role Service End...");
         return serviceMapper.entityToDTO(roleRepository.save(role));
+    }
+
+    private static final int DEFAULT_PAGE = 1;
+    private static final int DEFAULT_SIZE = 20;
+
+    @Override
+    public RolePaginationDTO getAllRoles(
+            Integer page,
+            Integer size
+    ) {
+        log.info("Get All Roles Service Start...");
+        if ((page == null || page <= 0) && (size == null || size <= 0)) {
+            List<RoleEntity> allRoles = roleRepository.findAll();
+            log.info("Get All Roles Service End...");
+            return RolePaginationDTO.builder()
+                                    .data(extractListRoles(allRoles))
+                                    .page(1)
+                                    .size(allRoles.size())
+                                    .totalItems(allRoles.size())
+                                    .totalPages(1)
+                                    .build();
+        }
+
+        int pageNumber = (page == null || page <= 0) ? DEFAULT_PAGE : page;
+        int pageSize = (size == null || size <= 0) ? DEFAULT_SIZE : size;
+
+        Page<RoleEntity> rolesPage = roleRepository.findAll(
+                PageRequest.of(
+                        pageNumber - 1,
+                        pageSize
+                ));
+
+        log.info("Get All Roles Service End...");
+
+        return buildPaginationResponse(
+                rolesPage,
+                pageNumber,
+                pageSize
+        );
+    }
+
+    private RolePaginationDTO buildPaginationResponse(
+            Page<RoleEntity> page,
+            int currentPage,
+            int size
+    ) {
+        return RolePaginationDTO.builder()
+                                .data(extractListRoles(page.getContent()))
+                                .page(currentPage)
+                                .size(size)
+                                .totalItems((int) page.getTotalElements())
+                                .totalPages(page.getTotalPages())
+                                .build();
     }
 
     @Override
@@ -209,5 +264,13 @@ public class RoleSvcImpl implements IRoleSvc {
                 storeId,
                 null
         );
+    }
+
+    private List<RoleDTO> extractListRoles(
+            List<RoleEntity> roles
+    ) {
+        return roles.stream()
+                    .map(serviceMapper::entityToDTO)
+                    .toList();
     }
 }

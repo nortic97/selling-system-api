@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -46,7 +45,7 @@ public class RoleRestCtlImpl implements RolesApi {
     }
 
     @Override
-    public ResponseEntity<List<RestModelPaginatedResponse>> getAllDeletedRoles(
+    public ResponseEntity<RestModelPaginatedResponse> getAllDeletedRoles(
             Integer page,
             Integer size
     ) {
@@ -54,11 +53,17 @@ public class RoleRestCtlImpl implements RolesApi {
     }
 
     @Override
-    public ResponseEntity<List<RestModelPaginatedResponse>> getAllRoles(
+    public ResponseEntity<RestModelPaginatedResponse> getAllRoles(
             Integer page,
             Integer size
     ) {
-        return null;
+        log.info("Get All Roles Rest Controller start...");
+        var rolePaginated = roleSvc.getAllRoles(
+                page,
+                size
+        );
+        log.info("Get All Roles Rest Controller end...");
+        return ResponseEntity.ok(restMapper.paginationToRes(rolePaginated));
     }
 
     @Override

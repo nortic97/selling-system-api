@@ -1,21 +1,24 @@
 package com.nortic.pos.es.role.util;
 
+import com.nortic.pos.es.role.model.RestModelPaginatedResponse;
 import com.nortic.pos.es.role.model.RestModelRole;
 import com.nortic.pos.es.role.model.RestModelRoleRequest;
 import com.nortic.pos.models.dto.RoleDTO;
+import com.nortic.pos.models.dto.RolePaginationDTO;
 import com.nortic.pos.models.dto.StoreDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.mapstruct.ReportingPolicy;
 
-import java.time.OffsetDateTime;
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 @Mapper(
-    componentModel = "spring",
-    unmappedTargetPolicy = ReportingPolicy.IGNORE,
-    unmappedSourcePolicy = ReportingPolicy.IGNORE
+        componentModel = "spring",
+        unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        unmappedSourcePolicy = ReportingPolicy.IGNORE
 )
 public interface RestMapper {
 
@@ -45,7 +48,20 @@ public interface RestMapper {
             return null;
         }
         return StoreDTO.builder()
-                .id(storeId)
-                .build();
+                       .id(storeId)
+                       .build();
+    }
+
+    @Mapping(target = "data", source = "data", qualifiedByName = "mapRoleList")
+    RestModelPaginatedResponse paginationToRes(RolePaginationDTO paginationDTO);
+
+    @Named("mapRoleList")
+    default List<RestModelRole> mapRoleList(List<RoleDTO> roles) {
+        if (roles == null) {
+            return Collections.emptyList();
+        }
+        return roles.stream()
+                    .map(this::dtoToRes)
+                    .toList();
     }
 }

@@ -61,9 +61,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/PaginatedResponse'
+                $ref: '#/components/schemas/PaginatedResponse'
         '404':
           $ref: '#/components/responses/NotFound'
         '500':
@@ -149,9 +147,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/PaginatedResponse'
+                $ref: '#/components/schemas/PaginatedResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
         '404':
