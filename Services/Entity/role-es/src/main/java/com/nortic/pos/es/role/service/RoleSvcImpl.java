@@ -10,7 +10,8 @@ import com.nortic.pos.models.entity.StoreEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import com.nortic.pos.es.role.util.PaginationUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,57 +43,60 @@ public class RoleSvcImpl implements IRoleSvc {
         return serviceMapper.entityToDTO(roleRepository.save(role));
     }
 
-    private static final int DEFAULT_PAGE = 1;
-    private static final int DEFAULT_SIZE = 20;
-
     @Override
     public RolePaginationDTO getAllRoles(
             Integer page,
             Integer size
     ) {
         log.info("Get All Roles Service Start...");
-        if ((page == null || page <= 0) && (size == null || size <= 0)) {
+
+        if (PaginationUtils.shouldDisablePagination(
+                page,
+                size
+        )) {
             List<RoleEntity> allRoles = roleRepository.findAll();
-            log.info("Get All Roles Service End...");
-            return RolePaginationDTO.builder()
-                                    .data(extractListRoles(allRoles))
-                                    .page(1)
-                                    .size(allRoles.size())
-                                    .totalItems(allRoles.size())
-                                    .totalPages(1)
-                                    .build();
+            log.info("Get All Roles Service End - Returning all results (pagination disabled)");
+            return buildNonPagedResponse(allRoles);
         }
 
-        int pageNumber = (page == null || page <= 0) ? DEFAULT_PAGE : page;
-        int pageSize = (size == null || size <= 0) ? DEFAULT_SIZE : size;
-
-        Page<RoleEntity> rolesPage = roleRepository.findAll(
-                PageRequest.of(
-                        pageNumber - 1,
-                        pageSize
-                ));
+        Pageable pageable = PaginationUtils.createPageable(
+                page,
+                size
+        );
+        Page<RoleEntity> rolesPage = roleRepository.findAll(pageable);
 
         log.info("Get All Roles Service End...");
-
         return buildPaginationResponse(
-                rolesPage,
-                pageNumber,
-                pageSize
+                rolesPage
         );
     }
 
-    private RolePaginationDTO buildPaginationResponse(
-            Page<RoleEntity> page,
-            int currentPage,
-            int size
+    @Override
+    public RolePaginationDTO getAllDeletedRoles(
+            Integer page,
+            Integer size
     ) {
-        return RolePaginationDTO.builder()
-                                .data(extractListRoles(page.getContent()))
-                                .page(currentPage)
-                                .size(size)
-                                .totalItems((int) page.getTotalElements())
-                                .totalPages(page.getTotalPages())
-                                .build();
+        log.info("Get All Deleted Roles Service Start...");
+
+        if (PaginationUtils.shouldDisablePagination(
+                page,
+                size
+        )) {
+            List<RoleEntity> allDeletedRoles = roleRepository.findAllByDeletedAtNotNull();
+            log.info("Get All Deleted Roles Service End - Returning all results (pagination disabled)");
+            return buildNonPagedResponse(allDeletedRoles);
+        }
+
+        Pageable pageable = PaginationUtils.createPageable(
+                page,
+                size
+        );
+        Page<RoleEntity> rolesPage = roleRepository.findAllByDeletedAtNotNull(pageable);
+
+        log.info("Get All Deleted Roles Service End...");
+        return buildPaginationResponse(
+                rolesPage
+        );
     }
 
     @Override
@@ -272,5 +276,27 @@ public class RoleSvcImpl implements IRoleSvc {
         return roles.stream()
                     .map(serviceMapper::entityToDTO)
                     .toList();
+    }
+
+    private RolePaginationDTO buildPaginationResponse(
+            Page<RoleEntity> page
+    ) {
+        return RolePaginationDTO.builder()
+                                .data(extractListRoles(page.getContent()))
+                                .page(page.getNumber() + 1)
+                                .size(page.getSize())
+                                .totalItems((int) page.getTotalElements())
+                                .totalPages(page.getTotalPages())
+                                .build();
+    }
+
+    private RolePaginationDTO buildNonPagedResponse(List<RoleEntity> entities) {
+        return RolePaginationDTO.builder()
+                                .data(extractListRoles(entities))
+                                .page(1)
+                                .size(entities.size())
+                                .totalItems(entities.size())
+                                .totalPages(1)
+                                .build();
     }
 }

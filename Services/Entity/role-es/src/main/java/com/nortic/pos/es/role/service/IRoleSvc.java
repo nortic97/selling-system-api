@@ -25,6 +25,18 @@ public interface IRoleSvc {
     );
 
     /**
+     * Retrieves a list of all deleted roles in the system, paginated.
+     *
+     * @param page The page number to retrieve.
+     * @param size The number of records to retrieve per page.
+     * @return A list of deleted roles.
+     */
+    RolePaginationDTO getAllDeletedRoles(
+            Integer page,
+            Integer size
+    );
+
+    /**
      * Get role by ID (only active roles)
      */
     RoleDTO getRoleById(UUID id);

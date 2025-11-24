@@ -32,8 +32,7 @@ public class RoleRestCtlImpl implements RolesApi {
                 restModelStatusRequest.getIsActive()
         );
         log.info("Change Role Status Rest Controller end...");
-        return ResponseEntity.ok()
-                             .build();
+        return ResponseEntity.ok(null);
     }
 
     @Override
@@ -49,7 +48,13 @@ public class RoleRestCtlImpl implements RolesApi {
             Integer page,
             Integer size
     ) {
-        return null;
+        log.info("Get All Deleted Roles Rest Controller start...");
+        var deletedRolePaginated = roleSvc.getAllDeletedRoles(
+                page,
+                size
+        );
+        log.info("Get All Deleted Roles Rest Controller end...");
+        return ResponseEntity.ok(restMapper.paginationToRes(deletedRolePaginated));
     }
 
     @Override
