@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.nortic.pos.es</groupId>
-	<artifactId>es-user</artifactId>
+	<artifactId>user</artifactId>
 	<version>0.0.1</version>
 	<packaging>war</packaging>
 	<name>es-user</name>
@@ -29,6 +29,10 @@
 	</scm>
 	<properties>
 		<java.version>21</java.version>
+		<org.mapstruct.version>1.6.3</org.mapstruct.version>
+		<org.slf4j.version>2.0.18</org.slf4j.version>
+		<io.swagger.core.v3.version>2.2.49</io.swagger.core.v3.version>
+		<org.openapitools.version>7.22.0</org.openapitools.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -55,7 +59,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webservices</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -111,10 +114,59 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.swagger.core.v3</groupId>
+			<artifactId>swagger-annotations</artifactId>
+			<version>${io.swagger.core.v3.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${org.slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>${org.mapstruct.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.openapitools</groupId>
+				<artifactId>openapi-generator-maven-plugin</artifactId>
+				<version>${org.openapitools.version}</version> <executions>
+				<execution>
+					<goals>
+						<goal>generate</goal>
+					</goals>
+					<configuration>
+						<inputSpec>${project.basedir}/src/main/resources/OpenAPI.yaml</inputSpec>
+
+						<generatorName>spring</generatorName>
+
+						<apiPackage>${project.groupId}.${project.artifactId}.rest.gen.api</apiPackage>
+						<modelPackage>${project.groupId}.${project.artifactId}.rest.gen.model</modelPackage>
+						<modelNamePrefix>RestModel</modelNamePrefix>
+
+						<configOptions>
+							<interfaceOnly>true</interfaceOnly>
+							<useSpringBoot3>true</useSpringBoot3>
+							<useJakartaEe>true</useJakartaEe>
+							<useResponseEntity>true</useResponseEntity>
+							<openApiNullable>false</openApiNullable>
+							<useTags>true</useTags>
+							<skipDefaultInterface>true</skipDefaultInterface>
+						</configOptions>
+					</configuration>
+				</execution>
+			</executions>
+			</plugin>
 			<plugin>
 				<groupId>io.github.ascopes</groupId>
 				<artifactId>protobuf-maven-plugin</artifactId>
@@ -146,6 +198,11 @@
 								<path>
 									<groupId>org.projectlombok</groupId>
 									<artifactId>lombok</artifactId>
+								</path>
+								<path>
+									<groupId>org.mapstruct</groupId>
+									<artifactId>mapstruct-processor</artifactId>
+									<version>${org.mapstruct.version}</version>
 								</path>
 								<path>
 									<groupId>org.springframework.boot</groupId>

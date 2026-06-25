@@ -1,0 +1,488 @@
+openapi: 3.0.3
+info:
+  title: Enterprise Selling System - User Entity Service (es-user)
+  description: Servicio de entidad encargado de la persistencia, validación y operaciones CRUD de usuarios.
+  version: 0.0.1
+security:
+  - bearerAuth: [ ]
+
+servers:
+  - url: "{protocol}://{server}:{port}"
+    variables:
+      protocol:
+        enum:
+          - http
+          - https
+        default: https
+      server:
+        default: localhost
+      port:
+        default: 8080
+
+paths:
+  /api/v1/es/user:
+    get:
+      summary: Obtener usuarios paginados
+      description: Retorna una estructura paginada compatible con Spring Data Page.
+      operationId: getAllUsers
+      tags:
+        - User
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 0
+          description: Número de página (basado en índice cero).
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 10
+          description: Cantidad de registros por página.
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          description: Criterio de ordenamiento con formato 'campo,asc' o 'campo,desc'.
+      responses:
+        '200':
+          description: Operación exitosa. Retorna la estructura paginada.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedUserResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+    post:
+      summary: Crear un nuevo usuario
+      description: Registra un usuario en el sistema. Valida campos obligatorios.
+      operationId: createUser
+      tags:
+        - User
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequestDTO'
+      responses:
+        '201':
+          description: Usuario creado exitosamente. El Response DTO omite datos sensibles como la contraseña.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+  /api/v1/es/user/{id}:
+    get:
+      summary: Obtener un usuario por ID
+      description: Recupera los detalles de un usuario activo mediante su UUID único.
+      operationId: getUserById
+      tags:
+        - User
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/UserIdPathParam'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      responses:
+        '200':
+          description: Usuario encontrado con éxito.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponseDTO'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+    put:
+      summary: Actualizar un usuario existente
+      description: Modifica los campos editables del usuario. Valida estructura de entrada.
+      operationId: updateUser
+      tags:
+        - User
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/UserIdPathParam'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserRequestDTO'
+      responses:
+        '200':
+          description: Usuario actualizado con éxito.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+    delete:
+      summary: Eliminación lógica (Soft Delete)
+      description: Inactiva el registro inyectando la estampa de tiempo actual en deleted_at.
+      operationId: deleteUser
+      tags:
+        - User
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/UserIdPathParam'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      responses:
+        '204':
+          description: Registro marcado como eliminado lógicamente. No retorna cuerpo.
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+  /api/v1/es/user/{id}/restore:
+    patch:
+      summary: Restaurar usuario eliminado
+      description: Revierte el soft delete limpiando la marca deleted_at de la entidad.
+      operationId: restoreUser
+      tags:
+        - User
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/UserIdPathParam'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      responses:
+        '200':
+          description: Usuario restaurado y habilitado nuevamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponseDTO'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  parameters:
+    CorrelationIdHeader:
+      name: Correlation-Id
+      in: header
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+      description: Header obligatorio de trazabilidad distribuida para logs correlacionados.
+    ConsumerIdHeader:
+      name: Consumer-Id
+      in: header
+      required: true
+      schema:
+        type: string
+        example: "SVP"
+      description: Header obligatorio de trazabilidad distribuida para consumidor.
+    UserIdPathParam:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d"
+      description: Identificador único universal (UUID v4) del usuario.
+
+  responses:
+    400BadRequest:
+      description: Error de validación en los datos enviados o sintaxis JSON incorrecta.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseDTO'
+    403Forbidden:
+      description: El cliente no posee los roles o permisos suficientes.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseDTO'
+    404NotFound:
+      description: El recurso solicitado no existe o está eliminado.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseDTO'
+    500InternalServerError:
+      description: Excepción no controlada en el servidor.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseDTO'
+
+  schemas:
+    ErrorResponseDTO:
+      type: object
+      required:
+        - code
+        - message
+        - timestamp
+      properties:
+        code:
+          type: string
+          example: "VALIDATION_FAILED"
+        message:
+          type: string
+          example: "Uno o más campos enviados en la solicitud no pasaron las validaciones."
+        timestamp:
+          type: string
+          format: date-time
+          example: "2026-06-18T12:40:00Z"
+        details:
+          type: array
+          description: Lista de errores específicos por cada campo (aparece si es error de validación de entrada).
+          items:
+            $ref: '#/components/schemas/FieldErrorDetailDTO'
+
+    FieldErrorDetailDTO:
+      type: object
+      required:
+        - field
+        - message
+      properties:
+        field:
+          type: string
+          example: "email"
+        rejected_value:
+          type: string
+          example: "null"
+          nullable: true
+        message:
+          type: string
+          example: "El campo es requerido y no puede ser nulo o vacío."
+
+    PaginatedUserResponseDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserResponseDTO'
+        total_elements:
+          type: integer
+          format: int64
+          example: 125
+        total_pages:
+          type: integer
+          example: 13
+        size:
+          type: integer
+          example: 10
+        number:
+          type: integer
+          example: 0
+        first:
+          type: boolean
+          example: true
+        last:
+          type: boolean
+          example: false
+
+    UserResponseDTO:
+      type: object
+      required:
+        - id
+        - first_name
+        - last_name
+        - document_type
+        - document_number
+        - username
+        - email
+        - is_active
+        - created_at
+        - updated_at
+      properties:
+        id:
+          type: string
+          format: uuid
+        first_name:
+          type: string
+        last_name:
+          type: string
+        document_type:
+          type: string
+        document_number:
+          type: string
+        username:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+          nullable: true
+        is_active:
+          type: boolean
+        address:
+          type: string
+          nullable: true
+        date_of_birth:
+          type: string
+          format: date
+          nullable: true
+        photo:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        deleted_at:
+          type: string
+          format: date-time
+          nullable: true
+
+    CreateUserRequestDTO:
+      type: object
+      required:
+        - first_name
+        - last_name
+        - document_type
+        - document_number
+        - username
+        - password
+        - email
+        - phone
+        - date_of_birth
+      properties:
+        first_name:
+          type: string
+          maxLength: 100
+          x-field-extra-annotation: "@NotBlank"
+        last_name:
+          type: string
+          maxLength: 100
+          x-field-extra-annotation: "@NotBlank"
+        document_type:
+          type: string
+          maxLength: 50
+          x-field-extra-annotation: "@NotBlank"
+        document_number:
+          type: string
+          maxLength: 100
+          x-field-extra-annotation: "@NotBlank"
+        username:
+          type: string
+          maxLength: 100
+          x-field-extra-annotation: "@NotBlank"
+        password:
+          type: string
+          maxLength: 255
+          x-field-extra-annotation: "@NotBlank"
+        email:
+          type: string
+          format: email
+          maxLength: 255
+          x-field-extra-annotation: "@NotBlank"
+        phone:
+          type: string
+          maxLength: 50
+          x-field-extra-annotation: "@NotBlank"
+        address:
+          type: string
+          maxLength: 255
+        date_of_birth:
+          type: string
+          format: date
+        photo:
+          type: string
+
+    UpdateUserRequestDTO:
+      type: object
+      required:
+        - first_name
+        - last_name
+        - document_type
+        - document_number
+        - username
+        - password
+        - email
+        - phone
+        - date_of_birth
+      properties:
+        first_name:
+          type: string
+          maxLength: 100
+          x-field-extra-annotation: "@NotBlank"
+        last_name:
+          type: string
+          maxLength: 100
+          x-field-extra-annotation: "@NotBlank"
+        document_type:
+          type: string
+          maxLength: 50
+          x-field-extra-annotation: "@NotBlank"
+        document_number:
+          type: string
+          maxLength: 100
+          x-field-extra-annotation: "@NotBlank"
+        username:
+          type: string
+          maxLength: 100
+          x-field-extra-annotation: "@NotBlank"
+        email:
+          type: string
+          format: email
+          maxLength: 255
+          x-field-extra-annotation: "@NotBlank"
+        phone:
+          type: string
+          maxLength: 50
+          x-field-extra-annotation: "@NotBlank"
+        address:
+          type: string
+          maxLength: 255
+        date_of_birth:
+          type: string
+          format: date
+        photo:
+          type: string
