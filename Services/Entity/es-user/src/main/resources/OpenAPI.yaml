@@ -509,6 +509,7 @@ components:
           x-field-extra-annotation: "@NotBlank"
         password:
           type: string
+          minLength: 8
           maxLength: 255
           x-field-extra-annotation: "@NotBlank"
         email:
@@ -536,10 +537,6 @@ components:
         - last_name
         - document_type
         - document_number
-        - username
-        - password
-        - email
-        - phone
         - date_of_birth
       properties:
         first_name:
@@ -556,19 +553,6 @@ components:
         document_number:
           type: string
           maxLength: 100
-          x-field-extra-annotation: "@NotBlank"
-        username:
-          type: string
-          maxLength: 100
-          x-field-extra-annotation: "@NotBlank"
-        email:
-          type: string
-          format: email
-          maxLength: 255
-          x-field-extra-annotation: "@NotBlank"
-        phone:
-          type: string
-          maxLength: 50
           x-field-extra-annotation: "@NotBlank"
         address:
           type: string

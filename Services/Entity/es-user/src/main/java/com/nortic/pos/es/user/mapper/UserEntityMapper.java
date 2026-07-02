@@ -3,13 +3,18 @@ package com.nortic.pos.es.user.mapper;
 import com.nortic.pos.es.user.dto.PaginatedUserDTO;
 import com.nortic.pos.es.user.dto.UserDTO;
 import com.nortic.pos.es.user.model.entity.UserEntity;
+import lombok.RequiredArgsConstructor;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.springframework.data.domain.Page;
 
-@Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+@Mapper(
+        componentModel = "spring",
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
+)
+@RequiredArgsConstructor
 public abstract class UserEntityMapper {
 
     public abstract UserDTO toUserDTO(UserEntity userEntity);

@@ -9,6 +9,7 @@ import com.nortic.pos.es.user.mapper.UserEntityMapper;
 import com.nortic.pos.es.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -20,6 +21,8 @@ public class UserServiceImpl implements UserService {
 
     private final UserEntityMapper userEntityMapper;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Override
     public UserDTO createUser(UserDTO userDTO, ParamsDTO paramsDTO) {
         log.info("Creating user service...");
@@ -29,6 +32,7 @@ public class UserServiceImpl implements UserService {
         var user = userEntityMapper.toUserEntity(userDTO);
 
         user.setIsActive(Boolean.FALSE);
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
 
         var savedUser = userRepository.save(user);
 

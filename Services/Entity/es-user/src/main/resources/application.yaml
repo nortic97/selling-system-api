@@ -22,7 +22,7 @@ spring:
       include-path: never
 
   jackson:
-    time-zone: ${TIME_ZONE:UTC}
+    time-zone: ${TIME_ZONE:America/Bogota}
 
 server:
   port: ${PORT:8080}

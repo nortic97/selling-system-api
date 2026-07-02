@@ -24,7 +24,11 @@ public class UserControllerImpl implements UserApi {
     private final UserService userService;
 
     @Override
-    public ResponseEntity<RestModelUserResponseDTO> createUser(UUID correlationId, String consumerId, RestModelCreateUserRequestDTO restModelCreateUserRequestDTO) {
+    public ResponseEntity<RestModelUserResponseDTO> createUser(
+            UUID correlationId,
+            String consumerId,
+            RestModelCreateUserRequestDTO restModelCreateUserRequestDTO
+    ) {
         log.info("Creating user REST controller...");
 
         var user = userRestMapper.toUserDTO(restModelCreateUserRequestDTO);
@@ -40,7 +44,11 @@ public class UserControllerImpl implements UserApi {
     }
 
     @Override
-    public ResponseEntity<Void> deleteUser(UUID correlationId, UUID id, String consumerId) {
+    public ResponseEntity<Void> deleteUser(
+            UUID correlationId,
+            UUID id,
+            String consumerId
+    ) {
 
         log.info("Deleting user REST controller...");
 
@@ -58,7 +66,13 @@ public class UserControllerImpl implements UserApi {
     }
 
     @Override
-    public ResponseEntity<RestModelPaginatedUserResponseDTO> getAllUsers(UUID correlationId, String consumerId, Integer page, Integer size, @Nullable List<String> sort) {
+    public ResponseEntity<RestModelPaginatedUserResponseDTO> getAllUsers(
+            UUID correlationId,
+            String consumerId,
+            Integer page,
+            Integer size,
+            @Nullable List<String> sort
+    ) {
         log.info("Getting all users REST controller...");
 
         var params = ParamsDTO.builder()
@@ -76,7 +90,11 @@ public class UserControllerImpl implements UserApi {
     }
 
     @Override
-    public ResponseEntity<RestModelUserResponseDTO> getUserById(UUID correlationId, UUID id, String consumerId) {
+    public ResponseEntity<RestModelUserResponseDTO> getUserById(
+            UUID correlationId,
+            UUID id,
+            String consumerId
+    ) {
         log.info("Getting user by id REST controller...");
 
         var params = ParamsDTO.builder()
@@ -93,12 +111,20 @@ public class UserControllerImpl implements UserApi {
     }
 
     @Override
-    public ResponseEntity<RestModelPaginatedUserResponseDTO> queryUsers(UUID correlationId, String consumerId, @Nullable RestModelUserQueryRequestDTO restModelUserQueryRequestDTO) {
+    public ResponseEntity<RestModelPaginatedUserResponseDTO> queryUsers(
+            UUID correlationId,
+            String consumerId,
+            @Nullable RestModelUserQueryRequestDTO restModelUserQueryRequestDTO
+    ) {
         return null;
     }
 
     @Override
-    public ResponseEntity<RestModelUserResponseDTO> restoreUser(UUID correlationId, UUID id, String consumerId) {
+    public ResponseEntity<RestModelUserResponseDTO> restoreUser(
+            UUID correlationId,
+            UUID id,
+            String consumerId
+    ) {
         log.info("Restoring user REST controller...");
 
         var params = ParamsDTO.builder()
@@ -115,12 +141,20 @@ public class UserControllerImpl implements UserApi {
     }
 
     @Override
-    public ResponseEntity<RestModelPaginatedUserResponseDTO> searchUsers(UUID correlationId, String consumerId, @Nullable RestModelUserSearchRequestDTO restModelUserSearchRequestDTO) {
+    public ResponseEntity<RestModelPaginatedUserResponseDTO> searchUsers(
+            UUID correlationId,
+            String consumerId,
+            @Nullable RestModelUserSearchRequestDTO restModelUserSearchRequestDTO
+    ) {
         return null;
     }
 
     @Override
-    public ResponseEntity<RestModelUserResponseDTO> updateUser(UUID correlationId, UUID id, String consumerId, RestModelUpdateUserRequestDTO restModelUpdateUserRequestDTO) {
+    public ResponseEntity<RestModelUserResponseDTO> updateUser(
+            UUID correlationId, UUID id,
+            String consumerId,
+            RestModelUpdateUserRequestDTO restModelUpdateUserRequestDTO
+    ) {
         log.info("Updating user REST controller...");
 
         var params = ParamsDTO.builder()
