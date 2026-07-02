@@ -5,6 +5,7 @@ import com.nortic.pos.es.user.exception.UserBusinessException;
 import com.nortic.pos.es.user.exception.UserExceptionCode;
 import com.nortic.pos.es.user.model.entity.UserEntity;
 import com.nortic.pos.es.user.repository.UserRepository;
+import com.nortic.pos.es.user.service.contract.UserValidationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;

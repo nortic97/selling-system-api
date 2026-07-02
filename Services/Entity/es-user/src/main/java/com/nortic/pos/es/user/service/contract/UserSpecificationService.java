@@ -1,4 +1,4 @@
-package com.nortic.pos.es.user.service;
+package com.nortic.pos.es.user.service.contract;
 
 import com.nortic.pos.es.user.dto.request.UserQueryRequestDTO;
 import com.nortic.pos.es.user.dto.request.UserSearchRequestDTO;

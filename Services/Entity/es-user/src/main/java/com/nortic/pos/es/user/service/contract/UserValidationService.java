@@ -1,4 +1,4 @@
-package com.nortic.pos.es.user.service;
+package com.nortic.pos.es.user.service.contract;
 
 import com.nortic.pos.es.user.dto.UserDTO;
 import com.nortic.pos.es.user.model.entity.UserEntity;

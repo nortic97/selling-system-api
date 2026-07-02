@@ -5,7 +5,7 @@ import com.nortic.pos.es.user.dto.request.RequestContextDTO;
 import com.nortic.pos.es.user.mapper.UserRestMapper;
 import com.nortic.pos.es.user.rest.gen.api.UserApi;
 import com.nortic.pos.es.user.rest.gen.model.*;
-import com.nortic.pos.es.user.service.UserService;
+import com.nortic.pos.es.user.service.contract.UserService;
 import com.nortic.pos.es.user.util.PageableUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

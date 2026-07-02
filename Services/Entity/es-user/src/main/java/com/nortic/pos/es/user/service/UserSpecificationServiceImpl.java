@@ -3,11 +3,12 @@ package com.nortic.pos.es.user.service;
 import com.nortic.pos.es.user.dto.request.UserQueryRequestDTO;
 import com.nortic.pos.es.user.dto.request.UserSearchRequestDTO;
 import com.nortic.pos.es.user.model.entity.UserEntity;
+import com.nortic.pos.es.user.service.contract.UserSpecificationService;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserSpecificationServiceImpl implements  UserSpecificationService{
+public class UserSpecificationServiceImpl implements UserSpecificationService {
 
     @Override
     public Specification<UserEntity> buildSearchSpecification(UserSearchRequestDTO searchRequest) {
