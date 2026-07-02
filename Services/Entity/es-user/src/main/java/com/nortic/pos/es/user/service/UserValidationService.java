@@ -1,5 +1,6 @@
 package com.nortic.pos.es.user.service;
 
+import com.nortic.pos.es.user.dto.UserDTO;
 import com.nortic.pos.es.user.model.entity.UserEntity;
 
 import java.util.UUID;
@@ -17,5 +18,9 @@ public interface UserValidationService {
     void validateEmail(UUID id, String email);
 
     void validatePhone(UUID id, String phone);
+
+    void validateNewUser(UserDTO userDTO);
+
+    void validateUsername(UUID id, String username);
 
 }

@@ -10,6 +10,7 @@ import com.nortic.pos.es.user.util.PageableUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jspecify.annotations.Nullable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -78,7 +79,20 @@ public class UserControllerImpl implements UserApi {
             String consumerId,
             RestModelChangePasswordRequest restModelChangePasswordRequest
     ) {
-        return null;
+        log.info("Changing user password REST controller...");
+
+        var requestContextDTO = RequestContextDTO.builder()
+                .correlationId(correlationId)
+                .consumerId(consumerId)
+                .build();
+
+        var changePasswordRequestDTO = userRestMapper.toChangePasswordRequestDTO(restModelChangePasswordRequest);
+
+        var changedUser = userService.changeUserPassword(requestContextDTO, id, changePasswordRequestDTO);
+
+        log.info("Changing user password REST controller finished...");
+
+        return ResponseEntity.ok(userRestMapper.toRestModelUserResponseDTO(changedUser));
     }
 
     @Override
@@ -88,7 +102,20 @@ public class UserControllerImpl implements UserApi {
             String consumerId,
             RestModelChangeUserStatusRequest restModelChangeUserStatusRequest
     ) {
-        return null;
+        log.info("Changing user status REST controller...");
+
+        var requestContextDTO = RequestContextDTO.builder()
+                .correlationId(correlationId)
+                .consumerId(consumerId)
+                .build();
+
+        var changeUserStatusRequestDTO = userRestMapper.toChangeUserStatusRequestDTO(restModelChangeUserStatusRequest);
+
+        var changedUser = userService.changeUserStatus(requestContextDTO, id, changeUserStatusRequestDTO);
+
+        log.info("Changing user status REST controller finished...");
+
+        return ResponseEntity.ok(userRestMapper.toRestModelUserResponseDTO(changedUser));
     }
 
     @Override
@@ -98,7 +125,20 @@ public class UserControllerImpl implements UserApi {
             String consumerId,
             RestModelChangeUsernameRequest restModelChangeUsernameRequest
     ) {
-        return null;
+        log.info("Changing username REST controller...");
+
+        var requestContextDTO = RequestContextDTO.builder()
+                .correlationId(correlationId)
+                .consumerId(consumerId)
+                .build();
+
+        var changeUsernameRequestDTO = userRestMapper.toChangeUsernameRequestDTO(restModelChangeUsernameRequest);
+
+        var changedUser = userService.changeUsername(requestContextDTO, id, changeUsernameRequestDTO);
+
+        log.info("Changing username REST controller finished...");
+
+        return ResponseEntity.ok(userRestMapper.toRestModelUserResponseDTO(changedUser));
     }
 
     @Override
@@ -120,7 +160,9 @@ public class UserControllerImpl implements UserApi {
 
         log.info("Creating user REST Controller finished...");
 
-        return ResponseEntity.ok(userRestMapper.toRestModelUserResponseDTO(createdUser));
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(userRestMapper.toRestModelUserResponseDTO(createdUser));
 
     }
 
@@ -198,7 +240,20 @@ public class UserControllerImpl implements UserApi {
             String consumerId,
             @Nullable RestModelUserQueryRequestDTO restModelUserQueryRequestDTO
     ) {
-        return null;
+        log.info("Querying users REST controller...");
+
+        var requestContextDTO = RequestContextDTO.builder()
+                .correlationId(correlationId)
+                .consumerId(consumerId)
+                .build();
+
+        var userQueryRequestDTO = userRestMapper.toUserQueryRequestDTO(restModelUserQueryRequestDTO);
+
+        var paginatedUsers = userService.queryUsers(requestContextDTO, userQueryRequestDTO);
+
+        log.info("Querying users REST controller finished...");
+
+        return ResponseEntity.ok(userRestMapper.toRestModelPaginatedUserResponseDTO(paginatedUsers));
     }
 
     @Override
@@ -227,7 +282,20 @@ public class UserControllerImpl implements UserApi {
             String consumerId,
             @Nullable RestModelUserSearchRequestDTO restModelUserSearchRequestDTO
     ) {
-        return null;
+        log.info("Searching users REST controller...");
+
+        var requestContextDTO = RequestContextDTO.builder()
+                .correlationId(correlationId)
+                .consumerId(consumerId)
+                .build();
+
+        var userSearchRequestDTO = userRestMapper.toUserSearchRequestDTO(restModelUserSearchRequestDTO);
+
+        var paginatedUsers = userService.searchUsers(requestContextDTO, userSearchRequestDTO);
+
+        log.info("Searching users REST controller finished...");
+
+        return ResponseEntity.ok(userRestMapper.toRestModelPaginatedUserResponseDTO(paginatedUsers));
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.nortic.pos.es.user.mapper;
 
-import com.nortic.pos.es.user.dto.response.PaginatedUserResponseDTO;
 import com.nortic.pos.es.user.dto.UserDTO;
+import com.nortic.pos.es.user.dto.response.PaginatedUserResponseDTO;
 import com.nortic.pos.es.user.model.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.Mapper;

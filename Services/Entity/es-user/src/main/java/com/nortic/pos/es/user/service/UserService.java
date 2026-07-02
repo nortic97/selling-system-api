@@ -1,6 +1,7 @@
 package com.nortic.pos.es.user.service;
 
-import com.nortic.pos.es.user.dto.*;
+import com.nortic.pos.es.user.dto.SearchParamsDTO;
+import com.nortic.pos.es.user.dto.UserDTO;
 import com.nortic.pos.es.user.dto.request.*;
 import com.nortic.pos.es.user.dto.response.PaginatedUserResponseDTO;
 

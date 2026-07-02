@@ -1,12 +1,11 @@
 package com.nortic.pos.es.user.dto.request;
 
 import com.nortic.pos.es.user.dto.enums.DocumentTypeEnum;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import lombok.*;
 
 @Getter
 @Setter
@@ -38,10 +37,13 @@ public class UserSearchRequestDTO {
 
     private  Boolean isActive;
 
+    @Builder.Default
     private Integer page = 0;
 
+    @Builder.Default
     private Integer size = 10;
 
+    @Builder.Default
     private List<String> sort = new ArrayList<>();
     
 }

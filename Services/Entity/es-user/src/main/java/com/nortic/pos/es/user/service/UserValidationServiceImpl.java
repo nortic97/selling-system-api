@@ -1,15 +1,18 @@
 package com.nortic.pos.es.user.service;
 
+import com.nortic.pos.es.user.dto.UserDTO;
 import com.nortic.pos.es.user.exception.UserBusinessException;
 import com.nortic.pos.es.user.exception.UserExceptionCode;
 import com.nortic.pos.es.user.model.entity.UserEntity;
 import com.nortic.pos.es.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserValidationServiceImpl implements UserValidationService {
@@ -74,6 +77,35 @@ public class UserValidationServiceImpl implements UserValidationService {
             throw new UserBusinessException(
                     UserExceptionCode.PHONE_ALREADY_EXISTS
             );
+        }
+    }
+
+    @Override
+    public void validateNewUser(UserDTO userDTO) {
+        if (userRepository.existsByUsernameIgnoreCase(userDTO.getUsername())) {
+            log.error("User {} already exists", userDTO.getUsername());
+            throw new UserBusinessException(UserExceptionCode.USERNAME_ALREADY_EXISTS);
+        }
+
+        if (userRepository.existsByEmailIgnoreCase(userDTO.getEmail())) {
+            log.error("User {} already exists", userDTO.getEmail());
+            throw new UserBusinessException(UserExceptionCode.EMAIL_ALREADY_EXISTS);
+        }
+
+        if (userRepository.existsByDocumentTypeIgnoreCaseAndDocumentNumber(
+                userDTO.getDocumentType(),
+                userDTO.getDocumentNumber()
+        )) {
+            log.error("User {} already exists", userDTO.getDocumentNumber());
+            throw new UserBusinessException(UserExceptionCode.DOCUMENT_ALREADY_EXISTS);
+        }
+    }
+
+    @Override
+    public void validateUsername(UUID id, String username) {
+        if (userRepository.existsByUsernameIgnoreCaseAndIdNot(username, id)) {
+            log.error("Username {} already exists", username);
+            throw new UserBusinessException(UserExceptionCode.USERNAME_ALREADY_EXISTS);
         }
     }
 

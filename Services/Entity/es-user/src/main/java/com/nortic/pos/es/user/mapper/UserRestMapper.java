@@ -1,9 +1,8 @@
 package com.nortic.pos.es.user.mapper;
 
-import com.nortic.pos.es.user.dto.request.ChangeEmailRequestDTO;
-import com.nortic.pos.es.user.dto.request.ChangePhoneRequestDTO;
-import com.nortic.pos.es.user.dto.response.PaginatedUserResponseDTO;
 import com.nortic.pos.es.user.dto.UserDTO;
+import com.nortic.pos.es.user.dto.request.*;
+import com.nortic.pos.es.user.dto.response.PaginatedUserResponseDTO;
 import com.nortic.pos.es.user.rest.gen.model.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -40,5 +39,15 @@ public abstract class UserRestMapper {
     public abstract ChangeEmailRequestDTO toChangeEmailRequestDTO(RestModelChangeEmailRequest restModelChangeEmailRequest);
 
     public abstract ChangePhoneRequestDTO toChangePhoneRequestDTO(RestModelChangePhoneRequest restModelChangePhoneRequest);
+
+    public abstract ChangePasswordRequestDTO toChangePasswordRequestDTO(RestModelChangePasswordRequest restModelChangePasswordRequest);
+
+    public abstract ChangeUserStatusRequestDTO toChangeUserStatusRequestDTO(RestModelChangeUserStatusRequest restModelChangeUserStatusRequest);
+
+    public abstract ChangeUsernameRequestDTO toChangeUsernameRequestDTO(RestModelChangeUsernameRequest restModelChangeUsernameRequest);
+
+    public abstract UserQueryRequestDTO toUserQueryRequestDTO(RestModelUserQueryRequestDTO restModelUserQueryRequestDTO);
+
+    public abstract UserSearchRequestDTO toUserSearchRequestDTO(RestModelUserSearchRequestDTO restModelUserSearchRequestDTO);
 
 }
