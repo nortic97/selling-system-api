@@ -242,6 +242,194 @@ paths:
         '500':
           $ref: '#/components/responses/500InternalServerError'
 
+  /api/v1/es/user/{id}/password:
+    patch:
+      summary: Cambiar contraseña de usuario
+      description: Actualiza la contraseña de un usuario existente. Requiere la contraseña actual para validación.
+      operationId: changeUserPassword
+      tags:
+        - User
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/UserIdPathParam'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      requestBody:
+        required: true
+        description: Contraseña actual y nueva contraseña del usuario.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangePasswordRequest'
+      responses:
+        '200':
+          description: Contraseña actualizada exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '409':
+          description: La contraseña actual no coincide.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDTO'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+  /api/v1/es/user/{id}/username:
+    patch:
+      summary: Cambiar nombre de usuario
+      description: Actualiza el nombre de usuario (username) de un usuario existente.
+      operationId: changeUsername
+      tags:
+        - User
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/UserIdPathParam'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      requestBody:
+        required: true
+        description: Nuevo nombre de usuario.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangeUsernameRequest'
+      responses:
+        '200':
+          description: Nombre de usuario actualizado exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '409':
+          description: El nombre de usuario ya está en uso.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDTO'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+  /api/v1/es/user/{id}/email:
+    patch:
+      summary: Cambiar email de usuario
+      description: Actualiza el correo electrónico de un usuario existente.
+      operationId: changeEmail
+      tags:
+        - User
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/UserIdPathParam'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      requestBody:
+        required: true
+        description: Nuevo correo electrónico.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangeEmailRequest'
+      responses:
+        '200':
+          description: Email actualizado exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '409':
+          description: El email ya está en uso.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDTO'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+  /api/v1/es/user/{id}/phone:
+    patch:
+      summary: Cambiar teléfono de usuario
+      description: Actualiza el número de teléfono de un usuario existente.
+      operationId: changePhone
+      tags:
+        - User
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/UserIdPathParam'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      requestBody:
+        required: true
+        description: Nuevo número de teléfono.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangePhoneRequest'
+      responses:
+        '200':
+          description: Teléfono actualizado exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+  /api/v1/es/user/{id}/status:
+    patch:
+      summary: Cambiar estado de usuario
+      description: Activa o desactiva un usuario existente.
+      operationId: changeUserStatus
+      tags:
+        - User
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/UserIdPathParam'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      requestBody:
+        required: true
+        description: Nuevo estado del usuario (activo/inactivo).
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangeUserStatusRequest'
+      responses:
+        '200':
+          description: Estado de usuario actualizado exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
 components:
   securitySchemes:
     bearerAuth:
@@ -399,11 +587,11 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/UserResponseDTO'
-        total_elements:
+        totalElements:
           type: integer
           format: int64
           example: 125
-        total_pages:
+        totalPages:
           type: integer
           example: 13
         size:
@@ -423,26 +611,26 @@ components:
       type: object
       required:
         - id
-        - first_name
-        - last_name
-        - document_type
-        - document_number
+        - firstName
+        - lastName
+        - documentType
+        - documentNumber
         - username
         - email
-        - is_active
-        - created_at
-        - updated_at
+        - isActive
+        - createdAt
+        - updatedAt
       properties:
         id:
           type: string
           format: uuid
-        first_name:
+        firstName:
           type: string
-        last_name:
+        lastName:
           type: string
-        document_type:
+        documentType:
           $ref: '#/components/schemas/DocumentTypeEnum'
-        document_number:
+        documentNumber:
           type: string
         username:
           type: string
@@ -452,25 +640,25 @@ components:
         phone:
           type: string
           nullable: true
-        is_active:
+        isActive:
           type: boolean
         address:
           type: string
           nullable: true
-        date_of_birth:
+        dateOfBirth:
           type: string
           format: date
           nullable: true
         photo:
           type: string
           nullable: true
-        created_at:
+        createdAt:
           type: string
           format: date-time
-        updated_at:
+        updatedAt:
           type: string
           format: date-time
-        deleted_at:
+        deletedAt:
           type: string
           format: date-time
           nullable: true
@@ -478,28 +666,28 @@ components:
     CreateUserRequestDTO:
       type: object
       required:
-        - first_name
-        - last_name
-        - document_type
-        - document_number
+        - firstName
+        - lastName
+        - documentType
+        - documentNumber
         - username
         - password
         - email
         - phone
-        - date_of_birth
+        - dateOfBirth
       properties:
-        first_name:
+        firstName:
           type: string
           maxLength: 100
           x-field-extra-annotation: "@NotBlank"
-        last_name:
+        lastName:
           type: string
           maxLength: 100
           x-field-extra-annotation: "@NotBlank"
-        document_type:
+        documentType:
           $ref: '#/components/schemas/DocumentTypeEnum'
           x-field-extra-annotation: "@NotBlank"
-        document_number:
+        documentNumber:
           type: string
           maxLength: 100
           x-field-extra-annotation: "@NotBlank"
@@ -524,7 +712,7 @@ components:
         address:
           type: string
           maxLength: 255
-        date_of_birth:
+        dateOfBirth:
           type: string
           format: date
         photo:
@@ -533,31 +721,31 @@ components:
     UpdateUserRequestDTO:
       type: object
       required:
-        - first_name
-        - last_name
-        - document_type
-        - document_number
-        - date_of_birth
+        - firstName
+        - lastName
+        - documentType
+        - documentNumber
+        - dateOfBirth
       properties:
-        first_name:
+        firstName:
           type: string
           maxLength: 100
           x-field-extra-annotation: "@NotBlank"
-        last_name:
+        lastName:
           type: string
           maxLength: 100
           x-field-extra-annotation: "@NotBlank"
-        document_type:
+        documentType:
           $ref: '#/components/schemas/DocumentTypeEnum'
           x-field-extra-annotation: "@NotBlank"
-        document_number:
+        documentNumber:
           type: string
           maxLength: 100
           x-field-extra-annotation: "@NotBlank"
         address:
           type: string
           maxLength: 255
-        date_of_birth:
+        dateOfBirth:
           type: string
           format: date
         photo:
@@ -592,18 +780,18 @@ components:
       type: object
       description: DTO para búsqueda avanzada de usuarios con filtros específicos por campo.
       properties:
-        first_name:
+        firstName:
           type: string
           maxLength: 100
           description: Filtro por nombre.
-        last_name:
+        lastName:
           type: string
           maxLength: 100
           description: Filtro por apellido.
-        document_type:
+        documentType:
           $ref: '#/components/schemas/DocumentTypeEnum'
           description: Filtro por tipo de documento.
-        document_number:
+        documentNumber:
           type: string
           maxLength: 100
           description: Filtro por número de documento.
@@ -624,14 +812,14 @@ components:
           type: string
           maxLength: 255
           description: Filtro por dirección.
-        date_of_birth:
+        dateOfBirth:
           type: string
           format: date
           description: Filtro por fecha de nacimiento.
         photo:
           type: string
           description: Filtro por foto.
-        is_active:
+        isActive:
           type: boolean
           description: Filtro por estado activo/inactivo.
         page:
@@ -650,3 +838,61 @@ components:
           items:
             type: string
           description: Criterios de ordenamiento con formato 'campo,asc' o 'campo,desc'.
+
+    ChangePasswordRequest:
+      type: object
+      required:
+        - currentPassword
+        - newPassword
+      properties:
+        currentPassword:
+          type: string
+          minLength: 8
+          maxLength: 255
+          x-field-extra-annotation: "@NotBlank"
+        newPassword:
+          type: string
+          minLength: 8
+          maxLength: 255
+          x-field-extra-annotation: "@NotBlank"
+
+    ChangeUsernameRequest:
+      type: object
+      required:
+        - username
+      properties:
+        username:
+          type: string
+          minLength: 4
+          maxLength: 100
+          x-field-extra-annotation: "@NotBlank"
+
+    ChangeEmailRequest:
+      type: object
+      required:
+        - email
+      properties:
+        email:
+          type: string
+          format: email
+          maxLength: 255
+          x-field-extra-annotation: "@NotBlank"
+
+    ChangePhoneRequest:
+      type: object
+      required:
+        - phone
+      properties:
+        phone:
+          type: string
+          maxLength: 50
+          x-field-extra-annotation: "@NotBlank"
+
+    ChangeUserStatusRequest:
+      type: object
+      required:
+        - active
+      properties:
+        active:
+          type: boolean
+          x-field-extra-annotation: "@NotNull"
