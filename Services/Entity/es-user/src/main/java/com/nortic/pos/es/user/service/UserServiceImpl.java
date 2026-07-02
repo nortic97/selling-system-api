@@ -1,7 +1,8 @@
 package com.nortic.pos.es.user.service;
 
-import com.nortic.pos.es.user.dto.PaginatedUserDTO;
-import com.nortic.pos.es.user.dto.ParamsDTO;
+import com.nortic.pos.es.user.dto.SearchParamsDTO;
+import com.nortic.pos.es.user.dto.request.*;
+import com.nortic.pos.es.user.dto.response.PaginatedUserResponseDTO;
 import com.nortic.pos.es.user.dto.UserDTO;
 import com.nortic.pos.es.user.exception.UserBusinessException;
 import com.nortic.pos.es.user.exception.UserExceptionCode;
@@ -12,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -19,12 +22,96 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
-    private final UserEntityMapper userEntityMapper;
-
     private final PasswordEncoder passwordEncoder;
 
+    private final UserEntityMapper userEntityMapper;
+
+    private final UserValidationService userValidationService;
+
     @Override
-    public UserDTO createUser(UserDTO userDTO, ParamsDTO paramsDTO) {
+    public UserDTO changeEmail(
+            RequestContextDTO requestContextDTO,
+            UUID id,
+            ChangeEmailRequestDTO changeEmailRequestDTO
+    ) {
+        log.info("Changing email service...");
+
+        var user = userValidationService.validateAndGetUser(id);
+
+        userValidationService.validateEmail(id, changeEmailRequestDTO.getEmail());
+
+        user.setEmail(changeEmailRequestDTO.getEmail().trim().toLowerCase());
+
+        var savedUser = userRepository.save(user);
+
+        log.info("Changing email service complete.");
+
+        return userEntityMapper.toUserDTO(savedUser);
+    }
+
+    @Override
+    public UserDTO changePhone(
+            RequestContextDTO requestContextDTO,
+            UUID id,
+            ChangePhoneRequestDTO changePhoneRequestDTO
+    ) {
+        log.info("Changing phone service...");
+
+        var user = userValidationService.validateAndGetUser(id);
+
+        userValidationService.validatePhone(id, changePhoneRequestDTO.getPhone());
+
+        user.setPhone(changePhoneRequestDTO.getPhone());
+
+        var savedUser = userRepository.save(user);
+
+        log.info("Changing phone service complete.");
+
+        return userEntityMapper.toUserDTO(savedUser);
+    }
+
+    @Override
+    public UserDTO changeUserPassword(
+            RequestContextDTO requestContextDTO,
+            UUID id,
+            ChangePasswordRequestDTO changePasswordRequestDTO
+    ) {
+        log.info("Changing password service...");
+
+        var user = userRepository.findById(id)
+                .orElseThrow(() ->
+                        new UserBusinessException(
+                                UserExceptionCode.USER_NOT_FOUND
+                        )
+                );
+
+        userValidationService.validatePasswordChange(
+                changePasswordRequestDTO.getCurrentPassword(),
+                changePasswordRequestDTO.getNewPassword(),
+                user.getPassword()
+        );
+
+        user.setPassword(passwordEncoder.encode(changePasswordRequestDTO.getNewPassword()));
+
+        var savedUser = userRepository.save(user);
+
+        log.info("Changing password service complete.");
+
+        return userEntityMapper.toUserDTO(savedUser);
+    }
+
+    @Override
+    public UserDTO changeUserStatus(RequestContextDTO requestContextDTO, UUID id, ChangeUserStatusRequestDTO changeStatusRequestDTO) {
+        return null;
+    }
+
+    @Override
+    public UserDTO changeUsername(RequestContextDTO requestContextDTO, UUID id, ChangeUsernameRequestDTO changeUsernameRequestDTO) {
+        return null;
+    }
+
+    @Override
+    public UserDTO createUser(RequestContextDTO requestContextDTO, UserDTO userDTO) {
         log.info("Creating user service...");
 
         validateUser(userDTO);
@@ -42,20 +129,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(ParamsDTO paramsDTO) {
+    public void deleteUser(RequestContextDTO requestContextDTO, UUID id) {
         log.info("Deleting user service...");
 
-        userRepository.delete(userRepository.findById(paramsDTO.getId()).orElseThrow(() ->
+        userRepository.delete(userRepository.findById(id).orElseThrow(() ->
                 new UserBusinessException(UserExceptionCode.USER_NOT_FOUND)));
 
-        log.info("User deleted whit id {}", paramsDTO.getId());
+        log.info("User deleted whit id {}", id);
     }
 
     @Override
-    public PaginatedUserDTO getAllUsers(ParamsDTO paramsDTO) {
+    public PaginatedUserResponseDTO getAllUsers(RequestContextDTO requestContextDTO, SearchParamsDTO searchParamsDTO) {
         log.info("Getting user service...");
 
-        var users = userRepository.findAll(paramsDTO.getPageable());
+        var users = userRepository.findAll(searchParamsDTO.getPageable());
 
         log.info("Getting user service complete.");
 
@@ -63,10 +150,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO getUserById(ParamsDTO paramsDTO) {
+    public UserDTO getUserById(RequestContextDTO requestContextDTO, UUID id) {
         log.info("Getting user by id service...");
 
-        var user = userRepository.findById(paramsDTO.getId()).orElseThrow(() ->
+        var user = userRepository.findById(id).orElseThrow(() ->
                 new UserBusinessException(UserExceptionCode.USER_NOT_FOUND));
 
         log.info("Getting user by id service complete.");
@@ -75,10 +162,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO restoreUser(ParamsDTO paramsDTO) {
+    public PaginatedUserResponseDTO queryUsers(RequestContextDTO requestContextDTO, UserQueryRequestDTO userQueryRequestDTO) {
+        return null;
+    }
+
+    @Override
+    public UserDTO restoreUser(RequestContextDTO requestContextDTO, UUID id) {
         log.info("Restoring user service...");
 
-        var user = userRepository.findByIdIncludingDeleted(paramsDTO.getId()).orElseThrow(() ->
+        var user = userRepository.findByIdIncludingDeleted(id).orElseThrow(() ->
                 new UserBusinessException(UserExceptionCode.USER_NOT_FOUND));
 
         user.setIsActive(Boolean.TRUE);
@@ -92,10 +184,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO updateUser(ParamsDTO paramsDTO, UserDTO userDTO) {
+    public PaginatedUserResponseDTO searchUsers(RequestContextDTO requestContextDTO, UserSearchRequestDTO userSearchRequestDTO) {
+        return null;
+    }
+
+    @Override
+    public UserDTO updateUser(RequestContextDTO requestContextDTO, UUID id, UserDTO userDTO) {
         log.info("Updating user service...");
 
-        var user = userRepository.findById(paramsDTO.getId()).orElseThrow(() ->
+        var user = userRepository.findById(id).orElseThrow(() ->
                 new UserBusinessException(UserExceptionCode.USER_NOT_FOUND));
 
         userEntityMapper.updateUserFromDTO(userDTO, user);
@@ -109,17 +206,17 @@ public class UserServiceImpl implements UserService {
 
     private void validateUser(UserDTO userDTO) {
 
-        if (userRepository.existsByUsername(userDTO.getUsername())) {
+        if (userRepository.existsByUsernameIgnoreCase(userDTO.getUsername())) {
             log.error("User {} already exists", userDTO.getUsername());
             throw new UserBusinessException(UserExceptionCode.USERNAME_ALREADY_EXISTS);
         }
 
-        if (userRepository.existsByEmail(userDTO.getEmail())) {
+        if (userRepository.existsByEmailIgnoreCase(userDTO.getEmail())) {
             log.error("User {} already exists", userDTO.getEmail());
             throw new UserBusinessException(UserExceptionCode.EMAIL_ALREADY_EXISTS);
         }
 
-        if (userRepository.existsByDocumentTypeAndDocumentNumber(userDTO.getDocumentType(), userDTO.getDocumentNumber())) {
+        if (userRepository.existsByDocumentTypeIgnoreCaseAndDocumentNumber(userDTO.getDocumentType(), userDTO.getDocumentNumber())) {
             log.error("User {} already exists", userDTO.getDocumentNumber());
             throw new UserBusinessException(UserExceptionCode.DOCUMENT_ALREADY_EXISTS);
         }

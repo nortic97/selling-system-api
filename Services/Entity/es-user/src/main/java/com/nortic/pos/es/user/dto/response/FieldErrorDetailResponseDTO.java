@@ -1,4 +1,4 @@
-package com.nortic.pos.es.user.dto;
+package com.nortic.pos.es.user.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
@@ -10,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class FieldErrorDetailDTO {
+public class FieldErrorDetailResponseDTO {
 
     private String field;
 

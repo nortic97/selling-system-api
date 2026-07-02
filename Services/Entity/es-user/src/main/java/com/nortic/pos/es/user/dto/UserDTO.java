@@ -1,5 +1,6 @@
 package com.nortic.pos.es.user.dto;
 
+import com.nortic.pos.es.user.dto.enums.DocumentTypeEnum;
 import lombok.*;
 
 import java.time.LocalDate;

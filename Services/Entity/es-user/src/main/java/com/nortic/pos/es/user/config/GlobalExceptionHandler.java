@@ -1,7 +1,7 @@
 package com.nortic.pos.es.user.config;
 
-import com.nortic.pos.es.user.dto.ErrorResponseDTO;
-import com.nortic.pos.es.user.dto.FieldErrorDetailDTO;
+import com.nortic.pos.es.user.dto.response.ErrorResponseDTO;
+import com.nortic.pos.es.user.dto.response.FieldErrorDetailResponseDTO;
 import com.nortic.pos.es.user.exception.UserBusinessException;
 import com.nortic.pos.es.user.exception.UserExceptionCode;
 import jakarta.validation.ConstraintViolationException;
@@ -72,7 +72,7 @@ public class GlobalExceptionHandler {
         var details = exception
                 .getConstraintViolations()
                 .stream()
-                .map(violation -> FieldErrorDetailDTO
+                .map(violation -> FieldErrorDetailResponseDTO
                         .builder()
                         .field(
                                 violation
@@ -103,7 +103,7 @@ public class GlobalExceptionHandler {
     ) {
 
         var details = List.of(
-                FieldErrorDetailDTO
+                FieldErrorDetailResponseDTO
                         .builder()
                         .field(exception.getHeaderName())
                         .message(exception.getMessage())
@@ -140,11 +140,11 @@ public class GlobalExceptionHandler {
                 .body(response);
     }
 
-    private FieldErrorDetailDTO mapFieldError(
+    private FieldErrorDetailResponseDTO mapFieldError(
             FieldError fieldError
     ) {
 
-        return FieldErrorDetailDTO
+        return FieldErrorDetailResponseDTO
                 .builder()
                 .field(fieldError.getField())
                 .message(fieldError.getDefaultMessage())

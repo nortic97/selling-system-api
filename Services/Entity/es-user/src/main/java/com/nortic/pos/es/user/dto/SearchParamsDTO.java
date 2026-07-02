@@ -4,7 +4,6 @@ import lombok.*;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -12,10 +11,7 @@ import java.util.UUID;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class ParamsDTO {
-    private UUID id;
-    private UUID correlationId;
-    private String consumerId;
+public class SearchParamsDTO {
+    private String value;
     private Pageable pageable;
-    private List<String> sort;
 }

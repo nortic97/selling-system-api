@@ -44,6 +44,18 @@ public enum UserExceptionCode {
             HttpStatus.NOT_FOUND
     ),
 
+    INVALID_PASSWORD(
+            "INVALID_PASSWORD",
+            "Invalid password.",
+            HttpStatus.CONFLICT
+    ),
+
+    PASSWORD_ALREADY_IN_USE(
+            "PASSWORD_ALREADY_IN_USE",
+            "New password cannot be the same as the current password.",
+            HttpStatus.CONFLICT
+    ),
+
     INTERNAL_SERVER_ERROR(
             "INTERNAL_SERVER_ERROR",
             "An unexpected error occurred.",

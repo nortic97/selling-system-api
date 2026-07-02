@@ -1,4 +1,4 @@
-package com.nortic.pos.es.user.dto;
+package com.nortic.pos.es.user.dto.response;
 
 import com.nortic.pos.es.user.rest.gen.model.RestModelUserResponseDTO;
 import lombok.*;
@@ -11,7 +11,7 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class PaginatedUserDTO {
+public class PaginatedUserResponseDTO {
 
     private List<RestModelUserResponseDTO> content;
 

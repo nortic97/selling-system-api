@@ -1,6 +1,6 @@
 package com.nortic.pos.es.user.exception;
 
-import com.nortic.pos.es.user.dto.FieldErrorDetailDTO;
+import com.nortic.pos.es.user.dto.response.FieldErrorDetailResponseDTO;
 import lombok.Getter;
 
 import java.util.List;
@@ -10,7 +10,7 @@ public class UserBusinessException extends RuntimeException {
 
     private final UserExceptionCode userExceptionCode;
 
-    private final List<FieldErrorDetailDTO> details;
+    private final List<FieldErrorDetailResponseDTO> details;
 
     public UserBusinessException(
             UserExceptionCode userExceptionCode
@@ -23,7 +23,7 @@ public class UserBusinessException extends RuntimeException {
 
     public UserBusinessException(
             UserExceptionCode userExceptionCode,
-            List<FieldErrorDetailDTO> details
+            List<FieldErrorDetailResponseDTO> details
     ) {
         super(userExceptionCode.getMessage());
 

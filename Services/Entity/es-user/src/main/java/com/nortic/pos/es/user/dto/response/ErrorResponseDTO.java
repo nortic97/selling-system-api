@@ -1,4 +1,4 @@
-package com.nortic.pos.es.user.dto;
+package com.nortic.pos.es.user.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
@@ -21,6 +21,6 @@ public class ErrorResponseDTO {
 
     private OffsetDateTime timestamp;
 
-    private List<FieldErrorDetailDTO> details;
+    private List<FieldErrorDetailResponseDTO> details;
 
 }

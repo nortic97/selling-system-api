@@ -1,6 +1,6 @@
 package com.nortic.pos.es.user.model.entity;
 
-import com.nortic.pos.es.user.dto.DocumentTypeEnum;
+import com.nortic.pos.es.user.dto.enums.DocumentTypeEnum;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;

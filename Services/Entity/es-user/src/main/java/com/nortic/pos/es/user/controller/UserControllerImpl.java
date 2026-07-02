@@ -1,6 +1,7 @@
 package com.nortic.pos.es.user.controller;
 
-import com.nortic.pos.es.user.dto.ParamsDTO;
+import com.nortic.pos.es.user.dto.SearchParamsDTO;
+import com.nortic.pos.es.user.dto.request.RequestContextDTO;
 import com.nortic.pos.es.user.mapper.UserRestMapper;
 import com.nortic.pos.es.user.rest.gen.api.UserApi;
 import com.nortic.pos.es.user.rest.gen.model.*;
@@ -21,7 +22,84 @@ import java.util.UUID;
 public class UserControllerImpl implements UserApi {
 
     private final UserRestMapper userRestMapper;
+
     private final UserService userService;
+
+    @Override
+    public ResponseEntity<RestModelUserResponseDTO> changeEmail(
+            UUID correlationId,
+            UUID id,
+            String consumerId,
+            RestModelChangeEmailRequest restModelChangeEmailRequest
+    ) {
+        log.info("Changing email Controller complete.");
+
+        var requestContextDTO = RequestContextDTO.builder()
+                .correlationId(correlationId)
+                .consumerId(consumerId)
+                .build();
+
+        var changeEmailRequestDTO = userRestMapper.toChangeEmailRequestDTO(restModelChangeEmailRequest);
+
+        var changedUser = userService.changeEmail(requestContextDTO, id, changeEmailRequestDTO);
+
+        log.info("Changing email Controller complete.");
+
+        return ResponseEntity.ok(userRestMapper.toRestModelUserResponseDTO(changedUser));
+    }
+
+    @Override
+    public ResponseEntity<RestModelUserResponseDTO> changePhone(
+            UUID correlationId,
+            UUID id,
+            String consumerId,
+            RestModelChangePhoneRequest restModelChangePhoneRequest
+    ) {
+        log.info("Changing phone Controller complete.");
+
+        var requestContextDTO = RequestContextDTO.builder()
+                .correlationId(correlationId)
+                .consumerId(consumerId)
+                .build();
+
+        var changePhoneRequestDTO = userRestMapper.toChangePhoneRequestDTO(restModelChangePhoneRequest);
+
+        var changedUser = userService.changePhone(requestContextDTO, id, changePhoneRequestDTO);
+
+        log.info("Changing phone Controller complete.");
+
+        return ResponseEntity.ok(userRestMapper.toRestModelUserResponseDTO(changedUser));
+    }
+
+    @Override
+    public ResponseEntity<RestModelUserResponseDTO> changeUserPassword(
+            UUID correlationId,
+            UUID id,
+            String consumerId,
+            RestModelChangePasswordRequest restModelChangePasswordRequest
+    ) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<RestModelUserResponseDTO> changeUserStatus(
+            UUID correlationId,
+            UUID id,
+            String consumerId,
+            RestModelChangeUserStatusRequest restModelChangeUserStatusRequest
+    ) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<RestModelUserResponseDTO> changeUsername(
+            UUID correlationId,
+            UUID id,
+            String consumerId,
+            RestModelChangeUsernameRequest restModelChangeUsernameRequest
+    ) {
+        return null;
+    }
 
     @Override
     public ResponseEntity<RestModelUserResponseDTO> createUser(
@@ -33,9 +111,12 @@ public class UserControllerImpl implements UserApi {
 
         var user = userRestMapper.toUserDTO(restModelCreateUserRequestDTO);
 
-        var params = ParamsDTO.builder().correlationId(correlationId).consumerId(consumerId).build();
+        var requestContextDTO = RequestContextDTO.builder()
+                .correlationId(correlationId)
+                .consumerId(consumerId)
+                .build();
 
-        var createdUser = userService.createUser(user, params);
+        var createdUser = userService.createUser(requestContextDTO, user);
 
         log.info("Creating user REST Controller finished...");
 
@@ -52,13 +133,12 @@ public class UserControllerImpl implements UserApi {
 
         log.info("Deleting user REST controller...");
 
-        var params = ParamsDTO.builder()
-                .id(id)
+        var requestContextDTO = RequestContextDTO.builder()
                 .correlationId(correlationId)
                 .consumerId(consumerId)
                 .build();
 
-        userService.deleteUser(params);
+        userService.deleteUser(requestContextDTO, id);
 
         log.info("Deleting user REST controller finished...");
 
@@ -75,13 +155,16 @@ public class UserControllerImpl implements UserApi {
     ) {
         log.info("Getting all users REST controller...");
 
-        var params = ParamsDTO.builder()
+        var requestContextDTO = RequestContextDTO.builder()
                 .correlationId(correlationId)
                 .consumerId(consumerId)
+                .build();
+
+        var pagination = SearchParamsDTO.builder()
                 .pageable(PageableUtil.buildPageable(page, size, sort))
                 .build();
 
-        var paginatedUsers = userService.getAllUsers(params);
+        var paginatedUsers = userService.getAllUsers(requestContextDTO, pagination);
 
         log.info("Getting all users REST controller finished...");
 
@@ -97,13 +180,12 @@ public class UserControllerImpl implements UserApi {
     ) {
         log.info("Getting user by id REST controller...");
 
-        var params = ParamsDTO.builder()
-                .id(id)
+        var requestContextDTO = RequestContextDTO.builder()
                 .correlationId(correlationId)
                 .consumerId(consumerId)
                 .build();
 
-        var user = userService.getUserById(params);
+        var user = userService.getUserById(requestContextDTO, id);
 
         log.info("Getting user by id REST controller finished...");
 
@@ -127,13 +209,12 @@ public class UserControllerImpl implements UserApi {
     ) {
         log.info("Restoring user REST controller...");
 
-        var params = ParamsDTO.builder()
-                .id(id)
+        var requestContextDTO = RequestContextDTO.builder()
                 .correlationId(correlationId)
                 .consumerId(consumerId)
                 .build();
 
-        var user = userService.restoreUser(params);
+        var user = userService.restoreUser(requestContextDTO, id);
 
         log.info("Restoring user REST controller finished...");
 
@@ -151,21 +232,21 @@ public class UserControllerImpl implements UserApi {
 
     @Override
     public ResponseEntity<RestModelUserResponseDTO> updateUser(
-            UUID correlationId, UUID id,
+            UUID correlationId,
+            UUID id,
             String consumerId,
             RestModelUpdateUserRequestDTO restModelUpdateUserRequestDTO
     ) {
         log.info("Updating user REST controller...");
 
-        var params = ParamsDTO.builder()
-                .id(id)
+        var requestContextDTO = RequestContextDTO.builder()
                 .correlationId(correlationId)
                 .consumerId(consumerId)
                 .build();
 
         var user = userRestMapper.toUserDTO(restModelUpdateUserRequestDTO);
 
-        var updatedUser = userService.updateUser(params, user);
+        var updatedUser = userService.updateUser(requestContextDTO, id, user);
 
         log.info("Updating user REST controller finished...");
 
