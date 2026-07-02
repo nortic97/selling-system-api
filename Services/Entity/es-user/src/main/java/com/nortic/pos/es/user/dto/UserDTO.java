@@ -20,7 +20,7 @@ public class UserDTO {
 
     private String lastName;
 
-    private String documentType;
+    private DocumentTypeEnum documentType;
 
     private String documentNumber;
 

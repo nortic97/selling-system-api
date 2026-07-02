@@ -1,8 +1,12 @@
 package com.nortic.pos.es.user.model.entity;
 
+import com.nortic.pos.es.user.dto.DocumentTypeEnum;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
@@ -16,7 +20,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@SQLDelete(sql = "UPDATE \"user\" SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
+@SQLDelete(sql = "UPDATE \"user\" SET deleted_at = CURRENT_TIMESTAMP, is_active = FALSE WHERE id = ?")
 @SQLRestriction("deleted_at IS NULL")
 public class UserEntity {
 
@@ -31,8 +35,9 @@ public class UserEntity {
     @Column(name = "last_name", length = 100, nullable = false)
     private String lastName;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "document_type", length = 50, nullable = false)
-    private String documentType;
+    private DocumentTypeEnum documentType;
 
     @Column(name = "document_number", length = 100, nullable = false, unique = true)
     private String documentNumber;

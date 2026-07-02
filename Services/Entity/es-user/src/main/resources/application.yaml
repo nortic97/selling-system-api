@@ -12,9 +12,17 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+
   web:
     error:
       include-stacktrace: never
+      include-exception: false
+      whitelabel:
+        enabled: false
+      include-path: never
+
+  jackson:
+    time-zone: ${TIME_ZONE:UTC}
 
 server:
   port: ${PORT:8080}

@@ -9,50 +9,59 @@ option java_outer_classname = "UserProto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
 
-// ==============================================================================
-// Servicio gRPC para uso interno entre microservicios (ms-*) y servicios de entidad (es-*)
-// Nota: X-Correlation-Id y Authorization (JWT) deben enviarse vía gRPC Metadata.
-// ==============================================================================
 service UserService {
-  // Retorna una lista paginada de usuarios
   rpc GetAllUsers(GetAllUsersRequest) returns (PaginatedUserResponse);
-
-  // Obtiene un usuario específico por su UUID
+  rpc QueryUsers(UserQueryRequest) returns (PaginatedUserResponse);
+  rpc SearchUsers(SearchUsersRequest) returns (PaginatedUserResponse);
   rpc GetUserById(GetUserByIdRequest) returns (UserResponse);
-
-  // Crea un nuevo usuario
   rpc CreateUser(CreateUserRequest) returns (UserResponse);
-
-  // Actualiza los datos de un usuario existente
   rpc UpdateUser(UpdateUserRequest) returns (UserResponse);
-
-  // Realiza un borrado lógico (Soft Delete)
   rpc DeleteUser(DeleteUserRequest) returns (google.protobuf.Empty);
-
-  // Restaura un usuario eliminado lógicamente
   rpc RestoreUser(RestoreUserRequest) returns (UserResponse);
 }
 
-// ==============================================================================
-// Peticiones (Requests)
-// ==============================================================================
 
 message GetAllUsersRequest {
   int32 page = 1;
   int32 size = 2;
-  repeated string sort = 3; // Formato esperado: "campo,asc" o "campo,desc"
+  repeated string sort = 3;
+}
+
+message UserQueryRequest {
+  optional string query = 1;
+  int32 page = 2;
+  int32 size = 3;
+  repeated string sort = 4;
+}
+
+message SearchUsersRequest {
+  int32 page = 1;
+  int32 size = 2;
+  repeated string sort = 3;
+
+  optional string first_name = 4;
+  optional string last_name = 5;
+  optional string document_type = 6;
+  optional string document_number = 7;
+  optional string username = 8;
+  optional string email = 9;
+  optional string phone = 10;
+  optional string address = 11;
+  optional string date_of_birth = 12;
+  optional string photo = 13;
+  optional bool is_active = 14;
 }
 
 message GetUserByIdRequest {
-  string id = 1; // UUID
+  string id = 1;
 }
 
 message DeleteUserRequest {
-  string id = 1; // UUID
+  string id = 1;
 }
 
 message RestoreUserRequest {
-  string id = 1; // UUID
+  string id = 1;
 }
 
 message CreateUserRequest {
@@ -61,40 +70,34 @@ message CreateUserRequest {
   string document_type = 3;
   string document_number = 4;
   string username = 5;
-  string password = 6; // Texto plano a encriptar por el es-user
+  string password = 6;
   string email = 7;
-  bool is_active = 8;
+  string phone = 8;
+  string date_of_birth = 9;
 
-  // Campos opcionales
-  optional string phone = 9;
   optional string address = 10;
-  optional string date_of_birth = 11; // Formato YYYY-MM-DD
-  optional string photo = 12;
+  optional string photo = 11;
 }
 
 message UpdateUserRequest {
-  string id = 1; // UUID del usuario a actualizar
+  string id = 1;
 
-  // Campos editables (podrían ser todos opcionales dependiendo de tu lógica de PATCH/PUT)
   optional string first_name = 2;
   optional string last_name = 3;
   optional string document_type = 4;
   optional string document_number = 5;
   optional string username = 6;
-  optional string email = 7;
-  optional string phone = 8;
-  optional bool is_active = 9;
+  optional string password = 7;
+  optional string email = 8;
+  optional string phone = 9;
   optional string address = 10;
-  optional string date_of_birth = 11; // Formato YYYY-MM-DD
+  optional string date_of_birth = 11;
   optional string photo = 12;
 }
 
-// ==============================================================================
-// Respuestas (Responses)
-// ==============================================================================
 
 message UserResponse {
-  string id = 1; // UUID
+  string id = 1;
   string first_name = 2;
   string last_name = 3;
   string document_type = 4;
@@ -104,10 +107,9 @@ message UserResponse {
   optional string phone = 8;
   bool is_active = 9;
   optional string address = 10;
-  optional string date_of_birth = 11; // Formato YYYY-MM-DD
+  optional string date_of_birth = 11;
   optional string photo = 12;
 
-  // Auditoría
   google.protobuf.Timestamp created_at = 13;
   google.protobuf.Timestamp updated_at = 14;
   optional google.protobuf.Timestamp deleted_at = 15;

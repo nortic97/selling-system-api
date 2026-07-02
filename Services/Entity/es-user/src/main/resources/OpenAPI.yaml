@@ -17,43 +17,25 @@ servers:
       server:
         default: localhost
       port:
-        default: 8080
+        default: "8080"
 
 paths:
   /api/v1/es/user:
     get:
       summary: Obtener usuarios paginados
-      description: Retorna una estructura paginada compatible con Spring Data Page.
+      description: Retorna una lista paginada de todos los usuarios activos. Soporta paginación y ordenamiento mediante query params.
       operationId: getAllUsers
       tags:
         - User
       parameters:
         - $ref: '#/components/parameters/CorrelationIdHeader'
-        - name: page
-          in: query
-          required: false
-          schema:
-            type: integer
-            default: 0
-          description: Número de página (basado en índice cero).
-        - name: size
-          in: query
-          required: false
-          schema:
-            type: integer
-            default: 10
-          description: Cantidad de registros por página.
-        - name: sort
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          description: Criterio de ordenamiento con formato 'campo,asc' o 'campo,desc'.
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/SizeParam'
+        - $ref: '#/components/parameters/SortParam'
       responses:
         '200':
-          description: Operación exitosa. Retorna la estructura paginada.
+          description: Operación exitosa. Retorna la estructura paginada con todos los usuarios activos.
           content:
             application/json:
               schema:
@@ -67,7 +49,7 @@ paths:
 
     post:
       summary: Crear un nuevo usuario
-      description: Registra un usuario en el sistema. Valida campos obligatorios.
+      description: Registra un nuevo usuario en el sistema. Valida todos los campos obligatorios.
       operationId: createUser
       tags:
         - User
@@ -76,13 +58,14 @@ paths:
         - $ref: '#/components/parameters/ConsumerIdHeader'
       requestBody:
         required: true
+        description: Datos del nuevo usuario a crear.
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateUserRequestDTO'
       responses:
         '201':
-          description: Usuario creado exitosamente. El Response DTO omite datos sensibles como la contraseña.
+          description: Usuario creado exitosamente. Retorna el usuario creado sin la contraseña.
           content:
             application/json:
               schema:
@@ -94,10 +77,72 @@ paths:
         '500':
           $ref: '#/components/responses/500InternalServerError'
 
+  /api/v1/es/user/search:
+    post:
+      summary: Búsqueda global de usuarios
+      description: Busca usuarios mediante un string de búsqueda que busca coincidencias parciales en múltiples campos. La paginación y ordenamiento se envían en el body.
+      operationId: queryUsers
+      tags:
+        - User
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      requestBody:
+        required: false
+        description: Criterio de búsqueda global, paginación y ordenamiento.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserQueryRequestDTO'
+      responses:
+        '200':
+          description: Operación exitosa. Retorna la estructura paginada filtrada.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedUserResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+  /api/v1/es/user/query:
+    post:
+      summary: Búsqueda avanzada de usuarios
+      description: Busca usuarios con filtros específicos por campo. Soporta filtros avanzados opcionales. La paginación y ordenamiento se envían en el body.
+      operationId: searchUsers
+      tags:
+        - User
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      requestBody:
+        required: false
+        description: Criterios de búsqueda avanzada, paginación y ordenamiento.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserSearchRequestDTO'
+      responses:
+        '200':
+          description: Operación exitosa. Retorna la estructura paginada filtrada.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedUserResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
   /api/v1/es/user/{id}:
     get:
       summary: Obtener un usuario por ID
-      description: Recupera los detalles de un usuario activo mediante su UUID único.
+      description: Recupera los detalles de un usuario mediante su UUID único.
       operationId: getUserById
       tags:
         - User
@@ -121,7 +166,7 @@ paths:
 
     put:
       summary: Actualizar un usuario existente
-      description: Modifica los campos editables del usuario. Valida estructura de entrada.
+      description: Modifica los campos de un usuario existente. Valida la estructura de entrada.
       operationId: updateUser
       tags:
         - User
@@ -131,6 +176,7 @@ paths:
         - $ref: '#/components/parameters/ConsumerIdHeader'
       requestBody:
         required: true
+        description: Campos del usuario a actualizar.
         content:
           application/json:
             schema:
@@ -153,7 +199,7 @@ paths:
 
     delete:
       summary: Eliminación lógica (Soft Delete)
-      description: Inactiva el registro inyectando la estampa de tiempo actual en deleted_at.
+      description: Realiza una eliminación lógica del usuario. El usuario no se elimina físicamente, solo se marca como eliminado.
       operationId: deleteUser
       tags:
         - User
@@ -174,7 +220,7 @@ paths:
   /api/v1/es/user/{id}/restore:
     patch:
       summary: Restaurar usuario eliminado
-      description: Revierte el soft delete limpiando la marca deleted_at de la entidad.
+      description: Revierte la eliminación lógica de un usuario. El usuario vuelve a estar disponible en búsquedas estándar.
       operationId: restoreUser
       tags:
         - User
@@ -230,6 +276,43 @@ components:
         format: uuid
         example: "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d"
       description: Identificador único universal (UUID v4) del usuario.
+    PageParam:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+      description: Número de página (basado en índice cero).
+      style: form
+      explode: true
+      x-spring-paginated: true
+    SizeParam:
+      name: size
+      in: query
+      required: false
+      schema:
+        minimum: 5
+        maximum: 100
+        type: integer
+        default: 5
+      description: Cantidad de registros por página.
+      style: form
+      explode: true
+      x-spring-paginated: true
+    SortParam:
+      name: sort
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+      description: Criterio de ordenamiento con formato 'campo,asc' o 'campo,desc'. Soporta múltiples criterios.
+      style: form
+      explode: true
+      x-spring-paginated: true
 
   responses:
     400BadRequest:
@@ -258,6 +341,17 @@ components:
             $ref: '#/components/schemas/ErrorResponseDTO'
 
   schemas:
+    DocumentTypeEnum:
+      type: string
+      enum:
+        - CC
+        - TI
+        - DNI
+        - NIT
+        - PEP
+      default: null
+      description: Tipo de documento de identificación
+
     ErrorResponseDTO:
       type: object
       required:
@@ -347,7 +441,7 @@ components:
         last_name:
           type: string
         document_type:
-          type: string
+          $ref: '#/components/schemas/DocumentTypeEnum'
         document_number:
           type: string
         username:
@@ -403,8 +497,7 @@ components:
           maxLength: 100
           x-field-extra-annotation: "@NotBlank"
         document_type:
-          type: string
-          maxLength: 50
+          $ref: '#/components/schemas/DocumentTypeEnum'
           x-field-extra-annotation: "@NotBlank"
         document_number:
           type: string
@@ -458,8 +551,7 @@ components:
           maxLength: 100
           x-field-extra-annotation: "@NotBlank"
         document_type:
-          type: string
-          maxLength: 50
+          $ref: '#/components/schemas/DocumentTypeEnum'
           x-field-extra-annotation: "@NotBlank"
         document_number:
           type: string
@@ -486,3 +578,91 @@ components:
           format: date
         photo:
           type: string
+
+    UserQueryRequestDTO:
+      type: object
+      description: DTO para búsqueda global de usuarios mediante un string de búsqueda.
+      properties:
+        query:
+          type: string
+          maxLength: 255
+          description: String de búsqueda global que busca coincidencias parciales en múltiples campos.
+        page:
+          type: integer
+          minimum: 0
+          default: 0
+          description: Número de página (basado en índice cero).
+        size:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 10
+          description: Cantidad de registros por página.
+        sort:
+          type: array
+          items:
+            type: string
+          description: Criterios de ordenamiento con formato 'campo,asc' o 'campo,desc'.
+
+    UserSearchRequestDTO:
+      type: object
+      description: DTO para búsqueda avanzada de usuarios con filtros específicos por campo.
+      properties:
+        first_name:
+          type: string
+          maxLength: 100
+          description: Filtro por nombre.
+        last_name:
+          type: string
+          maxLength: 100
+          description: Filtro por apellido.
+        document_type:
+          $ref: '#/components/schemas/DocumentTypeEnum'
+          description: Filtro por tipo de documento.
+        document_number:
+          type: string
+          maxLength: 100
+          description: Filtro por número de documento.
+        username:
+          type: string
+          maxLength: 100
+          description: Filtro por nombre de usuario.
+        email:
+          type: string
+          format: email
+          maxLength: 255
+          description: Filtro por email.
+        phone:
+          type: string
+          maxLength: 50
+          description: Filtro por teléfono.
+        address:
+          type: string
+          maxLength: 255
+          description: Filtro por dirección.
+        date_of_birth:
+          type: string
+          format: date
+          description: Filtro por fecha de nacimiento.
+        photo:
+          type: string
+          description: Filtro por foto.
+        is_active:
+          type: boolean
+          description: Filtro por estado activo/inactivo.
+        page:
+          type: integer
+          minimum: 0
+          default: 0
+          description: Número de página (basado en índice cero).
+        size:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 10
+          description: Cantidad de registros por página.
+        sort:
+          type: array
+          items:
+            type: string
+          description: Criterios de ordenamiento con formato 'campo,asc' o 'campo,desc'.
