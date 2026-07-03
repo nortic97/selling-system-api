@@ -816,9 +816,6 @@ components:
           type: string
           format: date
           description: Filtro por fecha de nacimiento.
-        photo:
-          type: string
-          description: Filtro por foto.
         isActive:
           type: boolean
           description: Filtro por estado activo/inactivo.

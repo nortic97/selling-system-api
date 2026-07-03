@@ -33,8 +33,6 @@ public class UserSearchRequestDTO {
 
     private LocalDate dateOfBirth;
 
-    private  String photo;
-
     private  Boolean isActive;
 
     @Builder.Default

@@ -64,6 +64,11 @@ public class UserSpecificationServiceImpl implements UserSpecificationService {
                     cb.equal(root.get("dateOfBirth"), searchRequest.getDateOfBirth()));
         }
 
+        if (searchRequest.getAddress() != null && searchRequest.getAddress().isBlank()) {
+            spec = spec.and((root, query, cb) ->
+                    cb.equal(root.get("address"), "%" + searchRequest.getAddress().toLowerCase() + "%"));
+        }
+
         return spec;
     }
 
@@ -81,7 +86,8 @@ public class UserSpecificationServiceImpl implements UserSpecificationService {
                 cb.like(cb.lower(root.get("username")), searchTerm),
                 cb.like(cb.lower(root.get("email")), searchTerm),
                 cb.like(cb.lower(root.get("documentNumber")), searchTerm),
-                cb.like(cb.lower(root.get("phone")), searchTerm)
+                cb.like(cb.lower(root.get("phone")), searchTerm),
+                cb.like(cb.lower(root.get("address")), searchTerm)
         );
     }
 }
