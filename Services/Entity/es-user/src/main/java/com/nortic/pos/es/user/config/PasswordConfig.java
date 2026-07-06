@@ -1,4 +1,4 @@
-package com.nortic.pos.es.user.config.security;
+package com.nortic.pos.es.user.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

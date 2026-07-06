@@ -33,6 +33,7 @@
 		<org.slf4j.version>2.0.18</org.slf4j.version>
 		<io.swagger.core.v3.version>2.2.49</io.swagger.core.v3.version>
 		<org.openapitools.version>7.23.0</org.openapitools.version>
+		<io.jsonwebtoken.version>0.13.0</io.jsonwebtoken.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -141,6 +142,24 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-api</artifactId>
+			<version>${io.jsonwebtoken.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-impl</artifactId>
+			<version>${io.jsonwebtoken.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-jackson</artifactId>
+			<version>${io.jsonwebtoken.version}</version>
+			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
 

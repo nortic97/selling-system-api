@@ -5,6 +5,9 @@ import com.nortic.pos.es.user.dto.request.RequestContextDTO;
 import com.nortic.pos.es.user.mapper.UserRestMapper;
 import com.nortic.pos.es.user.rest.gen.api.UserApi;
 import com.nortic.pos.es.user.rest.gen.model.*;
+import com.nortic.pos.es.user.security.jwt.model.JwtUser;
+import com.nortic.pos.es.user.security.jwt.model.Permission;
+import com.nortic.pos.es.user.security.util.SecurityUtil;
 import com.nortic.pos.es.user.service.contract.UserService;
 import com.nortic.pos.es.user.util.PageableUtil;
 import lombok.RequiredArgsConstructor;
@@ -196,6 +199,14 @@ public class UserControllerImpl implements UserApi {
             @Nullable List<String> sort
     ) {
         log.info("Getting all users REST controller...");
+
+        JwtUser jwtUser =
+                SecurityUtil.getJwtUser();
+
+        assert jwtUser != null;
+        jwtUser.validatePermission(
+                Permission.USER_READ
+        );
 
         var requestContextDTO = RequestContextDTO.builder()
                 .correlationId(correlationId)

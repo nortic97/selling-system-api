@@ -62,6 +62,12 @@ public enum UserExceptionCode {
             HttpStatus.INTERNAL_SERVER_ERROR
     ),
 
+    MISSING_PERMISSION(
+            "MISSING_PERMISSION",
+            "Missing required permission.",
+            HttpStatus.FORBIDDEN
+    ),
+
     MISSING_HEADER(
             "MISSING_HEADER",
             "A required header is missing.",
