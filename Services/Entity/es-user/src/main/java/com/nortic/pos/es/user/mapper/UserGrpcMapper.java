@@ -1,0 +1,78 @@
+package com.nortic.pos.es.user.mapper;
+
+import com.google.protobuf.Timestamp;
+import com.nortic.pos.es.user.dto.UserDTO;
+import com.nortic.pos.es.user.dto.response.PaginatedUserResponseDTO;
+import com.nortic.pos.es.user.grpc.UserProto;
+import org.mapstruct.*;
+
+import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+
+@Mapper(
+        componentModel = "spring",
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
+        nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS
+)
+public abstract class UserGrpcMapper {
+
+    public UserProto.PaginatedUserResponse toPaginatedUserResponse(PaginatedUserResponseDTO dto) {
+
+        var builder = UserProto.PaginatedUserResponse.newBuilder();
+
+        builder.setNumber(dto.getNumber());
+        builder.setSize(dto.getSize());
+        builder.setTotalElements(dto.getTotalElements());
+        builder.setTotalPages(dto.getTotalPages());
+        builder.setLast(dto.getLast());
+        builder.setSize(dto.getSize());
+
+        if (dto.getContent() != null) {
+            builder.addAllContent(dto.getContent().stream().map(this::toUserResponse).toList());
+        }
+
+        return builder.build();
+    }
+
+    @Mapping(target = "usernameBytes", ignore = true)
+    @Mapping(target = "unknownFields", ignore = true)
+    @Mapping(target = "photoBytes", ignore = true)
+    @Mapping(target = "phoneBytes", ignore = true)
+    @Mapping(target = "mergeUpdatedAt", ignore = true)
+    @Mapping(target = "mergeUnknownFields", ignore = true)
+    @Mapping(target = "mergeFrom", ignore = true)
+    @Mapping(target = "mergeDeletedAt", ignore = true)
+    @Mapping(target = "mergeCreatedAt", ignore = true)
+    @Mapping(target = "lastNameBytes", ignore = true)
+    @Mapping(target = "idBytes", ignore = true)
+    @Mapping(target = "firstNameBytes", ignore = true)
+    @Mapping(target = "emailBytes", ignore = true)
+    @Mapping(target = "documentTypeBytes", ignore = true)
+    @Mapping(target = "documentNumberBytes", ignore = true)
+    @Mapping(target = "dateOfBirthBytes", ignore = true)
+    @Mapping(target = "clearOneof", ignore = true)
+    @Mapping(target = "clearField", ignore = true)
+    @Mapping(target = "allFields", ignore = true)
+    @Mapping(target = "addressBytes", ignore = true)
+    @Mapping(target = "createdAt", qualifiedByName = "offsetDateTimeToTimestamp")
+    @Mapping(target = "updatedAt", qualifiedByName = "offsetDateTimeToTimestamp")
+    @Mapping(target = "deletedAt", qualifiedByName = "offsetDateTimeToTimestamp")
+    public abstract UserProto.UserResponse toUserResponse(UserDTO dto);
+
+    @Named("offsetDateTimeToTimestamp")
+    protected Timestamp offsetDateTimeToTimestamp(OffsetDateTime offsetDateTime) {
+        if (offsetDateTime == null) {
+            return null;
+        }
+        return Timestamp.newBuilder().setSeconds(offsetDateTime.toEpochSecond()).setNanos(offsetDateTime.getNano()).build();
+    }
+
+    @Named("timestampToOffsetDateTime")
+    protected OffsetDateTime timestampToOffsetDateTime(Timestamp timestamp) {
+        if (timestamp == null) {
+            return null;
+        }
+        return OffsetDateTime.ofInstant(Instant.ofEpochSecond(timestamp.getSeconds(), timestamp.getNanos()), ZoneOffset.UTC);
+    }
+}

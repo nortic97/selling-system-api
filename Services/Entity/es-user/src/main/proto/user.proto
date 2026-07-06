@@ -18,6 +18,11 @@ service UserService {
   rpc UpdateUser(UpdateUserRequest) returns (UserResponse);
   rpc DeleteUser(DeleteUserRequest) returns (google.protobuf.Empty);
   rpc RestoreUser(RestoreUserRequest) returns (UserResponse);
+  rpc ChangeUserPassword(ChangeUserPasswordRequest) returns (UserResponse);
+  rpc ChangeUsername(ChangeUsernameRequest) returns (UserResponse);
+  rpc ChangeEmail(ChangeEmailRequest) returns (UserResponse);
+  rpc ChangePhone(ChangePhoneRequest) returns (UserResponse);
+  rpc ChangeUserStatus(ChangeUserStatusRequest) returns (UserResponse);
 }
 
 
@@ -48,7 +53,6 @@ message SearchUsersRequest {
   optional string phone = 10;
   optional string address = 11;
   optional string date_of_birth = 12;
-  optional string photo = 13;
   optional bool is_active = 14;
 }
 
@@ -87,12 +91,37 @@ message UpdateUserRequest {
   optional string document_type = 4;
   optional string document_number = 5;
   optional string username = 6;
-  optional string password = 7;
   optional string email = 8;
   optional string phone = 9;
   optional string address = 10;
   optional string date_of_birth = 11;
   optional string photo = 12;
+}
+
+message ChangeUserPasswordRequest {
+  string id = 1;
+  string current_password = 2;
+  string new_password = 3;
+}
+
+message ChangeUsernameRequest {
+  string id = 1;
+  string username = 2;
+}
+
+message ChangeEmailRequest {
+  string id = 1;
+  string email = 2;
+}
+
+message ChangePhoneRequest {
+  string id = 1;
+  string phone = 2;
+}
+
+message ChangeUserStatusRequest {
+  string id = 1;
+  bool active = 2;
 }
 
 

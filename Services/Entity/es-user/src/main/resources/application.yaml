@@ -21,6 +21,14 @@ spring:
         enabled: false
       include-path: never
 
+  grpc:
+    server:
+      port: ${GRPC_PORT:9090}
+      health:
+        enabled: true
+      reflection:
+        enabled: true
+
   jackson:
     time-zone: ${TIME_ZONE:America/Bogota}
 
