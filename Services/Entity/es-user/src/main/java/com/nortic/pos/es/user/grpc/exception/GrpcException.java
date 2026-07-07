@@ -3,22 +3,18 @@ package com.nortic.pos.es.user.grpc.exception;
 import com.nortic.pos.es.user.exception.UserBusinessException;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeoutException;
 
-@Slf4j
 @Component
 public class GrpcException {
 
     private record GrpcError(Status status, String message) {
     }
 
-    public void grpcException(String method, Exception exception, StreamObserver<?> responseObserver) {
-
-        setLog(method, exception);
+    public void grpcException(Exception exception, StreamObserver<?> responseObserver) {
 
         var grpcError = mapGrpcError(exception);
 
@@ -64,10 +60,6 @@ public class GrpcException {
         }
 
         return new GrpcError(Status.INTERNAL, "Internal server error.");
-    }
-
-    private void setLog(String method, Exception e) {
-        log.error("Method : {} Error: {}", method, e.getMessage());
     }
 
 }

@@ -1,5 +1,6 @@
 package com.nortic.pos.es.user.security.jwt;
 
+import com.nortic.pos.es.user.security.jwt.model.JwtClaim;
 import com.nortic.pos.es.user.security.jwt.model.JwtProperties;
 import com.nortic.pos.es.user.security.jwt.model.JwtUser;
 import io.jsonwebtoken.Claims;
@@ -32,8 +33,10 @@ public class JwtService {
 
         return JwtUser.builder()
                 .userId(claims.getSubject())
-                .tokenType(claims.get("type", String.class))
-                .permissions(claims.get("permissions", List.class))
+                .storeId(claims.get(JwtClaim.STORE_ID.getValue(), String.class))
+                .branchId(claims.get(JwtClaim.BRANCH_ID.getValue(), String.class))
+                .tokenType(claims.get(JwtClaim.TOKEN_TYPE.getValue(), String.class))
+                .permissions(claims.get(JwtClaim.PERMISSIONS.getValue(), List.class))
                 .build();
     }
 }

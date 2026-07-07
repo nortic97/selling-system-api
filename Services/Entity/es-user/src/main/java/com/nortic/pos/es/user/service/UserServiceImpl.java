@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -35,6 +36,7 @@ public class UserServiceImpl implements UserService {
     private final UserSpecificationService userSpecificationService;
 
     @Override
+    @Transactional
     public UserDTO changeEmail(
             RequestContextDTO requestContextDTO,
             UUID id,
@@ -48,14 +50,13 @@ public class UserServiceImpl implements UserService {
 
         user.setEmail(changeEmailRequestDTO.getEmail().trim().toLowerCase());
 
-        var savedUser = userRepository.save(user);
-
         log.info("Changing email service complete.");
 
-        return userEntityMapper.toUserDTO(savedUser);
+        return userEntityMapper.toUserDTO(user);
     }
 
     @Override
+    @Transactional
     public UserDTO changePhone(
             RequestContextDTO requestContextDTO,
             UUID id,
@@ -69,14 +70,13 @@ public class UserServiceImpl implements UserService {
 
         user.setPhone(changePhoneRequestDTO.getPhone());
 
-        var savedUser = userRepository.save(user);
-
         log.info("Changing phone service complete.");
 
-        return userEntityMapper.toUserDTO(savedUser);
+        return userEntityMapper.toUserDTO(user);
     }
 
     @Override
+    @Transactional
     public UserDTO changeUserPassword(
             RequestContextDTO requestContextDTO,
             UUID id,
@@ -94,14 +94,13 @@ public class UserServiceImpl implements UserService {
 
         user.setPassword(passwordEncoder.encode(changePasswordRequestDTO.getNewPassword()));
 
-        var savedUser = userRepository.save(user);
-
         log.info("Changing password service complete.");
 
-        return userEntityMapper.toUserDTO(savedUser);
+        return userEntityMapper.toUserDTO(user);
     }
 
     @Override
+    @Transactional
     public UserDTO changeUserStatus(
             RequestContextDTO requestContextDTO,
             UUID id,
@@ -113,14 +112,13 @@ public class UserServiceImpl implements UserService {
 
         user.setIsActive(changeStatusRequestDTO.getActive());
 
-        var savedUser = userRepository.save(user);
-
         log.info("Changing user status service complete.");
 
-        return userEntityMapper.toUserDTO(savedUser);
+        return userEntityMapper.toUserDTO(user);
     }
 
     @Override
+    @Transactional
     public UserDTO changeUsername(
             RequestContextDTO requestContextDTO,
             UUID id,
@@ -134,11 +132,9 @@ public class UserServiceImpl implements UserService {
 
         user.setUsername(changeUsernameRequestDTO.getUsername().trim().toLowerCase());
 
-        var savedUser = userRepository.save(user);
-
         log.info("Changing username service complete.");
 
-        return userEntityMapper.toUserDTO(savedUser);
+        return userEntityMapper.toUserDTO(user);
     }
 
     @Override
@@ -160,6 +156,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void deleteUser(RequestContextDTO requestContextDTO, UUID id) {
         log.info("Deleting user service...");
 
@@ -211,6 +208,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserDTO restoreUser(RequestContextDTO requestContextDTO, UUID id) {
         log.info("Restoring user service...");
 
@@ -220,11 +218,9 @@ public class UserServiceImpl implements UserService {
         user.setIsActive(Boolean.TRUE);
         user.setDeletedAt(null);
 
-        var savedUser = userRepository.save(user);
-
         log.info("Restoring user service complete.");
 
-        return userEntityMapper.toUserDTO(savedUser);
+        return userEntityMapper.toUserDTO(user);
     }
 
     @Override
@@ -247,6 +243,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserDTO updateUser(
             RequestContextDTO requestContextDTO,
             UUID id,
@@ -258,11 +255,9 @@ public class UserServiceImpl implements UserService {
 
         userEntityMapper.updateUserFromDTO(userDTO, user);
 
-        var savedUser = userRepository.save(user);
-
         log.info("Updating user service complete.");
 
-        return userEntityMapper.toUserDTO(savedUser);
+        return userEntityMapper.toUserDTO(user);
     }
 
 }

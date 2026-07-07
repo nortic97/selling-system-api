@@ -1,9 +1,9 @@
 package com.nortic.pos.es.user.service;
 
 import com.nortic.pos.es.user.dto.UserDTO;
+import com.nortic.pos.es.user.entity.UserEntity;
 import com.nortic.pos.es.user.exception.UserBusinessException;
 import com.nortic.pos.es.user.exception.UserExceptionCode;
-import com.nortic.pos.es.user.entity.UserEntity;
 import com.nortic.pos.es.user.repository.UserRepository;
 import com.nortic.pos.es.user.service.contract.UserValidationService;
 import lombok.RequiredArgsConstructor;

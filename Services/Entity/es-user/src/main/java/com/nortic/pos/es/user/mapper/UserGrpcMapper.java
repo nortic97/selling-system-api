@@ -3,20 +3,12 @@ package com.nortic.pos.es.user.mapper;
 import com.google.protobuf.Timestamp;
 import com.nortic.pos.es.user.dto.UserDTO;
 import com.nortic.pos.es.user.dto.enums.DocumentTypeEnum;
-import com.nortic.pos.es.user.dto.request.ChangeEmailRequestDTO;
-import com.nortic.pos.es.user.dto.request.ChangePasswordRequestDTO;
-import com.nortic.pos.es.user.dto.request.ChangePhoneRequestDTO;
-import com.nortic.pos.es.user.dto.request.ChangeUserStatusRequestDTO;
-import com.nortic.pos.es.user.dto.request.ChangeUsernameRequestDTO;
-import com.nortic.pos.es.user.dto.request.UserQueryRequestDTO;
-import com.nortic.pos.es.user.dto.request.UserSearchRequestDTO;
+import com.nortic.pos.es.user.dto.request.*;
 import com.nortic.pos.es.user.dto.response.PaginatedUserResponseDTO;
 import com.nortic.pos.es.user.grpc.UserProto;
 import org.mapstruct.*;
 
-import java.time.Instant;
 import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 
 @Mapper(
         componentModel = "spring",
@@ -88,14 +80,6 @@ public abstract class UserGrpcMapper {
             return null;
         }
         return Timestamp.newBuilder().setSeconds(offsetDateTime.toEpochSecond()).setNanos(offsetDateTime.getNano()).build();
-    }
-
-    @Named("timestampToOffsetDateTime")
-    protected OffsetDateTime timestampToOffsetDateTime(Timestamp timestamp) {
-        if (timestamp == null) {
-            return null;
-        }
-        return OffsetDateTime.ofInstant(Instant.ofEpochSecond(timestamp.getSeconds(), timestamp.getNanos()), ZoneOffset.UTC);
     }
 
     @Named("mapDocumentType")

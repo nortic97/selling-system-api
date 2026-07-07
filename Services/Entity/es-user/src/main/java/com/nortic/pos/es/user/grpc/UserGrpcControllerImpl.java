@@ -50,7 +50,7 @@ public class UserGrpcControllerImpl extends UserServiceGrpc.UserServiceImplBase 
 
         } catch (Exception e) {
             errorLog("changeUserStatus", e);
-            grpcException.grpcException("changeUserStatus", e, responseObserver);
+            grpcException.grpcException(e, responseObserver);
         }
     }
 
@@ -77,7 +77,7 @@ public class UserGrpcControllerImpl extends UserServiceGrpc.UserServiceImplBase 
 
         } catch (Exception e) {
             errorLog("changePhone", e);
-            grpcException.grpcException("changePhone", e, responseObserver);
+            grpcException.grpcException(e, responseObserver);
         }
     }
 
@@ -104,7 +104,7 @@ public class UserGrpcControllerImpl extends UserServiceGrpc.UserServiceImplBase 
 
         } catch (Exception e) {
             errorLog("changeEmail", e);
-            grpcException.grpcException("changeEmail", e, responseObserver);
+            grpcException.grpcException(e, responseObserver);
         }
     }
 
@@ -131,7 +131,7 @@ public class UserGrpcControllerImpl extends UserServiceGrpc.UserServiceImplBase 
 
         } catch (Exception e) {
             errorLog("changeUsername", e);
-            grpcException.grpcException("changeUsername", e, responseObserver);
+            grpcException.grpcException(e, responseObserver);
         }
     }
 
@@ -158,7 +158,7 @@ public class UserGrpcControllerImpl extends UserServiceGrpc.UserServiceImplBase 
 
         } catch (Exception e) {
             errorLog("changeUserPassword", e);
-            grpcException.grpcException("changeUserPassword", e, responseObserver);
+            grpcException.grpcException(e, responseObserver);
         }
     }
 
@@ -183,7 +183,7 @@ public class UserGrpcControllerImpl extends UserServiceGrpc.UserServiceImplBase 
 
         } catch (Exception e) {
             errorLog("restoreUser", e);
-            grpcException.grpcException("restoreUser", e, responseObserver);
+            grpcException.grpcException(e, responseObserver);
         }
     }
 
@@ -206,7 +206,7 @@ public class UserGrpcControllerImpl extends UserServiceGrpc.UserServiceImplBase 
 
         } catch (Exception e) {
             errorLog("deleteUser", e);
-            grpcException.grpcException("deleteUser", e, responseObserver);
+            grpcException.grpcException(e, responseObserver);
         }
     }
 
@@ -233,7 +233,7 @@ public class UserGrpcControllerImpl extends UserServiceGrpc.UserServiceImplBase 
 
         } catch (Exception e) {
             errorLog("updateUser", e);
-            grpcException.grpcException("updateUser", e, responseObserver);
+            grpcException.grpcException(e, responseObserver);
         }
     }
 
@@ -260,7 +260,7 @@ public class UserGrpcControllerImpl extends UserServiceGrpc.UserServiceImplBase 
 
         } catch (Exception e) {
             errorLog("createUser", e);
-            grpcException.grpcException("createUser", e, responseObserver);
+            grpcException.grpcException(e, responseObserver);
         }
     }
 
@@ -286,7 +286,7 @@ public class UserGrpcControllerImpl extends UserServiceGrpc.UserServiceImplBase 
 
         } catch (Exception e) {
             errorLog("getUserById", e);
-            grpcException.grpcException("getUserById", e, responseObserver);
+            grpcException.grpcException(e, responseObserver);
         }
     }
 
@@ -313,7 +313,7 @@ public class UserGrpcControllerImpl extends UserServiceGrpc.UserServiceImplBase 
 
         } catch (Exception e) {
             errorLog("searchUsers", e);
-            grpcException.grpcException("searchUsers", e, responseObserver);
+            grpcException.grpcException(e, responseObserver);
         }
     }
 
@@ -340,7 +340,7 @@ public class UserGrpcControllerImpl extends UserServiceGrpc.UserServiceImplBase 
 
         } catch (Exception e) {
             errorLog("queryUsers", e);
-            grpcException.grpcException("queryUsers", e, responseObserver);
+            grpcException.grpcException(e, responseObserver);
         }
     }
 
@@ -369,7 +369,7 @@ public class UserGrpcControllerImpl extends UserServiceGrpc.UserServiceImplBase 
             log.info("getAllUsers gRPC Controller complete.");
         } catch (Exception e) {
             errorLog("getAllUsers", e);
-            grpcException.grpcException("getAllUsers", e, responseObserver);
+            grpcException.grpcException(e, responseObserver);
         }
     }
 
