@@ -12,6 +12,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+    open-in-view: false
 
   web:
     error:
@@ -37,4 +38,4 @@ server:
 
 security:
   jwt:
-    secret: ${JWT_SECRET:N0r71cP0s1997*S3cur3JWTK3yF0rHMACSHA256Alg0rithm!@#$%^&*()}
+    secret: ${JWT_SECRET:TjByNzFjUDBzXzIwMjZfQmFja2VuZF9Vc2VyX1NlcnZpY2VfSnd0X1NlY3JldF9WM19BOXhMMm1RN3BSOHRXNG5L}
