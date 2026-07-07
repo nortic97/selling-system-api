@@ -3,6 +3,13 @@ package com.nortic.pos.es.user.mapper;
 import com.google.protobuf.Timestamp;
 import com.nortic.pos.es.user.dto.UserDTO;
 import com.nortic.pos.es.user.dto.enums.DocumentTypeEnum;
+import com.nortic.pos.es.user.dto.request.ChangeEmailRequestDTO;
+import com.nortic.pos.es.user.dto.request.ChangePasswordRequestDTO;
+import com.nortic.pos.es.user.dto.request.ChangePhoneRequestDTO;
+import com.nortic.pos.es.user.dto.request.ChangeUserStatusRequestDTO;
+import com.nortic.pos.es.user.dto.request.ChangeUsernameRequestDTO;
+import com.nortic.pos.es.user.dto.request.UserQueryRequestDTO;
+import com.nortic.pos.es.user.dto.request.UserSearchRequestDTO;
 import com.nortic.pos.es.user.dto.response.PaginatedUserResponseDTO;
 import com.nortic.pos.es.user.grpc.UserProto;
 import org.mapstruct.*;
@@ -100,4 +107,32 @@ public abstract class UserGrpcMapper {
 
         return DocumentTypeEnum.valueOf(value.toUpperCase());
     }
+
+    public abstract ChangeEmailRequestDTO toChangeEmailRequestDTO(UserProto.ChangeEmailRequest request);
+
+    public abstract ChangePasswordRequestDTO toChangePasswordRequestDTO(UserProto.ChangeUserPasswordRequest request);
+
+    public abstract ChangePhoneRequestDTO toChangePhoneRequestDTO(UserProto.ChangePhoneRequest request);
+
+    public abstract ChangeUserStatusRequestDTO toChangeUserStatusRequestDTO(UserProto.ChangeUserStatusRequest request);
+
+    public abstract ChangeUsernameRequestDTO toChangeUsernameRequestDTO(UserProto.ChangeUsernameRequest request);
+
+    @Mapping(target = "sort", source = "sortList")
+    public abstract UserQueryRequestDTO toUserQueryRequestDTO(UserProto.UserQueryRequest request);
+
+    @Mapping(target = "sort", source = "sortList")
+    public abstract UserSearchRequestDTO toUserSearchRequestDTO(UserProto.SearchUsersRequest request);
+
+    @Mapping(target = "password", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "isActive", ignore = true)
+    @Mapping(target = "deletedAt", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(
+            target = "documentType",
+            source = "documentType",
+            qualifiedByName = "mapDocumentType"
+    )
+    public abstract UserDTO toUserDTO(UserProto.UpdateUserRequest user);
 }

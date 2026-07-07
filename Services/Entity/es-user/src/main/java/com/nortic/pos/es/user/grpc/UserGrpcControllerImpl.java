@@ -29,42 +29,212 @@ public class UserGrpcControllerImpl extends UserServiceGrpc.UserServiceImplBase 
 
     @Override
     public void changeUserStatus(UserProto.ChangeUserStatusRequest request, StreamObserver<UserProto.UserResponse> responseObserver) {
-        super.changeUserStatus(request, responseObserver);
+        try {
+            log.info("changeUserStatus gRPC Controller...");
+
+            var requestContextDTO = RequestContextDTO.builder()
+                    .correlationId(UUID.fromString(ContextKeys.CORRELATION_ID_CONTEXT_KEY.get()))
+                    .consumerId(ContextKeys.CONSUMER_ID_CONTEXT_KEY.get())
+                    .build();
+
+            var changeStatusRequestDTO = userGrpcMapper.toChangeUserStatusRequestDTO(request);
+
+            var user = userService.changeUserStatus(requestContextDTO, UUID.fromString(request.getId()), changeStatusRequestDTO);
+
+            var response = userGrpcMapper.toUserResponse(user);
+
+            log.info("changeUserStatus gRPC Controller Completed");
+
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+
+        } catch (Exception e) {
+            errorLog("changeUserStatus", e);
+            grpcException.grpcException("changeUserStatus", e, responseObserver);
+        }
     }
 
     @Override
     public void changePhone(UserProto.ChangePhoneRequest request, StreamObserver<UserProto.UserResponse> responseObserver) {
-        super.changePhone(request, responseObserver);
+        try {
+            log.info("changePhone gRPC Controller...");
+
+            var requestContextDTO = RequestContextDTO.builder()
+                    .correlationId(UUID.fromString(ContextKeys.CORRELATION_ID_CONTEXT_KEY.get()))
+                    .consumerId(ContextKeys.CONSUMER_ID_CONTEXT_KEY.get())
+                    .build();
+
+            var changePhoneRequestDTO = userGrpcMapper.toChangePhoneRequestDTO(request);
+
+            var user = userService.changePhone(requestContextDTO, UUID.fromString(request.getId()), changePhoneRequestDTO);
+
+            var response = userGrpcMapper.toUserResponse(user);
+
+            log.info("changePhone gRPC Controller Completed");
+
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+
+        } catch (Exception e) {
+            errorLog("changePhone", e);
+            grpcException.grpcException("changePhone", e, responseObserver);
+        }
     }
 
     @Override
     public void changeEmail(UserProto.ChangeEmailRequest request, StreamObserver<UserProto.UserResponse> responseObserver) {
-        super.changeEmail(request, responseObserver);
+        try {
+            log.info("changeEmail gRPC Controller...");
+
+            var requestContextDTO = RequestContextDTO.builder()
+                    .correlationId(UUID.fromString(ContextKeys.CORRELATION_ID_CONTEXT_KEY.get()))
+                    .consumerId(ContextKeys.CONSUMER_ID_CONTEXT_KEY.get())
+                    .build();
+
+            var changeEmailRequestDTO = userGrpcMapper.toChangeEmailRequestDTO(request);
+
+            var user = userService.changeEmail(requestContextDTO, UUID.fromString(request.getId()), changeEmailRequestDTO);
+
+            var response = userGrpcMapper.toUserResponse(user);
+
+            log.info("changeEmail gRPC Controller Completed");
+
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+
+        } catch (Exception e) {
+            errorLog("changeEmail", e);
+            grpcException.grpcException("changeEmail", e, responseObserver);
+        }
     }
 
     @Override
     public void changeUsername(UserProto.ChangeUsernameRequest request, StreamObserver<UserProto.UserResponse> responseObserver) {
-        super.changeUsername(request, responseObserver);
+        try {
+            log.info("changeUsername gRPC Controller...");
+
+            var requestContextDTO = RequestContextDTO.builder()
+                    .correlationId(UUID.fromString(ContextKeys.CORRELATION_ID_CONTEXT_KEY.get()))
+                    .consumerId(ContextKeys.CONSUMER_ID_CONTEXT_KEY.get())
+                    .build();
+
+            var changeUsernameRequestDTO = userGrpcMapper.toChangeUsernameRequestDTO(request);
+
+            var user = userService.changeUsername(requestContextDTO, UUID.fromString(request.getId()), changeUsernameRequestDTO);
+
+            var response = userGrpcMapper.toUserResponse(user);
+
+            log.info("changeUsername gRPC Controller Completed");
+
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+
+        } catch (Exception e) {
+            errorLog("changeUsername", e);
+            grpcException.grpcException("changeUsername", e, responseObserver);
+        }
     }
 
     @Override
     public void changeUserPassword(UserProto.ChangeUserPasswordRequest request, StreamObserver<UserProto.UserResponse> responseObserver) {
-        super.changeUserPassword(request, responseObserver);
+        try {
+            log.info("changeUserPassword gRPC Controller...");
+
+            var requestContextDTO = RequestContextDTO.builder()
+                    .correlationId(UUID.fromString(ContextKeys.CORRELATION_ID_CONTEXT_KEY.get()))
+                    .consumerId(ContextKeys.CONSUMER_ID_CONTEXT_KEY.get())
+                    .build();
+
+            var changePasswordRequestDTO = userGrpcMapper.toChangePasswordRequestDTO(request);
+
+            var user = userService.changeUserPassword(requestContextDTO, UUID.fromString(request.getId()), changePasswordRequestDTO);
+
+            var response = userGrpcMapper.toUserResponse(user);
+
+            log.info("changeUserPassword gRPC Controller Completed");
+
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+
+        } catch (Exception e) {
+            errorLog("changeUserPassword", e);
+            grpcException.grpcException("changeUserPassword", e, responseObserver);
+        }
     }
 
     @Override
     public void restoreUser(UserProto.RestoreUserRequest request, StreamObserver<UserProto.UserResponse> responseObserver) {
-        super.restoreUser(request, responseObserver);
+        try {
+            log.info("restoreUser gRPC Controller...");
+
+            var requestContextDTO = RequestContextDTO.builder()
+                    .correlationId(UUID.fromString(ContextKeys.CORRELATION_ID_CONTEXT_KEY.get()))
+                    .consumerId(ContextKeys.CONSUMER_ID_CONTEXT_KEY.get())
+                    .build();
+
+            var user = userService.restoreUser(requestContextDTO, UUID.fromString(request.getId()));
+
+            var response = userGrpcMapper.toUserResponse(user);
+
+            log.info("restoreUser gRPC Controller Completed");
+
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+
+        } catch (Exception e) {
+            errorLog("restoreUser", e);
+            grpcException.grpcException("restoreUser", e, responseObserver);
+        }
     }
 
     @Override
     public void deleteUser(UserProto.DeleteUserRequest request, StreamObserver<Empty> responseObserver) {
-        super.deleteUser(request, responseObserver);
+        try {
+            log.info("deleteUser gRPC Controller...");
+
+            var requestContextDTO = RequestContextDTO.builder()
+                    .correlationId(UUID.fromString(ContextKeys.CORRELATION_ID_CONTEXT_KEY.get()))
+                    .consumerId(ContextKeys.CONSUMER_ID_CONTEXT_KEY.get())
+                    .build();
+
+            userService.deleteUser(requestContextDTO, UUID.fromString(request.getId()));
+
+            log.info("deleteUser gRPC Controller Completed");
+
+            responseObserver.onNext(Empty.getDefaultInstance());
+            responseObserver.onCompleted();
+
+        } catch (Exception e) {
+            errorLog("deleteUser", e);
+            grpcException.grpcException("deleteUser", e, responseObserver);
+        }
     }
 
     @Override
     public void updateUser(UserProto.UpdateUserRequest request, StreamObserver<UserProto.UserResponse> responseObserver) {
-        super.updateUser(request, responseObserver);
+        try {
+            log.info("updateUser gRPC Controller...");
+
+            var requestContextDTO = RequestContextDTO.builder()
+                    .correlationId(UUID.fromString(ContextKeys.CORRELATION_ID_CONTEXT_KEY.get()))
+                    .consumerId(ContextKeys.CONSUMER_ID_CONTEXT_KEY.get())
+                    .build();
+
+            var userDTO = userGrpcMapper.toUserDTO(request);
+
+            var user = userService.updateUser(requestContextDTO, UUID.fromString(request.getId()), userDTO);
+
+            var response = userGrpcMapper.toUserResponse(user);
+
+            log.info("updateUser gRPC Controller Completed");
+
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+
+        } catch (Exception e) {
+            errorLog("updateUser", e);
+            grpcException.grpcException("updateUser", e, responseObserver);
+        }
     }
 
     @Override
@@ -122,12 +292,56 @@ public class UserGrpcControllerImpl extends UserServiceGrpc.UserServiceImplBase 
 
     @Override
     public void searchUsers(UserProto.SearchUsersRequest request, StreamObserver<UserProto.PaginatedUserResponse> responseObserver) {
-        super.searchUsers(request, responseObserver);
+        try {
+            log.info("searchUsers gRPC Controller...");
+
+            var requestContextDTO = RequestContextDTO.builder()
+                    .correlationId(UUID.fromString(ContextKeys.CORRELATION_ID_CONTEXT_KEY.get()))
+                    .consumerId(ContextKeys.CONSUMER_ID_CONTEXT_KEY.get())
+                    .build();
+
+            var searchRequestDTO = userGrpcMapper.toUserSearchRequestDTO(request);
+
+            var paginatedUsers = userService.searchUsers(requestContextDTO, searchRequestDTO);
+
+            var response = userGrpcMapper.toPaginatedUserResponse(paginatedUsers);
+
+            log.info("searchUsers gRPC Controller Completed");
+
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+
+        } catch (Exception e) {
+            errorLog("searchUsers", e);
+            grpcException.grpcException("searchUsers", e, responseObserver);
+        }
     }
 
     @Override
     public void queryUsers(UserProto.UserQueryRequest request, StreamObserver<UserProto.PaginatedUserResponse> responseObserver) {
-        super.queryUsers(request, responseObserver);
+        try {
+            log.info("queryUsers gRPC Controller...");
+
+            var requestContextDTO = RequestContextDTO.builder()
+                    .correlationId(UUID.fromString(ContextKeys.CORRELATION_ID_CONTEXT_KEY.get()))
+                    .consumerId(ContextKeys.CONSUMER_ID_CONTEXT_KEY.get())
+                    .build();
+
+            var queryRequestDTO = userGrpcMapper.toUserQueryRequestDTO(request);
+
+            var paginatedUsers = userService.queryUsers(requestContextDTO, queryRequestDTO);
+
+            var response = userGrpcMapper.toPaginatedUserResponse(paginatedUsers);
+
+            log.info("queryUsers gRPC Controller Completed");
+
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+
+        } catch (Exception e) {
+            errorLog("queryUsers", e);
+            grpcException.grpcException("queryUsers", e, responseObserver);
+        }
     }
 
     @Override
