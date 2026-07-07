@@ -14,6 +14,12 @@ public enum UserExceptionCode {
             HttpStatus.BAD_REQUEST
     ),
 
+    UNAUTHORIZED(
+            "UNAUTHORIZED",
+            "Authentication required.",
+            HttpStatus.UNAUTHORIZED
+    ),
+
     USERNAME_ALREADY_EXISTS(
             "USERNAME_ALREADY_EXISTS",
             "Username already exists.",

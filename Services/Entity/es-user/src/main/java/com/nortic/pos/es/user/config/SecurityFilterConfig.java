@@ -1,27 +1,21 @@
 package com.nortic.pos.es.user.config;
 
-import com.nortic.pos.es.user.dto.response.ErrorResponseDTO;
-import com.nortic.pos.es.user.exception.UserExceptionCode;
 import com.nortic.pos.es.user.security.SecurityConstants;
+import com.nortic.pos.es.user.security.exception.SecurityAccessDeniedHandler;
+import com.nortic.pos.es.user.security.exception.SecurityAuthenticationEntryPoint;
 import com.nortic.pos.es.user.security.jwt.JwtAuthenticationFilter;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.jspecify.annotations.NonNull;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import java.io.IOException;
 
 import static com.nortic.pos.es.user.security.SecurityConstants.*;
 
@@ -31,6 +25,8 @@ import static com.nortic.pos.es.user.security.SecurityConstants.*;
 public class SecurityFilterConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final SecurityAccessDeniedHandler accessDeniedHandler;
+    private final SecurityAuthenticationEntryPoint authenticationEntryPoint;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) {
@@ -70,8 +66,8 @@ public class SecurityFilterConfig {
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(exception -> exception
-                        .accessDeniedHandler(new SecurityAccessDeniedHandler())
-                        .authenticationEntryPoint(new SecurityAuthenticationEntryPoint())
+                        .accessDeniedHandler(accessDeniedHandler)
+                        .authenticationEntryPoint(authenticationEntryPoint)
                 )
                 .addFilterBefore(
                         jwtAuthenticationFilter,
@@ -96,58 +92,6 @@ public class SecurityFilterConfig {
         source.registerCorsConfiguration("/**", configuration);
 
         return source;
-    }
-
-    private static class SecurityAccessDeniedHandler implements AccessDeniedHandler {
-        @Override
-        public void handle(jakarta.servlet.http.@NonNull HttpServletRequest request,
-                           jakarta.servlet.http.HttpServletResponse response,
-                           org.springframework.security.access.@NonNull AccessDeniedException accessDeniedException)
-                throws IOException {
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            response.setContentType("application/json");
-
-            var authentication = org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication();
-            String userPermissions = "None";
-
-            if (authentication != null && !authentication.getAuthorities().isEmpty()) {
-                userPermissions = authentication.getAuthorities().stream()
-                        .map(Object::toString)
-                        .toList()
-                        .toString();
-            }
-
-            var errorResponse = ErrorResponseDTO.builder()
-                    .code(UserExceptionCode.MISSING_PERMISSION.getCode())
-                    .message(UserExceptionCode.MISSING_PERMISSION.getMessage() + " - User permissions: " + userPermissions)
-                    .timestamp(java.time.OffsetDateTime.now())
-                    .build();
-
-            response.getWriter().write("{\"code\":\"" + errorResponse.getCode() +
-                    "\",\"message\":\"" + errorResponse.getMessage() +
-                    "\",\"timestamp\":\"" + errorResponse.getTimestamp() + "\"}");
-        }
-    }
-
-    private static class SecurityAuthenticationEntryPoint implements AuthenticationEntryPoint {
-        @Override
-        public void commence(jakarta.servlet.http.@NonNull HttpServletRequest request,
-                             jakarta.servlet.http.HttpServletResponse response,
-                             org.springframework.security.core.@NonNull AuthenticationException authException)
-                throws IOException {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.setContentType("application/json");
-
-            var errorResponse = ErrorResponseDTO.builder()
-                    .code("UNAUTHORIZED")
-                    .message("Authentication required")
-                    .timestamp(java.time.OffsetDateTime.now())
-                    .build();
-
-            response.getWriter().write("{\"code\":\"" + errorResponse.getCode() +
-                    "\",\"message\":\"" + errorResponse.getMessage() +
-                    "\",\"timestamp\":\"" + errorResponse.getTimestamp() + "\"}");
-        }
     }
 
 }
