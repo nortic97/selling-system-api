@@ -20,7 +20,7 @@ public interface UserRepository extends JpaRepository<UserEntity, UUID>, JpaSpec
 
     boolean existsByPhoneAndIdNot(String phone, UUID id);
 
-    boolean existsByDocumentTypeIgnoreCaseAndDocumentNumber(
+    boolean existsByDocumentTypeAndDocumentNumber(
             DocumentTypeEnum documentType,
             String documentNumber
     );

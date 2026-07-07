@@ -4,6 +4,7 @@ import com.nortic.pos.es.user.dto.response.ErrorResponseDTO;
 import com.nortic.pos.es.user.dto.response.FieldErrorDetailResponseDTO;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -162,6 +163,28 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity
                 .status(UserExceptionCode.MISSING_PERMISSION.getHttpStatus())
+                .body(response);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ErrorResponseDTO> handleDataIntegrityViolationException(
+            DataIntegrityViolationException exception
+    ) {
+
+        log.error(
+                "Data integrity violation: {}",
+                exception.getMostSpecificCause().getMessage(),
+                exception
+        );
+
+        var response = ErrorResponseDTO.builder()
+                .code(UserExceptionCode.DATA_INTEGRITY_VIOLATION.getCode())
+                .message(UserExceptionCode.DATA_INTEGRITY_VIOLATION.getMessage())
+                .timestamp(OffsetDateTime.now())
+                .build();
+
+        return ResponseEntity
+                .status(UserExceptionCode.DATA_INTEGRITY_VIOLATION.getHttpStatus())
                 .body(response);
     }
 }

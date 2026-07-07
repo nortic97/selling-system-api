@@ -93,7 +93,7 @@ public class UserValidationServiceImpl implements UserValidationService {
             throw new UserBusinessException(UserExceptionCode.EMAIL_ALREADY_EXISTS);
         }
 
-        if (userRepository.existsByDocumentTypeIgnoreCaseAndDocumentNumber(
+        if (userRepository.existsByDocumentTypeAndDocumentNumber(
                 userDTO.getDocumentType(),
                 userDTO.getDocumentNumber()
         )) {

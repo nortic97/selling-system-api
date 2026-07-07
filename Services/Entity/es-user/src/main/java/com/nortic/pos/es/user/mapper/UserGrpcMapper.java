@@ -2,6 +2,7 @@ package com.nortic.pos.es.user.mapper;
 
 import com.google.protobuf.Timestamp;
 import com.nortic.pos.es.user.dto.UserDTO;
+import com.nortic.pos.es.user.dto.enums.DocumentTypeEnum;
 import com.nortic.pos.es.user.dto.response.PaginatedUserResponseDTO;
 import com.nortic.pos.es.user.grpc.UserProto;
 import org.mapstruct.*;
@@ -16,6 +17,8 @@ import java.time.ZoneOffset;
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS
 )
 public abstract class UserGrpcMapper {
+
+
 
     public UserProto.PaginatedUserResponse toPaginatedUserResponse(PaginatedUserResponseDTO dto) {
 
@@ -60,6 +63,18 @@ public abstract class UserGrpcMapper {
     @Mapping(target = "deletedAt", qualifiedByName = "offsetDateTimeToTimestamp")
     public abstract UserProto.UserResponse toUserResponse(UserDTO dto);
 
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "isActive", ignore = true)
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "deletedAt", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(
+            target = "documentType",
+            source = "documentType",
+            qualifiedByName = "mapDocumentType"
+    )
+    public abstract UserDTO toUserDTO(UserProto.CreateUserRequest user);
+
     @Named("offsetDateTimeToTimestamp")
     protected Timestamp offsetDateTimeToTimestamp(OffsetDateTime offsetDateTime) {
         if (offsetDateTime == null) {
@@ -74,5 +89,15 @@ public abstract class UserGrpcMapper {
             return null;
         }
         return OffsetDateTime.ofInstant(Instant.ofEpochSecond(timestamp.getSeconds(), timestamp.getNanos()), ZoneOffset.UTC);
+    }
+
+    @Named("mapDocumentType")
+    protected DocumentTypeEnum mapDocumentType(String value) {
+
+        if (value == null || value.isBlank()) {
+            return null;
+        }
+
+        return DocumentTypeEnum.valueOf(value.toUpperCase());
     }
 }

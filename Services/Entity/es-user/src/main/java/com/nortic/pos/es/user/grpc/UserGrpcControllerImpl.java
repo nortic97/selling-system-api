@@ -69,12 +69,55 @@ public class UserGrpcControllerImpl extends UserServiceGrpc.UserServiceImplBase 
 
     @Override
     public void createUser(UserProto.CreateUserRequest request, StreamObserver<UserProto.UserResponse> responseObserver) {
-        super.createUser(request, responseObserver);
+        try {
+            log.info("createUser gRPC Controller...");
+
+            var requestContextDTO = RequestContextDTO.builder()
+                    .correlationId(UUID.fromString(ContextKeys.CORRELATION_ID_CONTEXT_KEY.get()))
+                    .consumerId(ContextKeys.CONSUMER_ID_CONTEXT_KEY.get())
+                    .build();
+
+            var userDTO = userGrpcMapper.toUserDTO(request);
+
+            var user = userService.createUser(requestContextDTO, userDTO);
+
+            var response = userGrpcMapper.toUserResponse(user);
+
+            log.info("createUser gRPC Controller Completed");
+
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+
+        } catch (Exception e) {
+            errorLog("createUser", e);
+            grpcException.grpcException("createUser", e, responseObserver);
+        }
     }
 
     @Override
     public void getUserById(UserProto.GetUserByIdRequest request, StreamObserver<UserProto.UserResponse> responseObserver) {
-        super.getUserById(request, responseObserver);
+        try {
+
+            log.info("getUserById gRPC Controller...");
+
+            var requestContextDTO = RequestContextDTO.builder()
+                    .correlationId(UUID.fromString(ContextKeys.CORRELATION_ID_CONTEXT_KEY.get()))
+                    .consumerId(ContextKeys.CONSUMER_ID_CONTEXT_KEY.get())
+                    .build();
+
+            var user = userService.getUserById(requestContextDTO, UUID.fromString(request.getId()));
+
+            var response = userGrpcMapper.toUserResponse(user);
+
+            log.info("getUserById gRPC Controller Completed");
+
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+
+        } catch (Exception e) {
+            errorLog("getUserById", e);
+            grpcException.grpcException("getUserById", e, responseObserver);
+        }
     }
 
     @Override
@@ -111,7 +154,12 @@ public class UserGrpcControllerImpl extends UserServiceGrpc.UserServiceImplBase 
 
             log.info("getAllUsers gRPC Controller complete.");
         } catch (Exception e) {
-            grpcException.rpcException("getAllUsers", e, responseObserver);
+            errorLog("getAllUsers", e);
+            grpcException.grpcException("getAllUsers", e, responseObserver);
         }
+    }
+
+    private void errorLog(String method, Exception e) {
+        log.error("Method : {} Error: {}", method, e.getMessage());
     }
 }

@@ -14,6 +14,12 @@ public enum UserExceptionCode {
             HttpStatus.BAD_REQUEST
     ),
 
+    DATA_INTEGRITY_VIOLATION(
+            "DATA_INTEGRITY_VIOLATION",
+            "The operation violates a data integrity constraint.",
+            HttpStatus.CONFLICT
+    ),
+
     UNAUTHORIZED(
             "UNAUTHORIZED",
             "Authentication required.",
