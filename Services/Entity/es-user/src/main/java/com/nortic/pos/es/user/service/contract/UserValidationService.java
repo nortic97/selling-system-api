@@ -1,7 +1,7 @@
 package com.nortic.pos.es.user.service.contract;
 
 import com.nortic.pos.es.user.dto.UserDTO;
-import com.nortic.pos.es.user.model.entity.UserEntity;
+import com.nortic.pos.es.user.entity.UserEntity;
 
 import java.util.UUID;
 

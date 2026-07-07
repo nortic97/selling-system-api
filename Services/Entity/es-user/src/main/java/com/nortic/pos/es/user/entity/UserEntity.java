@@ -1,4 +1,4 @@
-package com.nortic.pos.es.user.model.entity;
+package com.nortic.pos.es.user.entity;
 
 import com.nortic.pos.es.user.dto.enums.DocumentTypeEnum;
 import jakarta.persistence.*;

@@ -1,7 +1,7 @@
 package com.nortic.pos.es.user.repository;
 
 import com.nortic.pos.es.user.dto.enums.DocumentTypeEnum;
-import com.nortic.pos.es.user.model.entity.UserEntity;
+import com.nortic.pos.es.user.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.NativeQuery;
