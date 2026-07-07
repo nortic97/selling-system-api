@@ -7,10 +7,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -28,17 +32,27 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String authorization = request.getHeader("Authorization");
 
         if (authorization == null || !authorization.startsWith("Bearer ")) {
-
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Missing token");
-
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Missing or invalid Authorization header");
             return;
         }
 
         String token = authorization.substring(7).trim();
 
-        JwtUser jwtUser = jwtService.validateToken(token);
+        try {
+            JwtUser jwtUser = jwtService.validateToken(token);
 
-        request.setAttribute("jwtUser", jwtUser);
+            List<SimpleGrantedAuthority> authorities = jwtUser.getPermissions().stream()
+                    .map(SimpleGrantedAuthority::new)
+                    .toList();
+
+            UsernamePasswordAuthenticationToken authentication =
+                    new UsernamePasswordAuthenticationToken(jwtUser, null, authorities);
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        } catch (Exception e) {
+            SecurityContextHolder.clearContext();
+        }
 
         filterChain.doFilter(request, response);
     }
