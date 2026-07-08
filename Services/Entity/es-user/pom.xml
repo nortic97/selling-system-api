@@ -184,12 +184,11 @@
 
 						<configOptions>
 							<interfaceOnly>true</interfaceOnly>
-							<useSpringBoot3>true</useSpringBoot3>
 							<useJakartaEe>true</useJakartaEe>
 							<useResponseEntity>true</useResponseEntity>
 							<openApiNullable>false</openApiNullable>
 							<useTags>true</useTags>
-							<useuseSpringBoot4>true</useuseSpringBoot4>
+							<useSpringBoot4>true</useSpringBoot4>
 							<skipDefaultInterface>true</skipDefaultInterface>
 						</configOptions>
 					</configuration>
