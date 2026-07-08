@@ -1,0 +1,115 @@
+syntax = "proto3";
+
+package com.nortic.pos.es.store.grpc;
+
+option java_multiple_files = false;
+option java_package = "com.nortic.pos.es.store.grpc";
+option java_outer_classname = "StoreProto";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+message StoreRequest {
+  string owner_id = 1;
+  string tax_id = 2;
+  string name = 3;
+  string description = 4;
+  string slogan = 5;
+  string logo = 6;
+  string address = 7;
+  string country = 8;
+  string state_province = 9;
+  string city = 10;
+  string phone_number = 11;
+  string email = 12;
+}
+
+message StatusRequest {
+  bool active = 1;
+}
+
+message PhoneRequest {
+  string phone = 1;
+}
+
+message EmailRequest {
+  string email = 1;
+}
+
+message StoreIdRequest {
+  string id = 1;
+}
+
+message ChangeStatusRequest {
+  string id = 1;
+  bool active = 2;
+}
+
+message ChangePhoneRequest {
+  string id = 1;
+  string phone = 2;
+}
+
+message ChangeEmailRequest {
+  string id = 1;
+  string email = 2;
+}
+
+message PaginationRequest {
+  int32 page = 1;
+  int32 size = 2;
+  repeated string sort = 3;
+}
+
+message StoreResponse {
+  string id = 1;
+  string owner_id = 2;
+  string tax_id = 3;
+  string name = 4;
+  string description = 5;
+  string slogan = 6;
+  string logo = 7;
+  string address = 8;
+  string country = 9;
+  string state_province = 10;
+  string city = 11;
+  string phone_number = 12;
+  string email = 13;
+  bool is_active = 14;
+  google.protobuf.Timestamp created_at = 15;
+  google.protobuf.Timestamp updated_at = 16;
+  google.protobuf.Timestamp deleted_at = 17;
+}
+
+message FieldErrorDetail {
+  string field = 1;
+  string message = 2;
+  string rejected_value = 3;
+}
+
+message ErrorResponse {
+  string code = 1;
+  string message = 2;
+  google.protobuf.Timestamp timestamp = 3;
+  repeated FieldErrorDetail details = 4;
+}
+
+message PaginatedStoreResponse {
+  repeated StoreResponse content = 1;
+  int64 total_elements = 2;
+  int32 total_pages = 3;
+  int32 size = 4;
+  int32 number = 5;
+  bool first = 6;
+  bool last = 7;
+}
+
+service StoreService {
+  rpc CreateStore(StoreRequest) returns (StoreResponse);
+  rpc ListStores(PaginationRequest) returns (PaginatedStoreResponse);
+  rpc GetStore(StoreIdRequest) returns (StoreResponse);
+  rpc DeleteStore(StoreIdRequest) returns (google.protobuf.Empty);
+  rpc ChangeStatus(ChangeStatusRequest) returns (StoreResponse);
+  rpc ChangePhone(ChangePhoneRequest) returns (StoreResponse);
+  rpc ChangeEmail(ChangeEmailRequest) returns (StoreResponse);
+}
