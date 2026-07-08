@@ -29,6 +29,13 @@ public class GrpcInterceptor implements ServerInterceptor {
             Metadata headers,
             ServerCallHandler<ReqT, RespT> next
     ) {
+        String fullMethodName = call.getMethodDescriptor().getServiceName();
+
+        if (isPublicService(fullMethodName)) {
+            log.debug("Skipping authentication for public service: {}", fullMethodName);
+            return next.startCall(call, headers);
+        }
+
         try {
             var consumerId = validateHeaders(ContextKeys.METADATA_CONSUMER_ID.name(),
                     headers.get(ContextKeys.METADATA_CONSUMER_ID));
@@ -45,7 +52,7 @@ public class GrpcInterceptor implements ServerInterceptor {
 
             setAuthentication(jwtUser);
 
-            validateMethodPermission(call.getMethodDescriptor().getFullMethodName(), jwtUser);
+            validateMethodPermission(fullMethodName, jwtUser);
 
             Context context = Context.current()
                     .withValue(ContextKeys.CORRELATION_ID_CONTEXT_KEY, correlationId)
@@ -109,5 +116,9 @@ public class GrpcInterceptor implements ServerInterceptor {
         if (requiredPermission != null) {
             jwtUser.validatePermission(requiredPermission);
         }
+    }
+
+    private boolean isPublicService(String fullMethodName) {
+        return PUBLIC_SERVICE_METHODS.contains(fullMethodName);
     }
 }

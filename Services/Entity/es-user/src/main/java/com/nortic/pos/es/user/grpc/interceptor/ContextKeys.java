@@ -4,6 +4,7 @@ import com.nortic.pos.es.user.security.SecurityConstants;
 import io.grpc.Context;
 import io.grpc.Metadata;
 
+import java.util.List;
 import java.util.Map;
 
 public final class ContextKeys {
@@ -51,5 +52,10 @@ public final class ContextKeys {
             Map.entry(GRPC_SERVICE + "/ChangeEmail", SecurityConstants.PERMISSION_USER_UPDATE),
             Map.entry(GRPC_SERVICE + "/ChangeUsername", SecurityConstants.PERMISSION_USER_UPDATE),
             Map.entry(GRPC_SERVICE + "/ChangeUserPassword", SecurityConstants.PERMISSION_USER_UPDATE)
+    );
+
+    public static final List<String> PUBLIC_SERVICE_METHODS = List.of(
+            "grpc.reflection.v1.ServerReflection",
+            "grpc.health.v1.Health"
     );
 }
