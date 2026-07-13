@@ -31,7 +31,7 @@ public class StoreEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private UserEntity ownerId;
 
-    @Column(name = "tax_id", nullable = false, length = 100)
+    @Column(name = "tax_id", nullable = false, length = 100, unique = true)
     private String taxId;
 
     @Column(name = "name", nullable = false, length = 255)
@@ -58,10 +58,10 @@ public class StoreEntity {
     @Column(name = "city", length = 100)
     private String city;
 
-    @Column(name = "phone_number", length = 50)
+    @Column(name = "phone_number", length = 50, unique = true)
     private String phoneNumber;
 
-    @Column(name = "email", length = 255)
+    @Column(name = "email", length = 255, unique = true)
     private String email;
 
     @Column(name = "is_active", nullable = false)

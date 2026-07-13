@@ -1,11 +1,14 @@
 package com.nortic.pos.es.store.controller;
 
+import com.nortic.pos.es.store.dto.request.RequestContextDTO;
+import com.nortic.pos.es.store.mapper.StoreRestMapper;
 import com.nortic.pos.es.store.rest.gen.api.StoreApi;
 import com.nortic.pos.es.store.rest.gen.model.*;
 import com.nortic.pos.es.store.service.contract.StoreService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jspecify.annotations.Nullable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,6 +21,7 @@ import java.util.UUID;
 public class StoreController implements StoreApi {
 
     private final StoreService storeService;
+    private final StoreRestMapper storeRestMapper;
 
     @Override
     public ResponseEntity<RestModelStoreResponseDTO> changeEmail(UUID correlationId, String consumerId, UUID id, RestModelEmailRequestDTO restModelEmailRequestDTO) {
@@ -36,7 +40,22 @@ public class StoreController implements StoreApi {
 
     @Override
     public ResponseEntity<RestModelStoreResponseDTO> createStore(UUID correlationId, String consumerId, RestModelStoreRequestDTO restModelStoreRequestDTO) {
-        return null;
+
+        log.info("Create store controller ...");
+
+        var storeDTO = storeRestMapper.toStoreDTO(restModelStoreRequestDTO);
+
+        var requestContextDTO = RequestContextDTO.builder()
+                .correlationId(correlationId)
+                .consumerId(consumerId)
+                .build();
+
+        var createdStoreDTO = storeService.createStore(requestContextDTO, storeDTO);
+
+        log.info("Create store controller completed ...");
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(storeRestMapper.toStoreResponseDTO(createdStoreDTO));
     }
 
     @Override
