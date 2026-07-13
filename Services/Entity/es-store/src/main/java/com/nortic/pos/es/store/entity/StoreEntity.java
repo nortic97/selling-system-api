@@ -34,19 +34,19 @@ public class StoreEntity {
     @Column(name = "tax_id", nullable = false, length = 100, unique = true)
     private String taxId;
 
-    @Column(name = "name", nullable = false, length = 255)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "description", length = 1000)
     private String description;
 
-    @Column(name = "slogan", length = 255)
+    @Column(name = "slogan")
     private String slogan;
 
     @Column(name = "logo", length = 2000)
     private String logo;
 
-    @Column(name = "address", length = 255)
+    @Column(name = "address")
     private String address;
 
     @Column(name = "country", length = 100)
@@ -61,7 +61,7 @@ public class StoreEntity {
     @Column(name = "phone_number", length = 50, unique = true)
     private String phoneNumber;
 
-    @Column(name = "email", length = 255, unique = true)
+    @Column(name = "email", unique = true)
     private String email;
 
     @Column(name = "is_active", nullable = false)
