@@ -20,13 +20,13 @@ servers:
         default: "8080"
 
 paths:
-  /api/v1/stores:
+  /api/v1/store:
     post:
       summary: Crear una nueva tienda
       description: Crea una nueva tienda en el sistema
       operationId: createStore
       tags:
-        - Stores
+        - Store
       parameters:
         - $ref: '#/components/parameters/CorrelationIdHeader'
         - $ref: '#/components/parameters/ConsumerIdHeader'
@@ -61,7 +61,7 @@ paths:
       description: Obtiene una lista paginada de todas las tiendas
       operationId: listStores
       tags:
-        - Stores
+        - Store
       parameters:
         - $ref: '#/components/parameters/CorrelationIdHeader'
         - $ref: '#/components/parameters/ConsumerIdHeader'
@@ -104,13 +104,13 @@ paths:
         '500':
           $ref: '#/components/responses/500InternalServerError'
 
-  /api/v1/stores/{id}:
+  /api/v1/store/{id}:
     get:
       summary: Obtener una tienda por ID
       description: Obtiene los detalles de una tienda específica
       operationId: getStore
       tags:
-        - Stores
+        - Store
       parameters:
         - $ref: '#/components/parameters/CorrelationIdHeader'
         - $ref: '#/components/parameters/ConsumerIdHeader'
@@ -140,7 +140,7 @@ paths:
       description: Elimina una tienda del sistema (soft delete)
       operationId: deleteStore
       tags:
-        - Stores
+        - Store
       parameters:
         - $ref: '#/components/parameters/CorrelationIdHeader'
         - $ref: '#/components/parameters/ConsumerIdHeader'
@@ -161,13 +161,13 @@ paths:
         '500':
           $ref: '#/components/responses/500InternalServerError'
 
-  /api/v1/stores/{id}/status:
+  /api/v1/store/{id}/status:
     patch:
       summary: Actualizar estado de una tienda
       description: Activa o desactiva una tienda
       operationId: changeStatus
       tags:
-        - Stores
+        - Store
       parameters:
         - $ref: '#/components/parameters/CorrelationIdHeader'
         - $ref: '#/components/parameters/ConsumerIdHeader'
@@ -200,13 +200,13 @@ paths:
         '500':
           $ref: '#/components/responses/500InternalServerError'
 
-  /api/v1/stores/{id}/phone:
+  /api/v1/store/{id}/phone:
     patch:
       summary: Cambiar número de teléfono de una tienda
       description: Actualiza el número de teléfono de una tienda existente
       operationId: changePhone
       tags:
-        - Stores
+        - Store
       parameters:
         - $ref: '#/components/parameters/CorrelationIdHeader'
         - $ref: '#/components/parameters/ConsumerIdHeader'
@@ -239,13 +239,13 @@ paths:
         '500':
           $ref: '#/components/responses/500InternalServerError'
 
-  /api/v1/stores/{id}/email:
+  /api/v1/store/{id}/email:
     patch:
       summary: Cambiar correo electrónico de una tienda
       description: Actualiza el correo electrónico de una tienda existente
       operationId: changeEmail
       tags:
-        - Stores
+        - Store
       parameters:
         - $ref: '#/components/parameters/CorrelationIdHeader'
         - $ref: '#/components/parameters/ConsumerIdHeader'
