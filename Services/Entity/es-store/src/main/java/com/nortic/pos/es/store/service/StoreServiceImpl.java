@@ -25,7 +25,13 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     public StoreDTO getStore(RequestContextDTO requestContextDTO, UUID id) {
-        return null;
+        log.info("Get store by id {} service ...", id);
+
+        var store = storeValidationService.validateAndGetStore(id);
+
+        log.info("Get store by id {} service completed ...", id);
+
+        return storeEntityMapper.toStoreDTO(store);
     }
 
     @Override
