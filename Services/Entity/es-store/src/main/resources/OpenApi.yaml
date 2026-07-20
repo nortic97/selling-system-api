@@ -59,7 +59,7 @@ paths:
     get:
       summary: Listar todas las tiendas
       description: Obtiene una lista paginada de todas las tiendas
-      operationId: listStores
+      operationId: getAllStores
       tags:
         - Store
       parameters:
@@ -74,31 +74,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  content:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/StoreResponseDTO'
-                  totalElements:
-                    type: integer
-                    format: int64
-                    example: 125
-                  totalPages:
-                    type: integer
-                    example: 13
-                  size:
-                    type: integer
-                    example: 10
-                  number:
-                    type: integer
-                    example: 0
-                  first:
-                    type: boolean
-                    example: true
-                  last:
-                    type: boolean
-                    example: false
+                $ref: '#/components/schemas/PaginatedStoreResponseDTO'
         '403':
           $ref: '#/components/responses/403Forbidden'
         '500':
@@ -532,6 +508,33 @@ components:
           format: date-time
           nullable: true
           description: Fecha de eliminación (soft delete)
+
+    PaginatedStoreResponseDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/StoreResponseDTO'
+        totalElements:
+          type: integer
+          format: int64
+          example: 125
+        totalPages:
+          type: integer
+          example: 13
+        size:
+          type: integer
+          example: 10
+        number:
+          type: integer
+          example: 0
+        first:
+          type: boolean
+          example: true
+        last:
+          type: boolean
+          example: false
 
     FieldErrorDetailDTO:
       type: object

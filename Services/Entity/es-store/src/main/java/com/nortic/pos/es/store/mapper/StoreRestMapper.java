@@ -1,6 +1,8 @@
 package com.nortic.pos.es.store.mapper;
 
+import com.nortic.pos.es.store.dto.response.PaginatedStoreResponseDTO;
 import com.nortic.pos.es.store.dto.response.StoreDTO;
+import com.nortic.pos.es.store.rest.gen.model.RestModelPaginatedStoreResponseDTO;
 import com.nortic.pos.es.store.rest.gen.model.RestModelStoreRequestDTO;
 import com.nortic.pos.es.store.rest.gen.model.RestModelStoreResponseDTO;
 import org.mapstruct.Mapper;
@@ -21,5 +23,7 @@ public abstract class StoreRestMapper {
     public abstract StoreDTO toStoreDTO(RestModelStoreRequestDTO store);
 
     public abstract RestModelStoreResponseDTO toStoreResponseDTO(StoreDTO store);
+
+    public abstract RestModelPaginatedStoreResponseDTO toListStoresResponseDTO(PaginatedStoreResponseDTO paginatedStoreResponseDTO);
 
 }

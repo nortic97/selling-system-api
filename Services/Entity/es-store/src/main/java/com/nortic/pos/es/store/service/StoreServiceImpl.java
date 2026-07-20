@@ -1,6 +1,8 @@
 package com.nortic.pos.es.store.service;
 
+import com.nortic.pos.es.store.dto.SearchParamsDTO;
 import com.nortic.pos.es.store.dto.request.RequestContextDTO;
+import com.nortic.pos.es.store.dto.response.PaginatedStoreResponseDTO;
 import com.nortic.pos.es.store.dto.response.StoreDTO;
 import com.nortic.pos.es.store.mapper.StoreEntityMapper;
 import com.nortic.pos.es.store.repository.StoreRepository;
@@ -48,6 +50,17 @@ public class StoreServiceImpl implements StoreService {
         log.info("Create store service completed ...");
 
         return storeEntityMapper.toStoreDTO(savedStoreEntity);
+    }
+
+    @Override
+    public PaginatedStoreResponseDTO listStores(RequestContextDTO requestContextDTO, SearchParamsDTO searchParamsDTO) {
+        log.info("List stores service ...");
+
+        var stores = storeRepository.findAll(searchParamsDTO.getPageable());
+
+        log.info("List stores service completed ... ");
+
+        return storeEntityMapper.toListStoreDTO(stores);
     }
 
 }

@@ -1,10 +1,12 @@
 package com.nortic.pos.es.store.controller;
 
+import com.nortic.pos.es.store.dto.SearchParamsDTO;
 import com.nortic.pos.es.store.dto.request.RequestContextDTO;
 import com.nortic.pos.es.store.mapper.StoreRestMapper;
 import com.nortic.pos.es.store.rest.gen.api.StoreApi;
 import com.nortic.pos.es.store.rest.gen.model.*;
 import com.nortic.pos.es.store.service.contract.StoreService;
+import com.nortic.pos.es.store.util.PageableUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jspecify.annotations.Nullable;
@@ -79,7 +81,22 @@ public class StoreController implements StoreApi {
     }
 
     @Override
-    public ResponseEntity<RestModelListStores200Response> listStores(UUID correlationId, String consumerId, Integer page, Integer size, @Nullable List<String> sort) {
-        return null;
+    public ResponseEntity<RestModelPaginatedStoreResponseDTO> getAllStores(UUID correlationId, String consumerId, Integer page, Integer size, @Nullable List<String> sort) {
+        log.info("List stores controller ...");
+
+        var requestContextDTO = RequestContextDTO.builder()
+                .correlationId(correlationId)
+                .consumerId(consumerId)
+                .build();
+
+        var pagination = SearchParamsDTO.builder()
+                .pageable(PageableUtil.buildPageable(page, size, sort))
+                .build();
+
+        var storesDTO = storeService.listStores(requestContextDTO, pagination);
+
+        log.info("List stores controller completed ...");
+
+        return ResponseEntity.ok(storeRestMapper.toListStoresResponseDTO(storesDTO));
     }
 }
