@@ -11,7 +11,7 @@
     <springProperty
             scope="context"
             name="env"
-            source="application.env"/>
+            source="spring.application.env"/>
 
     <springProperty
             scope="context"
