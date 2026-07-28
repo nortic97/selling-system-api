@@ -11,6 +11,7 @@ import com.nortic.pos.es.store.service.contract.StoreValidationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -61,6 +62,18 @@ public class StoreServiceImpl implements StoreService {
         log.info("List stores service completed ... ");
 
         return storeEntityMapper.toListStoreDTO(stores);
+    }
+
+    @Override
+    @Transactional
+    public void deleteStore(RequestContextDTO requestContextDTO, UUID id) {
+        log.info("Delete store service... ");
+
+        var storeEntity = storeValidationService.validateAndGetStore(id);
+
+        storeRepository.delete(storeEntity);
+
+        log.info("Delete store service completed ... ");
     }
 
 }

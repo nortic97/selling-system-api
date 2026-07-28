@@ -14,4 +14,6 @@ public interface StoreService {
     StoreDTO createStore(RequestContextDTO requestContextDTO, StoreDTO storeDTO);
 
     PaginatedStoreResponseDTO listStores(RequestContextDTO requestContextDTO, SearchParamsDTO searchParamsDTO);
+
+    void deleteStore(RequestContextDTO requestContextDTO, UUID id);
 }

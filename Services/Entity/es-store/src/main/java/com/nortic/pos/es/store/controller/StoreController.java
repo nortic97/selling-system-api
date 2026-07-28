@@ -62,7 +62,18 @@ public class StoreController implements StoreApi {
 
     @Override
     public ResponseEntity<Void> deleteStore(UUID correlationId, String consumerId, UUID id) {
-        return null;
+        log.info("Delete store controller ...");
+
+        var requestContextDTO = RequestContextDTO.builder()
+                .correlationId(correlationId)
+                .consumerId(consumerId)
+                .build();
+
+        storeService.deleteStore(requestContextDTO, id);
+
+        log.info("Delete store controller completed ...");
+
+        return ResponseEntity.noContent().build();
     }
 
     @Override
