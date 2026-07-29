@@ -36,6 +36,19 @@ message EmailRequest {
   string email = 1;
 }
 
+message UpdateStoreRequest {
+  string id = 1;
+  string tax_id = 2;
+  string name = 3;
+  string description = 4;
+  string slogan = 5;
+  string logo = 6;
+  string address = 7;
+  string country = 8;
+  string state_province = 9;
+  string city = 10;
+}
+
 message StoreIdRequest {
   string id = 1;
 }
@@ -108,6 +121,7 @@ service StoreService {
   rpc CreateStore(StoreRequest) returns (StoreResponse);
   rpc ListStores(PaginationRequest) returns (PaginatedStoreResponse);
   rpc GetStore(StoreIdRequest) returns (StoreResponse);
+  rpc UpdateStore(UpdateStoreRequest) returns (StoreResponse);
   rpc DeleteStore(StoreIdRequest) returns (google.protobuf.Empty);
   rpc ChangeStatus(ChangeStatusRequest) returns (StoreResponse);
   rpc ChangePhone(ChangePhoneRequest) returns (StoreResponse);

@@ -105,6 +105,38 @@ paths:
         '500':
           $ref: '#/components/responses/500InternalServerError'
 
+    put:
+      summary: Actualizar una tienda
+      description: Actualiza los datos de una tienda existente
+      operationId: updateStore
+      tags:
+        - Store
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+        - $ref: '#/components/parameters/StoreIdPathParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateStoreRequestDTO'
+      responses:
+        '200':
+          description: Tienda actualizada exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StoreResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
     delete:
       summary: Eliminar una tienda
       description: Elimina una tienda del sistema (soft delete)
@@ -452,6 +484,59 @@ components:
           description: Correo electrónico de la tienda
           maxLength: 100
           x-field-extra-annotation: '@NotBlank @Email @Size(max = 100)'
+
+    UpdateStoreRequestDTO:
+      type: object
+      required:
+        - name
+        - taxId
+      properties:
+        taxId:
+          type: string
+          description: Identificación fiscal de la tienda (RUC/NIT/RFC)
+          maxLength: 100
+          x-field-extra-annotation: '@NotBlank @Size(max = 100)'
+        name:
+          type: string
+          description: Nombre de la tienda
+          minLength: 3
+          maxLength: 255
+          x-field-extra-annotation: '@NotBlank @Size(min = 3, max = 255)'
+        description:
+          type: string
+          description: Descripción de la tienda
+          maxLength: 1000
+          x-field-extra-annotation: '@Size(max = 1000)'
+        slogan:
+          type: string
+          description: Eslogan de la tienda
+          maxLength: 255
+          x-field-extra-annotation: '@Size(max = 255)'
+        logo:
+          type: string
+          description: URL del logo de la tienda
+          maxLength: 2000
+          x-field-extra-annotation: '@Size(max = 2000)'
+        address:
+          type: string
+          description: Dirección física de la tienda
+          maxLength: 255
+          x-field-extra-annotation: '@Size(max = 255)'
+        country:
+          type: string
+          description: País de la tienda
+          maxLength: 100
+          x-field-extra-annotation: '@Size(max = 100)'
+        stateProvince:
+          type: string
+          description: Estado/Provincia de la tienda
+          maxLength: 100
+          x-field-extra-annotation: '@Size(max = 100)'
+        city:
+          type: string
+          description: Ciudad de la tienda
+          maxLength: 100
+          x-field-extra-annotation: '@Size(max = 100)'
 
     StoreResponseDTO:
       type: object

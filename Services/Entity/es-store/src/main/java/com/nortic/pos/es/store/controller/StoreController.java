@@ -147,6 +147,24 @@ public class StoreController implements StoreApi {
     }
 
     @Override
+    public ResponseEntity<RestModelStoreResponseDTO> updateStore(UUID correlationId, String consumerId, UUID id, RestModelUpdateStoreRequestDTO restModelUpdateStoreRequestDTO) {
+        log.info("Update store controller ... ");
+
+        var requestContextDTO = RequestContextDTO.builder()
+                .correlationId(correlationId)
+                .consumerId(consumerId)
+                .build();
+
+        var storeDTO = storeRestMapper.toUpdateStoreRequestDTO(restModelUpdateStoreRequestDTO);
+
+        var updatedStoreDTO = storeService.updateStore(requestContextDTO, id, storeDTO);
+
+        log.info("Update store controller completed ... ");
+
+        return ResponseEntity.ok(storeRestMapper.toStoreResponseDTO(updatedStoreDTO));
+    }
+
+    @Override
     public ResponseEntity<RestModelPaginatedStoreResponseDTO> getAllStores(UUID correlationId, String consumerId, Integer page, Integer size, @Nullable List<String> sort) {
         log.info("List stores controller ...");
 

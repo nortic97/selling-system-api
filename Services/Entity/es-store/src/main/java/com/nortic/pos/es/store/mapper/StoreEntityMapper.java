@@ -3,15 +3,12 @@ package com.nortic.pos.es.store.mapper;
 import com.nortic.pos.es.store.dto.response.PaginatedStoreResponseDTO;
 import com.nortic.pos.es.store.dto.response.StoreDTO;
 import com.nortic.pos.es.store.entity.StoreEntity;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
-import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.*;
 import org.springframework.data.domain.Page;
 
 @Mapper(
         componentModel = "spring",
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.SET_TO_DEFAULT
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
 )
 public abstract class StoreEntityMapper {
 
@@ -25,6 +22,9 @@ public abstract class StoreEntityMapper {
 
     @Mapping(target = "number", expression = "java(page.getNumber() + 1)")
     public abstract PaginatedStoreResponseDTO toListStoreDTO(Page<StoreEntity> page);
+
+    @Mapping(target = "ownerId.id", source = "ownerId")
+    public abstract void updateStoreFromDTO(StoreDTO storeDTO, @MappingTarget StoreEntity storeEntity);
 
     @Named("toLowerCase")
     protected String toLowerCase(String value) {

@@ -12,7 +12,7 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 
 @Mapper(
         componentModel = "spring",
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.SET_TO_DEFAULT
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
 )
 public abstract class StoreRestMapper {
 
@@ -32,4 +32,14 @@ public abstract class StoreRestMapper {
     public abstract ChangePhoneRequestDTO toChangePhoneRequestDTO(RestModelPhoneRequestDTO restModelPhoneRequestDTO);
 
     public abstract ChangeStatusRequestDTO toChangeStatusRequestDTO(RestModelStatusRequest restModelStatusRequest);
+
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "phoneNumber", ignore = true)
+    @Mapping(target = "ownerId", ignore = true)
+    @Mapping(target = "isActive", ignore = true)
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "email", ignore = true)
+    @Mapping(target = "deletedAt", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    public abstract StoreDTO toUpdateStoreRequestDTO(RestModelUpdateStoreRequestDTO restModelUpdateStoreRequestDTO);
 }
