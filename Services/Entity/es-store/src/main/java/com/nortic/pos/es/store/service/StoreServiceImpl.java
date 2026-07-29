@@ -1,9 +1,14 @@
 package com.nortic.pos.es.store.service;
 
 import com.nortic.pos.es.store.dto.SearchParamsDTO;
+import com.nortic.pos.es.store.dto.request.ChangeEmailRequestDTO;
+import com.nortic.pos.es.store.dto.request.ChangePhoneRequestDTO;
+import com.nortic.pos.es.store.dto.request.ChangeStatusRequestDTO;
 import com.nortic.pos.es.store.dto.request.RequestContextDTO;
 import com.nortic.pos.es.store.dto.response.PaginatedStoreResponseDTO;
 import com.nortic.pos.es.store.dto.response.StoreDTO;
+import com.nortic.pos.es.store.exception.BusinessException;
+import com.nortic.pos.es.store.exception.ExceptionCode;
 import com.nortic.pos.es.store.mapper.StoreEntityMapper;
 import com.nortic.pos.es.store.repository.StoreRepository;
 import com.nortic.pos.es.store.service.contract.StoreService;
@@ -75,5 +80,71 @@ public class StoreServiceImpl implements StoreService {
 
         log.info("Delete store service completed ... ");
     }
+
+    @Override
+    @Transactional
+    public StoreDTO restoreStore(RequestContextDTO requestContextDTO, UUID id) {
+        log.info("Restore store service ... ");
+
+        var store = storeRepository.findByIdIncludingDeleted(id).orElseThrow(() ->
+                new BusinessException(ExceptionCode.STORE_NOT_FOUND));
+
+        store.setIsActive(Boolean.TRUE);
+        store.setDeletedAt(null);
+
+        log.info("Restore store service completed ... ");
+        return storeEntityMapper.toStoreDTO(store);
+    }
+
+    @Override
+    public StoreDTO updateStore(RequestContextDTO requestContextDTO, UUID id, StoreDTO storeDTO) {
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public StoreDTO changeStatus(RequestContextDTO requestContextDTO, UUID id, ChangeStatusRequestDTO changeStatusRequestDTO) {
+        log.info("Change status service ... ");
+
+        var storeEntity = storeValidationService.validateAndGetStore(id);
+
+        storeEntity.setIsActive(changeStatusRequestDTO.getActive());
+
+        log.info("Change status service completed ... ");
+
+        return storeEntityMapper.toStoreDTO(storeEntity);
+    }
+
+    @Override
+    @Transactional
+    public StoreDTO changeEmail(RequestContextDTO requestContextDTO, UUID id, ChangeEmailRequestDTO changeEmailRequestDTO) {
+        log.info("Change email service ... ");
+
+        var storeEntity = storeValidationService.validateAndGetStore(id);
+
+        storeValidationService.validateEmail(changeEmailRequestDTO.getEmail(), id);
+
+        storeEntity.setEmail(changeEmailRequestDTO.getEmail());
+
+        log.info("Change email service completed ... ");
+
+        return storeEntityMapper.toStoreDTO(storeEntity);
+    }
+
+    @Override
+    public StoreDTO changePhone(RequestContextDTO requestContextDTO, UUID id, ChangePhoneRequestDTO changePhoneRequestDTO) {
+        log.info("Change phone service ... ");
+
+        var storeEntity = storeValidationService.validateAndGetStore(id);
+
+        storeValidationService.validatePhone(changePhoneRequestDTO.getPhone(), id);
+
+        storeEntity.setPhoneNumber(changePhoneRequestDTO.getPhone());
+
+        log.info("Change phone service completed ... ");
+
+        return storeEntityMapper.toStoreDTO(storeEntity);
+    }
+
 
 }

@@ -1,10 +1,11 @@
 package com.nortic.pos.es.store.mapper;
 
+import com.nortic.pos.es.store.dto.request.ChangeEmailRequestDTO;
+import com.nortic.pos.es.store.dto.request.ChangePhoneRequestDTO;
+import com.nortic.pos.es.store.dto.request.ChangeStatusRequestDTO;
 import com.nortic.pos.es.store.dto.response.PaginatedStoreResponseDTO;
 import com.nortic.pos.es.store.dto.response.StoreDTO;
-import com.nortic.pos.es.store.rest.gen.model.RestModelPaginatedStoreResponseDTO;
-import com.nortic.pos.es.store.rest.gen.model.RestModelStoreRequestDTO;
-import com.nortic.pos.es.store.rest.gen.model.RestModelStoreResponseDTO;
+import com.nortic.pos.es.store.rest.gen.model.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.NullValuePropertyMappingStrategy;
@@ -26,4 +27,9 @@ public abstract class StoreRestMapper {
 
     public abstract RestModelPaginatedStoreResponseDTO toListStoresResponseDTO(PaginatedStoreResponseDTO paginatedStoreResponseDTO);
 
+    public abstract ChangeEmailRequestDTO toChangeEmailRequestDTO(RestModelEmailRequestDTO restModelEmailRequestDTO);
+
+    public abstract ChangePhoneRequestDTO toChangePhoneRequestDTO(RestModelPhoneRequestDTO restModelPhoneRequestDTO);
+
+    public abstract ChangeStatusRequestDTO toChangeStatusRequestDTO(RestModelStatusRequest restModelStatusRequest);
 }

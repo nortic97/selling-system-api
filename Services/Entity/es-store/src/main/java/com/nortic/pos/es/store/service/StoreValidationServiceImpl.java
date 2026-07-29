@@ -21,9 +21,7 @@ public class StoreValidationServiceImpl implements StoreValidationService {
 
     @Override
     public StoreEntity validateAndGetStore(UUID id) {
-        return storeRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(ExceptionCode.STORE_NOT_FOUND)
-                );
+        return storeRepository.findById(id).orElseThrow(() -> new BusinessException(ExceptionCode.STORE_NOT_FOUND));
     }
 
     @Override
@@ -44,11 +42,27 @@ public class StoreValidationServiceImpl implements StoreValidationService {
             throw new BusinessException(ExceptionCode.PHONE_ALREADY_EXISTS);
         }
 
-        if (storeRepository.existsByEmail(storeDTO.getEmail())) {
+        if (storeRepository.existsByEmailIgnoreCase(storeDTO.getEmail())) {
             log.error("Email {} already exists", storeDTO.getEmail());
             throw new BusinessException(ExceptionCode.EMAIL_ALREADY_EXISTS);
         }
 
+    }
+
+    @Override
+    public void validateEmail(String email, UUID id) {
+        if (storeRepository.existsByEmailIgnoreCaseAndIdNot(email, id)) {
+            log.error("Email {} already exists", email);
+            throw new BusinessException(ExceptionCode.EMAIL_ALREADY_EXISTS);
+        }
+    }
+
+    @Override
+    public void validatePhone(String phone, UUID id) {
+        if (storeRepository.existsByPhoneNumberAndIdNot(phone, id)) {
+            log.error("Phone number {} already exists", phone);
+            throw new BusinessException(ExceptionCode.PHONE_ALREADY_EXISTS);
+        }
     }
 
 }

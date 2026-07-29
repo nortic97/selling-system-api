@@ -112,4 +112,5 @@ service StoreService {
   rpc ChangeStatus(ChangeStatusRequest) returns (StoreResponse);
   rpc ChangePhone(ChangePhoneRequest) returns (StoreResponse);
   rpc ChangeEmail(ChangeEmailRequest) returns (StoreResponse);
+  rpc RestoreStore(StoreIdRequest) returns (StoreResponse);
 }

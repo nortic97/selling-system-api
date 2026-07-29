@@ -27,17 +27,56 @@ public class StoreController implements StoreApi {
 
     @Override
     public ResponseEntity<RestModelStoreResponseDTO> changeEmail(UUID correlationId, String consumerId, UUID id, RestModelEmailRequestDTO restModelEmailRequestDTO) {
-        return null;
+        log.info("Change email controller ... ");
+
+        var requestContextDTO = RequestContextDTO.builder()
+                .correlationId(correlationId)
+                .consumerId(consumerId)
+                .build();
+
+        var changeEmailRequestDTO = storeRestMapper.toChangeEmailRequestDTO(restModelEmailRequestDTO);
+
+        var storeDTO = storeService.changeEmail(requestContextDTO, id, changeEmailRequestDTO);
+
+        log.info("Change email controller completed ... ");
+
+        return ResponseEntity.ok(storeRestMapper.toStoreResponseDTO(storeDTO));
     }
 
     @Override
     public ResponseEntity<RestModelStoreResponseDTO> changePhone(UUID correlationId, String consumerId, UUID id, RestModelPhoneRequestDTO restModelPhoneRequestDTO) {
-        return null;
+        log.info("Change phone controller ... ");
+
+        var requestContextDTO = RequestContextDTO.builder()
+                .correlationId(correlationId)
+                .consumerId(consumerId)
+                .build();
+
+        var changePhoneRequestDTO = storeRestMapper.toChangePhoneRequestDTO(restModelPhoneRequestDTO);
+
+        var storeDTO = storeService.changePhone(requestContextDTO, id, changePhoneRequestDTO);
+
+        log.info("Change phone controller completed ... ");
+
+        return ResponseEntity.ok(storeRestMapper.toStoreResponseDTO(storeDTO));
     }
 
     @Override
     public ResponseEntity<RestModelStoreResponseDTO> changeStatus(UUID correlationId, String consumerId, UUID id, RestModelStatusRequest restModelStatusRequest) {
-        return null;
+        log.info("Change status controller ... ");
+
+        var requestContextDTO = RequestContextDTO.builder()
+                .correlationId(correlationId)
+                .consumerId(consumerId)
+                .build();
+
+        var changeStatusRequestDTO = storeRestMapper.toChangeStatusRequestDTO(restModelStatusRequest);
+
+        var storeDTO = storeService.changeStatus(requestContextDTO, id, changeStatusRequestDTO);
+
+        log.info("Change status controller completed ... ");
+
+        return ResponseEntity.ok(storeRestMapper.toStoreResponseDTO(storeDTO));
     }
 
     @Override
@@ -88,6 +127,22 @@ public class StoreController implements StoreApi {
         var storeDTO = storeService.getStore(requestContextDTO, id);
 
         log.info("Get store controller completed ...");
+        return ResponseEntity.ok(storeRestMapper.toStoreResponseDTO(storeDTO));
+    }
+
+    @Override
+    public ResponseEntity<RestModelStoreResponseDTO> restoreStore(UUID correlationId, String consumerId, UUID id) {
+        log.info("Restore store controller ...");
+
+        var requestContextDTO = RequestContextDTO.builder()
+                .correlationId(correlationId)
+                .consumerId(consumerId)
+                .build();
+
+        var storeDTO = storeService.restoreStore(requestContextDTO, id);
+
+        log.info("Restore store controller completed ...");
+
         return ResponseEntity.ok(storeRestMapper.toStoreResponseDTO(storeDTO));
     }
 

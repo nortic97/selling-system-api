@@ -11,4 +11,8 @@ public interface StoreValidationService {
 
     void validateNewStore(StoreDTO storeDTO);
 
+    void validateEmail(String email, UUID id);
+
+    void validatePhone(String phone, UUID id);
+
 }

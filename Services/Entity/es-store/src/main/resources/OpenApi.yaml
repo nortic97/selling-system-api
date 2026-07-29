@@ -90,13 +90,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/CorrelationIdHeader'
         - $ref: '#/components/parameters/ConsumerIdHeader'
-        - name: id
-          in: path
-          required: true
-          description: ID de la tienda (UUID)
-          schema:
-            type: string
-            format: uuid
+        - $ref: '#/components/parameters/StoreIdPathParam'
       responses:
         '200':
           description: Detalles de la tienda
@@ -120,13 +114,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/CorrelationIdHeader'
         - $ref: '#/components/parameters/ConsumerIdHeader'
-        - name: id
-          in: path
-          required: true
-          description: ID de la tienda (UUID)
-          schema:
-            type: string
-            format: uuid
+        - $ref: '#/components/parameters/StoreIdPathParam'
       responses:
         '204':
           description: Tienda eliminada exitosamente
@@ -147,13 +135,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/CorrelationIdHeader'
         - $ref: '#/components/parameters/ConsumerIdHeader'
-        - name: id
-          in: path
-          required: true
-          description: ID de la tienda (UUID)
-          schema:
-            type: string
-            format: uuid
+        - $ref: '#/components/parameters/StoreIdPathParam'
       requestBody:
         required: true
         content:
@@ -186,13 +168,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/CorrelationIdHeader'
         - $ref: '#/components/parameters/ConsumerIdHeader'
-        - name: id
-          in: path
-          required: true
-          description: ID de la tienda (UUID)
-          schema:
-            type: string
-            format: uuid
+        - $ref: '#/components/parameters/StoreIdPathParam'
       requestBody:
         required: true
         content:
@@ -225,13 +201,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/CorrelationIdHeader'
         - $ref: '#/components/parameters/ConsumerIdHeader'
-        - name: id
-          in: path
-          required: true
-          description: ID de la tienda (UUID)
-          schema:
-            type: string
-            format: uuid
+        - $ref: '#/components/parameters/StoreIdPathParam'
       requestBody:
         required: true
         content:
@@ -241,6 +211,33 @@ paths:
       responses:
         '200':
           description: Email actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StoreResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+  /api/v1/store/{id}/restore:
+    patch:
+      summary: Restaurar una tienda eliminada
+      description: Restaura una tienda que fue eliminada (soft delete)
+      operationId: restoreStore
+      tags:
+        - Store
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+        - $ref: '#/components/parameters/StoreIdPathParam'
+      responses:
+        '200':
+          description: Tienda restaurada exitosamente
           content:
             application/json:
               schema:
@@ -317,6 +314,14 @@ components:
       style: form
       explode: true
       x-spring-paginated: true
+    StoreIdPathParam:
+      name: id
+      in: path
+      required: true
+      description: ID de la tienda (UUID)
+      schema:
+        type: string
+        format: uuid
 
   responses:
     400BadRequest:
