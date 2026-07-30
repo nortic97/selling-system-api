@@ -47,7 +47,10 @@ public class SecurityFilterConfig {
                         .hasAuthority(SecurityConstants.PERMISSION_USER_CREATE)
 
                         .requestMatchers(HttpMethod.PUT,
-                                SecurityConstants.USER_ID,
+                                SecurityConstants.USER_ID)
+                        .hasAuthority(SecurityConstants.PERMISSION_USER_UPDATE)
+
+                        .requestMatchers(HttpMethod.PATCH,
                                 SecurityConstants.USER_CHANGE_PASSWORD,
                                 SecurityConstants.USER_CHANGE_USERNAME,
                                 SecurityConstants.USER_CHANGE_EMAIL,
@@ -59,7 +62,7 @@ public class SecurityFilterConfig {
                                 SecurityConstants.USER_ID)
                         .hasAuthority(SecurityConstants.PERMISSION_USER_DELETE)
 
-                        .requestMatchers(HttpMethod.PUT,
+                        .requestMatchers(HttpMethod.PATCH,
                                 SecurityConstants.USER_RESTORE)
                         .hasAuthority(SecurityConstants.PERMISSION_USER_DELETE)
 
