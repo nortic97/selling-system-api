@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: ${APPLICATION_NAME:us-eureka-server}
+    env: ${ENV:local}
+
+server:
+  port: ${PORT:8761}
+
+eureka:
+  instance:
+    hostname: eureka
+  client:
+    register-with-eureka: false
+    fetch-registry: false
