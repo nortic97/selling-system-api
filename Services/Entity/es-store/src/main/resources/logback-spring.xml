@@ -40,7 +40,7 @@
               class="ch.qos.logback.core.rolling.RollingFileAppender">
 
         <!-- Current log file -->
-        <file>logs/${applicationName}.log</file>
+        <file>logs/${applicationName}/${applicationName}.log</file>
 
         <!-- Rolling policy -->
         <rollingPolicy
@@ -48,7 +48,7 @@
 
             <!-- Archived logs -->
             <fileNamePattern>
-                logs/archive/${applicationName}.%d{yyyy-MM-dd}.%i.log.gz
+                logs/${applicationName}/archive/${applicationName}.%d{yyyy-MM-dd}.%i.log.gz
             </fileNamePattern>
 
             <!-- Maximum size of each file -->
