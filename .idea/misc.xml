@@ -12,6 +12,8 @@
         <option value="$PROJECT_DIR$/Services/Utility/auth-us/pom.xml" />
         <option value="$PROJECT_DIR$/Services/Utility/models/pom.xml" />
         <option value="$PROJECT_DIR$/Services/Entity/es-user/pom.xml" />
+        <option value="$PROJECT_DIR$/Services/Entity/es-store/pom.xml" />
+        <option value="$PROJECT_DIR$/Services/Utility/us-eureka-server/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

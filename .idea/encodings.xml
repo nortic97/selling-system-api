@@ -2,6 +2,7 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/Services/Entity/branch-es/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Services/Entity/es-store/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Services/Entity/es-user/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Services/Entity/role-es/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Services/Entity/store-es/src/main/java" charset="UTF-8" />
@@ -9,5 +10,6 @@
     <file url="file://$PROJECT_DIR$/Services/Task/platform-initializer-ts/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Services/Utility/auth-us/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Services/Utility/models/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Services/Utility/us-eureka-server/src/main/java" charset="UTF-8" />
   </component>
 </project>

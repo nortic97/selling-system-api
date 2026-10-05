@@ -41,6 +41,16 @@ security:
   jwt:
     secret: ${JWT_SECRET:TjByNzFjUDBzXzIwMjZfQmFja2VuZF9Vc2VyX1NlcnZpY2VfSnd0X1NlY3JldF9WM19BOXhMMm1RN3BSOHRXNG5L}
 
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
+    registry-fetch-interval-seconds: 5
+  instance:
+    prefer-ip-address: true
+    metadata-map:
+      metrics-path: ${EUREKA_METRICS_PATH:/actuator/prometheus}
+
 management:
   endpoints:
     web:
