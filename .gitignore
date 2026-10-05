@@ -1,3 +1,4 @@
 ## Compile folder
 /dist
 /services/**.md
+/logs/

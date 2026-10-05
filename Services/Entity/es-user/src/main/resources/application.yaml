@@ -25,7 +25,7 @@ spring:
 
   grpc:
     server:
-      port: ${GRPC_PORT:9090}
+      port: ${GRPC_PORT:9091}
       health:
         enabled: true
       reflection:
@@ -44,7 +44,7 @@ security:
 eureka:
   client:
     service-url:
-      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
     registry-fetch-interval-seconds: 5
   instance:
     prefer-ip-address: true
