@@ -1,7 +1,9 @@
-<!--  Logback configuration file  -->
-<!-- This will send logs to Loki and also print them in the console -->
-
+<?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+
+    <!-- ========================= -->
+    <!-- Spring Properties         -->
+    <!-- ========================= -->
 
     <springProperty
             scope="context"
@@ -13,46 +15,77 @@
             name="env"
             source="spring.application.env"/>
 
-    <springProperty
-            scope="context"
-            name="lokiUrl"
-            source="loki.url"/>
 
-    <!-- Console Logging -->
-    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <!-- ========================= -->
+    <!-- Console                   -->
+    <!-- ========================= -->
+
+    <appender name="CONSOLE"
+              class="ch.qos.logback.core.ConsoleAppender">
+
         <encoder>
             <pattern>
-                %d{HH:mm:ss.SSS} %cyan([%thread]) %highlight(%-5level) %green(%logger{36}) - %msg%n
+                %d{yyyy-MM-dd HH:mm:ss.SSS} %cyan([%thread]) %highlight(%-5level) %green(%logger{36}) - %msg%n
             </pattern>
         </encoder>
+
     </appender>
 
 
-    <!-- Loki Logging -->
-    <appender name="LOKI" class="com.github.loki4j.logback.Loki4jAppender">
-        <http>
-            <url>${lokiUrl}</url>
-        </http>
-        <format>
-            <label>
-                <pattern>
-                    service=${applicationName}, env=${env}, level=%level
-                </pattern>
-                <readMarkers>true</readMarkers>
-            </label>
-            <message>
-                <pattern>
-                    %d{yyyy-MM-dd HH:mm:ss} [%thread] %magenta(%-5level) %green([%-50.50class]) >>> %cyan(%msg) %n
-                </pattern>
-            </message>
-        </format>
+    <!-- ========================= -->
+    <!-- File                      -->
+    <!-- ========================= -->
+
+    <appender name="FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <!-- Current log file -->
+        <file>logs/${applicationName}.log</file>
+
+        <!-- Rolling policy -->
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+
+            <!-- Archived logs -->
+            <fileNamePattern>
+                logs/archive/${applicationName}.%d{yyyy-MM-dd}.%i.log.gz
+            </fileNamePattern>
+
+            <!-- Maximum size of each file -->
+            <maxFileSize>50MB</maxFileSize>
+
+            <!-- Keep logs for 7 days -->
+            <maxHistory>7</maxHistory>
+
+            <!-- Maximum total size of archived logs -->
+            <totalSizeCap>1GB</totalSizeCap>
+
+        </rollingPolicy>
+
+        <!-- IMPORTANT:
+             No ANSI colors here.
+             Alloy/Loki should receive plain text. -->
+        <encoder>
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+
     </appender>
 
 
-    <!-- Root Logger -->
+    <!-- ========================= -->
+    <!-- Root Logger               -->
+    <!-- ========================= -->
+
     <root level="INFO">
+
+        <!-- Colored output for developer console -->
         <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="LOKI"/>
+
+        <!-- Clean file for Alloy -> Loki -->
+        <appender-ref ref="FILE"/>
+
     </root>
 
 </configuration>

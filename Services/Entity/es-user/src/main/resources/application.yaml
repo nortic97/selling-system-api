@@ -53,6 +53,3 @@ management:
   endpoint:
     health:
       show-details: always
-
-loki:
-  url: ${LOKI_URL:http://localhost:3100/loki/api/v1/push}
