@@ -1,0 +1,475 @@
+openapi: 3.0.3
+info:
+  title: Enterprise Selling System - Plan Entity Service (es-plan)
+  description: Servicio de entidad encargado de la persistencia, validación y operaciones CRUD de planes de suscripción.
+  version: 0.0.1
+security:
+  - bearerAuth: [ ]
+
+servers:
+  - url: "{protocol}://{server}:{port}"
+    variables:
+      protocol:
+        enum:
+          - http
+          - https
+        default: https
+      server:
+        default: localhost
+      port:
+        default: "8080"
+
+paths:
+  /api/v1/es/plan:
+    post:
+      summary: Crear un nuevo plan
+      description: Crea un nuevo plan de suscripción en el sistema
+      operationId: createPlan
+      tags:
+        - Plan
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlanRequestDTO'
+      responses:
+        '201':
+          description: Plan creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '409':
+          description: Conflicto - El plan ya existe
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDTO'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+    get:
+      summary: Listar todos los planes
+      description: Obtiene una lista paginada de todos los planes
+      operationId: getAllPlans
+      tags:
+        - Plan
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/SizeParam'
+        - $ref: '#/components/parameters/SortParam'
+      responses:
+        '200':
+          description: Lista de planes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedPlanResponseDTO'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+  /api/v1/es/plan/{id}:
+    get:
+      summary: Obtener un plan por ID
+      description: Obtiene los detalles de un plan específico
+      operationId: getPlan
+      tags:
+        - Plan
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+        - $ref: '#/components/parameters/PlanIdPathParam'
+      responses:
+        '200':
+          description: Detalles del plan
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanResponseDTO'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+    put:
+      summary: Actualizar un plan
+      description: Actualiza los datos de un plan existente
+      operationId: updatePlan
+      tags:
+        - Plan
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+        - $ref: '#/components/parameters/PlanIdPathParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePlanRequestDTO'
+      responses:
+        '200':
+          description: Plan actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+    delete:
+      summary: Eliminar un plan
+      description: Elimina un plan del sistema (soft delete)
+      operationId: deletePlan
+      tags:
+        - Plan
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+        - $ref: '#/components/parameters/PlanIdPathParam'
+      responses:
+        '204':
+          description: Plan eliminado exitosamente
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+  /api/v1/es/plan/{id}/restore:
+    patch:
+      summary: Restaurar un plan eliminado
+      description: Restaura un plan que fue eliminado (soft delete)
+      operationId: restorePlan
+      tags:
+        - Plan
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+        - $ref: '#/components/parameters/PlanIdPathParam'
+      responses:
+        '200':
+          description: Plan restaurado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token for authentication (RS256)
+
+  parameters:
+    CorrelationIdHeader:
+      name: Correlation-Id
+      in: header
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+      description: Header obligatorio de trazabilidad distribuida para logs correlacionados.
+    ConsumerIdHeader:
+      name: Consumer-Id
+      in: header
+      required: true
+      schema:
+        type: string
+        example: "SVP"
+      description: Header obligatorio de trazabilidad distribuida para consumidor.
+    PageParam:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+      description: Número de página (basado en índice cero).
+      style: form
+      explode: true
+      x-spring-paginated: true
+    SizeParam:
+      name: size
+      in: query
+      required: false
+      schema:
+        minimum: 5
+        maximum: 100
+        type: integer
+        default: 5
+      description: Cantidad de registros por página.
+      style: form
+      explode: true
+      x-spring-paginated: true
+    SortParam:
+      name: sort
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+      description: Criterio de ordenamiento con formato 'campo,asc' o 'campo,desc'. Soporta múltiples criterios.
+      style: form
+      explode: true
+      x-spring-paginated: true
+    PlanIdPathParam:
+      name: id
+      in: path
+      required: true
+      description: ID del plan (UUID)
+      schema:
+        type: string
+        format: uuid
+
+  responses:
+    400BadRequest:
+      description: Error de validación en los datos enviados o sintaxis JSON incorrecta.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseDTO'
+    403Forbidden:
+      description: El cliente no posee los roles o permisos suficientes.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseDTO'
+    404NotFound:
+      description: El recurso solicitado no existe o está eliminado.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseDTO'
+    500InternalServerError:
+      description: Excepción no controlada en el servidor.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseDTO'
+
+  schemas:
+    PlanTypeOfPlanEnum:
+      type: string
+      enum:
+        - FREE
+        - BASIC
+        - STANDARD
+        - PREMIUM
+        - ENTERPRISE
+      description: Tipo de plan de suscripción
+
+    PlanRequestDTO:
+      type: object
+      required:
+        - name
+        - description
+        - price
+        - typeOfPlan
+      properties:
+        name:
+          type: string
+          description: Nombre del plan
+          minLength: 3
+          maxLength: 255
+          x-field-extra-annotation: '@NotBlank @Size(min = 3, max = 255)'
+        description:
+          type: string
+          description: Descripción del plan
+          maxLength: 1000
+          x-field-extra-annotation: '@NotBlank @Size(max = 1000)'
+        price:
+          type: number
+          format: decimal
+          description: Precio del plan
+          minimum: 0
+          x-field-extra-annotation: '@NotNull @DecimalMin(value = "0.0", inclusive = true)'
+        typeOfPlan:
+          type: string
+          enum:
+            - FREE
+            - BASIC
+            - STANDARD
+            - PREMIUM
+            - ENTERPRISE
+          description: Tipo de plan de suscripción
+          x-field-extra-annotation: '@NotNull'
+
+    UpdatePlanRequestDTO:
+      type: object
+      required:
+        - name
+        - description
+        - price
+        - typeOfPlan
+      properties:
+        name:
+          type: string
+          description: Nombre del plan
+          minLength: 3
+          maxLength: 255
+          x-field-extra-annotation: '@NotBlank @Size(min = 3, max = 255)'
+        description:
+          type: string
+          description: Descripción del plan
+          maxLength: 1000
+          x-field-extra-annotation: '@NotBlank @Size(max = 1000)'
+        price:
+          type: number
+          format: decimal
+          description: Precio del plan
+          minimum: 0
+          x-field-extra-annotation: '@NotNull @DecimalMin(value = "0.0", inclusive = true)'
+        typeOfPlan:
+          type: string
+          enum:
+            - FREE
+            - BASIC
+            - STANDARD
+            - PREMIUM
+            - ENTERPRISE
+          description: Tipo de plan de suscripción
+          x-field-extra-annotation: '@NotNull'
+
+    PlanResponseDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Identificador único del plan (UUID)
+        name:
+          type: string
+          description: Nombre del plan
+        description:
+          type: string
+          description: Descripción del plan
+        price:
+          type: number
+          format: decimal
+          description: Precio del plan
+        typeOfPlan:
+          type: string
+          enum:
+            - FREE
+            - BASIC
+            - STANDARD
+            - PREMIUM
+            - ENTERPRISE
+          description: Tipo de plan de suscripción
+        createdAt:
+          type: string
+          format: date-time
+          description: Fecha de creación
+        updatedAt:
+          type: string
+          format: date-time
+          description: Fecha de última actualización
+        deletedAt:
+          type: string
+          format: date-time
+          nullable: true
+          description: Fecha de eliminación (soft delete)
+
+    PaginatedPlanResponseDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlanResponseDTO'
+        totalElements:
+          type: integer
+          format: int64
+          example: 125
+        totalPages:
+          type: integer
+          example: 13
+        size:
+          type: integer
+          example: 10
+        number:
+          type: integer
+          example: 0
+        first:
+          type: boolean
+          example: true
+        last:
+          type: boolean
+          example: false
+
+    FieldErrorDetailDTO:
+      type: object
+      required:
+        - field
+        - message
+      properties:
+        field:
+          type: string
+          example: "name"
+          description: Nombre del campo que causó el error de validación.
+        message:
+          type: string
+          example: "El nombre debe tener entre 3 y 50 caracteres."
+          description: Mensaje descriptivo del error de validación para el campo específico.
+        rejectedValue:
+          type: string
+          example: "ab"
+          description: Valor que fue rechazado por la validación.
+
+    ErrorResponseDTO:
+      type: object
+      required:
+        - code
+        - message
+        - timestamp
+      properties:
+        code:
+          type: string
+          example: "VALIDATION_FAILED"
+        message:
+          type: string
+          example: "Uno o más campos enviados en la solicitud no pasaron las validaciones."
+        timestamp:
+          type: string
+          format: date-time
+          example: "2026-06-18T12:40:00Z"
+        details:
+          type: array
+          description: Lista de errores específicos por cada campo (aparece si es error de validación de entrada).
+          items:
+            $ref: '#/components/schemas/FieldErrorDetailDTO'

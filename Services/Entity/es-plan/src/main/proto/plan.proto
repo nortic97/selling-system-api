@@ -1,0 +1,86 @@
+syntax = "proto3";
+
+package com.nortic.pos.es.plan.grpc;
+
+option java_multiple_files = false;
+option java_package = "com.nortic.pos.es.plan.grpc";
+option java_outer_classname = "PlanProto";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+enum TypeOfPlan {
+  FREE = 0;
+  BASIC = 1;
+  STANDARD = 2;
+  PREMIUM = 3;
+  ENTERPRISE = 4;
+}
+
+message PlanRequest {
+  string name = 1;
+  string description = 2;
+  double price = 3;
+  TypeOfPlan type_of_plan = 4;
+}
+
+message UpdatePlanRequest {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  double price = 4;
+  TypeOfPlan type_of_plan = 5;
+}
+
+message PlanIdRequest {
+  string id = 1;
+}
+
+message PaginationRequest {
+  int32 page = 1;
+  int32 size = 2;
+  repeated string sort = 3;
+}
+
+message PlanResponse {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  double price = 4;
+  TypeOfPlan type_of_plan = 5;
+  google.protobuf.Timestamp created_at = 6;
+  google.protobuf.Timestamp updated_at = 7;
+  google.protobuf.Timestamp deleted_at = 8;
+}
+
+message FieldErrorDetail {
+  string field = 1;
+  string message = 2;
+  string rejected_value = 3;
+}
+
+message ErrorResponse {
+  string code = 1;
+  string message = 2;
+  google.protobuf.Timestamp timestamp = 3;
+  repeated FieldErrorDetail details = 4;
+}
+
+message PaginatedPlanResponse {
+  repeated PlanResponse content = 1;
+  int64 total_elements = 2;
+  int32 total_pages = 3;
+  int32 size = 4;
+  int32 number = 5;
+  bool first = 6;
+  bool last = 7;
+}
+
+service PlanService {
+  rpc CreatePlan(PlanRequest) returns (PlanResponse);
+  rpc ListPlans(PaginationRequest) returns (PaginatedPlanResponse);
+  rpc GetPlan(PlanIdRequest) returns (PlanResponse);
+  rpc UpdatePlan(UpdatePlanRequest) returns (PlanResponse);
+  rpc DeletePlan(PlanIdRequest) returns (google.protobuf.Empty);
+  rpc RestorePlan(PlanIdRequest) returns (PlanResponse);
+}
