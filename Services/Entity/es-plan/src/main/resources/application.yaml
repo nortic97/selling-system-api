@@ -34,7 +34,7 @@ spring:
     time-zone: ${TIME_ZONE:America/Bogota}
 
 server:
-  port: ${PORT:8080}
+  port: ${PORT:8081}
   address: ${SERVER_ADDRESS:0.0.0.0}
   shutdown: ${SHUTDOWN:IMMEDIATE}
 
