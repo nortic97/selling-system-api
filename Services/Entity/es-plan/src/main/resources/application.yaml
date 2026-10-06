@@ -1,6 +1,6 @@
 spring:
   application:
-    name: es-plan
+    name: ${APPLICATION_NAME:es-plan}
     env: ${ENVIRONMENT:local}
 
   datasource:
