@@ -2,7 +2,7 @@ spring:
 
   application:
     name: ${APPLICATION_NAME:es-store}
-    env: ${ENV:local}
+    env: ${ENVIRONMENT:local}
 
   datasource:
     url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:selling_system}
