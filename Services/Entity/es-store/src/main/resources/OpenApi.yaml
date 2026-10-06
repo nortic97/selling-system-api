@@ -20,7 +20,7 @@ servers:
         default: "8080"
 
 paths:
-  /api/v1/store:
+  /api/v1/es/store:
     post:
       summary: Crear una nueva tienda
       description: Crea una nueva tienda en el sistema
@@ -80,7 +80,7 @@ paths:
         '500':
           $ref: '#/components/responses/500InternalServerError'
 
-  /api/v1/store/{id}:
+  /api/v1/es/store/{id}:
     get:
       summary: Obtener una tienda por ID
       description: Obtiene los detalles de una tienda específica
@@ -157,7 +157,7 @@ paths:
         '500':
           $ref: '#/components/responses/500InternalServerError'
 
-  /api/v1/store/{id}/status:
+  /api/v1/es/store/{id}/status:
     patch:
       summary: Actualizar estado de una tienda
       description: Activa o desactiva una tienda
@@ -190,7 +190,7 @@ paths:
         '500':
           $ref: '#/components/responses/500InternalServerError'
 
-  /api/v1/store/{id}/phone:
+  /api/v1/es/store/{id}/phone:
     patch:
       summary: Cambiar número de teléfono de una tienda
       description: Actualiza el número de teléfono de una tienda existente
@@ -223,7 +223,7 @@ paths:
         '500':
           $ref: '#/components/responses/500InternalServerError'
 
-  /api/v1/store/{id}/email:
+  /api/v1/es/store/{id}/email:
     patch:
       summary: Cambiar correo electrónico de una tienda
       description: Actualiza el correo electrónico de una tienda existente
@@ -256,7 +256,7 @@ paths:
         '500':
           $ref: '#/components/responses/500InternalServerError'
 
-  /api/v1/store/{id}/restore:
+  /api/v1/es/store/{id}/restore:
     patch:
       summary: Restaurar una tienda eliminada
       description: Restaura una tienda que fue eliminada (soft delete)
