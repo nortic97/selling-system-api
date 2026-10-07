@@ -319,15 +319,8 @@ components:
           minimum: 0
           x-field-extra-annotation: '@NotNull @DecimalMin(value = "0.0", inclusive = true)'
         typeOfPlan:
-          type: string
-          enum:
-            - FREE
-            - BASIC
-            - STANDARD
-            - PREMIUM
-            - ENTERPRISE
-          description: Tipo de plan de suscripción
-          x-field-extra-annotation: '@NotNull'
+          $ref: '#/components/schemas/PlanTypeOfPlanEnum'
+          x-field-extra-annotation: '@NotBlank'
 
     UpdatePlanRequestDTO:
       type: object
@@ -355,15 +348,8 @@ components:
           minimum: 0
           x-field-extra-annotation: '@NotNull @DecimalMin(value = "0.0", inclusive = true)'
         typeOfPlan:
-          type: string
-          enum:
-            - FREE
-            - BASIC
-            - STANDARD
-            - PREMIUM
-            - ENTERPRISE
-          description: Tipo de plan de suscripción
-          x-field-extra-annotation: '@NotNull'
+          $ref: '#/components/schemas/PlanTypeOfPlanEnum'
+          x-field-extra-annotation: '@NotBlank'
 
     PlanResponseDTO:
       type: object
@@ -383,14 +369,7 @@ components:
           format: decimal
           description: Precio del plan
         typeOfPlan:
-          type: string
-          enum:
-            - FREE
-            - BASIC
-            - STANDARD
-            - PREMIUM
-            - ENTERPRISE
-          description: Tipo de plan de suscripción
+          $ref: '#/components/schemas/PlanTypeOfPlanEnum'
         createdAt:
           type: string
           format: date-time
