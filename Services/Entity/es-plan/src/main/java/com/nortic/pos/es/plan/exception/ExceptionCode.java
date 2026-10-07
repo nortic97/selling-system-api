@@ -42,6 +42,12 @@ public enum ExceptionCode {
             "MISSING_HEADER",
             "A required header is missing.",
             HttpStatus.BAD_REQUEST
+    ),
+
+    PLAN_NOT_FOUND(
+            "PLAN_NOT_FOUND",
+            "Plan not found.",
+            HttpStatus.NOT_FOUND
     );
 
     private final String code;
