@@ -5,8 +5,6 @@ import com.nortic.pos.es.plan.grpc.exception.GrpcException;
 import com.nortic.pos.es.plan.grpc.interceptor.ContextKeys;
 import com.nortic.pos.es.plan.grpc.interceptor.GrpcInterceptor;
 import com.nortic.pos.es.plan.mapper.PlanGrpcMapper;
-import com.nortic.pos.es.plan.model.dto.PaginatedPlanResponseDTO;
-import com.nortic.pos.es.plan.model.dto.PlanDTO;
 import com.nortic.pos.es.plan.model.dto.RequestContextDTO;
 import com.nortic.pos.es.plan.model.dto.SearchParamsDTO;
 import com.nortic.pos.es.plan.service.contract.PlanService;
