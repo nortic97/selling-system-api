@@ -1,5 +1,6 @@
 package com.nortic.pos.es.plan.model.dto;
 
+import com.nortic.pos.es.plan.model.enums.PlanTypeOfPlanEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,7 +20,7 @@ public class PlanDTO {
     private String name;
     private String description;
     private BigDecimal price;
-    private String typeOfPlan;
+    private PlanTypeOfPlanEnum typeOfPlan;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
     private OffsetDateTime deletedAt;

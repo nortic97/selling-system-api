@@ -1,5 +1,6 @@
 package com.nortic.pos.es.plan.model.entity;
 
+import com.nortic.pos.es.plan.model.enums.PlanTypeOfPlanEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,8 +38,9 @@ public class PlanEntity {
     @Column(name = "price", nullable = false, precision = 19, scale = 4)
     private BigDecimal price;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "type_of_plan", nullable = false, length = 100)
-    private String typeOfPlan;
+    private PlanTypeOfPlanEnum typeOfPlan;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE")
