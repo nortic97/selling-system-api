@@ -1,8 +1,8 @@
 package com.nortic.pos.es.permission.controller;
 
-import com.nortic.pos.es.permission.dto.SearchParamsDTO;
-import com.nortic.pos.es.permission.dto.request.RequestContextDTO;
 import com.nortic.pos.es.permission.mapper.PermissionRestMapper;
+import com.nortic.pos.es.permission.model.dto.RequestContextDTO;
+import com.nortic.pos.es.permission.model.dto.SearchParamsDTO;
 import com.nortic.pos.es.permission.rest.gen.api.PermissionApi;
 import com.nortic.pos.es.permission.rest.gen.model.*;
 import com.nortic.pos.es.permission.service.contract.PermissionService;
@@ -132,7 +132,7 @@ public class PermissionController implements PermissionApi {
 
     @Override
     public ResponseEntity<RestModelPermissionResponseDTO> updatePermission(UUID correlationId, String consumerId, UUID id, RestModelUpdatePermissionRequestDTO restModelUpdatePermissionRequestDTO) {
-        log.info("Update permission controller ... ");
+        log.info("Update permission service ... ");
 
         var requestContextDTO = RequestContextDTO.builder()
                 .correlationId(correlationId)

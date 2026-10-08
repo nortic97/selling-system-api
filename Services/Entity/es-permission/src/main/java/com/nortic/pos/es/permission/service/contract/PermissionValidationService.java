@@ -1,6 +1,6 @@
 package com.nortic.pos.es.permission.service.contract;
 
-import com.nortic.pos.es.permission.dto.response.PermissionDTO;
+import com.nortic.pos.es.permission.model.dto.PermissionDTO;
 import com.nortic.pos.es.permission.model.entity.PermissionEntity;
 
 import java.util.UUID;

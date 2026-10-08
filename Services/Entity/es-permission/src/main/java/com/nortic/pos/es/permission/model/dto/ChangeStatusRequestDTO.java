@@ -1,4 +1,4 @@
-package com.nortic.pos.es.permission.dto.request;
+package com.nortic.pos.es.permission.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

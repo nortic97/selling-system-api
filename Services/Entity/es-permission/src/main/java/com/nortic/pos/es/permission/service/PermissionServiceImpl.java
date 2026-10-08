@@ -1,13 +1,9 @@
 package com.nortic.pos.es.permission.service;
 
-import com.nortic.pos.es.permission.dto.SearchParamsDTO;
-import com.nortic.pos.es.permission.dto.request.ChangeStatusRequestDTO;
-import com.nortic.pos.es.permission.dto.request.RequestContextDTO;
-import com.nortic.pos.es.permission.dto.response.PaginatedPermissionResponseDTO;
-import com.nortic.pos.es.permission.dto.response.PermissionDTO;
 import com.nortic.pos.es.permission.exception.BusinessException;
 import com.nortic.pos.es.permission.exception.ExceptionCode;
 import com.nortic.pos.es.permission.mapper.PermissionEntityMapper;
+import com.nortic.pos.es.permission.model.dto.*;
 import com.nortic.pos.es.permission.repository.PermissionRepository;
 import com.nortic.pos.es.permission.service.contract.PermissionService;
 import com.nortic.pos.es.permission.service.contract.PermissionValidationService;
@@ -47,7 +43,7 @@ public class PermissionServiceImpl implements PermissionService {
         permissionValidationService.validateNewPermission(permissionDTO);
 
         var permissionEntity = permissionEntityMapper.toPermissionEntity(permissionDTO);
-        permissionEntity.setIsActive(Boolean.FALSE);
+        permissionEntity.setIsActive(permissionDTO.getIsActive() != null ? permissionDTO.getIsActive() : Boolean.TRUE);
 
         var savedPermissionEntity = permissionRepository.save(permissionEntity);
 

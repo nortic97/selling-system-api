@@ -1,6 +1,6 @@
 package com.nortic.pos.es.permission.exception;
 
-import com.nortic.pos.es.permission.dto.error.FieldErrorDetailResponseDTO;
+import com.nortic.pos.es.permission.model.dto.FieldErrorDetailResponseDTO;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 

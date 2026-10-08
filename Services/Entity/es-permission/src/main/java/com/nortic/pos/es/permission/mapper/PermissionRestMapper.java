@@ -1,8 +1,8 @@
 package com.nortic.pos.es.permission.mapper;
 
-import com.nortic.pos.es.permission.dto.request.ChangeStatusRequestDTO;
-import com.nortic.pos.es.permission.dto.response.PaginatedPermissionResponseDTO;
-import com.nortic.pos.es.permission.dto.response.PermissionDTO;
+import com.nortic.pos.es.permission.model.dto.ChangeStatusRequestDTO;
+import com.nortic.pos.es.permission.model.dto.PaginatedPermissionResponseDTO;
+import com.nortic.pos.es.permission.model.dto.PermissionDTO;
 import com.nortic.pos.es.permission.rest.gen.model.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -32,6 +32,7 @@ public abstract class PermissionRestMapper {
 
     public abstract RestModelPaginatedPermissionResponseDTO toListPermissionsResponseDTO(PaginatedPermissionResponseDTO paginatedPermissionResponseDTO);
 
+    @Mapping(target = "active", source = "isActive")
     public abstract ChangeStatusRequestDTO toChangeStatusRequestDTO(RestModelStatusRequest restModelStatusRequest);
 
 }

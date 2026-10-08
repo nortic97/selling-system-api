@@ -1,7 +1,7 @@
 package com.nortic.pos.es.permission.mapper;
 
-import com.nortic.pos.es.permission.dto.response.PaginatedPermissionResponseDTO;
-import com.nortic.pos.es.permission.dto.response.PermissionDTO;
+import com.nortic.pos.es.permission.model.dto.PaginatedPermissionResponseDTO;
+import com.nortic.pos.es.permission.model.dto.PermissionDTO;
 import com.nortic.pos.es.permission.model.entity.PermissionEntity;
 import org.mapstruct.*;
 import org.springframework.data.domain.Page;

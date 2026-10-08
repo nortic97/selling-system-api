@@ -1,4 +1,4 @@
-package com.nortic.pos.es.permission.dto.error;
+package com.nortic.pos.es.permission.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class FieldErrorDetailResponseDTO {
 
     private String field;
+
     private String message;
-    private Object rejectedValue;
 
 }

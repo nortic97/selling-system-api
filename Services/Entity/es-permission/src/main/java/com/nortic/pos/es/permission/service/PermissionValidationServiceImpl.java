@@ -1,8 +1,8 @@
 package com.nortic.pos.es.permission.service;
 
-import com.nortic.pos.es.permission.dto.response.PermissionDTO;
 import com.nortic.pos.es.permission.exception.BusinessException;
 import com.nortic.pos.es.permission.exception.ExceptionCode;
+import com.nortic.pos.es.permission.model.dto.PermissionDTO;
 import com.nortic.pos.es.permission.model.entity.PermissionEntity;
 import com.nortic.pos.es.permission.repository.PermissionRepository;
 import com.nortic.pos.es.permission.service.contract.PermissionValidationService;
