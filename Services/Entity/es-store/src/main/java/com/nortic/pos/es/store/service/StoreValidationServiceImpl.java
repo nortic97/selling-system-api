@@ -27,6 +27,14 @@ public class StoreValidationServiceImpl implements StoreValidationService {
     @Override
     public void validateNewStore(StoreDTO storeDTO) {
 
+        if (storeDTO.getName() == null || storeDTO.getName().isBlank()) {
+            throw new BusinessException(ExceptionCode.VALIDATION_FAILED, "El campo 'name' es obligatorio.");
+        }
+
+        if (storeDTO.getOwnerId() == null) {
+            throw new BusinessException(ExceptionCode.VALIDATION_FAILED, "El campo 'ownerId' es obligatorio.");
+        }
+
         if (!storeRepository.existsByOwnerIdId(storeDTO.getOwnerId())) {
             log.error("Owner {} does not exist", storeDTO.getOwnerId());
             throw new BusinessException(ExceptionCode.OWNER_NOT_FOUND);

@@ -83,6 +83,25 @@ public class UserValidationServiceImpl implements UserValidationService {
 
     @Override
     public void validateNewUser(UserDTO userDTO) {
+        if (userDTO.getUsername() == null || userDTO.getUsername().isBlank()) {
+            throw new UserBusinessException(UserExceptionCode.VALIDATION_FAILED, "El campo 'username' es obligatorio.");
+        }
+        if (userDTO.getEmail() == null || userDTO.getEmail().isBlank()) {
+            throw new UserBusinessException(UserExceptionCode.VALIDATION_FAILED, "El campo 'email' es obligatorio.");
+        }
+        if (userDTO.getDocumentNumber() == null || userDTO.getDocumentNumber().isBlank()) {
+            throw new UserBusinessException(UserExceptionCode.VALIDATION_FAILED, "El campo 'documentNumber' es obligatorio.");
+        }
+        if (userDTO.getDocumentType() == null) {
+            throw new UserBusinessException(UserExceptionCode.VALIDATION_FAILED, "El campo 'documentType' es obligatorio.");
+        }
+        if (userDTO.getFirstName() == null || userDTO.getFirstName().isBlank()) {
+            throw new UserBusinessException(UserExceptionCode.VALIDATION_FAILED, "El campo 'firstName' es obligatorio.");
+        }
+        if (userDTO.getLastName() == null || userDTO.getLastName().isBlank()) {
+            throw new UserBusinessException(UserExceptionCode.VALIDATION_FAILED, "El campo 'lastName' es obligatorio.");
+        }
+
         if (userRepository.existsByUsernameIgnoreCase(userDTO.getUsername())) {
             log.error("User {} already exists", userDTO.getUsername());
             throw new UserBusinessException(UserExceptionCode.USERNAME_ALREADY_EXISTS);

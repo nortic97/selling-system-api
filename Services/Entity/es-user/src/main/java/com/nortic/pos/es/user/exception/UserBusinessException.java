@@ -21,4 +21,14 @@ public class UserBusinessException extends RuntimeException {
         this.details = null;
     }
 
+    public UserBusinessException(
+            UserExceptionCode userExceptionCode,
+            String message
+    ) {
+        super(message);
+
+        this.userExceptionCode = userExceptionCode;
+        this.details = null;
+    }
+
 }

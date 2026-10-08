@@ -26,7 +26,15 @@ public class PlanValidationServiceImpl implements PlanValidationService {
 
     @Override
     public void validateNewPlan(PlanDTO planDTO) {
-        // Add validation logic as needed
+        if (planDTO.getName() == null || planDTO.getName().isBlank()) {
+            throw new BusinessException(ExceptionCode.VALIDATION_FAILED, "El campo 'name' es obligatorio.");
+        }
+        if (planDTO.getPrice() == null) {
+            throw new BusinessException(ExceptionCode.VALIDATION_FAILED, "El campo 'price' es obligatorio.");
+        }
+        if (planDTO.getTypeOfPlan() == null) {
+            throw new BusinessException(ExceptionCode.VALIDATION_FAILED, "El campo 'typeOfPlan' es obligatorio.");
+        }
     }
 
 }

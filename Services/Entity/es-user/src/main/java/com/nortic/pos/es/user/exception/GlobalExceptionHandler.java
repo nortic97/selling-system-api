@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingRequestHeaderException;
@@ -115,6 +116,22 @@ public class GlobalExceptionHandler {
                 .message(UserExceptionCode.MISSING_HEADER.getMessage())
                 .timestamp(OffsetDateTime.now())
                 .details(details)
+                .build();
+
+        return ResponseEntity
+                .badRequest()
+                .body(response);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ErrorResponseDTO> handleHttpMessageNotReadableException(
+            HttpMessageNotReadableException exception
+    ) {
+        var response = ErrorResponseDTO
+                .builder()
+                .code(UserExceptionCode.VALIDATION_FAILED.getCode())
+                .message(UserExceptionCode.VALIDATION_FAILED.getMessage())
+                .timestamp(OffsetDateTime.now())
                 .build();
 
         return ResponseEntity
