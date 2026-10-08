@@ -2,12 +2,10 @@ package com.nortic.pos.es.plan.exception;
 
 import com.nortic.pos.es.plan.model.dto.FieldErrorDetailResponseDTO;
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 @Getter
-@Slf4j
 public class BusinessException extends RuntimeException {
 
     private final ExceptionCode exceptionCode;
@@ -25,15 +23,12 @@ public class BusinessException extends RuntimeException {
 
     public BusinessException(
             ExceptionCode exceptionCode,
-            String logMessage,
-            Object... args
+            List<FieldErrorDetailResponseDTO> details
     ) {
         super(exceptionCode.getMessage());
 
         this.exceptionCode = exceptionCode;
-        this.details = null;
-
-        log.error(logMessage, args);
+        this.details = details;
     }
 
 }

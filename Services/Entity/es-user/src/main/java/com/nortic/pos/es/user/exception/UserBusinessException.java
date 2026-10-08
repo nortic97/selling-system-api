@@ -23,12 +23,12 @@ public class UserBusinessException extends RuntimeException {
 
     public UserBusinessException(
             UserExceptionCode userExceptionCode,
-            String message
+            List<FieldErrorDetailResponseDTO> details
     ) {
-        super(message);
+        super(userExceptionCode.getMessage());
 
         this.userExceptionCode = userExceptionCode;
-        this.details = null;
+        this.details = details;
     }
 
 }

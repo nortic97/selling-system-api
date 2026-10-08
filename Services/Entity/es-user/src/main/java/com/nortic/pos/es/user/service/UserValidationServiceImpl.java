@@ -7,13 +7,11 @@ import com.nortic.pos.es.user.exception.UserExceptionCode;
 import com.nortic.pos.es.user.repository.UserRepository;
 import com.nortic.pos.es.user.service.contract.UserValidationService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserValidationServiceImpl implements UserValidationService {
@@ -84,31 +82,29 @@ public class UserValidationServiceImpl implements UserValidationService {
     @Override
     public void validateNewUser(UserDTO userDTO) {
         if (userDTO.getUsername() == null || userDTO.getUsername().isBlank()) {
-            throw new UserBusinessException(UserExceptionCode.VALIDATION_FAILED, "El campo 'username' es obligatorio.");
+            throw new UserBusinessException(UserExceptionCode.VALIDATION_FAILED);
         }
         if (userDTO.getEmail() == null || userDTO.getEmail().isBlank()) {
-            throw new UserBusinessException(UserExceptionCode.VALIDATION_FAILED, "El campo 'email' es obligatorio.");
+            throw new UserBusinessException(UserExceptionCode.VALIDATION_FAILED);
         }
         if (userDTO.getDocumentNumber() == null || userDTO.getDocumentNumber().isBlank()) {
-            throw new UserBusinessException(UserExceptionCode.VALIDATION_FAILED, "El campo 'documentNumber' es obligatorio.");
+            throw new UserBusinessException(UserExceptionCode.VALIDATION_FAILED);
         }
         if (userDTO.getDocumentType() == null) {
-            throw new UserBusinessException(UserExceptionCode.VALIDATION_FAILED, "El campo 'documentType' es obligatorio.");
+            throw new UserBusinessException(UserExceptionCode.VALIDATION_FAILED);
         }
         if (userDTO.getFirstName() == null || userDTO.getFirstName().isBlank()) {
-            throw new UserBusinessException(UserExceptionCode.VALIDATION_FAILED, "El campo 'firstName' es obligatorio.");
+            throw new UserBusinessException(UserExceptionCode.VALIDATION_FAILED);
         }
         if (userDTO.getLastName() == null || userDTO.getLastName().isBlank()) {
-            throw new UserBusinessException(UserExceptionCode.VALIDATION_FAILED, "El campo 'lastName' es obligatorio.");
+            throw new UserBusinessException(UserExceptionCode.VALIDATION_FAILED);
         }
 
         if (userRepository.existsByUsernameIgnoreCase(userDTO.getUsername())) {
-            log.error("User {} already exists", userDTO.getUsername());
             throw new UserBusinessException(UserExceptionCode.USERNAME_ALREADY_EXISTS);
         }
 
         if (userRepository.existsByEmailIgnoreCase(userDTO.getEmail())) {
-            log.error("User {} already exists", userDTO.getEmail());
             throw new UserBusinessException(UserExceptionCode.EMAIL_ALREADY_EXISTS);
         }
 
@@ -116,7 +112,6 @@ public class UserValidationServiceImpl implements UserValidationService {
                 userDTO.getDocumentType(),
                 userDTO.getDocumentNumber()
         )) {
-            log.error("User {} already exists", userDTO.getDocumentNumber());
             throw new UserBusinessException(UserExceptionCode.DOCUMENT_ALREADY_EXISTS);
         }
     }
@@ -124,7 +119,6 @@ public class UserValidationServiceImpl implements UserValidationService {
     @Override
     public void validateUsername(UUID id, String username) {
         if (userRepository.existsByUsernameIgnoreCaseAndIdNot(username, id)) {
-            log.error("Username {} already exists", username);
             throw new UserBusinessException(UserExceptionCode.USERNAME_ALREADY_EXISTS);
         }
     }

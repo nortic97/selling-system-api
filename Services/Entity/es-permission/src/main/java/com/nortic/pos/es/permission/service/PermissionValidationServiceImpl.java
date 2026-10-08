@@ -7,12 +7,10 @@ import com.nortic.pos.es.permission.model.entity.PermissionEntity;
 import com.nortic.pos.es.permission.repository.PermissionRepository;
 import com.nortic.pos.es.permission.service.contract.PermissionValidationService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class PermissionValidationServiceImpl implements PermissionValidationService {
@@ -28,19 +26,19 @@ public class PermissionValidationServiceImpl implements PermissionValidationServ
     public void validateNewPermission(PermissionDTO permissionDTO) {
 
         if (permissionDTO.getCode() == null || permissionDTO.getCode().isBlank()) {
-            throw new BusinessException(ExceptionCode.VALIDATION_FAILED, "El campo 'code' es obligatorio.");
+            throw new BusinessException(ExceptionCode.VALIDATION_FAILED);
         }
 
         if (permissionDTO.getModule() == null || permissionDTO.getModule().isBlank()) {
-            throw new BusinessException(ExceptionCode.VALIDATION_FAILED, "El campo 'module' es obligatorio.");
+            throw new BusinessException(ExceptionCode.VALIDATION_FAILED);
         }
 
         if (permissionDTO.getName() == null || permissionDTO.getName().isBlank()) {
-            throw new BusinessException(ExceptionCode.VALIDATION_FAILED, "El campo 'name' es obligatorio.");
+            throw new BusinessException(ExceptionCode.VALIDATION_FAILED);
         }
 
         if (permissionRepository.existsByCode(permissionDTO.getCode())) {
-            throw new BusinessException(ExceptionCode.CODE_ALREADY_EXISTS, "Permission code {} already exists", permissionDTO.getCode());
+            throw new BusinessException(ExceptionCode.CODE_ALREADY_EXISTS);
         }
 
     }
@@ -48,11 +46,11 @@ public class PermissionValidationServiceImpl implements PermissionValidationServ
     @Override
     public void validateCode(String code, UUID id) {
         if (code == null || code.isBlank()) {
-            throw new BusinessException(ExceptionCode.VALIDATION_FAILED, "El campo 'code' es obligatorio.");
+            throw new BusinessException(ExceptionCode.VALIDATION_FAILED);
         }
 
         if (permissionRepository.existsByCodeAndIdNot(code, id)) {
-            throw new BusinessException(ExceptionCode.CODE_ALREADY_EXISTS, "Permission code {} already exists", code);
+            throw new BusinessException(ExceptionCode.CODE_ALREADY_EXISTS);
         }
     }
 

@@ -7,12 +7,10 @@ import com.nortic.pos.es.store.exception.ExceptionCode;
 import com.nortic.pos.es.store.repository.StoreRepository;
 import com.nortic.pos.es.store.service.contract.StoreValidationService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class StoreValidationServiceImpl implements StoreValidationService {
@@ -28,30 +26,26 @@ public class StoreValidationServiceImpl implements StoreValidationService {
     public void validateNewStore(StoreDTO storeDTO) {
 
         if (storeDTO.getName() == null || storeDTO.getName().isBlank()) {
-            throw new BusinessException(ExceptionCode.VALIDATION_FAILED, "El campo 'name' es obligatorio.");
+            throw new BusinessException(ExceptionCode.VALIDATION_FAILED);
         }
 
         if (storeDTO.getOwnerId() == null) {
-            throw new BusinessException(ExceptionCode.VALIDATION_FAILED, "El campo 'ownerId' es obligatorio.");
+            throw new BusinessException(ExceptionCode.VALIDATION_FAILED);
         }
 
         if (!storeRepository.existsByOwnerIdId(storeDTO.getOwnerId())) {
-            log.error("Owner {} does not exist", storeDTO.getOwnerId());
             throw new BusinessException(ExceptionCode.OWNER_NOT_FOUND);
         }
 
         if (storeRepository.existsByTaxId(storeDTO.getTaxId())) {
-            log.error("Tax ID {} already exists", storeDTO.getTaxId());
             throw new BusinessException(ExceptionCode.TAX_ID_ALREADY_EXISTS);
         }
 
         if (storeRepository.existsByPhoneNumber(storeDTO.getPhoneNumber())) {
-            log.error("Phone number {} already exists", storeDTO.getPhoneNumber());
             throw new BusinessException(ExceptionCode.PHONE_ALREADY_EXISTS);
         }
 
         if (storeRepository.existsByEmailIgnoreCase(storeDTO.getEmail())) {
-            log.error("Email {} already exists", storeDTO.getEmail());
             throw new BusinessException(ExceptionCode.EMAIL_ALREADY_EXISTS);
         }
 
@@ -60,7 +54,6 @@ public class StoreValidationServiceImpl implements StoreValidationService {
     @Override
     public void validateEmail(String email, UUID id) {
         if (storeRepository.existsByEmailIgnoreCaseAndIdNot(email, id)) {
-            log.error("Email {} already exists", email);
             throw new BusinessException(ExceptionCode.EMAIL_ALREADY_EXISTS);
         }
     }
@@ -68,7 +61,6 @@ public class StoreValidationServiceImpl implements StoreValidationService {
     @Override
     public void validatePhone(String phone, UUID id) {
         if (storeRepository.existsByPhoneNumberAndIdNot(phone, id)) {
-            log.error("Phone number {} already exists", phone);
             throw new BusinessException(ExceptionCode.PHONE_ALREADY_EXISTS);
         }
     }
