@@ -27,6 +27,18 @@ public class PermissionValidationServiceImpl implements PermissionValidationServ
     @Override
     public void validateNewPermission(PermissionDTO permissionDTO) {
 
+        if (permissionDTO.getCode() == null || permissionDTO.getCode().isBlank()) {
+            throw new BusinessException(ExceptionCode.VALIDATION_FAILED, "El campo 'code' es obligatorio.");
+        }
+
+        if (permissionDTO.getModule() == null || permissionDTO.getModule().isBlank()) {
+            throw new BusinessException(ExceptionCode.VALIDATION_FAILED, "El campo 'module' es obligatorio.");
+        }
+
+        if (permissionDTO.getName() == null || permissionDTO.getName().isBlank()) {
+            throw new BusinessException(ExceptionCode.VALIDATION_FAILED, "El campo 'name' es obligatorio.");
+        }
+
         if (permissionRepository.existsByCode(permissionDTO.getCode())) {
             throw new BusinessException(ExceptionCode.CODE_ALREADY_EXISTS, "Permission code {} already exists", permissionDTO.getCode());
         }
@@ -35,6 +47,10 @@ public class PermissionValidationServiceImpl implements PermissionValidationServ
 
     @Override
     public void validateCode(String code, UUID id) {
+        if (code == null || code.isBlank()) {
+            throw new BusinessException(ExceptionCode.VALIDATION_FAILED, "El campo 'code' es obligatorio.");
+        }
+
         if (permissionRepository.existsByCodeAndIdNot(code, id)) {
             throw new BusinessException(ExceptionCode.CODE_ALREADY_EXISTS, "Permission code {} already exists", code);
         }

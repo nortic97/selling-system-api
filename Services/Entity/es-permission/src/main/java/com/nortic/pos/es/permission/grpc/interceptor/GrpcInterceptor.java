@@ -29,9 +29,10 @@ public class GrpcInterceptor implements ServerInterceptor {
             Metadata headers,
             ServerCallHandler<ReqT, RespT> next
     ) {
-        String fullMethodName = call.getMethodDescriptor().getServiceName();
+        String serviceName = call.getMethodDescriptor().getServiceName();
+        String fullMethodName = call.getMethodDescriptor().getFullMethodName();
 
-        if (isPublicService(fullMethodName)) {
+        if (isPublicService(serviceName) || isPublicService(fullMethodName)) {
             log.debug("Skipping authentication for public service: {}", fullMethodName);
             return next.startCall(call, headers);
         }
@@ -64,6 +65,9 @@ public class GrpcInterceptor implements ServerInterceptor {
 
             return Contexts.interceptCall(context, call, headers, next);
 
+        } catch (StatusRuntimeException e) {
+            log.error("Status error: {}", e.getMessage());
+            throw e;
         } catch (SecurityException e) {
             log.error("Permission denied: {}", e.getMessage());
             throw Status.PERMISSION_DENIED
