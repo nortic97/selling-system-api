@@ -1,0 +1,89 @@
+syntax = "proto3";
+
+package com.nortic.pos.es.permission.grpc;
+
+option java_multiple_files = false;
+option java_package = "com.nortic.pos.es.permission.grpc";
+option java_outer_classname = "PermissionProto";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+message PermissionRequest {
+  string code = 1;
+  string module = 2;
+  string name = 3;
+  string description = 4;
+}
+
+message StatusRequest {
+  bool is_active = 1;
+}
+
+message UpdatePermissionRequest {
+  string id = 1;
+  string code = 2;
+  string module = 3;
+  string name = 4;
+  string description = 5;
+}
+
+message PermissionIdRequest {
+  string id = 1;
+}
+
+message ChangeStatusRequest {
+  string id = 1;
+  bool is_active = 2;
+}
+
+message PaginationRequest {
+  int32 page = 1;
+  int32 size = 2;
+  repeated string sort = 3;
+}
+
+message PermissionResponse {
+  string id = 1;
+  string code = 2;
+  string module = 3;
+  string name = 4;
+  string description = 5;
+  bool is_active = 6;
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp updated_at = 8;
+  google.protobuf.Timestamp deleted_at = 9;
+}
+
+message FieldErrorDetail {
+  string field = 1;
+  string message = 2;
+  string rejected_value = 3;
+}
+
+message ErrorResponse {
+  string code = 1;
+  string message = 2;
+  google.protobuf.Timestamp timestamp = 3;
+  repeated FieldErrorDetail details = 4;
+}
+
+message PaginatedPermissionResponse {
+  repeated PermissionResponse content = 1;
+  int64 total_elements = 2;
+  int32 total_pages = 3;
+  int32 size = 4;
+  int32 number = 5;
+  bool first = 6;
+  bool last = 7;
+}
+
+service PermissionService {
+  rpc CreatePermission(PermissionRequest) returns (PermissionResponse);
+  rpc ListPermissions(PaginationRequest) returns (PaginatedPermissionResponse);
+  rpc GetPermission(PermissionIdRequest) returns (PermissionResponse);
+  rpc UpdatePermission(UpdatePermissionRequest) returns (PermissionResponse);
+  rpc DeletePermission(PermissionIdRequest) returns (google.protobuf.Empty);
+  rpc ChangeStatus(ChangeStatusRequest) returns (PermissionResponse);
+  rpc RestorePermission(PermissionIdRequest) returns (PermissionResponse);
+}
