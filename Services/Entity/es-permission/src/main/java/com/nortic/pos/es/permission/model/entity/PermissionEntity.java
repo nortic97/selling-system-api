@@ -1,0 +1,56 @@
+package com.nortic.pos.es.permission.model.entity;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.OffsetDateTime;
+import java.util.UUID;
+
+@Data
+@Table(name = "permission")
+@Entity
+@Builder
+@SQLDelete(sql = "UPDATE permission SET deleted_at = CURRENT_TIMESTAMP, is_active = FALSE WHERE id = ?")
+@SQLRestriction("deleted_at IS NULL")
+@NoArgsConstructor
+@AllArgsConstructor
+public class PermissionEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+
+    @Column(name = "code", nullable = false, length = 100, unique = true)
+    private String code;
+
+    @Column(name = "module", nullable = false, length = 100)
+    private String module;
+
+    @Column(name = "name", nullable = false, length = 150)
+    private String name;
+
+    @Column(name = "description", length = 1000)
+    private String description;
+
+    @Column(name = "is_active", nullable = false)
+    private Boolean isActive;
+
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE")
+    private OffsetDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at", nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE")
+    private OffsetDateTime updatedAt;
+
+    @Column(name = "deleted_at", columnDefinition = "TIMESTAMP WITH TIME ZONE")
+    private OffsetDateTime deletedAt;
+
+}
