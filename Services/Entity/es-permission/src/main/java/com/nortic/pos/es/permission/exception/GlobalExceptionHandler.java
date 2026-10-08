@@ -25,6 +25,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponseDTO> handleBusinessException(
             BusinessException exception
     ) {
+        log.error(
+                "Business exception occurred [code={}]: {}",
+                exception.getExceptionCode().getCode(),
+                exception.getMessage(),
+                exception
+        );
 
         var response = ErrorResponseDTO
                 .builder()
@@ -143,6 +149,8 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponseDTO> handleException(
             Exception exception
     ) {
+
+        log.error("Unhandled exception occurred: {}", exception.getMessage(), exception);
 
         var response = ErrorResponseDTO
                 .builder()

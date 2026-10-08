@@ -3,11 +3,13 @@ package com.nortic.pos.es.store.grpc.exception;
 import com.nortic.pos.es.store.exception.BusinessException;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeoutException;
 
+@Slf4j
 @Component
 public class GrpcException {
 
@@ -15,6 +17,8 @@ public class GrpcException {
     }
 
     public void grpcException(Exception exception, StreamObserver<?> responseObserver) {
+
+        log.error("gRPC error occurred: {}", exception.getMessage(), exception);
 
         var grpcError = mapGrpcError(exception);
 
