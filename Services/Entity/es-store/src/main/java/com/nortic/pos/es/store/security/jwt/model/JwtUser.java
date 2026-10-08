@@ -1,5 +1,6 @@
 package com.nortic.pos.es.store.security.jwt.model;
 
+import com.nortic.pos.es.store.security.SecurityConstants;
 import lombok.*;
 
 import java.util.List;
@@ -24,7 +25,9 @@ public class JwtUser {
     public boolean hasPermission(String permission) {
 
         return permissions != null
-                && permissions.contains(permission);
+                && (permissions.contains(permission)
+                || permissions.contains(SecurityConstants.PERMISSION_STORE_ALL)
+                || permissions.contains(SecurityConstants.PERMISSION_SYSTEM_ALL));
     }
 
     public void validatePermission(String permission) {

@@ -40,23 +40,38 @@ public class SecurityFilterConfig {
                         .requestMatchers(HttpMethod.GET,
                                 SecurityConstants.API_BASE_PATH,
                                 SecurityConstants.PLAN_ID)
-                        .hasAuthority(SecurityConstants.PERMISSION_READ)
+                        .hasAnyAuthority(
+                                SecurityConstants.PERMISSION_READ,
+                                SecurityConstants.PERMISSION_PLAN_ALL,
+                                SecurityConstants.PERMISSION_SYSTEM_ALL)
 
                         .requestMatchers(HttpMethod.POST,
                                 SecurityConstants.API_BASE_PATH)
-                        .hasAuthority(SecurityConstants.PERMISSION_CREATE)
+                        .hasAnyAuthority(
+                                SecurityConstants.PERMISSION_CREATE,
+                                SecurityConstants.PERMISSION_PLAN_ALL,
+                                SecurityConstants.PERMISSION_SYSTEM_ALL)
 
                         .requestMatchers(HttpMethod.PUT,
                                 SecurityConstants.PLAN_ID)
-                        .hasAuthority(SecurityConstants.PERMISSION_UPDATE)
+                        .hasAnyAuthority(
+                                SecurityConstants.PERMISSION_UPDATE,
+                                SecurityConstants.PERMISSION_PLAN_ALL,
+                                SecurityConstants.PERMISSION_SYSTEM_ALL)
 
                         .requestMatchers(HttpMethod.DELETE,
                                 SecurityConstants.PLAN_ID)
-                        .hasAuthority(SecurityConstants.PERMISSION_DELETE)
+                        .hasAnyAuthority(
+                                SecurityConstants.PERMISSION_DELETE,
+                                SecurityConstants.PERMISSION_PLAN_ALL,
+                                SecurityConstants.PERMISSION_SYSTEM_ALL)
 
                         .requestMatchers(HttpMethod.PATCH,
                                 SecurityConstants.PLAN_RESTORE)
-                        .hasAuthority(SecurityConstants.PERMISSION_DELETE)
+                        .hasAnyAuthority(
+                                SecurityConstants.PERMISSION_DELETE,
+                                SecurityConstants.PERMISSION_PLAN_ALL,
+                                SecurityConstants.PERMISSION_SYSTEM_ALL)
 
                         .anyRequest().authenticated()
                 )

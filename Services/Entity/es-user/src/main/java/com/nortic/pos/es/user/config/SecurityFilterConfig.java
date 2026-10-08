@@ -39,16 +39,25 @@ public class SecurityFilterConfig {
                                 SecurityConstants.API_BASE_PATH,
                                 SecurityConstants.USER_SEARCH,
                                 SecurityConstants.USER_ID)
-                        .hasAuthority(SecurityConstants.PERMISSION_USER_READ)
+                        .hasAnyAuthority(
+                                SecurityConstants.PERMISSION_USER_READ,
+                                SecurityConstants.PERMISSION_USER_ALL,
+                                SecurityConstants.PERMISSION_SYSTEM_ALL)
 
                         .requestMatchers(HttpMethod.POST,
                                 SecurityConstants.API_BASE_PATH,
                                 SecurityConstants.USER_QUERY)
-                        .hasAuthority(SecurityConstants.PERMISSION_USER_CREATE)
+                        .hasAnyAuthority(
+                                SecurityConstants.PERMISSION_USER_CREATE,
+                                SecurityConstants.PERMISSION_USER_ALL,
+                                SecurityConstants.PERMISSION_SYSTEM_ALL)
 
                         .requestMatchers(HttpMethod.PUT,
                                 SecurityConstants.USER_ID)
-                        .hasAuthority(SecurityConstants.PERMISSION_USER_UPDATE)
+                        .hasAnyAuthority(
+                                SecurityConstants.PERMISSION_USER_UPDATE,
+                                SecurityConstants.PERMISSION_USER_ALL,
+                                SecurityConstants.PERMISSION_SYSTEM_ALL)
 
                         .requestMatchers(HttpMethod.PATCH,
                                 SecurityConstants.USER_CHANGE_PASSWORD,
@@ -56,15 +65,25 @@ public class SecurityFilterConfig {
                                 SecurityConstants.USER_CHANGE_EMAIL,
                                 SecurityConstants.USER_CHANGE_PHONE,
                                 SecurityConstants.USER_CHANGE_STATUS)
-                        .hasAuthority(SecurityConstants.PERMISSION_USER_UPDATE)
+                        .hasAnyAuthority(
+                                SecurityConstants.PERMISSION_USER_UPDATE,
+                                SecurityConstants.PERMISSION_USER_ALL,
+                                SecurityConstants.PERMISSION_SYSTEM_ALL)
 
                         .requestMatchers(HttpMethod.DELETE,
                                 SecurityConstants.USER_ID)
-                        .hasAuthority(SecurityConstants.PERMISSION_USER_DELETE)
+                        .hasAnyAuthority(
+                                SecurityConstants.PERMISSION_USER_DELETE,
+                                SecurityConstants.PERMISSION_USER_ALL,
+                                SecurityConstants.PERMISSION_SYSTEM_ALL)
+
 
                         .requestMatchers(HttpMethod.PATCH,
                                 SecurityConstants.USER_RESTORE)
-                        .hasAuthority(SecurityConstants.PERMISSION_USER_DELETE)
+                        .hasAnyAuthority(
+                                SecurityConstants.PERMISSION_USER_DELETE,
+                                SecurityConstants.PERMISSION_USER_ALL,
+                                SecurityConstants.PERMISSION_SYSTEM_ALL)
 
                         .anyRequest().authenticated()
                 )

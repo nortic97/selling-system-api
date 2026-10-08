@@ -24,6 +24,9 @@ public final class SecurityConstants {
     public static final String PERMISSION_CREATE = "store.create";
     public static final String PERMISSION_UPDATE = "store.update";
     public static final String PERMISSION_DELETE = "store.delete";
+    public static final String PERMISSION_STORE_ALL = "store.all";
+    public static final String PERMISSION_ALL = "store.all";
+    public static final String PERMISSION_SYSTEM_ALL = "system.all";
 
     // Allowed Methods
     public static final List<String> ALLOWED_METHODS = List.of(
