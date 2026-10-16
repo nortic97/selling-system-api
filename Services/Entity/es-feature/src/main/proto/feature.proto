@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+package com.nortic.pos.es.feature.grpc;
+
+option java_multiple_files = false;
+option java_package = "com.nortic.pos.es.feature.grpc";
+option java_outer_classname = "FeatureProto";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+enum FeatureType {
+  BOOLEAN = 0;
+  LIMIT = 1;
+  UNLIMITED = 2;
+}
+
+message FeatureRequest {
+  string code = 1;
+  string name = 2;
+  string description = 3;
+  FeatureType type = 4;
+}
+
+message UpdateFeatureRequest {
+  string id = 1;
+  string code = 2;
+  string name = 3;
+  string description = 4;
+  FeatureType type = 5;
+}
+
+message FeatureIdRequest {
+  string id = 1;
+}
+
+message ChangeStatusRequest {
+  string id = 1;
+  bool is_active = 2;
+}
+
+message PaginationRequest {
+  int32 page = 1;
+  int32 size = 2;
+  repeated string sort = 3;
+}
+
+message FeatureResponse {
+  string id = 1;
+  string code = 2;
+  string name = 3;
+  string description = 4;
+  FeatureType type = 5;
+  bool is_active = 6;
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp updated_at = 8;
+  google.protobuf.Timestamp deleted_at = 9;
+}
+
+message FieldErrorDetail {
+  string field = 1;
+  string message = 2;
+  string rejected_value = 3;
+}
+
+message ErrorResponse {
+  string code = 1;
+  string message = 2;
+  google.protobuf.Timestamp timestamp = 3;
+  repeated FieldErrorDetail details = 4;
+}
+
+message PaginatedFeatureResponse {
+  repeated FeatureResponse content = 1;
+  int64 total_elements = 2;
+  int32 total_pages = 3;
+  int32 size = 4;
+  int32 number = 5;
+  bool first = 6;
+  bool last = 7;
+}
+
+service FeatureService {
+  rpc CreateFeature(FeatureRequest) returns (FeatureResponse);
+  rpc ListFeatures(PaginationRequest) returns (PaginatedFeatureResponse);
+  rpc GetFeature(FeatureIdRequest) returns (FeatureResponse);
+  rpc UpdateFeature(UpdateFeatureRequest) returns (FeatureResponse);
+  rpc DeleteFeature(FeatureIdRequest) returns (google.protobuf.Empty);
+  rpc ChangeStatus(ChangeStatusRequest) returns (FeatureResponse);
+  rpc RestoreFeature(FeatureIdRequest) returns (FeatureResponse);
+}
