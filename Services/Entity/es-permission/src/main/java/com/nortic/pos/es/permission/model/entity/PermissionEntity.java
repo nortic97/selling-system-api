@@ -13,44 +13,93 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
-@Data
-@Table(name = "permission")
 @Entity
+@Table(
+        name = "permission",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "uk_permission_code",
+                        columnNames = "code"
+                )
+        }
+)
+@Data
 @Builder
-@SQLDelete(sql = "UPDATE permission SET deleted_at = CURRENT_TIMESTAMP, is_active = FALSE WHERE id = ?")
-@SQLRestriction("deleted_at IS NULL")
 @NoArgsConstructor
 @AllArgsConstructor
+@SQLDelete(
+        sql = """
+        UPDATE permission
+        SET deleted_at = CURRENT_TIMESTAMP,
+            is_active = FALSE
+        WHERE id = ?
+        """
+)
+@SQLRestriction("deleted_at IS NULL")
 public class PermissionEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(
+            name = "id",
+            updatable = false,
+            nullable = false
+    )
     private UUID id;
 
-    @Column(name = "code", nullable = false, length = 100, unique = true)
+    @Column(
+            name = "code",
+            length = 100,
+            nullable = false
+    )
     private String code;
 
-    @Column(name = "module", nullable = false, length = 100)
+    @Column(
+            name = "module",
+            length = 100,
+            nullable = false
+    )
     private String module;
 
-    @Column(name = "name", nullable = false, length = 150)
+    @Column(
+            name = "name",
+            length = 150,
+            nullable = false
+    )
     private String name;
 
-    @Column(name = "description", length = 1000)
+    @Column(
+            name = "description",
+            length = 1000
+    )
     private String description;
 
-    @Column(name = "is_active", nullable = false)
+    @Column(
+            name = "is_active",
+            nullable = false
+    )
     private Boolean isActive;
 
     @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE")
+    @Column(
+            name = "created_at",
+            nullable = false,
+            updatable = false,
+            columnDefinition = "TIMESTAMP WITH TIME ZONE"
+    )
     private OffsetDateTime createdAt;
 
     @UpdateTimestamp
-    @Column(name = "updated_at", nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE")
+    @Column(
+            name = "updated_at",
+            nullable = false,
+            columnDefinition = "TIMESTAMP WITH TIME ZONE"
+    )
     private OffsetDateTime updatedAt;
 
-    @Column(name = "deleted_at", columnDefinition = "TIMESTAMP WITH TIME ZONE")
+    @Column(
+            name = "deleted_at",
+            columnDefinition = "TIMESTAMP WITH TIME ZONE"
+    )
     private OffsetDateTime deletedAt;
-
 }
