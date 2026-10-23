@@ -1,4 +1,4 @@
-package com.nortic.pos.es.store.entity;
+package com.nortic.pos.es.store.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,10 +20,6 @@ import java.util.UUID;
 public class UserEntity {
 
     @Id
-    @Column(
-            name = "id",
-            updatable = false,
-            nullable = false
-    )
+    @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 }

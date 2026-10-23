@@ -1,10 +1,13 @@
 package com.nortic.pos.es.store.mapper;
 
-import com.nortic.pos.es.store.dto.response.PaginatedStoreResponseDTO;
-import com.nortic.pos.es.store.dto.response.StoreDTO;
-import com.nortic.pos.es.store.entity.StoreEntity;
+import com.nortic.pos.es.store.model.dto.PaginatedStoreResponseDTO;
+import com.nortic.pos.es.store.model.dto.StoreDTO;
+import com.nortic.pos.es.store.model.entity.StoreEntity;
+import com.nortic.pos.es.store.model.entity.UserEntity;
 import org.mapstruct.*;
 import org.springframework.data.domain.Page;
+
+import java.util.UUID;
 
 @Mapper(
         componentModel = "spring",
@@ -12,9 +15,9 @@ import org.springframework.data.domain.Page;
 )
 public abstract class StoreEntityMapper {
 
-    @Mapping(target = "name", qualifiedByName = "toLowerCase")
-    @Mapping(target = "email", qualifiedByName = "toLowerCase")
-    @Mapping(target = "ownerId.id", source = "ownerId")
+    @Mapping(target = "ownerId", expression = "java(mapOwner(storeDTO.getOwnerId()))")
+    @Mapping(target = "taxId", source = "taxId", qualifiedByName = "normalizeString")
+    @Mapping(target = "contactEmail", source = "contactEmail", qualifiedByName = "normalizeString")
     public abstract StoreEntity toStoreEntity(StoreDTO storeDTO);
 
     @Mapping(target = "ownerId", source = "ownerId.id")
@@ -23,12 +26,29 @@ public abstract class StoreEntityMapper {
     @Mapping(target = "number", expression = "java(page.getNumber() + 1)")
     public abstract PaginatedStoreResponseDTO toListStoreDTO(Page<StoreEntity> page);
 
-    @Mapping(target = "ownerId.id", source = "ownerId")
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "ownerId", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "deletedAt", ignore = true)
+    @Mapping(target = "isActive", ignore = true)
+    @Mapping(target = "phoneNumber", ignore = true)
+    @Mapping(target = "contactEmail", ignore = true)
+    @Mapping(target = "taxId", source = "taxId", qualifiedByName = "normalizeString")
     public abstract void updateStoreFromDTO(StoreDTO storeDTO, @MappingTarget StoreEntity storeEntity);
 
-    @Named("toLowerCase")
-    protected String toLowerCase(String value) {
-        return value != null ? value.toLowerCase() : null;
+    protected UserEntity mapOwner(UUID ownerId) {
+        if (ownerId == null) {
+            return null;
+        }
+        return UserEntity.builder().id(ownerId).build();
     }
 
+    @Named("normalizeString")
+    protected String normalizeString(String value) {
+        if (value == null) {
+            return null;
+        }
+        return value.trim().toLowerCase();
+    }
 }

@@ -382,44 +382,69 @@ components:
             $ref: '#/components/schemas/ErrorResponseDTO'
 
   schemas:
+    TaxTypeEnum:
+      type: string
+      enum:
+        - NIT
+        - RFC
+        - NIF
+        - CUIT
+        - SSN
+        - RUT
+      description: Tipo de identificación fiscal (ej. NIT, RUT, RFC)
+
+    CurrencyCodeEnum:
+      type: string
+      enum:
+        - COP
+        - USD
+        - EUR
+      default: COP
+      description: Código de moneda ISO 4217
+
     StoreRequestDTO:
       type: object
       required:
         - ownerId
-        - name
+        - taxType
         - taxId
+        - name
       properties:
         ownerId:
           type: string
           format: uuid
           description: Identificador del propietario de la tienda (UUID)
           x-field-extra-annotation: '@NotNull'
+        taxType:
+          $ref: '#/components/schemas/TaxTypeEnum'
+          x-field-extra-annotation: '@NotNull'
         taxId:
           type: string
           description: Identificación fiscal de la tienda (RUC/NIT/RFC)
           maxLength: 100
           x-field-extra-annotation: '@NotBlank @Size(max = 100)'
+        legalName:
+          type: string
+          description: Razón social o nombre legal de la tienda
+          maxLength: 255
+          x-field-extra-annotation: '@Size(max = 255)'
         name:
           type: string
-          description: Nombre de la tienda
-          minLength: 3
+          description: Nombre comercial de la tienda
+          minLength: 1
           maxLength: 255
-          x-field-extra-annotation: '@NotBlank @Size(min = 3, max = 255)'
+          x-field-extra-annotation: '@NotBlank @Size(min = 1, max = 255)'
         description:
           type: string
           description: Descripción de la tienda
-          maxLength: 1000
-          x-field-extra-annotation: '@Size(max = 1000)'
         slogan:
           type: string
           description: Eslogan de la tienda
           maxLength: 255
           x-field-extra-annotation: '@Size(max = 255)'
-        logo:
+        logoUrl:
           type: string
           description: URL del logo de la tienda
-          maxLength: 2000
-          x-field-extra-annotation: '@Size(max = 2000)'
         address:
           type: string
           description: Dirección física de la tienda
@@ -443,19 +468,22 @@ components:
         phoneNumber:
           type: string
           description: Número de teléfono de la tienda
-          maxLength: 50
-          x-field-extra-annotation: '@Size(max = 50)'
-        email:
+          maxLength: 20
+          x-field-extra-annotation: '@Size(max = 20)'
+        contactEmail:
           type: string
           format: email
-          description: Correo electrónico de la tienda
+          description: Correo electrónico de contacto de la tienda
           maxLength: 255
           x-field-extra-annotation: '@Email @Size(max = 255)'
+        currencyCode:
+          $ref: '#/components/schemas/CurrencyCodeEnum'
+          x-field-extra-annotation: '@NotNull'
 
     StatusRequest:
       type: object
       required:
-        - isActive
+        - active
       properties:
         active:
           type: boolean
@@ -465,58 +493,63 @@ components:
     PhoneRequestDTO:
       type: object
       required:
-        - phone
+        - phoneNumber
       properties:
-        phone:
+        phoneNumber:
           type: string
           description: Número de teléfono de la tienda
-          maxLength: 50
-          x-field-extra-annotation: '@NotBlank @Size(max = 50)'
+          maxLength: 20
+          x-field-extra-annotation: '@NotBlank @Size(max = 20)'
 
     EmailRequestDTO:
       type: object
       required:
-        - email
+        - contactEmail
       properties:
-        email:
+        contactEmail:
           type: string
           format: email
-          description: Correo electrónico de la tienda
-          maxLength: 100
-          x-field-extra-annotation: '@NotBlank @Email @Size(max = 100)'
+          description: Correo electrónico de contacto de la tienda
+          maxLength: 255
+          x-field-extra-annotation: '@NotBlank @Email @Size(max = 255)'
 
     UpdateStoreRequestDTO:
       type: object
       required:
-        - name
+        - taxType
         - taxId
+        - name
       properties:
+        taxType:
+          $ref: '#/components/schemas/TaxTypeEnum'
+          x-field-extra-annotation: '@NotNull'
         taxId:
           type: string
           description: Identificación fiscal de la tienda (RUC/NIT/RFC)
           maxLength: 100
           x-field-extra-annotation: '@NotBlank @Size(max = 100)'
+        legalName:
+          type: string
+          description: Razón social o nombre legal de la tienda
+          maxLength: 255
+          x-field-extra-annotation: '@Size(max = 255)'
         name:
           type: string
-          description: Nombre de la tienda
-          minLength: 3
+          description: Nombre comercial de la tienda
+          minLength: 1
           maxLength: 255
-          x-field-extra-annotation: '@NotBlank @Size(min = 3, max = 255)'
+          x-field-extra-annotation: '@NotBlank @Size(min = 1, max = 255)'
         description:
           type: string
           description: Descripción de la tienda
-          maxLength: 1000
-          x-field-extra-annotation: '@Size(max = 1000)'
         slogan:
           type: string
           description: Eslogan de la tienda
           maxLength: 255
           x-field-extra-annotation: '@Size(max = 255)'
-        logo:
+        logoUrl:
           type: string
           description: URL del logo de la tienda
-          maxLength: 2000
-          x-field-extra-annotation: '@Size(max = 2000)'
         address:
           type: string
           description: Dirección física de la tienda
@@ -537,6 +570,9 @@ components:
           description: Ciudad de la tienda
           maxLength: 100
           x-field-extra-annotation: '@Size(max = 100)'
+        currencyCode:
+          $ref: '#/components/schemas/CurrencyCodeEnum'
+          x-field-extra-annotation: '@NotNull'
 
     StoreResponseDTO:
       type: object
@@ -549,19 +585,24 @@ components:
           type: string
           format: uuid
           description: Identificador del propietario de la tienda (UUID)
+        taxType:
+          $ref: '#/components/schemas/TaxTypeEnum'
         taxId:
           type: string
           description: Identificación fiscal de la tienda (RUC/NIT/RFC)
+        legalName:
+          type: string
+          description: Razón social o nombre legal de la tienda
         name:
           type: string
-          description: Nombre de la tienda
+          description: Nombre comercial de la tienda
         description:
           type: string
           description: Descripción de la tienda
         slogan:
           type: string
           description: Eslogan de la tienda
-        logo:
+        logoUrl:
           type: string
           description: URL del logo de la tienda
         address:
@@ -579,9 +620,11 @@ components:
         phoneNumber:
           type: string
           description: Número de teléfono de la tienda
-        email:
+        contactEmail:
           type: string
-          description: Correo electrónico de la tienda
+          description: Correo electrónico de contacto de la tienda
+        currencyCode:
+          $ref: '#/components/schemas/CurrencyCodeEnum'
         isActive:
           type: boolean
           description: Estado activo/inactivo de la tienda

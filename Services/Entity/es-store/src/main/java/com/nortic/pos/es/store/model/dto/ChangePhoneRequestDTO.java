@@ -1,4 +1,4 @@
-package com.nortic.pos.es.store.dto.request;
+package com.nortic.pos.es.store.model.dto;
 
 import lombok.*;
 
@@ -10,6 +10,5 @@ import lombok.*;
 @AllArgsConstructor
 public class ChangePhoneRequestDTO {
 
-    private String phone;
-
+    private String phoneNumber;
 }

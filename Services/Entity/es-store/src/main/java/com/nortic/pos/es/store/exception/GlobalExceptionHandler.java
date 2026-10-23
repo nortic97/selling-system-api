@@ -1,7 +1,7 @@
 package com.nortic.pos.es.store.exception;
 
-import com.nortic.pos.es.store.dto.error.ErrorResponseDTO;
-import com.nortic.pos.es.store.dto.error.FieldErrorDetailResponseDTO;
+import com.nortic.pos.es.store.model.dto.ErrorResponseDTO;
+import com.nortic.pos.es.store.model.dto.FieldErrorDetailResponseDTO;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;

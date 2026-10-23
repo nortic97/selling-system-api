@@ -2,6 +2,7 @@ package com.nortic.pos.es.user.service;
 
 import com.nortic.pos.es.user.exception.UserBusinessException;
 import com.nortic.pos.es.user.exception.UserExceptionCode;
+import com.nortic.pos.es.user.model.dto.FieldErrorDetailResponseDTO;
 import com.nortic.pos.es.user.model.dto.UserDTO;
 import com.nortic.pos.es.user.model.entity.UserEntity;
 import com.nortic.pos.es.user.repository.UserRepository;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -84,25 +86,67 @@ public class UserValidationServiceImpl implements UserValidationService {
     @Override
     public void validateNewUser(UserDTO userDTO) {
         if (userDTO.getUsername() == null || userDTO.getUsername().isBlank()) {
-            throw new UserBusinessException(UserExceptionCode.VALIDATION_FAILED);
+            throw new UserBusinessException(
+                    UserExceptionCode.VALIDATION_FAILED,
+                    List.of(FieldErrorDetailResponseDTO.builder()
+                            .field("username")
+                            .message("Username is required and cannot be blank")
+                            .build())
+            );
         }
         if (userDTO.getEmail() == null || userDTO.getEmail().isBlank()) {
-            throw new UserBusinessException(UserExceptionCode.VALIDATION_FAILED);
+            throw new UserBusinessException(
+                    UserExceptionCode.VALIDATION_FAILED,
+                    List.of(FieldErrorDetailResponseDTO.builder()
+                            .field("email")
+                            .message("Email is required and cannot be blank")
+                            .build())
+            );
         }
         if (userDTO.getDocumentNumber() == null || userDTO.getDocumentNumber().isBlank()) {
-            throw new UserBusinessException(UserExceptionCode.VALIDATION_FAILED);
+            throw new UserBusinessException(
+                    UserExceptionCode.VALIDATION_FAILED,
+                    List.of(FieldErrorDetailResponseDTO.builder()
+                            .field("documentNumber")
+                            .message("Document number is required and cannot be blank")
+                            .build())
+            );
         }
         if (userDTO.getDocumentType() == null) {
-            throw new UserBusinessException(UserExceptionCode.VALIDATION_FAILED);
+            throw new UserBusinessException(
+                    UserExceptionCode.VALIDATION_FAILED,
+                    List.of(FieldErrorDetailResponseDTO.builder()
+                            .field("documentType")
+                            .message("Document type is required")
+                            .build())
+            );
         }
         if (userDTO.getFirstName() == null || userDTO.getFirstName().isBlank()) {
-            throw new UserBusinessException(UserExceptionCode.VALIDATION_FAILED);
+            throw new UserBusinessException(
+                    UserExceptionCode.VALIDATION_FAILED,
+                    List.of(FieldErrorDetailResponseDTO.builder()
+                            .field("firstName")
+                            .message("First name is required and cannot be blank")
+                            .build())
+            );
         }
         if (userDTO.getLastName() == null || userDTO.getLastName().isBlank()) {
-            throw new UserBusinessException(UserExceptionCode.VALIDATION_FAILED);
+            throw new UserBusinessException(
+                    UserExceptionCode.VALIDATION_FAILED,
+                    List.of(FieldErrorDetailResponseDTO.builder()
+                            .field("lastName")
+                            .message("Last name is required and cannot be blank")
+                            .build())
+            );
         }
         if (userDTO.getPhone() == null || userDTO.getPhone().isBlank()) {
-            throw new UserBusinessException(UserExceptionCode.VALIDATION_FAILED);
+            throw new UserBusinessException(
+                    UserExceptionCode.VALIDATION_FAILED,
+                    List.of(FieldErrorDetailResponseDTO.builder()
+                            .field("phone")
+                            .message("Phone is required and cannot be blank")
+                            .build())
+            );
         }
 
         String normalizedUsername = userDTO.getUsername().trim().toLowerCase();

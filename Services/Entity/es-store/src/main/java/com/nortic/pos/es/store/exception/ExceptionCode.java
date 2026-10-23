@@ -10,7 +10,7 @@ public enum ExceptionCode {
 
     VALIDATION_FAILED(
             "VALIDATION_FAILED",
-            "Uno o más campos enviados en la solicitud no pasaron las validaciones.",
+            "One or more fields in the request failed validation.",
             HttpStatus.BAD_REQUEST
     ),
 

@@ -1,8 +1,8 @@
 package com.nortic.pos.es.store.controller;
 
-import com.nortic.pos.es.store.dto.SearchParamsDTO;
-import com.nortic.pos.es.store.dto.request.RequestContextDTO;
 import com.nortic.pos.es.store.mapper.StoreRestMapper;
+import com.nortic.pos.es.store.model.dto.RequestContextDTO;
+import com.nortic.pos.es.store.model.dto.SearchParamsDTO;
 import com.nortic.pos.es.store.rest.gen.api.StoreApi;
 import com.nortic.pos.es.store.rest.gen.model.*;
 import com.nortic.pos.es.store.service.contract.StoreService;

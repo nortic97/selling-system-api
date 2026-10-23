@@ -1,7 +1,7 @@
 package com.nortic.pos.es.store.security.exception;
 
-import com.nortic.pos.es.store.dto.error.ErrorResponseDTO;
 import com.nortic.pos.es.store.exception.ExceptionCode;
+import com.nortic.pos.es.store.model.dto.ErrorResponseDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

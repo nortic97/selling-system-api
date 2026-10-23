@@ -1,7 +1,7 @@
 package com.nortic.pos.es.store.service.contract;
 
-import com.nortic.pos.es.store.dto.response.StoreDTO;
-import com.nortic.pos.es.store.entity.StoreEntity;
+import com.nortic.pos.es.store.model.dto.StoreDTO;
+import com.nortic.pos.es.store.model.entity.StoreEntity;
 
 import java.util.UUID;
 
@@ -11,8 +11,9 @@ public interface StoreValidationService {
 
     void validateNewStore(StoreDTO storeDTO);
 
-    void validateEmail(String email, UUID id);
+    void validateStoreUpdate(UUID id, StoreDTO storeDTO);
 
-    void validatePhone(String phone, UUID id);
+    void validateEmail(UUID id, String email);
 
+    void validatePhone(UUID id, String phone);
 }

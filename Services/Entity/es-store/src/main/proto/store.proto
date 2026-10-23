@@ -11,17 +11,20 @@ import "google/protobuf/empty.proto";
 
 message StoreRequest {
   string owner_id = 1;
-  string tax_id = 2;
-  string name = 3;
-  string description = 4;
-  string slogan = 5;
-  string logo = 6;
-  string address = 7;
-  string country = 8;
-  string state_province = 9;
-  string city = 10;
-  string phone_number = 11;
-  string email = 12;
+  string tax_type = 2;
+  string tax_id = 3;
+  optional string legal_name = 4;
+  string name = 5;
+  optional string logo_url = 6;
+  optional string description = 7;
+  optional string slogan = 8;
+  optional string address = 9;
+  optional string country = 10;
+  optional string state_province = 11;
+  optional string city = 12;
+  optional string phone_number = 13;
+  optional string contact_email = 14;
+  optional string currency_code = 15;
 }
 
 message StatusRequest {
@@ -29,24 +32,27 @@ message StatusRequest {
 }
 
 message PhoneRequest {
-  string phone = 1;
+  string phone_number = 1;
 }
 
 message EmailRequest {
-  string email = 1;
+  string contact_email = 1;
 }
 
 message UpdateStoreRequest {
   string id = 1;
-  string tax_id = 2;
-  string name = 3;
-  string description = 4;
-  string slogan = 5;
-  string logo = 6;
-  string address = 7;
-  string country = 8;
-  string state_province = 9;
-  string city = 10;
+  optional string tax_type = 2;
+  optional string tax_id = 3;
+  optional string legal_name = 4;
+  optional string name = 5;
+  optional string logo_url = 6;
+  optional string description = 7;
+  optional string slogan = 8;
+  optional string address = 9;
+  optional string country = 10;
+  optional string state_province = 11;
+  optional string city = 12;
+  optional string currency_code = 13;
 }
 
 message StoreIdRequest {
@@ -60,12 +66,12 @@ message ChangeStatusRequest {
 
 message ChangePhoneRequest {
   string id = 1;
-  string phone = 2;
+  string phone_number = 2;
 }
 
 message ChangeEmailRequest {
   string id = 1;
-  string email = 2;
+  string contact_email = 2;
 }
 
 message PaginationRequest {
@@ -77,21 +83,24 @@ message PaginationRequest {
 message StoreResponse {
   string id = 1;
   string owner_id = 2;
-  string tax_id = 3;
-  string name = 4;
-  string description = 5;
-  string slogan = 6;
-  string logo = 7;
-  string address = 8;
-  string country = 9;
-  string state_province = 10;
-  string city = 11;
-  string phone_number = 12;
-  string email = 13;
-  bool is_active = 14;
-  google.protobuf.Timestamp created_at = 15;
-  google.protobuf.Timestamp updated_at = 16;
-  google.protobuf.Timestamp deleted_at = 17;
+  string tax_type = 3;
+  string tax_id = 4;
+  optional string legal_name = 5;
+  string name = 6;
+  optional string logo_url = 7;
+  optional string description = 8;
+  optional string slogan = 9;
+  optional string address = 10;
+  optional string country = 11;
+  optional string state_province = 12;
+  optional string city = 13;
+  optional string phone_number = 14;
+  optional string contact_email = 15;
+  string currency_code = 16;
+  bool is_active = 17;
+  google.protobuf.Timestamp created_at = 18;
+  google.protobuf.Timestamp updated_at = 19;
+  optional google.protobuf.Timestamp deleted_at = 20;
 }
 
 message FieldErrorDetail {

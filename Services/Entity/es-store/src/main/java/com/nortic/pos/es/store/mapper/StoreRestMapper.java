@@ -1,10 +1,6 @@
 package com.nortic.pos.es.store.mapper;
 
-import com.nortic.pos.es.store.dto.request.ChangeEmailRequestDTO;
-import com.nortic.pos.es.store.dto.request.ChangePhoneRequestDTO;
-import com.nortic.pos.es.store.dto.request.ChangeStatusRequestDTO;
-import com.nortic.pos.es.store.dto.response.PaginatedStoreResponseDTO;
-import com.nortic.pos.es.store.dto.response.StoreDTO;
+import com.nortic.pos.es.store.model.dto.*;
 import com.nortic.pos.es.store.rest.gen.model.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -38,7 +34,7 @@ public abstract class StoreRestMapper {
     @Mapping(target = "ownerId", ignore = true)
     @Mapping(target = "isActive", ignore = true)
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "email", ignore = true)
+    @Mapping(target = "contactEmail", ignore = true)
     @Mapping(target = "deletedAt", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     public abstract StoreDTO toUpdateStoreRequestDTO(RestModelUpdateStoreRequestDTO restModelUpdateStoreRequestDTO);

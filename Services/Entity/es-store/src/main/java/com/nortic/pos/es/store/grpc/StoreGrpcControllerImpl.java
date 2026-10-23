@@ -1,12 +1,12 @@
 package com.nortic.pos.es.store.grpc;
 
 import com.google.protobuf.Empty;
-import com.nortic.pos.es.store.dto.SearchParamsDTO;
-import com.nortic.pos.es.store.dto.request.RequestContextDTO;
 import com.nortic.pos.es.store.grpc.exception.GrpcException;
 import com.nortic.pos.es.store.grpc.interceptor.ContextKeys;
 import com.nortic.pos.es.store.grpc.interceptor.GrpcInterceptor;
 import com.nortic.pos.es.store.mapper.StoreGrpcMapper;
+import com.nortic.pos.es.store.model.dto.RequestContextDTO;
+import com.nortic.pos.es.store.model.dto.SearchParamsDTO;
 import com.nortic.pos.es.store.service.contract.StoreService;
 import com.nortic.pos.es.store.util.PageableUtil;
 import io.grpc.stub.StreamObserver;

@@ -1,4 +1,4 @@
-package com.nortic.pos.es.store.dto.error;
+package com.nortic.pos.es.store.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;

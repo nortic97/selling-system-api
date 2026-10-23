@@ -1,15 +1,9 @@
 package com.nortic.pos.es.store.service;
 
-import com.nortic.pos.es.store.dto.SearchParamsDTO;
-import com.nortic.pos.es.store.dto.request.ChangeEmailRequestDTO;
-import com.nortic.pos.es.store.dto.request.ChangePhoneRequestDTO;
-import com.nortic.pos.es.store.dto.request.ChangeStatusRequestDTO;
-import com.nortic.pos.es.store.dto.request.RequestContextDTO;
-import com.nortic.pos.es.store.dto.response.PaginatedStoreResponseDTO;
-import com.nortic.pos.es.store.dto.response.StoreDTO;
 import com.nortic.pos.es.store.exception.BusinessException;
 import com.nortic.pos.es.store.exception.ExceptionCode;
 import com.nortic.pos.es.store.mapper.StoreEntityMapper;
+import com.nortic.pos.es.store.model.dto.*;
 import com.nortic.pos.es.store.repository.StoreRepository;
 import com.nortic.pos.es.store.service.contract.StoreService;
 import com.nortic.pos.es.store.service.contract.StoreValidationService;
@@ -26,9 +20,7 @@ import java.util.UUID;
 public class StoreServiceImpl implements StoreService {
 
     private final StoreRepository storeRepository;
-
     private final StoreEntityMapper storeEntityMapper;
-
     private final StoreValidationService storeValidationService;
 
     @Override
@@ -49,7 +41,7 @@ public class StoreServiceImpl implements StoreService {
         storeValidationService.validateNewStore(storeDTO);
 
         var storeEntity = storeEntityMapper.toStoreEntity(storeDTO);
-        storeEntity.setIsActive(Boolean.FALSE);
+        storeEntity.setIsActive(Boolean.TRUE);
 
         var savedStoreEntity = storeRepository.save(storeEntity);
 
@@ -103,6 +95,8 @@ public class StoreServiceImpl implements StoreService {
 
         var storeEntity = storeValidationService.validateAndGetStore(id);
 
+        storeValidationService.validateStoreUpdate(id, storeDTO);
+
         storeEntityMapper.updateStoreFromDTO(storeDTO, storeEntity);
 
         log.info("Update store service completed ... ");
@@ -131,9 +125,11 @@ public class StoreServiceImpl implements StoreService {
 
         var storeEntity = storeValidationService.validateAndGetStore(id);
 
-        storeValidationService.validateEmail(changeEmailRequestDTO.getEmail(), id);
+        storeValidationService.validateEmail(id, changeEmailRequestDTO.getContactEmail());
 
-        storeEntity.setEmail(changeEmailRequestDTO.getEmail());
+        storeEntity.setContactEmail(changeEmailRequestDTO.getContactEmail() != null
+                ? changeEmailRequestDTO.getContactEmail().trim().toLowerCase()
+                : null);
 
         log.info("Change email service completed ... ");
 
@@ -141,19 +137,20 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
+    @Transactional
     public StoreDTO changePhone(RequestContextDTO requestContextDTO, UUID id, ChangePhoneRequestDTO changePhoneRequestDTO) {
         log.info("Change phone service ... ");
 
         var storeEntity = storeValidationService.validateAndGetStore(id);
 
-        storeValidationService.validatePhone(changePhoneRequestDTO.getPhone(), id);
+        storeValidationService.validatePhone(id, changePhoneRequestDTO.getPhoneNumber());
 
-        storeEntity.setPhoneNumber(changePhoneRequestDTO.getPhone());
+        storeEntity.setPhoneNumber(changePhoneRequestDTO.getPhoneNumber() != null
+                ? changePhoneRequestDTO.getPhoneNumber().trim()
+                : null);
 
         log.info("Change phone service completed ... ");
 
         return storeEntityMapper.toStoreDTO(storeEntity);
     }
-
-
 }

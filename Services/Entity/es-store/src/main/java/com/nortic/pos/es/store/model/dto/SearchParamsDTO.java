@@ -1,4 +1,4 @@
-package com.nortic.pos.es.store.dto;
+package com.nortic.pos.es.store.model.dto;
 
 import lombok.*;
 import org.springframework.data.domain.Pageable;

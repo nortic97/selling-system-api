@@ -1,12 +1,6 @@
 package com.nortic.pos.es.store.service.contract;
 
-import com.nortic.pos.es.store.dto.SearchParamsDTO;
-import com.nortic.pos.es.store.dto.request.ChangeEmailRequestDTO;
-import com.nortic.pos.es.store.dto.request.ChangePhoneRequestDTO;
-import com.nortic.pos.es.store.dto.request.ChangeStatusRequestDTO;
-import com.nortic.pos.es.store.dto.request.RequestContextDTO;
-import com.nortic.pos.es.store.dto.response.PaginatedStoreResponseDTO;
-import com.nortic.pos.es.store.dto.response.StoreDTO;
+import com.nortic.pos.es.store.model.dto.*;
 
 import java.util.UUID;
 

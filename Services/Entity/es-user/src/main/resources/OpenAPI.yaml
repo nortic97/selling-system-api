@@ -726,7 +726,7 @@ components:
           x-field-extra-annotation: "@NotBlank"
         documentType:
           $ref: '#/components/schemas/DocumentTypeEnum'
-          x-field-extra-annotation: "@NotBlank"
+          x-field-extra-annotation: "@NotNull"
         documentNumber:
           type: string
           maxLength: 100
@@ -776,7 +776,7 @@ components:
           x-field-extra-annotation: "@NotBlank"
         documentType:
           $ref: '#/components/schemas/DocumentTypeEnum'
-          x-field-extra-annotation: "@NotBlank"
+          x-field-extra-annotation: "@NotNull"
         documentNumber:
           type: string
           maxLength: 100

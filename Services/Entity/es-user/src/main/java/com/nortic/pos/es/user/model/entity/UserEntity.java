@@ -53,16 +53,16 @@ public class UserEntity {
     @Column(name = "username", length = 100, nullable = false)
     private String username;
 
-    @Column(name = "email", length = 255, nullable = false)
+    @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "password", length = 255, nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Column(name = "phone", length = 20, nullable = false)
     private String phone;
 
-    @Column(name = "address", length = 255)
+    @Column(name = "address")
     private String address;
 
     @Column(name = "date_of_birth")
