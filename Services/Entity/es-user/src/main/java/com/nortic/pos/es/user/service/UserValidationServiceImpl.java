@@ -1,9 +1,9 @@
 package com.nortic.pos.es.user.service;
 
-import com.nortic.pos.es.user.dto.UserDTO;
-import com.nortic.pos.es.user.entity.UserEntity;
 import com.nortic.pos.es.user.exception.UserBusinessException;
 import com.nortic.pos.es.user.exception.UserExceptionCode;
+import com.nortic.pos.es.user.model.dto.UserDTO;
+import com.nortic.pos.es.user.model.entity.UserEntity;
 import com.nortic.pos.es.user.repository.UserRepository;
 import com.nortic.pos.es.user.service.contract.UserValidationService;
 import lombok.RequiredArgsConstructor;
@@ -55,8 +55,9 @@ public class UserValidationServiceImpl implements UserValidationService {
 
     @Override
     public void validateEmail(UUID id, String email) {
+        String normalizedEmail = email.trim().toLowerCase();
         if (userRepository.existsByEmailIgnoreCaseAndIdNot(
-                email,
+                normalizedEmail,
                 id
         )) {
 
@@ -68,8 +69,9 @@ public class UserValidationServiceImpl implements UserValidationService {
 
     @Override
     public void validatePhone(UUID id, String phone) {
-        if (userRepository.existsByPhoneAndIdNot(
-                phone,
+        String normalizedPhone = phone.trim().toLowerCase();
+        if (userRepository.existsByPhoneIgnoreCaseAndIdNot(
+                normalizedPhone,
                 id
         )) {
 
@@ -99,13 +101,24 @@ public class UserValidationServiceImpl implements UserValidationService {
         if (userDTO.getLastName() == null || userDTO.getLastName().isBlank()) {
             throw new UserBusinessException(UserExceptionCode.VALIDATION_FAILED);
         }
+        if (userDTO.getPhone() == null || userDTO.getPhone().isBlank()) {
+            throw new UserBusinessException(UserExceptionCode.VALIDATION_FAILED);
+        }
 
-        if (userRepository.existsByUsernameIgnoreCase(userDTO.getUsername())) {
+        String normalizedUsername = userDTO.getUsername().trim().toLowerCase();
+        String normalizedEmail = userDTO.getEmail().trim().toLowerCase();
+        String normalizedPhone = userDTO.getPhone().trim().toLowerCase();
+
+        if (userRepository.existsByUsernameIgnoreCase(normalizedUsername)) {
             throw new UserBusinessException(UserExceptionCode.USERNAME_ALREADY_EXISTS);
         }
 
-        if (userRepository.existsByEmailIgnoreCase(userDTO.getEmail())) {
+        if (userRepository.existsByEmailIgnoreCase(normalizedEmail)) {
             throw new UserBusinessException(UserExceptionCode.EMAIL_ALREADY_EXISTS);
+        }
+
+        if (userRepository.existsByPhoneIgnoreCase(normalizedPhone)) {
+            throw new UserBusinessException(UserExceptionCode.PHONE_ALREADY_EXISTS);
         }
 
         if (userRepository.existsByDocumentTypeAndDocumentNumber(
@@ -118,7 +131,8 @@ public class UserValidationServiceImpl implements UserValidationService {
 
     @Override
     public void validateUsername(UUID id, String username) {
-        if (userRepository.existsByUsernameIgnoreCaseAndIdNot(username, id)) {
+        String normalizedUsername = username.trim().toLowerCase();
+        if (userRepository.existsByUsernameIgnoreCaseAndIdNot(normalizedUsername, id)) {
             throw new UserBusinessException(UserExceptionCode.USERNAME_ALREADY_EXISTS);
         }
     }

@@ -1,5 +1,4 @@
-package com.nortic.pos.es.user.dto.request;
-
+package com.nortic.pos.es.user.model.dto;
 
 import lombok.*;
 
@@ -9,8 +8,10 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChangeUsernameRequestDTO {
+public class AuthenticateRequestDTO {
 
     private String username;
+
+    private String password;
 
 }

@@ -1,4 +1,4 @@
-package com.nortic.pos.es.user.dto.request;
+package com.nortic.pos.es.user.model.dto;
 
 import lombok.*;
 

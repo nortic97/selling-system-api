@@ -1,7 +1,7 @@
 package com.nortic.pos.es.user.repository;
 
-import com.nortic.pos.es.user.dto.enums.DocumentTypeEnum;
-import com.nortic.pos.es.user.entity.UserEntity;
+import com.nortic.pos.es.user.model.entity.UserEntity;
+import com.nortic.pos.es.user.model.enums.DocumentTypeEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.NativeQuery;
@@ -14,9 +14,15 @@ import java.util.UUID;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, UUID>, JpaSpecificationExecutor<UserEntity> {
+    Optional<UserEntity> findByUsernameIgnoreCase(String username);
+
     boolean existsByUsernameIgnoreCase(String username);
 
     boolean existsByEmailIgnoreCase(String email);
+
+    boolean existsByPhoneIgnoreCase(String phone);
+
+    boolean existsByPhoneIgnoreCaseAndIdNot(String phone, UUID id);
 
     boolean existsByPhoneAndIdNot(String phone, UUID id);
 

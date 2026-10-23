@@ -430,6 +430,47 @@ paths:
         '500':
           $ref: '#/components/responses/500InternalServerError'
 
+  /api/v1/es/user/authenticate:
+    post:
+      summary: Autenticar usuario
+      description: Autentica un usuario mediante username y password. Retorna los datos del usuario si las credenciales son válidas.
+      operationId: authenticate
+      tags:
+        - User
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      requestBody:
+        required: true
+        description: Credenciales de autenticación (username y password).
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthenticateRequest'
+      responses:
+        '200':
+          description: Autenticación exitosa. Retorna los datos del usuario.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          description: Credenciales inválidas (password incorrecto).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDTO'
+        '404':
+          description: Usuario no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDTO'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
 components:
   securitySchemes:
     bearerAuth:
@@ -537,7 +578,7 @@ components:
         - DNI
         - NIT
         - PEP
-      default: null
+      default: CC
       description: Tipo de documento de identificación
 
     ErrorResponseDTO:
@@ -649,7 +690,7 @@ components:
           type: string
           format: date
           nullable: true
-        photo:
+        photoUrl:
           type: string
           nullable: true
         createdAt:
@@ -674,7 +715,6 @@ components:
         - password
         - email
         - phone
-        - dateOfBirth
       properties:
         firstName:
           type: string
@@ -707,7 +747,7 @@ components:
           x-field-extra-annotation: "@NotBlank"
         phone:
           type: string
-          maxLength: 50
+          maxLength: 20
           x-field-extra-annotation: "@NotBlank"
         address:
           type: string
@@ -715,7 +755,7 @@ components:
         dateOfBirth:
           type: string
           format: date
-        photo:
+        photoUrl:
           type: string
 
     UpdateUserRequestDTO:
@@ -725,7 +765,6 @@ components:
         - lastName
         - documentType
         - documentNumber
-        - dateOfBirth
       properties:
         firstName:
           type: string
@@ -748,7 +787,7 @@ components:
         dateOfBirth:
           type: string
           format: date
-        photo:
+        photoUrl:
           type: string
 
     UserQueryRequestDTO:
@@ -806,7 +845,7 @@ components:
           description: Filtro por email.
         phone:
           type: string
-          maxLength: 50
+          maxLength: 20
           description: Filtro por teléfono.
         address:
           type: string
@@ -882,8 +921,7 @@ components:
       properties:
         phone:
           type: string
-          maxLength: 50
-          x-field-extra-annotation: "@NotBlank"
+          maxLength: 20
 
     ChangeUserStatusRequest:
       type: object
@@ -893,3 +931,20 @@ components:
         active:
           type: boolean
           x-field-extra-annotation: "@NotNull"
+
+    AuthenticateRequest:
+      type: object
+      required:
+        - username
+        - password
+      properties:
+        username:
+          type: string
+          minLength: 4
+          maxLength: 100
+          x-field-extra-annotation: "@NotBlank"
+        password:
+          type: string
+          minLength: 8
+          maxLength: 255
+          x-field-extra-annotation: "@NotBlank"

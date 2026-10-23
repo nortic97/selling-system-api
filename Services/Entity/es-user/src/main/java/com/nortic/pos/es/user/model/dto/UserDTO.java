@@ -1,6 +1,6 @@
-package com.nortic.pos.es.user.dto;
+package com.nortic.pos.es.user.model.dto;
 
-import com.nortic.pos.es.user.dto.enums.DocumentTypeEnum;
+import com.nortic.pos.es.user.model.enums.DocumentTypeEnum;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -37,7 +37,7 @@ public class UserDTO {
 
     private LocalDate dateOfBirth;
 
-    private String photo;
+    private String photoUrl;
 
     private Boolean isActive;
 

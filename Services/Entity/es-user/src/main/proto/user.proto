@@ -23,6 +23,7 @@ service UserService {
   rpc ChangeEmail(ChangeEmailRequest) returns (UserResponse);
   rpc ChangePhone(ChangePhoneRequest) returns (UserResponse);
   rpc ChangeUserStatus(ChangeUserStatusRequest) returns (UserResponse);
+  rpc Authenticate(AuthenticateRequest) returns (UserResponse);
 }
 
 
@@ -77,10 +78,10 @@ message CreateUserRequest {
   string password = 6;
   string email = 7;
   string phone = 8;
-  string date_of_birth = 9;
 
+  optional string date_of_birth = 9;
   optional string address = 10;
-  optional string photo = 11;
+  optional string photo_url = 11;
 }
 
 message UpdateUserRequest {
@@ -95,7 +96,7 @@ message UpdateUserRequest {
   optional string phone = 9;
   optional string address = 10;
   optional string date_of_birth = 11;
-  optional string photo = 12;
+  optional string photo_url = 12;
 }
 
 message ChangeUserPasswordRequest {
@@ -124,6 +125,11 @@ message ChangeUserStatusRequest {
   bool active = 2;
 }
 
+message AuthenticateRequest {
+  string username = 1;
+  string password = 2;
+}
+
 
 message UserResponse {
   string id = 1;
@@ -137,7 +143,7 @@ message UserResponse {
   bool is_active = 9;
   optional string address = 10;
   optional string date_of_birth = 11;
-  optional string photo = 12;
+  optional string photo_url = 12;
 
   google.protobuf.Timestamp created_at = 13;
   google.protobuf.Timestamp updated_at = 14;

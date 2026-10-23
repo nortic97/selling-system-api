@@ -1,6 +1,5 @@
-package com.nortic.pos.es.user.dto.response;
+package com.nortic.pos.es.user.model.dto;
 
-import com.nortic.pos.es.user.dto.UserDTO;
 import lombok.*;
 
 import java.util.List;

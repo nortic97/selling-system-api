@@ -1,4 +1,4 @@
-package com.nortic.pos.es.user.dto.enums;
+package com.nortic.pos.es.user.model.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

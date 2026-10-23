@@ -1,11 +1,9 @@
 package com.nortic.pos.es.user.mapper;
 
 import com.google.protobuf.Timestamp;
-import com.nortic.pos.es.user.dto.UserDTO;
-import com.nortic.pos.es.user.dto.enums.DocumentTypeEnum;
-import com.nortic.pos.es.user.dto.request.*;
-import com.nortic.pos.es.user.dto.response.PaginatedUserResponseDTO;
 import com.nortic.pos.es.user.grpc.UserProto;
+import com.nortic.pos.es.user.model.dto.*;
+import com.nortic.pos.es.user.model.enums.DocumentTypeEnum;
 import org.mapstruct.*;
 
 import java.time.OffsetDateTime;
@@ -39,7 +37,7 @@ public abstract class UserGrpcMapper {
 
     @Mapping(target = "usernameBytes", ignore = true)
     @Mapping(target = "unknownFields", ignore = true)
-    @Mapping(target = "photoBytes", ignore = true)
+    @Mapping(target = "photoUrlBytes", ignore = true)
     @Mapping(target = "phoneBytes", ignore = true)
     @Mapping(target = "mergeUpdatedAt", ignore = true)
     @Mapping(target = "mergeUnknownFields", ignore = true)
@@ -101,6 +99,8 @@ public abstract class UserGrpcMapper {
     public abstract ChangeUserStatusRequestDTO toChangeUserStatusRequestDTO(UserProto.ChangeUserStatusRequest request);
 
     public abstract ChangeUsernameRequestDTO toChangeUsernameRequestDTO(UserProto.ChangeUsernameRequest request);
+
+    public abstract AuthenticateRequestDTO toAuthenticateRequestDTO(UserProto.AuthenticateRequest request);
 
     @Mapping(target = "sort", source = "sortList")
     public abstract UserQueryRequestDTO toUserQueryRequestDTO(UserProto.UserQueryRequest request);

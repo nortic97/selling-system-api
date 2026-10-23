@@ -1,12 +1,12 @@
 package com.nortic.pos.es.user.grpc;
 
 import com.google.protobuf.Empty;
-import com.nortic.pos.es.user.dto.SearchParamsDTO;
-import com.nortic.pos.es.user.dto.request.RequestContextDTO;
 import com.nortic.pos.es.user.grpc.exception.GrpcException;
 import com.nortic.pos.es.user.grpc.interceptor.ContextKeys;
 import com.nortic.pos.es.user.grpc.interceptor.GrpcInterceptor;
 import com.nortic.pos.es.user.mapper.UserGrpcMapper;
+import com.nortic.pos.es.user.model.dto.RequestContextDTO;
+import com.nortic.pos.es.user.model.dto.SearchParamsDTO;
 import com.nortic.pos.es.user.service.contract.UserService;
 import com.nortic.pos.es.user.util.PageableUtil;
 import io.grpc.stub.StreamObserver;
@@ -131,6 +131,33 @@ public class UserGrpcControllerImpl extends UserServiceGrpc.UserServiceImplBase 
 
         } catch (Exception e) {
             errorLog("changeUsername", e);
+            grpcException.grpcException(e, responseObserver);
+        }
+    }
+
+    @Override
+    public void authenticate(UserProto.AuthenticateRequest request, StreamObserver<UserProto.UserResponse> responseObserver) {
+        try {
+            log.info("authenticate gRPC Controller...");
+
+            var requestContextDTO = RequestContextDTO.builder()
+                    .correlationId(UUID.fromString(ContextKeys.CORRELATION_ID_CONTEXT_KEY.get()))
+                    .consumerId(ContextKeys.CONSUMER_ID_CONTEXT_KEY.get())
+                    .build();
+
+            var authenticateRequestDTO = userGrpcMapper.toAuthenticateRequestDTO(request);
+
+            var user = userService.authenticate(requestContextDTO, authenticateRequestDTO);
+
+            var response = userGrpcMapper.toUserResponse(user);
+
+            log.info("authenticate gRPC Controller Completed");
+
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+
+        } catch (Exception e) {
+            errorLog("authenticate", e);
             grpcException.grpcException(e, responseObserver);
         }
     }

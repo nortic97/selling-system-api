@@ -1,9 +1,6 @@
 package com.nortic.pos.es.user.service.contract;
 
-import com.nortic.pos.es.user.dto.SearchParamsDTO;
-import com.nortic.pos.es.user.dto.UserDTO;
-import com.nortic.pos.es.user.dto.request.*;
-import com.nortic.pos.es.user.dto.response.PaginatedUserResponseDTO;
+import com.nortic.pos.es.user.model.dto.*;
 
 import java.util.UUID;
 
@@ -18,6 +15,8 @@ public interface UserService {
     UserDTO changeUserStatus(RequestContextDTO requestContextDTO, UUID id, ChangeUserStatusRequestDTO changeStatusRequestDTO);
 
     UserDTO changeUsername(RequestContextDTO requestContextDTO, UUID id, ChangeUsernameRequestDTO changeUsernameRequestDTO);
+
+    UserDTO authenticate(RequestContextDTO requestContextDTO, AuthenticateRequestDTO authenticateRequestDTO);
 
     UserDTO createUser(RequestContextDTO requestContextDTO, UserDTO userDTO);
 

@@ -1,8 +1,8 @@
 package com.nortic.pos.es.user.service.contract;
 
-import com.nortic.pos.es.user.dto.request.UserQueryRequestDTO;
-import com.nortic.pos.es.user.dto.request.UserSearchRequestDTO;
-import com.nortic.pos.es.user.entity.UserEntity;
+import com.nortic.pos.es.user.model.dto.UserQueryRequestDTO;
+import com.nortic.pos.es.user.model.dto.UserSearchRequestDTO;
+import com.nortic.pos.es.user.model.entity.UserEntity;
 import org.springframework.data.jpa.domain.Specification;
 
 public interface UserSpecificationService {

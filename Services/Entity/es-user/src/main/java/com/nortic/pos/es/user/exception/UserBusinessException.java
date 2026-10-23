@@ -1,6 +1,6 @@
 package com.nortic.pos.es.user.exception;
 
-import com.nortic.pos.es.user.dto.response.FieldErrorDetailResponseDTO;
+import com.nortic.pos.es.user.model.dto.FieldErrorDetailResponseDTO;
 import lombok.Getter;
 
 import java.util.List;

@@ -1,12 +1,9 @@
 package com.nortic.pos.es.user.service;
 
-import com.nortic.pos.es.user.dto.SearchParamsDTO;
-import com.nortic.pos.es.user.dto.UserDTO;
-import com.nortic.pos.es.user.dto.request.*;
-import com.nortic.pos.es.user.dto.response.PaginatedUserResponseDTO;
 import com.nortic.pos.es.user.exception.UserBusinessException;
 import com.nortic.pos.es.user.exception.UserExceptionCode;
 import com.nortic.pos.es.user.mapper.UserEntityMapper;
+import com.nortic.pos.es.user.model.dto.*;
 import com.nortic.pos.es.user.repository.UserRepository;
 import com.nortic.pos.es.user.service.contract.UserService;
 import com.nortic.pos.es.user.service.contract.UserSpecificationService;
@@ -133,6 +130,27 @@ public class UserServiceImpl implements UserService {
         user.setUsername(changeUsernameRequestDTO.getUsername().trim().toLowerCase());
 
         log.info("Changing username service complete.");
+
+        return userEntityMapper.toUserDTO(user);
+    }
+
+    @Override
+    public UserDTO authenticate(
+            RequestContextDTO requestContextDTO,
+            AuthenticateRequestDTO authenticateRequestDTO
+    ) {
+        log.info("Authenticating user service...");
+
+        String normalizedUsername = authenticateRequestDTO.getUsername().trim().toLowerCase();
+
+        var user = userRepository.findByUsernameIgnoreCase(normalizedUsername)
+                .orElseThrow(() -> new UserBusinessException(UserExceptionCode.USER_NOT_FOUND));
+
+        if (!passwordEncoder.matches(authenticateRequestDTO.getPassword(), user.getPassword())) {
+            throw new UserBusinessException(UserExceptionCode.INVALID_PASSWORD);
+        }
+
+        log.info("Authentication service complete.");
 
         return userEntityMapper.toUserDTO(user);
     }

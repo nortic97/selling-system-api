@@ -1,8 +1,6 @@
 package com.nortic.pos.es.user.mapper;
 
-import com.nortic.pos.es.user.dto.UserDTO;
-import com.nortic.pos.es.user.dto.request.*;
-import com.nortic.pos.es.user.dto.response.PaginatedUserResponseDTO;
+import com.nortic.pos.es.user.model.dto.*;
 import com.nortic.pos.es.user.rest.gen.model.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -45,6 +43,8 @@ public abstract class UserRestMapper {
     public abstract ChangeUserStatusRequestDTO toChangeUserStatusRequestDTO(RestModelChangeUserStatusRequest restModelChangeUserStatusRequest);
 
     public abstract ChangeUsernameRequestDTO toChangeUsernameRequestDTO(RestModelChangeUsernameRequest restModelChangeUsernameRequest);
+
+    public abstract AuthenticateRequestDTO toAuthenticateRequestDTO(RestModelAuthenticateRequest restModelAuthenticateRequest);
 
     public abstract UserQueryRequestDTO toUserQueryRequestDTO(RestModelUserQueryRequestDTO restModelUserQueryRequestDTO);
 

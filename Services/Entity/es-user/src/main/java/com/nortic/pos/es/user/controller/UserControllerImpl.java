@@ -1,8 +1,8 @@
 package com.nortic.pos.es.user.controller;
 
-import com.nortic.pos.es.user.dto.SearchParamsDTO;
-import com.nortic.pos.es.user.dto.request.RequestContextDTO;
 import com.nortic.pos.es.user.mapper.UserRestMapper;
+import com.nortic.pos.es.user.model.dto.RequestContextDTO;
+import com.nortic.pos.es.user.model.dto.SearchParamsDTO;
 import com.nortic.pos.es.user.rest.gen.api.UserApi;
 import com.nortic.pos.es.user.rest.gen.model.*;
 import com.nortic.pos.es.user.service.contract.UserService;
@@ -139,6 +139,28 @@ public class UserControllerImpl implements UserApi {
         log.info("Changing username REST controller finished...");
 
         return ResponseEntity.ok(userRestMapper.toRestModelUserResponseDTO(changedUser));
+    }
+
+    @Override
+    public ResponseEntity<RestModelUserResponseDTO> authenticate(
+            UUID correlationId,
+            String consumerId,
+            RestModelAuthenticateRequest restModelAuthenticateRequest
+    ) {
+        log.info("Authenticating user REST controller...");
+
+        var requestContextDTO = RequestContextDTO.builder()
+                .correlationId(correlationId)
+                .consumerId(consumerId)
+                .build();
+
+        var authenticateRequestDTO = userRestMapper.toAuthenticateRequestDTO(restModelAuthenticateRequest);
+
+        var user = userService.authenticate(requestContextDTO, authenticateRequestDTO);
+
+        log.info("Authenticating user REST controller finished...");
+
+        return ResponseEntity.ok(userRestMapper.toRestModelUserResponseDTO(user));
     }
 
     @Override

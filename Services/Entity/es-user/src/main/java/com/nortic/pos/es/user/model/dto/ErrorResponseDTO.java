@@ -1,4 +1,4 @@
-package com.nortic.pos.es.user.dto.response;
+package com.nortic.pos.es.user.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;

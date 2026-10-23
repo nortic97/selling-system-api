@@ -15,6 +15,7 @@ public final class SecurityConstants {
     public static final String USER_ID = API_BASE_PATH + "/{id}";
     public static final String USER_SEARCH = API_BASE_PATH + "/search";
     public static final String USER_QUERY = API_BASE_PATH + "/query";
+    public static final String USER_AUTHENTICATE = API_BASE_PATH + "/authenticate";
 
     public static final String USER_RESTORE = USER_ID + "/restore";
     public static final String USER_CHANGE_PASSWORD = USER_ID + "/password";
@@ -42,7 +43,7 @@ public final class SecurityConstants {
     );
 
     // Allowed Headers
-    public static  final List<String> USER_ALLOWED_HEADERS = List.of(
+    public static final List<String> USER_ALLOWED_HEADERS = List.of(
             "Authorization",
             "Content-Type",
             "Correlation-Id",
@@ -58,6 +59,7 @@ public final class SecurityConstants {
     public static final String[] PUBLIC_ENDPOINTS = {
             "/actuator/**",
             "/swagger-ui/**",
-            "/v3/api-docs/**"
+            "/v3/api-docs/**",
+            USER_AUTHENTICATE
     };
 }
