@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Services/Entity/es-branch/branch.iml" filepath="$PROJECT_DIR$/Services/Entity/es-branch/branch.iml" />
       <module fileurl="file://$PROJECT_DIR$/Services/Entity/es-feature/feature.iml" filepath="$PROJECT_DIR$/Services/Entity/es-feature/feature.iml" />
       <module fileurl="file://$PROJECT_DIR$/Services/Entity/es-permission/permission.iml" filepath="$PROJECT_DIR$/Services/Entity/es-permission/permission.iml" />
       <module fileurl="file://$PROJECT_DIR$/Services/Entity/es-plan/plan.iml" filepath="$PROJECT_DIR$/Services/Entity/es-plan/plan.iml" />

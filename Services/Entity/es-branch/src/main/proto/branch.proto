@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+package com.nortic.pos.es.branch.grpc;
+
+option java_multiple_files = false;
+option java_package = "com.nortic.pos.es.branch.grpc";
+option java_outer_classname = "BranchProto";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+message BranchRequest {
+  string store_id = 1;
+  string name = 2;
+  optional string address = 3;
+  optional string phone_number = 4;
+  optional string email = 5;
+}
+
+message StatusRequest {
+  bool active = 1;
+}
+
+message UpdateBranchRequest {
+  string id = 1;
+  optional string name = 2;
+  optional string address = 3;
+  optional string phone_number = 4;
+  optional string email = 5;
+}
+
+message BranchIdRequest {
+  string id = 1;
+}
+
+message ChangeStatusRequest {
+  string id = 1;
+  bool active = 2;
+}
+
+message PaginationRequest {
+  int32 page = 1;
+  int32 size = 2;
+  repeated string sort = 3;
+}
+
+message BranchResponse {
+  string id = 1;
+  string store_id = 2;
+  string name = 3;
+  optional string address = 4;
+  optional string phone_number = 5;
+  optional string email = 6;
+  bool is_active = 7;
+  google.protobuf.Timestamp created_at = 8;
+  google.protobuf.Timestamp updated_at = 9;
+  optional google.protobuf.Timestamp deleted_at = 10;
+}
+
+message FieldErrorDetail {
+  string field = 1;
+  string message = 2;
+  string rejected_value = 3;
+}
+
+message ErrorResponse {
+  string code = 1;
+  string message = 2;
+  google.protobuf.Timestamp timestamp = 3;
+  repeated FieldErrorDetail details = 4;
+}
+
+message PaginatedBranchResponse {
+  repeated BranchResponse content = 1;
+  int64 total_elements = 2;
+  int32 total_pages = 3;
+  int32 size = 4;
+  int32 number = 5;
+  bool first = 6;
+  bool last = 7;
+}
+
+service BranchService {
+  rpc CreateBranch(BranchRequest) returns (BranchResponse);
+  rpc ListBranches(PaginationRequest) returns (PaginatedBranchResponse);
+  rpc GetBranch(BranchIdRequest) returns (BranchResponse);
+  rpc UpdateBranch(UpdateBranchRequest) returns (BranchResponse);
+  rpc DeleteBranch(BranchIdRequest) returns (google.protobuf.Empty);
+  rpc ChangeStatus(ChangeStatusRequest) returns (BranchResponse);
+  rpc RestoreBranch(BranchIdRequest) returns (BranchResponse);
+}

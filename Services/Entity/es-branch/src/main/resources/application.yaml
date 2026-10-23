@@ -1,0 +1,71 @@
+spring:
+  application:
+    name: ${APPLICATION_NAME:es-branch}
+    env: ${ENVIRONMENT:local}
+
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:selling_system}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:123456}
+    driver-class-name: org.postgresql.Driver
+
+  sql:
+    init:
+      mode: ${SQL_INIT_MODE:always}
+
+  jpa:
+    hibernate:
+      ddl-auto: ${JPA_DDL_AUTO:validate}
+    open-in-view: false
+    defer-datasource-initialization: false
+
+  web:
+    error:
+      include-stacktrace: never
+      include-exception: false
+      whitelabel:
+        enabled: false
+      include-path: never
+
+  grpc:
+    server:
+      port: ${GRPC_PORT:9091}
+      health:
+        enabled: true
+      reflection:
+        enabled: true
+
+  jackson:
+    time-zone: ${TIME_ZONE:America/Bogota}
+
+server:
+  port: ${PORT:8080}
+  address: ${SERVER_ADDRESS:0.0.0.0}
+  shutdown: ${SHUTDOWN:IMMEDIATE}
+
+security:
+  jwt:
+    secret: ${JWT_SECRET:TjByNzFjUDBzXzIwMjZfQmFja2VuZF9Vc2VyX1NlcnZpY2VfSnd0X1NlY3JldF9WM19BOXhMMm1RN3BSOHRXNG5L}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
+    registry-fetch-interval-seconds: 5
+  instance:
+    prefer-ip-address: true
+    metadata-map:
+      metrics-path: ${EUREKA_METRICS_PATH:/actuator/prometheus}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - prometheus
+          - health
+          - info
+
+  endpoint:
+    health:
+      show-details: always
