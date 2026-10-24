@@ -7,6 +7,7 @@ import com.nortic.pos.es.branch.model.dto.FieldErrorDetailResponseDTO;
 import com.nortic.pos.es.branch.model.entity.BranchEntity;
 import com.nortic.pos.es.branch.model.enums.ValidationFieldEnum;
 import com.nortic.pos.es.branch.repository.BranchRepository;
+import com.nortic.pos.es.branch.repository.StoreRepository;
 import com.nortic.pos.es.branch.service.contract.BranchValidationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import java.util.UUID;
 public class BranchValidationServiceImpl implements BranchValidationService {
 
     private final BranchRepository branchRepository;
+    private final StoreRepository storeRepository;
 
     @Override
     public BranchEntity validateAndGetBranch(UUID id) {
@@ -35,6 +37,10 @@ public class BranchValidationServiceImpl implements BranchValidationService {
                             .message(ValidationFieldEnum.STORE_ID.getMessage())
                             .build())
             );
+        }
+
+        if (!storeRepository.existsById(branchDTO.getStoreId())) {
+            throw new BusinessException(ExceptionCode.STORE_NOT_FOUND);
         }
 
         if (branchDTO.getName() == null || branchDTO.getName().isBlank()) {
