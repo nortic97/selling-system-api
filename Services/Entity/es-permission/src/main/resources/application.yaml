@@ -9,10 +9,15 @@ spring:
     password: ${DB_PASSWORD:123456}
     driver-class-name: org.postgresql.Driver
 
+  sql:
+    init:
+      mode: ${SQL_INIT_MODE:always}
+
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: ${JPA_DDL_AUTO:validate}
     open-in-view: false
+    defer-datasource-initialization: false
 
   web:
     error:
