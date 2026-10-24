@@ -20,7 +20,7 @@ import java.util.UUID;
 @Slf4j
 @GrpcService(interceptors = GrpcInterceptor.class)
 @RequiredArgsConstructor
-public class BranchGrpcControllerImpl extends BranchProto.BranchServiceGrpc.BranchServiceImplBase {
+public class BranchGrpcControllerImpl extends BranchServiceGrpc.BranchServiceImplBase {
 
     private final BranchService branchService;
 

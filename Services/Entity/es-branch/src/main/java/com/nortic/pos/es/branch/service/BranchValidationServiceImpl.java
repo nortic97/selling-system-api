@@ -5,6 +5,7 @@ import com.nortic.pos.es.branch.exception.ExceptionCode;
 import com.nortic.pos.es.branch.model.dto.BranchDTO;
 import com.nortic.pos.es.branch.model.dto.FieldErrorDetailResponseDTO;
 import com.nortic.pos.es.branch.model.entity.BranchEntity;
+import com.nortic.pos.es.branch.model.enums.ValidationFieldEnum;
 import com.nortic.pos.es.branch.repository.BranchRepository;
 import com.nortic.pos.es.branch.service.contract.BranchValidationService;
 import lombok.RequiredArgsConstructor;
@@ -30,8 +31,8 @@ public class BranchValidationServiceImpl implements BranchValidationService {
             throw new BusinessException(
                     ExceptionCode.VALIDATION_FAILED,
                     List.of(FieldErrorDetailResponseDTO.builder()
-                            .field("storeId")
-                            .message("Store ID is required")
+                            .field(ValidationFieldEnum.STORE_ID.getField())
+                            .message(ValidationFieldEnum.STORE_ID.getMessage())
                             .build())
             );
         }
@@ -40,8 +41,8 @@ public class BranchValidationServiceImpl implements BranchValidationService {
             throw new BusinessException(
                     ExceptionCode.VALIDATION_FAILED,
                     List.of(FieldErrorDetailResponseDTO.builder()
-                            .field("name")
-                            .message("Name is required and cannot be blank")
+                            .field(ValidationFieldEnum.NAME.getField())
+                            .message(ValidationFieldEnum.NAME.getMessage())
                             .build())
             );
         }
@@ -59,8 +60,8 @@ public class BranchValidationServiceImpl implements BranchValidationService {
             throw new BusinessException(
                     ExceptionCode.VALIDATION_FAILED,
                     List.of(FieldErrorDetailResponseDTO.builder()
-                            .field("name")
-                            .message("Name cannot be blank")
+                            .field(ValidationFieldEnum.NAME_BLANK.getField())
+                            .message(ValidationFieldEnum.NAME_BLANK.getMessage())
                             .build())
             );
         }

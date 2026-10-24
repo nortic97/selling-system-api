@@ -1,6 +1,8 @@
 package com.nortic.pos.es.branch.mapper;
 
-import com.nortic.pos.es.branch.model.dto.*;
+import com.nortic.pos.es.branch.model.dto.BranchDTO;
+import com.nortic.pos.es.branch.model.dto.PaginatedBranchResponseDTO;
+import com.nortic.pos.es.branch.model.dto.StatusRequest;
 import com.nortic.pos.es.branch.rest.gen.model.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

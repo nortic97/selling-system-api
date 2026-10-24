@@ -5,6 +5,7 @@ import com.nortic.pos.es.user.exception.UserExceptionCode;
 import com.nortic.pos.es.user.model.dto.FieldErrorDetailResponseDTO;
 import com.nortic.pos.es.user.model.dto.UserDTO;
 import com.nortic.pos.es.user.model.entity.UserEntity;
+import com.nortic.pos.es.user.model.enums.ValidationFieldEnum;
 import com.nortic.pos.es.user.repository.UserRepository;
 import com.nortic.pos.es.user.service.contract.UserValidationService;
 import lombok.RequiredArgsConstructor;
@@ -89,8 +90,8 @@ public class UserValidationServiceImpl implements UserValidationService {
             throw new UserBusinessException(
                     UserExceptionCode.VALIDATION_FAILED,
                     List.of(FieldErrorDetailResponseDTO.builder()
-                            .field("username")
-                            .message("Username is required and cannot be blank")
+                            .field(ValidationFieldEnum.USERNAME.getField())
+                            .message(ValidationFieldEnum.USERNAME.getMessage())
                             .build())
             );
         }
@@ -98,8 +99,8 @@ public class UserValidationServiceImpl implements UserValidationService {
             throw new UserBusinessException(
                     UserExceptionCode.VALIDATION_FAILED,
                     List.of(FieldErrorDetailResponseDTO.builder()
-                            .field("email")
-                            .message("Email is required and cannot be blank")
+                            .field(ValidationFieldEnum.EMAIL.getField())
+                            .message(ValidationFieldEnum.EMAIL.getMessage())
                             .build())
             );
         }
@@ -107,8 +108,8 @@ public class UserValidationServiceImpl implements UserValidationService {
             throw new UserBusinessException(
                     UserExceptionCode.VALIDATION_FAILED,
                     List.of(FieldErrorDetailResponseDTO.builder()
-                            .field("documentNumber")
-                            .message("Document number is required and cannot be blank")
+                            .field(ValidationFieldEnum.DOCUMENT_NUMBER.getField())
+                            .message(ValidationFieldEnum.DOCUMENT_NUMBER.getMessage())
                             .build())
             );
         }
@@ -116,8 +117,8 @@ public class UserValidationServiceImpl implements UserValidationService {
             throw new UserBusinessException(
                     UserExceptionCode.VALIDATION_FAILED,
                     List.of(FieldErrorDetailResponseDTO.builder()
-                            .field("documentType")
-                            .message("Document type is required")
+                            .field(ValidationFieldEnum.DOCUMENT_TYPE.getField())
+                            .message(ValidationFieldEnum.DOCUMENT_TYPE.getMessage())
                             .build())
             );
         }
@@ -125,8 +126,8 @@ public class UserValidationServiceImpl implements UserValidationService {
             throw new UserBusinessException(
                     UserExceptionCode.VALIDATION_FAILED,
                     List.of(FieldErrorDetailResponseDTO.builder()
-                            .field("firstName")
-                            .message("First name is required and cannot be blank")
+                            .field(ValidationFieldEnum.FIRST_NAME.getField())
+                            .message(ValidationFieldEnum.FIRST_NAME.getMessage())
                             .build())
             );
         }
@@ -134,8 +135,8 @@ public class UserValidationServiceImpl implements UserValidationService {
             throw new UserBusinessException(
                     UserExceptionCode.VALIDATION_FAILED,
                     List.of(FieldErrorDetailResponseDTO.builder()
-                            .field("lastName")
-                            .message("Last name is required and cannot be blank")
+                            .field(ValidationFieldEnum.LAST_NAME.getField())
+                            .message(ValidationFieldEnum.LAST_NAME.getMessage())
                             .build())
             );
         }
@@ -143,8 +144,8 @@ public class UserValidationServiceImpl implements UserValidationService {
             throw new UserBusinessException(
                     UserExceptionCode.VALIDATION_FAILED,
                     List.of(FieldErrorDetailResponseDTO.builder()
-                            .field("phone")
-                            .message("Phone is required and cannot be blank")
+                            .field(ValidationFieldEnum.PHONE.getField())
+                            .message(ValidationFieldEnum.PHONE.getMessage())
                             .build())
             );
         }

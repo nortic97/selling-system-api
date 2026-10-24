@@ -5,6 +5,7 @@ import com.nortic.pos.es.store.exception.ExceptionCode;
 import com.nortic.pos.es.store.model.dto.FieldErrorDetailResponseDTO;
 import com.nortic.pos.es.store.model.dto.StoreDTO;
 import com.nortic.pos.es.store.model.entity.StoreEntity;
+import com.nortic.pos.es.store.model.enums.ValidationFieldEnum;
 import com.nortic.pos.es.store.repository.StoreRepository;
 import com.nortic.pos.es.store.repository.UserRepository;
 import com.nortic.pos.es.store.service.contract.StoreValidationService;
@@ -32,8 +33,8 @@ public class StoreValidationServiceImpl implements StoreValidationService {
             throw new BusinessException(
                     ExceptionCode.VALIDATION_FAILED,
                     List.of(FieldErrorDetailResponseDTO.builder()
-                            .field("name")
-                            .message("Name is required and cannot be blank")
+                            .field(ValidationFieldEnum.NAME.getField())
+                            .message(ValidationFieldEnum.NAME.getMessage())
                             .build())
             );
         }
@@ -42,8 +43,8 @@ public class StoreValidationServiceImpl implements StoreValidationService {
             throw new BusinessException(
                     ExceptionCode.VALIDATION_FAILED,
                     List.of(FieldErrorDetailResponseDTO.builder()
-                            .field("ownerId")
-                            .message("Owner ID is required")
+                            .field(ValidationFieldEnum.OWNER_ID.getField())
+                            .message(ValidationFieldEnum.OWNER_ID.getMessage())
                             .build())
             );
         }
@@ -52,8 +53,8 @@ public class StoreValidationServiceImpl implements StoreValidationService {
             throw new BusinessException(
                     ExceptionCode.VALIDATION_FAILED,
                     List.of(FieldErrorDetailResponseDTO.builder()
-                            .field("taxType")
-                            .message("Tax type is required")
+                            .field(ValidationFieldEnum.TAX_TYPE.getField())
+                            .message(ValidationFieldEnum.TAX_TYPE.getMessage())
                             .build())
             );
         }
@@ -62,8 +63,8 @@ public class StoreValidationServiceImpl implements StoreValidationService {
             throw new BusinessException(
                     ExceptionCode.VALIDATION_FAILED,
                     List.of(FieldErrorDetailResponseDTO.builder()
-                            .field("taxId")
-                            .message("Tax ID is required and cannot be blank")
+                            .field(ValidationFieldEnum.TAX_ID.getField())
+                            .message(ValidationFieldEnum.TAX_ID.getMessage())
                             .build())
             );
         }
@@ -92,8 +93,8 @@ public class StoreValidationServiceImpl implements StoreValidationService {
             throw new BusinessException(
                     ExceptionCode.VALIDATION_FAILED,
                     List.of(FieldErrorDetailResponseDTO.builder()
-                            .field("name")
-                            .message("Name cannot be blank")
+                            .field(ValidationFieldEnum.NAME_BLANK.getField())
+                            .message(ValidationFieldEnum.NAME_BLANK.getMessage())
                             .build())
             );
         }
@@ -102,8 +103,8 @@ public class StoreValidationServiceImpl implements StoreValidationService {
             throw new BusinessException(
                     ExceptionCode.VALIDATION_FAILED,
                     List.of(FieldErrorDetailResponseDTO.builder()
-                            .field("taxType")
-                            .message("Tax type is required")
+                            .field(ValidationFieldEnum.TAX_TYPE.getField())
+                            .message(ValidationFieldEnum.TAX_TYPE.getMessage())
                             .build())
             );
         }
@@ -112,8 +113,8 @@ public class StoreValidationServiceImpl implements StoreValidationService {
             throw new BusinessException(
                     ExceptionCode.VALIDATION_FAILED,
                     List.of(FieldErrorDetailResponseDTO.builder()
-                            .field("taxId")
-                            .message("Tax ID cannot be blank")
+                            .field(ValidationFieldEnum.TAX_ID_BLANK.getField())
+                            .message(ValidationFieldEnum.TAX_ID_BLANK.getMessage())
                             .build())
             );
         }
@@ -133,8 +134,8 @@ public class StoreValidationServiceImpl implements StoreValidationService {
             throw new BusinessException(
                     ExceptionCode.VALIDATION_FAILED,
                     List.of(FieldErrorDetailResponseDTO.builder()
-                            .field("email")
-                            .message("Email is required and cannot be blank")
+                            .field(ValidationFieldEnum.EMAIL.getField())
+                            .message(ValidationFieldEnum.EMAIL.getMessage())
                             .build())
             );
         }
@@ -150,8 +151,8 @@ public class StoreValidationServiceImpl implements StoreValidationService {
             throw new BusinessException(
                     ExceptionCode.VALIDATION_FAILED,
                     List.of(FieldErrorDetailResponseDTO.builder()
-                            .field("phone")
-                            .message("Phone is required and cannot exceed 20 characters")
+                            .field(ValidationFieldEnum.PHONE.getField())
+                            .message(ValidationFieldEnum.PHONE.getMessage())
                             .build())
             );
         }
