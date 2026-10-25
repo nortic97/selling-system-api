@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
-  title: Enterprise Selling System - Store Entity Service (es-store)
-  description: Servicio de entidad encargado de la persistencia, validación y operaciones CRUD de tiendas.
+  title: Enterprise Selling System - Role Entity Service (es-role)
+  description: Servicio de entidad encargado de la persistencia, validación y operaciones CRUD de roles.
   version: 0.0.1
 security:
   - bearerAuth: [ ]
@@ -20,13 +20,13 @@ servers:
         default: "8080"
 
 paths:
-  /api/v1/es/store:
+  /api/v1/es/role:
     post:
-      summary: Crear una nueva tienda
-      description: Crea una nueva tienda en el sistema
-      operationId: createStore
+      summary: Crear un nuevo rol
+      description: Crea un nuevo rol en el sistema
+      operationId: createRole
       tags:
-        - Store
+        - Role
       parameters:
         - $ref: '#/components/parameters/CorrelationIdHeader'
         - $ref: '#/components/parameters/ConsumerIdHeader'
@@ -35,20 +35,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StoreRequestDTO'
+              $ref: '#/components/schemas/RoleRequestDTO'
       responses:
         '201':
-          description: Tienda creada exitosamente
+          description: Rol creado exitosamente
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StoreResponseDTO'
+                $ref: '#/components/schemas/RoleResponseDTO'
         '400':
           $ref: '#/components/responses/400BadRequest'
         '403':
           $ref: '#/components/responses/403Forbidden'
         '409':
-          description: Conflicto - La tienda ya existe
+          description: Conflicto - El rol ya existe
           content:
             application/json:
               schema:
@@ -57,11 +57,11 @@ paths:
           $ref: '#/components/responses/500InternalServerError'
 
     get:
-      summary: Listar todas las tiendas
-      description: Obtiene una lista paginada de todas las tiendas
-      operationId: getAllStores
+      summary: Listar todos los roles
+      description: Obtiene una lista paginada de todos los roles
+      operationId: getAllRoles
       tags:
-        - Store
+        - Role
       parameters:
         - $ref: '#/components/parameters/CorrelationIdHeader'
         - $ref: '#/components/parameters/ConsumerIdHeader'
@@ -70,34 +70,34 @@ paths:
         - $ref: '#/components/parameters/SortParam'
       responses:
         '200':
-          description: Lista de tiendas
+          description: Lista de roles
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PaginatedStoreResponseDTO'
+                $ref: '#/components/schemas/PaginatedRoleResponseDTO'
         '403':
           $ref: '#/components/responses/403Forbidden'
         '500':
           $ref: '#/components/responses/500InternalServerError'
 
-  /api/v1/es/store/{id}:
+  /api/v1/es/role/{id}:
     get:
-      summary: Obtener una tienda por ID
-      description: Obtiene los detalles de una tienda específica
-      operationId: getStore
+      summary: Obtener un rol por ID
+      description: Obtiene los detalles de un rol específico
+      operationId: getRole
       tags:
-        - Store
+        - Role
       parameters:
         - $ref: '#/components/parameters/CorrelationIdHeader'
         - $ref: '#/components/parameters/ConsumerIdHeader'
-        - $ref: '#/components/parameters/StoreIdPathParam'
+        - $ref: '#/components/parameters/RoleIdPathParam'
       responses:
         '200':
-          description: Detalles de la tienda
+          description: Detalles del rol
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StoreResponseDTO'
+                $ref: '#/components/schemas/RoleResponseDTO'
         '403':
           $ref: '#/components/responses/403Forbidden'
         '404':
@@ -106,28 +106,28 @@ paths:
           $ref: '#/components/responses/500InternalServerError'
 
     put:
-      summary: Actualizar una tienda
-      description: Actualiza los datos de una tienda existente
-      operationId: updateStore
+      summary: Actualizar un rol
+      description: Actualiza los datos de un rol existente
+      operationId: updateRole
       tags:
-        - Store
+        - Role
       parameters:
         - $ref: '#/components/parameters/CorrelationIdHeader'
         - $ref: '#/components/parameters/ConsumerIdHeader'
-        - $ref: '#/components/parameters/StoreIdPathParam'
+        - $ref: '#/components/parameters/RoleIdPathParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateStoreRequestDTO'
+              $ref: '#/components/schemas/UpdateRoleRequestDTO'
       responses:
         '200':
-          description: Tienda actualizada exitosamente
+          description: Rol actualizado exitosamente
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StoreResponseDTO'
+                $ref: '#/components/schemas/RoleResponseDTO'
         '400':
           $ref: '#/components/responses/400BadRequest'
         '403':
@@ -138,18 +138,18 @@ paths:
           $ref: '#/components/responses/500InternalServerError'
 
     delete:
-      summary: Eliminar una tienda
-      description: Elimina una tienda del sistema (soft delete)
-      operationId: deleteStore
+      summary: Eliminar un rol
+      description: Elimina un rol del sistema (soft delete)
+      operationId: deleteRole
       tags:
-        - Store
+        - Role
       parameters:
         - $ref: '#/components/parameters/CorrelationIdHeader'
         - $ref: '#/components/parameters/ConsumerIdHeader'
-        - $ref: '#/components/parameters/StoreIdPathParam'
+        - $ref: '#/components/parameters/RoleIdPathParam'
       responses:
         '204':
-          description: Tienda eliminada exitosamente
+          description: Rol eliminado exitosamente
         '403':
           $ref: '#/components/responses/403Forbidden'
         '404':
@@ -157,17 +157,17 @@ paths:
         '500':
           $ref: '#/components/responses/500InternalServerError'
 
-  /api/v1/es/store/{id}/status:
+  /api/v1/es/role/{id}/status:
     patch:
-      summary: Actualizar estado de una tienda
-      description: Activa o desactiva una tienda
+      summary: Actualizar estado de un rol
+      description: Activa o desactiva un rol
       operationId: changeStatus
       tags:
-        - Store
+        - Role
       parameters:
         - $ref: '#/components/parameters/CorrelationIdHeader'
         - $ref: '#/components/parameters/ConsumerIdHeader'
-        - $ref: '#/components/parameters/StoreIdPathParam'
+        - $ref: '#/components/parameters/RoleIdPathParam'
       requestBody:
         required: true
         content:
@@ -180,7 +180,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StoreResponseDTO'
+                $ref: '#/components/schemas/RoleResponseDTO'
         '400':
           $ref: '#/components/responses/400BadRequest'
         '403':
@@ -190,90 +190,24 @@ paths:
         '500':
           $ref: '#/components/responses/500InternalServerError'
 
-  /api/v1/es/store/{id}/phone:
+  /api/v1/es/role/{id}/restore:
     patch:
-      summary: Cambiar número de teléfono de una tienda
-      description: Actualiza el número de teléfono de una tienda existente
-      operationId: changePhone
+      summary: Restaurar un rol eliminado
+      description: Restaura un rol que fue eliminado (soft delete)
+      operationId: restoreRole
       tags:
-        - Store
+        - Role
       parameters:
         - $ref: '#/components/parameters/CorrelationIdHeader'
         - $ref: '#/components/parameters/ConsumerIdHeader'
-        - $ref: '#/components/parameters/StoreIdPathParam'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PhoneRequestDTO'
+        - $ref: '#/components/parameters/RoleIdPathParam'
       responses:
         '200':
-          description: Teléfono actualizado exitosamente
+          description: Rol restaurado exitosamente
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StoreResponseDTO'
-        '400':
-          $ref: '#/components/responses/400BadRequest'
-        '403':
-          $ref: '#/components/responses/403Forbidden'
-        '404':
-          $ref: '#/components/responses/404NotFound'
-        '500':
-          $ref: '#/components/responses/500InternalServerError'
-
-  /api/v1/es/store/{id}/email:
-    patch:
-      summary: Cambiar correo electrónico de una tienda
-      description: Actualiza el correo electrónico de una tienda existente
-      operationId: changeEmail
-      tags:
-        - Store
-      parameters:
-        - $ref: '#/components/parameters/CorrelationIdHeader'
-        - $ref: '#/components/parameters/ConsumerIdHeader'
-        - $ref: '#/components/parameters/StoreIdPathParam'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/EmailRequestDTO'
-      responses:
-        '200':
-          description: Email actualizado exitosamente
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StoreResponseDTO'
-        '400':
-          $ref: '#/components/responses/400BadRequest'
-        '403':
-          $ref: '#/components/responses/403Forbidden'
-        '404':
-          $ref: '#/components/responses/404NotFound'
-        '500':
-          $ref: '#/components/responses/500InternalServerError'
-
-  /api/v1/es/store/{id}/restore:
-    patch:
-      summary: Restaurar una tienda eliminada
-      description: Restaura una tienda que fue eliminada (soft delete)
-      operationId: restoreStore
-      tags:
-        - Store
-      parameters:
-        - $ref: '#/components/parameters/CorrelationIdHeader'
-        - $ref: '#/components/parameters/ConsumerIdHeader'
-        - $ref: '#/components/parameters/StoreIdPathParam'
-      responses:
-        '200':
-          description: Tienda restaurada exitosamente
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StoreResponseDTO'
+                $ref: '#/components/schemas/RoleResponseDTO'
         '400':
           $ref: '#/components/responses/400BadRequest'
         '403':
@@ -346,11 +280,11 @@ components:
       style: form
       explode: true
       x-spring-paginated: true
-    StoreIdPathParam:
+    RoleIdPathParam:
       name: id
       in: path
       required: true
-      description: ID de la tienda (UUID)
+      description: ID del rol (UUID)
       schema:
         type: string
         format: uuid
@@ -382,103 +316,26 @@ components:
             $ref: '#/components/schemas/ErrorResponseDTO'
 
   schemas:
-    TaxTypeEnum:
-      type: string
-      enum:
-        - NIT
-        - RFC
-        - NIF
-        - CUIT
-        - SSN
-        - RUT
-      description: Tipo de identificación fiscal (ej. NIT, RUT, RFC)
-
-    CurrencyCodeEnum:
-      type: string
-      enum:
-        - COP
-        - USD
-        - EUR
-      default: COP
-      description: Código de moneda ISO 4217
-
-    StoreRequestDTO:
+    RoleRequestDTO:
       type: object
       required:
-        - ownerId
-        - taxType
-        - taxId
+        - storeId
         - name
       properties:
-        ownerId:
+        storeId:
           type: string
           format: uuid
-          description: Identificador del propietario de la tienda (UUID)
+          description: Identificador de la tienda (UUID)
           x-field-extra-annotation: '@NotNull'
-        taxType:
-          $ref: '#/components/schemas/TaxTypeEnum'
-          x-field-extra-annotation: '@NotNull'
-        taxId:
-          type: string
-          description: Identificación fiscal de la tienda (RUC/NIT/RFC)
-          maxLength: 100
-          x-field-extra-annotation: '@NotBlank @Size(max = 100)'
-        legalName:
-          type: string
-          description: Razón social o nombre legal de la tienda
-          maxLength: 255
-          x-field-extra-annotation: '@Size(max = 255)'
         name:
           type: string
-          description: Nombre comercial de la tienda
-          minLength: 1
-          maxLength: 255
-          x-field-extra-annotation: '@NotBlank @Size(min = 1, max = 255)'
+          description: Nombre del rol
+          minLength: 3
+          maxLength: 100
+          x-field-extra-annotation: '@NotBlank @Size(min = 3, max = 100)'
         description:
           type: string
-          description: Descripción de la tienda
-        slogan:
-          type: string
-          description: Eslogan de la tienda
-          maxLength: 255
-          x-field-extra-annotation: '@Size(max = 255)'
-        logoUrl:
-          type: string
-          description: URL del logo de la tienda
-        address:
-          type: string
-          description: Dirección física de la tienda
-          maxLength: 255
-          x-field-extra-annotation: '@Size(max = 255)'
-        country:
-          type: string
-          description: País de la tienda
-          maxLength: 100
-          x-field-extra-annotation: '@Size(max = 100)'
-        stateProvince:
-          type: string
-          description: Estado/Provincia de la tienda
-          maxLength: 100
-          x-field-extra-annotation: '@Size(max = 100)'
-        city:
-          type: string
-          description: Ciudad de la tienda
-          maxLength: 100
-          x-field-extra-annotation: '@Size(max = 100)'
-        phoneNumber:
-          type: string
-          description: Número de teléfono de la tienda
-          maxLength: 20
-          x-field-extra-annotation: '@Size(max = 20)'
-        contactEmail:
-          type: string
-          format: email
-          description: Correo electrónico de contacto de la tienda
-          maxLength: 255
-          x-field-extra-annotation: '@Email @Size(max = 255)'
-        currencyCode:
-          $ref: '#/components/schemas/CurrencyCodeEnum'
-          x-field-extra-annotation: '@NotNull'
+          description: Descripción del rol
 
     StatusRequest:
       type: object
@@ -487,147 +344,44 @@ components:
       properties:
         active:
           type: boolean
-          description: Estado activo/inactivo de la tienda
+          description: Estado activo/inactivo del rol
           x-field-extra-annotation: '@NotNull'
 
-    PhoneRequestDTO:
+    UpdateRoleRequestDTO:
       type: object
       required:
-        - phoneNumber
-      properties:
-        phoneNumber:
-          type: string
-          description: Número de teléfono de la tienda
-          maxLength: 20
-          x-field-extra-annotation: '@NotBlank @Size(max = 20)'
-
-    EmailRequestDTO:
-      type: object
-      required:
-        - contactEmail
-      properties:
-        contactEmail:
-          type: string
-          format: email
-          description: Correo electrónico de contacto de la tienda
-          maxLength: 255
-          x-field-extra-annotation: '@NotBlank @Email @Size(max = 255)'
-
-    UpdateStoreRequestDTO:
-      type: object
-      required:
-        - taxType
-        - taxId
         - name
       properties:
-        taxType:
-          $ref: '#/components/schemas/TaxTypeEnum'
-          x-field-extra-annotation: '@NotNull'
-        taxId:
-          type: string
-          description: Identificación fiscal de la tienda (RUC/NIT/RFC)
-          maxLength: 100
-          x-field-extra-annotation: '@NotBlank @Size(max = 100)'
-        legalName:
-          type: string
-          description: Razón social o nombre legal de la tienda
-          maxLength: 255
-          x-field-extra-annotation: '@Size(max = 255)'
         name:
           type: string
-          description: Nombre comercial de la tienda
-          minLength: 1
-          maxLength: 255
-          x-field-extra-annotation: '@NotBlank @Size(min = 1, max = 255)'
+          description: Nombre del rol
+          minLength: 3
+          maxLength: 100
+          x-field-extra-annotation: '@NotBlank @Size(min = 3, max = 100)'
         description:
           type: string
-          description: Descripción de la tienda
-        slogan:
-          type: string
-          description: Eslogan de la tienda
-          maxLength: 255
-          x-field-extra-annotation: '@Size(max = 255)'
-        logoUrl:
-          type: string
-          description: URL del logo de la tienda
-        address:
-          type: string
-          description: Dirección física de la tienda
-          maxLength: 255
-          x-field-extra-annotation: '@Size(max = 255)'
-        country:
-          type: string
-          description: País de la tienda
-          maxLength: 100
-          x-field-extra-annotation: '@Size(max = 100)'
-        stateProvince:
-          type: string
-          description: Estado/Provincia de la tienda
-          maxLength: 100
-          x-field-extra-annotation: '@Size(max = 100)'
-        city:
-          type: string
-          description: Ciudad de la tienda
-          maxLength: 100
-          x-field-extra-annotation: '@Size(max = 100)'
-        currencyCode:
-          $ref: '#/components/schemas/CurrencyCodeEnum'
-          x-field-extra-annotation: '@NotNull'
+          description: Descripción del rol
 
-    StoreResponseDTO:
+    RoleResponseDTO:
       type: object
       properties:
         id:
           type: string
           format: uuid
-          description: Identificador único de la tienda (UUID)
-        ownerId:
+          description: Identificador único del rol (UUID)
+        storeId:
           type: string
           format: uuid
-          description: Identificador del propietario de la tienda (UUID)
-        taxType:
-          $ref: '#/components/schemas/TaxTypeEnum'
-        taxId:
-          type: string
-          description: Identificación fiscal de la tienda (RUC/NIT/RFC)
-        legalName:
-          type: string
-          description: Razón social o nombre legal de la tienda
+          description: Identificador de la tienda (UUID)
         name:
           type: string
-          description: Nombre comercial de la tienda
+          description: Nombre del rol
         description:
           type: string
-          description: Descripción de la tienda
-        slogan:
-          type: string
-          description: Eslogan de la tienda
-        logoUrl:
-          type: string
-          description: URL del logo de la tienda
-        address:
-          type: string
-          description: Dirección física de la tienda
-        country:
-          type: string
-          description: País de la tienda
-        stateProvince:
-          type: string
-          description: Estado/Provincia de la tienda
-        city:
-          type: string
-          description: Ciudad de la tienda
-        phoneNumber:
-          type: string
-          description: Número de teléfono de la tienda
-        contactEmail:
-          type: string
-          description: Correo electrónico de contacto de la tienda
-        currencyCode:
-          $ref: '#/components/schemas/CurrencyCodeEnum'
+          description: Descripción del rol
         isActive:
           type: boolean
-          description: Estado activo/inactivo de la tienda
+          description: Estado activo/inactivo del rol
         createdAt:
           type: string
           format: date-time
@@ -642,13 +396,13 @@ components:
           nullable: true
           description: Fecha de eliminación (soft delete)
 
-    PaginatedStoreResponseDTO:
+    PaginatedRoleResponseDTO:
       type: object
       properties:
         content:
           type: array
           items:
-            $ref: '#/components/schemas/StoreResponseDTO'
+            $ref: '#/components/schemas/RoleResponseDTO'
         totalElements:
           type: integer
           format: int64
