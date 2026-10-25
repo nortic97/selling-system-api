@@ -47,12 +47,12 @@ CREATE TABLE IF NOT EXISTS store
 );
 
 -- Identificación tributaria única entre tiendas activas.
-CREATE UNIQUE INDEX IF NOT EXISTS uk_store_tax_active
+CREATE UNIQUE INDEX IF NOT EXISTS uidx_store_tax_active
     ON store (tax_type, tax_id)
     WHERE deleted_at IS NULL;
 
 -- Email de contacto único entre tiendas activas.
-CREATE UNIQUE INDEX IF NOT EXISTS uk_store_contact_email_active
+CREATE UNIQUE INDEX IF NOT EXISTS uidx_store_contact_email_active
     ON store (contact_email)
     WHERE contact_email IS NOT NULL
         AND deleted_at IS NULL;

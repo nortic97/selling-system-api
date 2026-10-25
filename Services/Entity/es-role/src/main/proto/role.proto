@@ -1,0 +1,139 @@
+syntax = "proto3";
+
+package com.nortic.pos.es.store.grpc;
+
+option java_multiple_files = false;
+option java_package = "com.nortic.pos.es.store.grpc";
+option java_outer_classname = "StoreProto";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+message StoreRequest {
+  string owner_id = 1;
+  string tax_type = 2;
+  string tax_id = 3;
+  optional string legal_name = 4;
+  string name = 5;
+  optional string logo_url = 6;
+  optional string description = 7;
+  optional string slogan = 8;
+  optional string address = 9;
+  optional string country = 10;
+  optional string state_province = 11;
+  optional string city = 12;
+  optional string phone_number = 13;
+  optional string contact_email = 14;
+  optional string currency_code = 15;
+}
+
+message StatusRequest {
+  bool active = 1;
+}
+
+message PhoneRequest {
+  string phone_number = 1;
+}
+
+message EmailRequest {
+  string contact_email = 1;
+}
+
+message UpdateStoreRequest {
+  string id = 1;
+  optional string tax_type = 2;
+  optional string tax_id = 3;
+  optional string legal_name = 4;
+  optional string name = 5;
+  optional string logo_url = 6;
+  optional string description = 7;
+  optional string slogan = 8;
+  optional string address = 9;
+  optional string country = 10;
+  optional string state_province = 11;
+  optional string city = 12;
+  optional string currency_code = 13;
+}
+
+message StoreIdRequest {
+  string id = 1;
+}
+
+message ChangeStatusRequest {
+  string id = 1;
+  bool active = 2;
+}
+
+message ChangePhoneRequest {
+  string id = 1;
+  string phone_number = 2;
+}
+
+message ChangeEmailRequest {
+  string id = 1;
+  string contact_email = 2;
+}
+
+message PaginationRequest {
+  int32 page = 1;
+  int32 size = 2;
+  repeated string sort = 3;
+}
+
+message StoreResponse {
+  string id = 1;
+  string owner_id = 2;
+  string tax_type = 3;
+  string tax_id = 4;
+  optional string legal_name = 5;
+  string name = 6;
+  optional string logo_url = 7;
+  optional string description = 8;
+  optional string slogan = 9;
+  optional string address = 10;
+  optional string country = 11;
+  optional string state_province = 12;
+  optional string city = 13;
+  optional string phone_number = 14;
+  optional string contact_email = 15;
+  string currency_code = 16;
+  bool is_active = 17;
+  google.protobuf.Timestamp created_at = 18;
+  google.protobuf.Timestamp updated_at = 19;
+  optional google.protobuf.Timestamp deleted_at = 20;
+}
+
+message FieldErrorDetail {
+  string field = 1;
+  string message = 2;
+  string rejected_value = 3;
+}
+
+message ErrorResponse {
+  string code = 1;
+  string message = 2;
+  google.protobuf.Timestamp timestamp = 3;
+  repeated FieldErrorDetail details = 4;
+}
+
+message PaginatedStoreResponse {
+  repeated StoreResponse content = 1;
+  int64 total_elements = 2;
+  int32 total_pages = 3;
+  int32 size = 4;
+  int32 number = 5;
+  bool first = 6;
+  bool last = 7;
+}
+
+service StoreService {
+  rpc CreateStore(StoreRequest) returns (StoreResponse);
+  rpc ListStores(PaginationRequest) returns (PaginatedStoreResponse);
+  rpc GetStore(StoreIdRequest) returns (StoreResponse);
+  rpc UpdateStore(UpdateStoreRequest) returns (StoreResponse);
+  rpc DeleteStore(StoreIdRequest) returns (google.protobuf.Empty);
+  rpc ChangeStatus(ChangeStatusRequest) returns (StoreResponse);
+  rpc ChangePhone(ChangePhoneRequest) returns (StoreResponse);
+  rpc ChangeEmail(ChangeEmailRequest) returns (StoreResponse);
+  rpc RestoreStore(StoreIdRequest) returns (StoreResponse);
+}

@@ -3,6 +3,7 @@
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/Services/Entity/es-branch/src/main/resources/schema.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/Services/Entity/es-permission/src/main/resources/schema.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/Services/Entity/es-role/src/main/resources/schema.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/Services/Entity/es-store/src/main/resources/schema.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/Services/Entity/es-user/src/main/resources/schema.sql" dialect="PostgreSQL" />
     <file url="PROJECT" dialect="PostgreSQL" />

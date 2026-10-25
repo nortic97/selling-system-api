@@ -1,0 +1,712 @@
+openapi: 3.0.3
+info:
+  title: Enterprise Selling System - Store Entity Service (es-store)
+  description: Servicio de entidad encargado de la persistencia, validación y operaciones CRUD de tiendas.
+  version: 0.0.1
+security:
+  - bearerAuth: [ ]
+
+servers:
+  - url: "{protocol}://{server}:{port}"
+    variables:
+      protocol:
+        enum:
+          - http
+          - https
+        default: https
+      server:
+        default: localhost
+      port:
+        default: "8080"
+
+paths:
+  /api/v1/es/store:
+    post:
+      summary: Crear una nueva tienda
+      description: Crea una nueva tienda en el sistema
+      operationId: createStore
+      tags:
+        - Store
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StoreRequestDTO'
+      responses:
+        '201':
+          description: Tienda creada exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StoreResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '409':
+          description: Conflicto - La tienda ya existe
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDTO'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+    get:
+      summary: Listar todas las tiendas
+      description: Obtiene una lista paginada de todas las tiendas
+      operationId: getAllStores
+      tags:
+        - Store
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/SizeParam'
+        - $ref: '#/components/parameters/SortParam'
+      responses:
+        '200':
+          description: Lista de tiendas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedStoreResponseDTO'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+  /api/v1/es/store/{id}:
+    get:
+      summary: Obtener una tienda por ID
+      description: Obtiene los detalles de una tienda específica
+      operationId: getStore
+      tags:
+        - Store
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+        - $ref: '#/components/parameters/StoreIdPathParam'
+      responses:
+        '200':
+          description: Detalles de la tienda
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StoreResponseDTO'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+    put:
+      summary: Actualizar una tienda
+      description: Actualiza los datos de una tienda existente
+      operationId: updateStore
+      tags:
+        - Store
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+        - $ref: '#/components/parameters/StoreIdPathParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateStoreRequestDTO'
+      responses:
+        '200':
+          description: Tienda actualizada exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StoreResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+    delete:
+      summary: Eliminar una tienda
+      description: Elimina una tienda del sistema (soft delete)
+      operationId: deleteStore
+      tags:
+        - Store
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+        - $ref: '#/components/parameters/StoreIdPathParam'
+      responses:
+        '204':
+          description: Tienda eliminada exitosamente
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+  /api/v1/es/store/{id}/status:
+    patch:
+      summary: Actualizar estado de una tienda
+      description: Activa o desactiva una tienda
+      operationId: changeStatus
+      tags:
+        - Store
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+        - $ref: '#/components/parameters/StoreIdPathParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StatusRequest'
+      responses:
+        '200':
+          description: Estado actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StoreResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+  /api/v1/es/store/{id}/phone:
+    patch:
+      summary: Cambiar número de teléfono de una tienda
+      description: Actualiza el número de teléfono de una tienda existente
+      operationId: changePhone
+      tags:
+        - Store
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+        - $ref: '#/components/parameters/StoreIdPathParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PhoneRequestDTO'
+      responses:
+        '200':
+          description: Teléfono actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StoreResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+  /api/v1/es/store/{id}/email:
+    patch:
+      summary: Cambiar correo electrónico de una tienda
+      description: Actualiza el correo electrónico de una tienda existente
+      operationId: changeEmail
+      tags:
+        - Store
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+        - $ref: '#/components/parameters/StoreIdPathParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailRequestDTO'
+      responses:
+        '200':
+          description: Email actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StoreResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+  /api/v1/es/store/{id}/restore:
+    patch:
+      summary: Restaurar una tienda eliminada
+      description: Restaura una tienda que fue eliminada (soft delete)
+      operationId: restoreStore
+      tags:
+        - Store
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+        - $ref: '#/components/parameters/StoreIdPathParam'
+      responses:
+        '200':
+          description: Tienda restaurada exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StoreResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token for authentication (RS256)
+
+  parameters:
+    CorrelationIdHeader:
+      name: Correlation-Id
+      in: header
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+      description: Header obligatorio de trazabilidad distribuida para logs correlacionados.
+    ConsumerIdHeader:
+      name: Consumer-Id
+      in: header
+      required: true
+      schema:
+        type: string
+        example: "SVP"
+      description: Header obligatorio de trazabilidad distribuida para consumidor.
+    PageParam:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+      description: Número de página (basado en índice cero).
+      style: form
+      explode: true
+      x-spring-paginated: true
+    SizeParam:
+      name: size
+      in: query
+      required: false
+      schema:
+        minimum: 5
+        maximum: 100
+        type: integer
+        default: 5
+      description: Cantidad de registros por página.
+      style: form
+      explode: true
+      x-spring-paginated: true
+    SortParam:
+      name: sort
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+      description: Criterio de ordenamiento con formato 'campo,asc' o 'campo,desc'. Soporta múltiples criterios.
+      style: form
+      explode: true
+      x-spring-paginated: true
+    StoreIdPathParam:
+      name: id
+      in: path
+      required: true
+      description: ID de la tienda (UUID)
+      schema:
+        type: string
+        format: uuid
+
+  responses:
+    400BadRequest:
+      description: Error de validación en los datos enviados o sintaxis JSON incorrecta.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseDTO'
+    403Forbidden:
+      description: El cliente no posee los roles o permisos suficientes.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseDTO'
+    404NotFound:
+      description: El recurso solicitado no existe o está eliminado.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseDTO'
+    500InternalServerError:
+      description: Excepción no controlada en el servidor.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseDTO'
+
+  schemas:
+    TaxTypeEnum:
+      type: string
+      enum:
+        - NIT
+        - RFC
+        - NIF
+        - CUIT
+        - SSN
+        - RUT
+      description: Tipo de identificación fiscal (ej. NIT, RUT, RFC)
+
+    CurrencyCodeEnum:
+      type: string
+      enum:
+        - COP
+        - USD
+        - EUR
+      default: COP
+      description: Código de moneda ISO 4217
+
+    StoreRequestDTO:
+      type: object
+      required:
+        - ownerId
+        - taxType
+        - taxId
+        - name
+      properties:
+        ownerId:
+          type: string
+          format: uuid
+          description: Identificador del propietario de la tienda (UUID)
+          x-field-extra-annotation: '@NotNull'
+        taxType:
+          $ref: '#/components/schemas/TaxTypeEnum'
+          x-field-extra-annotation: '@NotNull'
+        taxId:
+          type: string
+          description: Identificación fiscal de la tienda (RUC/NIT/RFC)
+          maxLength: 100
+          x-field-extra-annotation: '@NotBlank @Size(max = 100)'
+        legalName:
+          type: string
+          description: Razón social o nombre legal de la tienda
+          maxLength: 255
+          x-field-extra-annotation: '@Size(max = 255)'
+        name:
+          type: string
+          description: Nombre comercial de la tienda
+          minLength: 1
+          maxLength: 255
+          x-field-extra-annotation: '@NotBlank @Size(min = 1, max = 255)'
+        description:
+          type: string
+          description: Descripción de la tienda
+        slogan:
+          type: string
+          description: Eslogan de la tienda
+          maxLength: 255
+          x-field-extra-annotation: '@Size(max = 255)'
+        logoUrl:
+          type: string
+          description: URL del logo de la tienda
+        address:
+          type: string
+          description: Dirección física de la tienda
+          maxLength: 255
+          x-field-extra-annotation: '@Size(max = 255)'
+        country:
+          type: string
+          description: País de la tienda
+          maxLength: 100
+          x-field-extra-annotation: '@Size(max = 100)'
+        stateProvince:
+          type: string
+          description: Estado/Provincia de la tienda
+          maxLength: 100
+          x-field-extra-annotation: '@Size(max = 100)'
+        city:
+          type: string
+          description: Ciudad de la tienda
+          maxLength: 100
+          x-field-extra-annotation: '@Size(max = 100)'
+        phoneNumber:
+          type: string
+          description: Número de teléfono de la tienda
+          maxLength: 20
+          x-field-extra-annotation: '@Size(max = 20)'
+        contactEmail:
+          type: string
+          format: email
+          description: Correo electrónico de contacto de la tienda
+          maxLength: 255
+          x-field-extra-annotation: '@Email @Size(max = 255)'
+        currencyCode:
+          $ref: '#/components/schemas/CurrencyCodeEnum'
+          x-field-extra-annotation: '@NotNull'
+
+    StatusRequest:
+      type: object
+      required:
+        - active
+      properties:
+        active:
+          type: boolean
+          description: Estado activo/inactivo de la tienda
+          x-field-extra-annotation: '@NotNull'
+
+    PhoneRequestDTO:
+      type: object
+      required:
+        - phoneNumber
+      properties:
+        phoneNumber:
+          type: string
+          description: Número de teléfono de la tienda
+          maxLength: 20
+          x-field-extra-annotation: '@NotBlank @Size(max = 20)'
+
+    EmailRequestDTO:
+      type: object
+      required:
+        - contactEmail
+      properties:
+        contactEmail:
+          type: string
+          format: email
+          description: Correo electrónico de contacto de la tienda
+          maxLength: 255
+          x-field-extra-annotation: '@NotBlank @Email @Size(max = 255)'
+
+    UpdateStoreRequestDTO:
+      type: object
+      required:
+        - taxType
+        - taxId
+        - name
+      properties:
+        taxType:
+          $ref: '#/components/schemas/TaxTypeEnum'
+          x-field-extra-annotation: '@NotNull'
+        taxId:
+          type: string
+          description: Identificación fiscal de la tienda (RUC/NIT/RFC)
+          maxLength: 100
+          x-field-extra-annotation: '@NotBlank @Size(max = 100)'
+        legalName:
+          type: string
+          description: Razón social o nombre legal de la tienda
+          maxLength: 255
+          x-field-extra-annotation: '@Size(max = 255)'
+        name:
+          type: string
+          description: Nombre comercial de la tienda
+          minLength: 1
+          maxLength: 255
+          x-field-extra-annotation: '@NotBlank @Size(min = 1, max = 255)'
+        description:
+          type: string
+          description: Descripción de la tienda
+        slogan:
+          type: string
+          description: Eslogan de la tienda
+          maxLength: 255
+          x-field-extra-annotation: '@Size(max = 255)'
+        logoUrl:
+          type: string
+          description: URL del logo de la tienda
+        address:
+          type: string
+          description: Dirección física de la tienda
+          maxLength: 255
+          x-field-extra-annotation: '@Size(max = 255)'
+        country:
+          type: string
+          description: País de la tienda
+          maxLength: 100
+          x-field-extra-annotation: '@Size(max = 100)'
+        stateProvince:
+          type: string
+          description: Estado/Provincia de la tienda
+          maxLength: 100
+          x-field-extra-annotation: '@Size(max = 100)'
+        city:
+          type: string
+          description: Ciudad de la tienda
+          maxLength: 100
+          x-field-extra-annotation: '@Size(max = 100)'
+        currencyCode:
+          $ref: '#/components/schemas/CurrencyCodeEnum'
+          x-field-extra-annotation: '@NotNull'
+
+    StoreResponseDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Identificador único de la tienda (UUID)
+        ownerId:
+          type: string
+          format: uuid
+          description: Identificador del propietario de la tienda (UUID)
+        taxType:
+          $ref: '#/components/schemas/TaxTypeEnum'
+        taxId:
+          type: string
+          description: Identificación fiscal de la tienda (RUC/NIT/RFC)
+        legalName:
+          type: string
+          description: Razón social o nombre legal de la tienda
+        name:
+          type: string
+          description: Nombre comercial de la tienda
+        description:
+          type: string
+          description: Descripción de la tienda
+        slogan:
+          type: string
+          description: Eslogan de la tienda
+        logoUrl:
+          type: string
+          description: URL del logo de la tienda
+        address:
+          type: string
+          description: Dirección física de la tienda
+        country:
+          type: string
+          description: País de la tienda
+        stateProvince:
+          type: string
+          description: Estado/Provincia de la tienda
+        city:
+          type: string
+          description: Ciudad de la tienda
+        phoneNumber:
+          type: string
+          description: Número de teléfono de la tienda
+        contactEmail:
+          type: string
+          description: Correo electrónico de contacto de la tienda
+        currencyCode:
+          $ref: '#/components/schemas/CurrencyCodeEnum'
+        isActive:
+          type: boolean
+          description: Estado activo/inactivo de la tienda
+        createdAt:
+          type: string
+          format: date-time
+          description: Fecha de creación
+        updatedAt:
+          type: string
+          format: date-time
+          description: Fecha de última actualización
+        deletedAt:
+          type: string
+          format: date-time
+          nullable: true
+          description: Fecha de eliminación (soft delete)
+
+    PaginatedStoreResponseDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/StoreResponseDTO'
+        totalElements:
+          type: integer
+          format: int64
+          example: 125
+        totalPages:
+          type: integer
+          example: 13
+        size:
+          type: integer
+          example: 10
+        number:
+          type: integer
+          example: 0
+        first:
+          type: boolean
+          example: true
+        last:
+          type: boolean
+          example: false
+
+    FieldErrorDetailDTO:
+      type: object
+      required:
+        - field
+        - message
+      properties:
+        field:
+          type: string
+          example: "name"
+          description: Nombre del campo que causó el error de validación.
+        message:
+          type: string
+          example: "El nombre debe tener entre 3 y 50 caracteres."
+          description: Mensaje descriptivo del error de validación para el campo específico.
+        rejectedValue:
+          type: string
+          example: "ab"
+          description: Valor que fue rechazado por la validación.
+
+    ErrorResponseDTO:
+      type: object
+      required:
+        - code
+        - message
+        - timestamp
+      properties:
+        code:
+          type: string
+          example: "VALIDATION_FAILED"
+        message:
+          type: string
+          example: "Uno o más campos enviados en la solicitud no pasaron las validaciones."
+        timestamp:
+          type: string
+          format: date-time
+          example: "2026-06-18T12:40:00Z"
+        details:
+          type: array
+          description: Lista de errores específicos por cada campo (aparece si es error de validación de entrada).
+          items:
+            $ref: '#/components/schemas/FieldErrorDetailDTO'

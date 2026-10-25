@@ -37,22 +37,22 @@ CREATE TABLE IF NOT EXISTS "user"
 );
 
 -- Un documento solo puede pertenecer a un usuario activo.
-CREATE UNIQUE INDEX IF NOT EXISTS uk_user_document_active
+CREATE UNIQUE INDEX IF NOT EXISTS uidx_user_document_active
     ON "user" (document_type, document_number)
     WHERE deleted_at IS NULL;
 
 -- Un username solo puede pertenecer a un usuario activo.
-CREATE UNIQUE INDEX IF NOT EXISTS uk_user_username_active
+CREATE UNIQUE INDEX IF NOT EXISTS uidx_user_username_active
     ON "user" (username)
     WHERE deleted_at IS NULL;
 
 -- Un email solo puede pertenecer a un usuario activo.
-CREATE UNIQUE INDEX IF NOT EXISTS uk_user_email_active
+CREATE UNIQUE INDEX IF NOT EXISTS uidx_user_email_active
     ON "user" (email)
     WHERE deleted_at IS NULL;
 
 -- Un teléfono solo puede pertenecer a un usuario activo.
-CREATE UNIQUE INDEX IF NOT EXISTS uk_user_phone_active
+CREATE UNIQUE INDEX IF NOT EXISTS uidx_user_phone_active
     ON "user" (phone)
     WHERE deleted_at IS NULL;
 
