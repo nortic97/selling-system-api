@@ -1,6 +1,8 @@
 package com.nortic.pos.es.role.mapper;
 
-import com.nortic.pos.es.role.model.dto.*;
+import com.nortic.pos.es.role.model.dto.ChangeStatusRequestDTO;
+import com.nortic.pos.es.role.model.dto.PaginatedRoleResponseDTO;
+import com.nortic.pos.es.role.model.dto.RoleDTO;
 import com.nortic.pos.es.role.rest.gen.model.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
