@@ -2,6 +2,7 @@ package com.nortic.pos.es.role.service.contract;
 
 import com.nortic.pos.es.role.model.dto.*;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface RoleService {
@@ -19,4 +20,12 @@ public interface RoleService {
     RoleDTO updateRole(RequestContextDTO requestContextDTO, UUID id, RoleDTO roleDTO);
 
     RoleDTO changeStatus(RequestContextDTO requestContextDTO, UUID id, ChangeStatusRequestDTO changeStatusRequestDTO);
+
+    List<PermissionResponseDTO> getRolePermission(RequestContextDTO requestContextDTO, UUID roleId);
+
+    List<PermissionResponseDTO> addPermissionToRole(RequestContextDTO requestContextDTO, UUID roleId, PermissionRequestDTO permissionRequestDTO);
+
+    void removePermissionsFromRole(RequestContextDTO requestContextDTO, UUID roleId, PermissionRequestDTO permissionRequestDTO);
+
+    void removePermissionFromRole(RequestContextDTO requestContextDTO, UUID roleId, UUID permissionId);
 }

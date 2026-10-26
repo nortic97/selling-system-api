@@ -34,6 +34,27 @@ message ChangeStatusRequest {
   bool active = 2;
 }
 
+message PermissionRequest {
+  string role_id = 1;
+  repeated string permission_ids = 2;
+}
+
+message PermissionIdRequest {
+  string role_id = 1;
+  string permission_id = 2;
+}
+
+message PermissionResponse {
+  string id = 1;
+  string code = 2;
+  string module = 3;
+  string name = 4;
+  optional string description = 5;
+  bool is_active = 6;
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp updated_at = 8;
+}
+
 message PaginationRequest {
   int32 page = 1;
   int32 size = 2;
@@ -82,4 +103,8 @@ service RoleService {
   rpc DeleteRole(RoleIdRequest) returns (google.protobuf.Empty);
   rpc ChangeStatus(ChangeStatusRequest) returns (RoleResponse);
   rpc RestoreRole(RoleIdRequest) returns (RoleResponse);
+  rpc GetRolePermission(RoleIdRequest) returns (stream PermissionResponse);
+  rpc AddPermissionToRole(PermissionRequest) returns (stream PermissionResponse);
+  rpc RemovePermissionsFromRole(PermissionRequest) returns (google.protobuf.Empty);
+  rpc RemovePermissionFromRole(PermissionIdRequest) returns (google.protobuf.Empty);
 }

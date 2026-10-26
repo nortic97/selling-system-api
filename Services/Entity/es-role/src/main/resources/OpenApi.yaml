@@ -217,6 +217,117 @@ paths:
         '500':
           $ref: '#/components/responses/500InternalServerError'
 
+  /api/v1/es/role/{id}/permission:
+    get:
+      summary: Consultar permisos asignados a un rol
+      description: Obtiene la lista de permisos asignados a un rol específico
+      operationId: getRolePermission
+      tags:
+        - Role
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+        - $ref: '#/components/parameters/RoleIdPathParam'
+      responses:
+        '200':
+          description: Lista de permisos asignados al rol
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PermissionResponseDTO'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+    post:
+      summary: Agregar permisos a un rol
+      description: Asigna uno o varios permisos a un rol específico
+      operationId: addPermissionToRole
+      tags:
+        - Role
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+        - $ref: '#/components/parameters/RoleIdPathParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PermissionRequestDTO'
+      responses:
+        '201':
+          description: Permisos agregados exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PermissionResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+    delete:
+      summary: Revocar varios permisos en lote
+      description: Elimina varios permisos de un rol específico
+      operationId: removePermissionsFromRole
+      tags:
+        - Role
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+        - $ref: '#/components/parameters/RoleIdPathParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PermissionRequestDTO'
+      responses:
+        '204':
+          description: Permisos revocados exitosamente
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+  /api/v1/es/role/{id}/permission/{permissionId}:
+    delete:
+      summary: Revocar permiso de un rol
+      description: Elimina un permiso específico de un rol
+      operationId: removePermissionFromRole
+      tags:
+        - Role
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+        - $ref: '#/components/parameters/RoleIdPathParam'
+        - $ref: '#/components/parameters/PermissionIdPathParam'
+      responses:
+        '204':
+          description: Permiso revocado exitosamente
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
 components:
   securitySchemes:
     bearerAuth:
@@ -285,6 +396,14 @@ components:
       in: path
       required: true
       description: ID del rol (UUID)
+      schema:
+        type: string
+        format: uuid
+    PermissionIdPathParam:
+      name: permissionId
+      in: path
+      required: true
+      description: ID del permiso (UUID)
       schema:
         type: string
         format: uuid
@@ -361,6 +480,50 @@ components:
         description:
           type: string
           description: Descripción del rol
+
+    PermissionRequestDTO:
+      type: object
+      required:
+        - permissionIds
+      properties:
+        permissionIds:
+          type: array
+          description: Lista de IDs de permisos a asignar
+          items:
+            type: string
+            format: uuid
+          x-field-extra-annotation: '@NotEmpty @Size(min = 1)'
+
+    PermissionResponseDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Identificador único del permiso (UUID)
+        code:
+          type: string
+          description: Código del permiso
+        module:
+          type: string
+          description: Módulo al que pertenece el permiso
+        name:
+          type: string
+          description: Nombre del permiso
+        description:
+          type: string
+          description: Descripción del permiso
+        isActive:
+          type: boolean
+          description: Estado activo/inactivo del permiso
+        createdAt:
+          type: string
+          format: date-time
+          description: Fecha de creación
+        updatedAt:
+          type: string
+          format: date-time
+          description: Fecha de última actualización
 
     RoleResponseDTO:
       type: object

@@ -15,6 +15,7 @@ import java.util.UUID;
 )
 public abstract class RoleEntityMapper {
 
+    @Mapping(target = "permissions", ignore = true)
     @Mapping(target = "storeId", expression = "java(mapStore(roleDTO.getStoreId()))")
     @Mapping(target = "name", source = "name", qualifiedByName = "normalizeString")
     public abstract RoleEntity toRoleEntity(RoleDTO roleDTO);
@@ -25,6 +26,7 @@ public abstract class RoleEntityMapper {
     @Mapping(target = "number", expression = "java(page.getNumber() + 1)")
     public abstract PaginatedRoleResponseDTO toListRoleDTO(Page<RoleEntity> page);
 
+    @Mapping(target = "permissions", ignore = true)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "storeId", ignore = true)
     @Mapping(target = "createdAt", ignore = true)

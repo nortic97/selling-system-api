@@ -26,24 +26,6 @@ public class RoleController implements RoleApi {
     private final RoleRestMapper roleRestMapper;
 
     @Override
-    public ResponseEntity<RestModelRoleResponseDTO> changeStatus(UUID correlationId, String consumerId, UUID id, RestModelStatusRequest restModelStatusRequest) {
-        log.info("Change status controller ... ");
-
-        var requestContextDTO = RequestContextDTO.builder()
-                .correlationId(correlationId)
-                .consumerId(consumerId)
-                .build();
-
-        var changeStatusRequestDTO = roleRestMapper.toChangeStatusRequestDTO(restModelStatusRequest);
-
-        var roleDTO = roleService.changeStatus(requestContextDTO, id, changeStatusRequestDTO);
-
-        log.info("Change status controller completed ... ");
-
-        return ResponseEntity.ok(roleRestMapper.toRoleResponseDTO(roleDTO));
-    }
-
-    @Override
     public ResponseEntity<RestModelRoleResponseDTO> createRole(UUID correlationId, String consumerId, RestModelRoleRequestDTO restModelRoleRequestDTO) {
 
         log.info("Create role controller ...");
@@ -65,6 +47,7 @@ public class RoleController implements RoleApi {
 
     @Override
     public ResponseEntity<Void> deleteRole(UUID correlationId, String consumerId, UUID id) {
+
         log.info("Delete role controller ...");
 
         var requestContextDTO = RequestContextDTO.builder()
@@ -81,6 +64,7 @@ public class RoleController implements RoleApi {
 
     @Override
     public ResponseEntity<RestModelPaginatedRoleResponseDTO> getAllRoles(UUID correlationId, String consumerId, Integer page, Integer size, @Nullable List<String> sort) {
+
         log.info("List roles controller ...");
 
         var requestContextDTO = RequestContextDTO.builder()
@@ -101,6 +85,7 @@ public class RoleController implements RoleApi {
 
     @Override
     public ResponseEntity<RestModelRoleResponseDTO> getRole(UUID correlationId, String consumerId, UUID id) {
+
         log.info("Get role controller ...");
 
         var requestContextDTO = RequestContextDTO.builder()
@@ -111,11 +96,32 @@ public class RoleController implements RoleApi {
         var roleDTO = roleService.getRole(requestContextDTO, id);
 
         log.info("Get role controller completed ...");
+
         return ResponseEntity.ok(roleRestMapper.toRoleResponseDTO(roleDTO));
     }
 
     @Override
+    public ResponseEntity<RestModelRoleResponseDTO> changeStatus(UUID correlationId, String consumerId, UUID id, RestModelStatusRequest restModelStatusRequest) {
+
+        log.info("Change status controller ... ");
+
+        var requestContextDTO = RequestContextDTO.builder()
+                .correlationId(correlationId)
+                .consumerId(consumerId)
+                .build();
+
+        var statusDTO = roleRestMapper.toChangeStatusRequestDTO(restModelStatusRequest);
+
+        var updatedRoleDTO = roleService.changeStatus(requestContextDTO, id, statusDTO);
+
+        log.info("Change status controller completed ... ");
+
+        return ResponseEntity.ok(roleRestMapper.toRoleResponseDTO(updatedRoleDTO));
+    }
+
+    @Override
     public ResponseEntity<RestModelRoleResponseDTO> restoreRole(UUID correlationId, String consumerId, UUID id) {
+
         log.info("Restore role controller ...");
 
         var requestContextDTO = RequestContextDTO.builder()
@@ -123,15 +129,16 @@ public class RoleController implements RoleApi {
                 .consumerId(consumerId)
                 .build();
 
-        var roleDTO = roleService.restoreRole(requestContextDTO, id);
+        var restoredRoleDTO = roleService.restoreRole(requestContextDTO, id);
 
         log.info("Restore role controller completed ...");
 
-        return ResponseEntity.ok(roleRestMapper.toRoleResponseDTO(roleDTO));
+        return ResponseEntity.ok(roleRestMapper.toRoleResponseDTO(restoredRoleDTO));
     }
 
     @Override
     public ResponseEntity<RestModelRoleResponseDTO> updateRole(UUID correlationId, String consumerId, UUID id, RestModelUpdateRoleRequestDTO restModelUpdateRoleRequestDTO) {
+
         log.info("Update role controller ... ");
 
         var requestContextDTO = RequestContextDTO.builder()
@@ -146,5 +153,74 @@ public class RoleController implements RoleApi {
         log.info("Update role controller completed ... ");
 
         return ResponseEntity.ok(roleRestMapper.toRoleResponseDTO(updatedRoleDTO));
+    }
+
+    @Override
+    public ResponseEntity<List<RestModelPermissionResponseDTO>> getRolePermission(UUID correlationId, String consumerId, UUID id) {
+        log.info("Get role permission controller ...");
+
+        var requestContextDTO = RequestContextDTO.builder()
+                .correlationId(correlationId)
+                .consumerId(consumerId)
+                .build();
+
+        var permissions = roleService.getRolePermission(requestContextDTO, id);
+
+        log.info("Get role permission controller completed ...");
+
+        return ResponseEntity.ok(roleRestMapper.toPermissionResponseDTOList(permissions));
+    }
+
+    @Override
+    public ResponseEntity<List<RestModelPermissionResponseDTO>> addPermissionToRole(UUID correlationId, String consumerId, UUID id, RestModelPermissionRequestDTO restModelPermissionRequestDTO) {
+        log.info("Add permission to role controller ...");
+
+        var requestContextDTO = RequestContextDTO.builder()
+                .correlationId(correlationId)
+                .consumerId(consumerId)
+                .build();
+
+        var permissionRequestDTO = roleRestMapper.toPermissionRequestDTO(restModelPermissionRequestDTO);
+
+        var permissions = roleService.addPermissionToRole(requestContextDTO, id, permissionRequestDTO);
+
+        log.info("Add permission to role controller completed ...");
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(roleRestMapper.toPermissionResponseDTOList(permissions));
+    }
+
+    @Override
+    public ResponseEntity<Void> removePermissionsFromRole(UUID correlationId, String consumerId, UUID id, RestModelPermissionRequestDTO restModelPermissionRequestDTO) {
+        log.info("Remove permissions from role controller ...");
+
+        var requestContextDTO = RequestContextDTO.builder()
+                .correlationId(correlationId)
+                .consumerId(consumerId)
+                .build();
+
+        var permissionRequestDTO = roleRestMapper.toPermissionRequestDTO(restModelPermissionRequestDTO);
+
+        roleService.removePermissionsFromRole(requestContextDTO, id, permissionRequestDTO);
+
+        log.info("Remove permissions from role controller completed ...");
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @Override
+    public ResponseEntity<Void> removePermissionFromRole(UUID correlationId, String consumerId, UUID id, UUID permissionId) {
+        log.info("Remove permission from role controller ...");
+
+        var requestContextDTO = RequestContextDTO.builder()
+                .correlationId(correlationId)
+                .consumerId(consumerId)
+                .build();
+
+        roleService.removePermissionFromRole(requestContextDTO, id, permissionId);
+
+        log.info("Remove permission from role controller completed ...");
+
+        return ResponseEntity.noContent().build();
     }
 }

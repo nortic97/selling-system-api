@@ -2,12 +2,12 @@ package com.nortic.pos.es.role.mapper;
 
 import com.google.protobuf.Timestamp;
 import com.nortic.pos.es.role.grpc.RoleProto;
-import com.nortic.pos.es.role.model.dto.ChangeStatusRequestDTO;
-import com.nortic.pos.es.role.model.dto.PaginatedRoleResponseDTO;
-import com.nortic.pos.es.role.model.dto.RoleDTO;
+import com.nortic.pos.es.role.model.dto.*;
 import org.mapstruct.*;
 
 import java.time.OffsetDateTime;
+import java.util.List;
+import java.util.UUID;
 
 @Mapper(
         componentModel = "spring",
@@ -74,4 +74,31 @@ public abstract class RoleGrpcMapper {
     @Mapping(target = "deletedAt", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     public abstract RoleDTO toRoleDTO(RoleProto.UpdateRoleRequest request);
+
+    @Mapping(target = "unknownFields", ignore = true)
+    @Mapping(target = "mergeUpdatedAt", ignore = true)
+    @Mapping(target = "mergeUnknownFields", ignore = true)
+    @Mapping(target = "mergeFrom", ignore = true)
+    @Mapping(target = "mergeCreatedAt", ignore = true)
+    @Mapping(target = "idBytes", ignore = true)
+    @Mapping(target = "codeBytes", ignore = true)
+    @Mapping(target = "moduleBytes", ignore = true)
+    @Mapping(target = "nameBytes", ignore = true)
+    @Mapping(target = "descriptionBytes", ignore = true)
+    @Mapping(target = "clearOneof", ignore = true)
+    @Mapping(target = "clearField", ignore = true)
+    @Mapping(target = "allFields", ignore = true)
+    @Mapping(target = "createdAt", qualifiedByName = "offsetDateTimeToTimestamp")
+    @Mapping(target = "updatedAt", qualifiedByName = "offsetDateTimeToTimestamp")
+    public abstract RoleProto.PermissionResponse toPermissionResponse(PermissionResponseDTO dto);
+
+    @Mapping(target = "permissionIds", expression = "java(mapPermissionIds(request.getPermissionIdsList()))")
+    public abstract PermissionRequestDTO toPermissionRequestDTO(RoleProto.PermissionRequest request);
+
+    protected List<UUID> mapPermissionIds(List<String> permissionIds) {
+        if (permissionIds == null) {
+            return null;
+        }
+        return permissionIds.stream().map(UUID::fromString).toList();
+    }
 }

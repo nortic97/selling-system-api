@@ -19,8 +19,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import static com.nortic.pos.es.role.security.SecurityConstants.*;
-
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -41,44 +39,48 @@ public class SecurityFilterConfig {
 
                         .requestMatchers(HttpMethod.GET,
                                 SecurityConstants.API_BASE_PATH,
-                                SecurityConstants.ROLE_ID)
+                                SecurityConstants.ROLE_ID,
+                                SecurityConstants.ROLE_PERMISSION)
                         .hasAnyAuthority(
-                                SecurityConstants.PERMISSION_READ,
+                                SecurityConstants.ROLE_READ,
                                 SecurityConstants.PERMISSION_ROLE_ALL,
                                 SecurityConstants.PERMISSION_SYSTEM_ALL)
 
                         .requestMatchers(HttpMethod.POST,
-                                SecurityConstants.API_BASE_PATH)
+                                SecurityConstants.API_BASE_PATH,
+                                SecurityConstants.ROLE_PERMISSION)
                         .hasAnyAuthority(
-                                SecurityConstants.PERMISSION_CREATE,
+                                SecurityConstants.ROLE_CREATE,
                                 SecurityConstants.PERMISSION_ROLE_ALL,
                                 SecurityConstants.PERMISSION_SYSTEM_ALL)
 
                         .requestMatchers(HttpMethod.PUT,
                                 SecurityConstants.ROLE_ID)
                         .hasAnyAuthority(
-                                SecurityConstants.PERMISSION_UPDATE,
+                                SecurityConstants.ROLE_UPDATE,
                                 SecurityConstants.PERMISSION_ROLE_ALL,
                                 SecurityConstants.PERMISSION_SYSTEM_ALL)
 
                         .requestMatchers(HttpMethod.PATCH,
                                 SecurityConstants.ROLE_CHANGE_STATUS)
                         .hasAnyAuthority(
-                                SecurityConstants.PERMISSION_UPDATE,
+                                SecurityConstants.ROLE_UPDATE,
                                 SecurityConstants.PERMISSION_ROLE_ALL,
                                 SecurityConstants.PERMISSION_SYSTEM_ALL)
 
                         .requestMatchers(HttpMethod.DELETE,
-                                SecurityConstants.ROLE_ID)
+                                SecurityConstants.ROLE_ID,
+                                SecurityConstants.ROLE_PERMISSION,
+                                SecurityConstants.ROLE_PERMISSION_ID)
                         .hasAnyAuthority(
-                                SecurityConstants.PERMISSION_DELETE,
+                                SecurityConstants.ROLE_DELETE,
                                 SecurityConstants.PERMISSION_ROLE_ALL,
                                 SecurityConstants.PERMISSION_SYSTEM_ALL)
 
                         .requestMatchers(HttpMethod.PATCH,
                                 SecurityConstants.ROLE_RESTORE)
                         .hasAnyAuthority(
-                                SecurityConstants.PERMISSION_DELETE,
+                                SecurityConstants.ROLE_DELETE,
                                 SecurityConstants.PERMISSION_ROLE_ALL,
                                 SecurityConstants.PERMISSION_SYSTEM_ALL)
 
@@ -98,16 +100,14 @@ public class SecurityFilterConfig {
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
+
         CorsConfiguration configuration = new CorsConfiguration();
-
-        configuration.setAllowedOrigins(ALLOWED_ORIGINS);
-
-        configuration.setAllowedMethods(ALLOWED_METHODS);
-
-        configuration.setAllowedHeaders(ALLOWED_HEADERS);
+        configuration.setAllowedOrigins(SecurityConstants.ALLOWED_ORIGINS);
+        configuration.setAllowedMethods(SecurityConstants.ALLOWED_METHODS);
+        configuration.setAllowedHeaders(SecurityConstants.ALLOWED_HEADERS);
+        configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-
         source.registerCorsConfiguration("/**", configuration);
 
         return source;

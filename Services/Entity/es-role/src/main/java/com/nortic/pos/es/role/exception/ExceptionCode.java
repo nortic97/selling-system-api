@@ -26,6 +26,12 @@ public enum ExceptionCode {
             HttpStatus.NOT_FOUND
     ),
 
+    PERMISSION_NOT_FOUND(
+            "PERMISSION_NOT_FOUND",
+            "Permission not found.",
+            HttpStatus.NOT_FOUND
+    ),
+
     ROLE_NAME_ALREADY_EXISTS(
             "ROLE_NAME_ALREADY_EXISTS",
             "Role name already exists for this store.",

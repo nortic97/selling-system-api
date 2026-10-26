@@ -1,5 +1,8 @@
 package com.nortic.pos.es.role.service;
 
+import com.nortic.pos.es.role.exception.BusinessException;
+import com.nortic.pos.es.role.exception.ExceptionCode;
+import com.nortic.pos.es.role.mapper.PermissionMapper;
 import com.nortic.pos.es.role.mapper.RoleEntityMapper;
 import com.nortic.pos.es.role.model.dto.*;
 import com.nortic.pos.es.role.repository.RoleRepository;
@@ -10,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -20,6 +25,7 @@ public class RoleServiceImpl implements RoleService {
     private final RoleRepository roleRepository;
     private final RoleEntityMapper roleEntityMapper;
     private final RoleValidationService roleValidationService;
+    private final PermissionMapper permissionMapper;
 
     @Override
     public RoleDTO getRole(RequestContextDTO requestContextDTO, UUID id) {
@@ -77,7 +83,7 @@ public class RoleServiceImpl implements RoleService {
         log.info("Restore role service ... ");
 
         var role = roleRepository.findByIdIncludingDeleted(id).orElseThrow(() ->
-                new RuntimeException("Role not found"));
+                new BusinessException(ExceptionCode.ROLE_NOT_FOUND));
 
         role.setIsActive(Boolean.TRUE);
         role.setDeletedAt(null);
@@ -114,5 +120,79 @@ public class RoleServiceImpl implements RoleService {
         log.info("Change status service completed ... ");
 
         return roleEntityMapper.toRoleDTO(roleEntity);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<PermissionResponseDTO> getRolePermission(RequestContextDTO requestContextDTO, UUID roleId) {
+        log.info("Get role permission service ...");
+
+        var role = roleValidationService.validateAndGetRole(roleId);
+
+        var permissions = role.getPermissions().stream().toList();
+
+        log.info("Get role permission service completed ...");
+
+        return permissionMapper.toPermissionResponseDTOList(permissions);
+    }
+
+    @Override
+    @Transactional
+    public List<PermissionResponseDTO> addPermissionToRole(RequestContextDTO requestContextDTO, UUID roleId, PermissionRequestDTO permissionRequestDTO) {
+        log.info("Add permission to role service ...");
+
+        var role = roleValidationService.validateAndGetRole(roleId);
+
+        if (permissionRequestDTO == null || permissionRequestDTO.getPermissionIds() == null || permissionRequestDTO.getPermissionIds().isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        var uniquePermissionIds = permissionRequestDTO.getPermissionIds().stream().distinct().toList();
+        var permissionEntities = roleRepository.findPermissionsByIds(uniquePermissionIds);
+
+        if (permissionEntities.size() != uniquePermissionIds.size()) {
+            throw new BusinessException(ExceptionCode.PERMISSION_NOT_FOUND);
+        }
+
+        role.getPermissions().addAll(permissionEntities);
+
+        roleRepository.save(role);
+
+        log.info("Add permission to role service completed ...");
+
+        return permissionMapper.toPermissionResponseDTOList(permissionEntities);
+    }
+
+    @Override
+    @Transactional
+    public void removePermissionsFromRole(RequestContextDTO requestContextDTO, UUID roleId, PermissionRequestDTO permissionRequestDTO) {
+        log.info("Remove permissions from role service ...");
+
+        var role = roleValidationService.validateAndGetRole(roleId);
+
+        if (permissionRequestDTO != null && permissionRequestDTO.getPermissionIds() != null && !permissionRequestDTO.getPermissionIds().isEmpty()) {
+            role.getPermissions().removeIf(permission -> permissionRequestDTO.getPermissionIds().contains(permission.getId()));
+            roleRepository.save(role);
+        }
+
+        log.info("Remove permissions from role service completed ...");
+    }
+
+    @Override
+    @Transactional
+    public void removePermissionFromRole(RequestContextDTO requestContextDTO, UUID roleId, UUID permissionId) {
+        log.info("Remove permission from role service ...");
+
+        var role = roleValidationService.validateAndGetRole(roleId);
+
+        boolean removed = role.getPermissions().removeIf(permission -> permission.getId().equals(permissionId));
+
+        if (!removed) {
+            throw new BusinessException(ExceptionCode.PERMISSION_NOT_FOUND);
+        }
+
+        roleRepository.save(role);
+
+        log.info("Remove permission from role service completed ...");
     }
 }

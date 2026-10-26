@@ -1,12 +1,12 @@
 package com.nortic.pos.es.role.mapper;
 
-import com.nortic.pos.es.role.model.dto.ChangeStatusRequestDTO;
-import com.nortic.pos.es.role.model.dto.PaginatedRoleResponseDTO;
-import com.nortic.pos.es.role.model.dto.RoleDTO;
+import com.nortic.pos.es.role.model.dto.*;
 import com.nortic.pos.es.role.rest.gen.model.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.NullValuePropertyMappingStrategy;
+
+import java.util.List;
 
 @Mapper(
         componentModel = "spring",
@@ -34,4 +34,10 @@ public abstract class RoleRestMapper {
     @Mapping(target = "deletedAt", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     public abstract RoleDTO toUpdateRoleRequestDTO(RestModelUpdateRoleRequestDTO restModelUpdateRoleRequestDTO);
+
+    public abstract PermissionRequestDTO toPermissionRequestDTO(RestModelPermissionRequestDTO restModelPermissionRequestDTO);
+
+    public abstract RestModelPermissionResponseDTO toPermissionResponseDTO(PermissionResponseDTO permissionResponseDTO);
+
+    public abstract List<RestModelPermissionResponseDTO> toPermissionResponseDTOList(List<PermissionResponseDTO> permissionResponseDTOList);
 }

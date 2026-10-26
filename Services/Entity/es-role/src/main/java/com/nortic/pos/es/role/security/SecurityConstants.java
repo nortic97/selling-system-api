@@ -17,11 +17,14 @@ public final class SecurityConstants {
     public static final String ROLE_RESTORE = ROLE_ID + "/restore";
     public static final String ROLE_CHANGE_STATUS = ROLE_ID + "/status";
 
+    public static final String ROLE_PERMISSION = ROLE_ID + "/permission";
+    public static final String ROLE_PERMISSION_ID = ROLE_PERMISSION + "/{permissionId}";
+
     // Permissions (matching Permission.java format)
-    public static final String PERMISSION_READ = "role.read";
-    public static final String PERMISSION_CREATE = "role.create";
-    public static final String PERMISSION_UPDATE = "role.update";
-    public static final String PERMISSION_DELETE = "role.delete";
+    public static final String ROLE_READ = "role.read";
+    public static final String ROLE_CREATE = "role.create";
+    public static final String ROLE_UPDATE = "role.update";
+    public static final String ROLE_DELETE = "role.delete";
     public static final String PERMISSION_ROLE_ALL = "role.all";
     public static final String PERMISSION_SYSTEM_ALL = "system.all";
 

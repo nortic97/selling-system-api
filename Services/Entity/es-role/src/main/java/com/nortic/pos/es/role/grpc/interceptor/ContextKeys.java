@@ -39,13 +39,17 @@ public final class ContextKeys {
     public static final String PERMISSION_DENIED_MESSAGE = "Permission denied";
 
     public static final Map<String, String> METHOD_PERMISSIONS = Map.ofEntries(
-            Map.entry(GRPC_SERVICE + "/CreateRole", SecurityConstants.PERMISSION_CREATE),
-            Map.entry(GRPC_SERVICE + "/GetRole", SecurityConstants.PERMISSION_READ),
-            Map.entry(GRPC_SERVICE + "/ListRoles", SecurityConstants.PERMISSION_READ),
-            Map.entry(GRPC_SERVICE + "/UpdateRole", SecurityConstants.PERMISSION_UPDATE),
-            Map.entry(GRPC_SERVICE + "/DeleteRole", SecurityConstants.PERMISSION_DELETE),
-            Map.entry(GRPC_SERVICE + "/RestoreRole", SecurityConstants.PERMISSION_DELETE),
-            Map.entry(GRPC_SERVICE + "/ChangeStatus", SecurityConstants.PERMISSION_UPDATE)
+            Map.entry(GRPC_SERVICE + "/CreateRole", SecurityConstants.ROLE_CREATE),
+            Map.entry(GRPC_SERVICE + "/GetRole", SecurityConstants.ROLE_READ),
+            Map.entry(GRPC_SERVICE + "/ListRoles", SecurityConstants.ROLE_READ),
+            Map.entry(GRPC_SERVICE + "/UpdateRole", SecurityConstants.ROLE_UPDATE),
+            Map.entry(GRPC_SERVICE + "/DeleteRole", SecurityConstants.ROLE_DELETE),
+            Map.entry(GRPC_SERVICE + "/RestoreRole", SecurityConstants.ROLE_DELETE),
+            Map.entry(GRPC_SERVICE + "/ChangeStatus", SecurityConstants.ROLE_UPDATE),
+            Map.entry(GRPC_SERVICE + "/GetRolePermission", SecurityConstants.ROLE_READ),
+            Map.entry(GRPC_SERVICE + "/AddPermissionToRole", SecurityConstants.ROLE_CREATE),
+            Map.entry(GRPC_SERVICE + "/RemovePermissionsFromRole", SecurityConstants.ROLE_DELETE),
+            Map.entry(GRPC_SERVICE + "/RemovePermissionFromRole", SecurityConstants.ROLE_DELETE)
     );
 
     public static final List<String> PUBLIC_SERVICE_METHODS = List.of(

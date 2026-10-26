@@ -33,7 +33,8 @@ public class GrpcException {
 
             return switch (code) {
 
-                case ROLE_NOT_FOUND, STORE_NOT_FOUND -> new GrpcError(Status.NOT_FOUND, code.getMessage());
+                case ROLE_NOT_FOUND, STORE_NOT_FOUND, PERMISSION_NOT_FOUND ->
+                        new GrpcError(Status.NOT_FOUND, code.getMessage());
 
                 case ROLE_NAME_ALREADY_EXISTS, DATA_INTEGRITY_VIOLATION ->
                         new GrpcError(Status.ALREADY_EXISTS, code.getMessage());

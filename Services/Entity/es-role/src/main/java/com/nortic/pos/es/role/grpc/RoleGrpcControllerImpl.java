@@ -3,21 +3,24 @@ package com.nortic.pos.es.role.grpc;
 import com.google.protobuf.Empty;
 import com.nortic.pos.es.role.grpc.exception.GrpcException;
 import com.nortic.pos.es.role.grpc.interceptor.ContextKeys;
-import com.nortic.pos.es.role.grpc.interceptor.GrpcInterceptor;
 import com.nortic.pos.es.role.mapper.RoleGrpcMapper;
 import com.nortic.pos.es.role.model.dto.RequestContextDTO;
 import com.nortic.pos.es.role.model.dto.SearchParamsDTO;
 import com.nortic.pos.es.role.service.contract.RoleService;
-import com.nortic.pos.es.role.util.PageableUtil;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.grpc.server.service.GrpcService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
-@GrpcService(interceptors = GrpcInterceptor.class)
+@GrpcService
 @RequiredArgsConstructor
 public class RoleGrpcControllerImpl extends RoleServiceGrpc.RoleServiceImplBase {
 
@@ -64,14 +67,15 @@ public class RoleGrpcControllerImpl extends RoleServiceGrpc.RoleServiceImplBase 
                     .consumerId(ContextKeys.CONSUMER_ID_CONTEXT_KEY.get())
                     .build();
 
-            var pageable = PageableUtil.buildPageable(request.getPage(), request.getSize(), request.getSortList());
-            var pagination = SearchParamsDTO.builder()
+            Pageable pageable = createPageable(request);
+
+            var searchParamsDTO = SearchParamsDTO.builder()
                     .pageable(pageable)
                     .build();
 
-            var paginatedRoles = roleService.listRoles(requestContextDTO, pagination);
+            var roles = roleService.listRoles(requestContextDTO, searchParamsDTO);
 
-            var response = roleGrpcMapper.toPaginatedRoleResponse(paginatedRoles);
+            var response = roleGrpcMapper.toPaginatedRoleResponse(roles);
 
             log.info("listRoles gRPC Controller Completed");
 
@@ -211,7 +215,134 @@ public class RoleGrpcControllerImpl extends RoleServiceGrpc.RoleServiceImplBase 
         }
     }
 
+    @Override
+    public void getRolePermission(RoleProto.RoleIdRequest request, StreamObserver<RoleProto.PermissionResponse> responseObserver) {
+        try {
+            log.info("getRolePermission gRPC Controller...");
+
+            var requestContextDTO = RequestContextDTO.builder()
+                    .correlationId(UUID.fromString(ContextKeys.CORRELATION_ID_CONTEXT_KEY.get()))
+                    .consumerId(ContextKeys.CONSUMER_ID_CONTEXT_KEY.get())
+                    .build();
+
+            var permissions = roleService.getRolePermission(requestContextDTO, UUID.fromString(request.getId()));
+
+            for (var permission : permissions) {
+                var response = roleGrpcMapper.toPermissionResponse(permission);
+                responseObserver.onNext(response);
+            }
+
+            log.info("getRolePermission gRPC Controller Completed");
+
+            responseObserver.onCompleted();
+
+        } catch (Exception e) {
+            errorLog("getRolePermission", e);
+            grpcException.grpcException(e, responseObserver);
+        }
+    }
+
+    @Override
+    public void addPermissionToRole(RoleProto.PermissionRequest request, StreamObserver<RoleProto.PermissionResponse> responseObserver) {
+        try {
+            log.info("addPermissionToRole gRPC Controller...");
+
+            var requestContextDTO = RequestContextDTO.builder()
+                    .correlationId(UUID.fromString(ContextKeys.CORRELATION_ID_CONTEXT_KEY.get()))
+                    .consumerId(ContextKeys.CONSUMER_ID_CONTEXT_KEY.get())
+                    .build();
+
+            var permissionRequestDTO = roleGrpcMapper.toPermissionRequestDTO(request);
+
+            var permissions = roleService.addPermissionToRole(requestContextDTO, UUID.fromString(request.getRoleId()), permissionRequestDTO);
+
+            for (var permission : permissions) {
+                var response = roleGrpcMapper.toPermissionResponse(permission);
+                responseObserver.onNext(response);
+            }
+
+            log.info("addPermissionToRole gRPC Controller Completed");
+
+            responseObserver.onCompleted();
+
+        } catch (Exception e) {
+            errorLog("addPermissionToRole", e);
+            grpcException.grpcException(e, responseObserver);
+        }
+    }
+
+    @Override
+    public void removePermissionsFromRole(RoleProto.PermissionRequest request, StreamObserver<Empty> responseObserver) {
+        try {
+            log.info("removePermissionsFromRole gRPC Controller...");
+
+            var requestContextDTO = RequestContextDTO.builder()
+                    .correlationId(UUID.fromString(ContextKeys.CORRELATION_ID_CONTEXT_KEY.get()))
+                    .consumerId(ContextKeys.CONSUMER_ID_CONTEXT_KEY.get())
+                    .build();
+
+            var permissionRequestDTO = roleGrpcMapper.toPermissionRequestDTO(request);
+
+            roleService.removePermissionsFromRole(requestContextDTO, UUID.fromString(request.getRoleId()), permissionRequestDTO);
+
+            log.info("removePermissionsFromRole gRPC Controller Completed");
+
+            responseObserver.onNext(Empty.getDefaultInstance());
+            responseObserver.onCompleted();
+
+        } catch (Exception e) {
+            errorLog("removePermissionsFromRole", e);
+            grpcException.grpcException(e, responseObserver);
+        }
+    }
+
+    @Override
+    public void removePermissionFromRole(RoleProto.PermissionIdRequest request, StreamObserver<Empty> responseObserver) {
+        try {
+            log.info("removePermissionFromRole gRPC Controller...");
+
+            var requestContextDTO = RequestContextDTO.builder()
+                    .correlationId(UUID.fromString(ContextKeys.CORRELATION_ID_CONTEXT_KEY.get()))
+                    .consumerId(ContextKeys.CONSUMER_ID_CONTEXT_KEY.get())
+                    .build();
+
+            roleService.removePermissionFromRole(requestContextDTO, UUID.fromString(request.getRoleId()), UUID.fromString(request.getPermissionId()));
+
+            log.info("removePermissionFromRole gRPC Controller Completed");
+
+            responseObserver.onNext(Empty.getDefaultInstance());
+            responseObserver.onCompleted();
+
+        } catch (Exception e) {
+            errorLog("removePermissionFromRole", e);
+            grpcException.grpcException(e, responseObserver);
+        }
+    }
+
     private void errorLog(String method, Exception e) {
         log.error("Method : {} Error: {}", method, e.getMessage());
+    }
+
+    private Pageable createPageable(RoleProto.PaginationRequest request) {
+
+        int page = Math.max(0, request.getPage() - 1);
+        int size = request.getSize() > 0 ? request.getSize() : 10;
+
+        List<Sort.Order> orders = new ArrayList<>();
+
+        for (String sortParam : request.getSortList()) {
+            if (sortParam != null && !sortParam.isBlank()) {
+                String[] parts = sortParam.split(",");
+                String property = parts[0].trim();
+                Sort.Direction direction = (parts.length > 1 && "desc".equalsIgnoreCase(parts[1].trim()))
+                        ? Sort.Direction.DESC
+                        : Sort.Direction.ASC;
+                orders.add(new Sort.Order(direction, property));
+            }
+        }
+
+        Sort sort = orders.isEmpty() ? Sort.unsorted() : Sort.by(orders);
+
+        return PageRequest.of(page, size, sort);
     }
 }
