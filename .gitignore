@@ -1,4 +1,6 @@
 ## Compile folder
-/dist
+**/.idea/
+**/.vscode/
+**/dist/
 /services/**.md
 **/logs/
