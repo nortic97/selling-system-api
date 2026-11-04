@@ -1,0 +1,162 @@
+syntax = "proto3";
+
+package com.nortic.pos.es.employee.grpc;
+
+option java_multiple_files = false;
+option java_package = "com.nortic.pos.es.employee.grpc";
+option java_outer_classname = "EmployeeProto";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+service EmployeeService {
+  rpc GetAllEmployees(GetAllEmployeesRequest) returns (PaginatedEmployeeResponse);
+  rpc QueryEmployees(EmployeeQueryRequest) returns (PaginatedEmployeeResponse);
+  rpc SearchEmployees(SearchEmployeesRequest) returns (PaginatedEmployeeResponse);
+  rpc GetEmployeeById(GetEmployeeByIdRequest) returns (EmployeeResponse);
+  rpc CreateEmployee(CreateEmployeeRequest) returns (EmployeeResponse);
+  rpc UpdateEmployee(UpdateEmployeeRequest) returns (EmployeeResponse);
+  rpc DeleteEmployee(DeleteEmployeeRequest) returns (google.protobuf.Empty);
+  rpc RestoreEmployee(RestoreEmployeeRequest) returns (EmployeeResponse);
+  rpc ChangeEmployeePassword(ChangeEmployeePasswordRequest) returns (EmployeeResponse);
+  rpc ChangeUsername(ChangeUsernameRequest) returns (EmployeeResponse);
+  rpc ChangeEmail(ChangeEmailRequest) returns (EmployeeResponse);
+  rpc ChangePhone(ChangePhoneRequest) returns (EmployeeResponse);
+  rpc ChangeEmployeeStatus(ChangeEmployeeStatusRequest) returns (EmployeeResponse);
+  rpc Authenticate(AuthenticateRequest) returns (EmployeeResponse);
+}
+
+
+message GetAllEmployeesRequest {
+  int32 page = 1;
+  int32 size = 2;
+  repeated string sort = 3;
+}
+
+message EmployeeQueryRequest {
+  optional string query = 1;
+  int32 page = 2;
+  int32 size = 3;
+  repeated string sort = 4;
+}
+
+message SearchEmployeesRequest {
+  int32 page = 1;
+  int32 size = 2;
+  repeated string sort = 3;
+
+  optional string first_name = 4;
+  optional string last_name = 5;
+  optional string document_type = 6;
+  optional string document_number = 7;
+  optional string username = 8;
+  optional string email = 9;
+  optional string phone = 10;
+  optional string address = 11;
+  optional string date_of_birth = 12;
+  optional bool is_active = 14;
+}
+
+message GetEmployeeByIdRequest {
+  string id = 1;
+}
+
+message DeleteEmployeeRequest {
+  string id = 1;
+}
+
+message RestoreEmployeeRequest {
+  string id = 1;
+}
+
+message CreateEmployeeRequest {
+  string first_name = 1;
+  string last_name = 2;
+  string document_type = 3;
+  string document_number = 4;
+  string username = 5;
+  string password = 6;
+  string email = 7;
+  string phone = 8;
+
+  optional string date_of_birth = 9;
+  optional string address = 10;
+  optional string photo_url = 11;
+}
+
+message UpdateEmployeeRequest {
+  string id = 1;
+
+  optional string first_name = 2;
+  optional string last_name = 3;
+  optional string document_type = 4;
+  optional string document_number = 5;
+  optional string username = 6;
+  optional string email = 8;
+  optional string phone = 9;
+  optional string address = 10;
+  optional string date_of_birth = 11;
+  optional string photo_url = 12;
+}
+
+message ChangeEmployeePasswordRequest {
+  string id = 1;
+  string current_password = 2;
+  string new_password = 3;
+}
+
+message ChangeUsernameRequest {
+  string id = 1;
+  string username = 2;
+}
+
+message ChangeEmailRequest {
+  string id = 1;
+  string email = 2;
+}
+
+message ChangePhoneRequest {
+  string id = 1;
+  string phone = 2;
+}
+
+message ChangeEmployeeStatusRequest {
+  string id = 1;
+  bool active = 2;
+}
+
+message AuthenticateRequest {
+  string username = 1;
+  string password = 2;
+}
+
+
+message EmployeeResponse {
+  string id = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string document_type = 4;
+  string document_number = 5;
+  string username = 6;
+  string email = 7;
+  optional string password = 8;
+  optional string phone = 9;
+  bool is_active = 10;
+  optional string address = 11;
+  optional string date_of_birth = 12;
+  optional string photo_url = 13;
+
+  google.protobuf.Timestamp created_at = 14;
+  google.protobuf.Timestamp updated_at = 15;
+  optional google.protobuf.Timestamp deleted_at = 16;
+}
+
+message PaginatedEmployeeResponse {
+  repeated EmployeeResponse content = 1;
+  int64 total_elements = 2;
+  int32 total_pages = 3;
+  int32 size = 4;
+  int32 number = 5;
+  bool first = 6;
+  bool last = 7;
+}
