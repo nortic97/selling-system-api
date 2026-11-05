@@ -17,7 +17,9 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import static com.nortic.pos.es.employee.security.SecurityConstants.*;
+import static com.nortic.pos.es.employee.security.SecurityConstants.EMPLOYEE_ALLOWED_HEADERS;
+import static com.nortic.pos.es.employee.security.SecurityConstants.EMPLOYEE_ALLOWED_METHODS;
+import static com.nortic.pos.es.employee.security.SecurityConstants.EMPLOYEE_ALLOWED_ORIGINS;
 
 @Configuration
 @EnableWebSecurity

@@ -1,6 +1,12 @@
 package com.nortic.pos.es.role.service.contract;
 
-import com.nortic.pos.es.role.model.dto.*;
+import com.nortic.pos.es.role.model.dto.ChangeStatusRequestDTO;
+import com.nortic.pos.es.role.model.dto.PaginatedRoleResponseDTO;
+import com.nortic.pos.es.role.model.dto.PermissionRequestDTO;
+import com.nortic.pos.es.role.model.dto.PermissionResponseDTO;
+import com.nortic.pos.es.role.model.dto.RequestContextDTO;
+import com.nortic.pos.es.role.model.dto.RoleDTO;
+import com.nortic.pos.es.role.model.dto.SearchParamsDTO;
 
 import java.util.List;
 import java.util.UUID;
