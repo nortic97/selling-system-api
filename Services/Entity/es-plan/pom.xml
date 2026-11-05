@@ -36,8 +36,8 @@
 		<io.jsonwebtoken.version>0.13.0</io.jsonwebtoken.version>
 		<spring-cloud.version>2025.1.3</spring-cloud.version>
 		<sonar-maven-plugin.version>5.0.0.4389</sonar-maven-plugin.version>
-		<sonar.projectKey>es-plan</sonar.projectKey>
-		<sonar.projectName>es-plan</sonar.projectName>
+		<sonar.projectKey>${name}</sonar.projectKey>
+		<sonar.projectName>${name}</sonar.projectName>
 		<sonar.exclusions>
 			**/target/generated-sources/**,
 			**/rest/gen/**,

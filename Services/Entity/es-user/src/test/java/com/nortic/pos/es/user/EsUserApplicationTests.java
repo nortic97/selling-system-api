@@ -1,10 +1,10 @@
-package com.nortic.pos.es.role;
+package com.nortic.pos.es.user;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class RoleApplicationTests {
+class EsUserApplicationTests {
 
 	@Test
 	void contextLoads() {
