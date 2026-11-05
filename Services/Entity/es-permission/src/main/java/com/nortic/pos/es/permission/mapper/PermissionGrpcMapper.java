@@ -5,11 +5,7 @@ import com.nortic.pos.es.permission.grpc.PermissionProto;
 import com.nortic.pos.es.permission.model.dto.ChangeStatusRequestDTO;
 import com.nortic.pos.es.permission.model.dto.PaginatedPermissionResponseDTO;
 import com.nortic.pos.es.permission.model.dto.PermissionDTO;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
-import org.mapstruct.NullValueCheckStrategy;
-import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.*;
 
 import java.time.OffsetDateTime;
 

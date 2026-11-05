@@ -2,12 +2,7 @@ package com.nortic.pos.es.store.model.dto;
 
 import com.nortic.pos.es.store.model.enums.CurrencyCodeEnum;
 import com.nortic.pos.es.store.model.enums.TaxTypeEnum;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.OffsetDateTime;
 import java.util.UUID;

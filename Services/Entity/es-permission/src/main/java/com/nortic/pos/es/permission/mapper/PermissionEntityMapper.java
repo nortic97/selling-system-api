@@ -3,11 +3,7 @@ package com.nortic.pos.es.permission.mapper;
 import com.nortic.pos.es.permission.model.dto.PaginatedPermissionResponseDTO;
 import com.nortic.pos.es.permission.model.dto.PermissionDTO;
 import com.nortic.pos.es.permission.model.entity.PermissionEntity;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.Named;
-import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.*;
 import org.springframework.data.domain.Page;
 
 @Mapper(

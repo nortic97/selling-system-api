@@ -4,11 +4,7 @@ import com.nortic.pos.es.branch.model.dto.BranchDTO;
 import com.nortic.pos.es.branch.model.dto.PaginatedBranchResponseDTO;
 import com.nortic.pos.es.branch.model.entity.BranchEntity;
 import com.nortic.pos.es.branch.model.entity.StoreEntity;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.Named;
-import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.*;
 import org.springframework.data.domain.Page;
 
 import java.util.UUID;

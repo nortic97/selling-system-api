@@ -5,11 +5,7 @@ import com.nortic.pos.es.feature.grpc.FeatureProto;
 import com.nortic.pos.es.feature.model.dto.FeatureDTO;
 import com.nortic.pos.es.feature.model.dto.PaginatedFeatureResponseDTO;
 import com.nortic.pos.es.feature.model.enums.FeatureTypeEnum;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
-import org.mapstruct.NullValueCheckStrategy;
-import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.*;
 
 import java.time.OffsetDateTime;
 

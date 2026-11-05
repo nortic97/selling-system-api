@@ -1,10 +1,6 @@
 package com.nortic.pos.es.branch.service.contract;
 
-import com.nortic.pos.es.branch.model.dto.BranchDTO;
-import com.nortic.pos.es.branch.model.dto.PaginatedBranchResponseDTO;
-import com.nortic.pos.es.branch.model.dto.RequestContextDTO;
-import com.nortic.pos.es.branch.model.dto.SearchParamsDTO;
-import com.nortic.pos.es.branch.model.dto.StatusRequest;
+import com.nortic.pos.es.branch.model.dto.*;
 
 import java.util.UUID;
 

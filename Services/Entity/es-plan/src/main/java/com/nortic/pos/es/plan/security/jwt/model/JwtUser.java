@@ -1,11 +1,7 @@
 package com.nortic.pos.es.plan.security.jwt.model;
 
 import com.nortic.pos.es.plan.security.SecurityConstants;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 

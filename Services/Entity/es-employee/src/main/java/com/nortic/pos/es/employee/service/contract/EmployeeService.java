@@ -1,17 +1,6 @@
 package com.nortic.pos.es.employee.service.contract;
 
-import com.nortic.pos.es.employee.model.dto.AuthenticateRequestDTO;
-import com.nortic.pos.es.employee.model.dto.ChangeEmailRequestDTO;
-import com.nortic.pos.es.employee.model.dto.ChangeEmployeeStatusRequestDTO;
-import com.nortic.pos.es.employee.model.dto.ChangePasswordRequestDTO;
-import com.nortic.pos.es.employee.model.dto.ChangePhoneRequestDTO;
-import com.nortic.pos.es.employee.model.dto.ChangeusernameRequestDTO;
-import com.nortic.pos.es.employee.model.dto.EmployeeDTO;
-import com.nortic.pos.es.employee.model.dto.EmployeeQueryRequestDTO;
-import com.nortic.pos.es.employee.model.dto.EmployeeSearchRequestDTO;
-import com.nortic.pos.es.employee.model.dto.PaginatedEmployeeResponseDTO;
-import com.nortic.pos.es.employee.model.dto.RequestContextDTO;
-import com.nortic.pos.es.employee.model.dto.SearchParamsDTO;
+import com.nortic.pos.es.employee.model.dto.*;
 
 import java.util.UUID;
 
