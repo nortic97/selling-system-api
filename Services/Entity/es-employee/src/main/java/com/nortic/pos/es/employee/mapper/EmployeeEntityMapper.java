@@ -1,7 +1,7 @@
 package com.nortic.pos.es.employee.mapper;
 
-import com.nortic.pos.es.employee.model.dto.PaginatedEmployeeResponseDTO;
 import com.nortic.pos.es.employee.model.dto.EmployeeDTO;
+import com.nortic.pos.es.employee.model.dto.PaginatedEmployeeResponseDTO;
 import com.nortic.pos.es.employee.model.entity.EmployeeEntity;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.Mapper;

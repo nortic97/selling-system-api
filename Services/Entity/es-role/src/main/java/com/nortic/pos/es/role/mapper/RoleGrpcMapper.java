@@ -2,8 +2,16 @@ package com.nortic.pos.es.role.mapper;
 
 import com.google.protobuf.Timestamp;
 import com.nortic.pos.es.role.grpc.RoleProto;
-import com.nortic.pos.es.role.model.dto.*;
-import org.mapstruct.*;
+import com.nortic.pos.es.role.model.dto.ChangeStatusRequestDTO;
+import com.nortic.pos.es.role.model.dto.PaginatedRoleResponseDTO;
+import com.nortic.pos.es.role.model.dto.PermissionRequestDTO;
+import com.nortic.pos.es.role.model.dto.PermissionResponseDTO;
+import com.nortic.pos.es.role.model.dto.RoleDTO;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
+import org.mapstruct.NullValueCheckStrategy;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import java.time.OffsetDateTime;
 import java.util.List;
