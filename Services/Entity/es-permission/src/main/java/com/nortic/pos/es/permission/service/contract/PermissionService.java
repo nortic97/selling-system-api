@@ -1,10 +1,6 @@
 package com.nortic.pos.es.permission.service.contract;
 
-import com.nortic.pos.es.permission.model.dto.ChangeStatusRequestDTO;
-import com.nortic.pos.es.permission.model.dto.PaginatedPermissionResponseDTO;
-import com.nortic.pos.es.permission.model.dto.PermissionDTO;
-import com.nortic.pos.es.permission.model.dto.RequestContextDTO;
-import com.nortic.pos.es.permission.model.dto.SearchParamsDTO;
+import com.nortic.pos.es.permission.model.dto.*;
 
 import java.util.UUID;
 

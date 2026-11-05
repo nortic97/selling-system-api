@@ -2,22 +2,9 @@ package com.nortic.pos.es.user.mapper;
 
 import com.google.protobuf.Timestamp;
 import com.nortic.pos.es.user.grpc.UserProto;
-import com.nortic.pos.es.user.model.dto.AuthenticateRequestDTO;
-import com.nortic.pos.es.user.model.dto.ChangeEmailRequestDTO;
-import com.nortic.pos.es.user.model.dto.ChangePasswordRequestDTO;
-import com.nortic.pos.es.user.model.dto.ChangePhoneRequestDTO;
-import com.nortic.pos.es.user.model.dto.ChangeUserStatusRequestDTO;
-import com.nortic.pos.es.user.model.dto.ChangeUsernameRequestDTO;
-import com.nortic.pos.es.user.model.dto.PaginatedUserResponseDTO;
-import com.nortic.pos.es.user.model.dto.UserDTO;
-import com.nortic.pos.es.user.model.dto.UserQueryRequestDTO;
-import com.nortic.pos.es.user.model.dto.UserSearchRequestDTO;
+import com.nortic.pos.es.user.model.dto.*;
 import com.nortic.pos.es.user.model.enums.DocumentTypeEnum;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
-import org.mapstruct.NullValueCheckStrategy;
-import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.*;
 
 import java.time.OffsetDateTime;
 
