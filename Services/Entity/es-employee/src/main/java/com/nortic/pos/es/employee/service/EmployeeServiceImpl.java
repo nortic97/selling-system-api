@@ -116,18 +116,18 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     @Transactional
-    public EmployeeDTO changeusername(
+    public EmployeeDTO changeUsername(
             RequestContextDTO requestContextDTO,
             UUID id,
-            ChangeusernameRequestDTO changeusernameRequestDTO
+            ChangeUsernameRequestDTO changeUsernameRequestDTO
     ) {
         log.info("Changing username service...");
 
         var employee = employeeValidationService.validateAndGetEmployee(id);
 
-        employeeValidationService.validateusername(id, changeusernameRequestDTO.getusername());
+        employeeValidationService.validateUsername(id, changeUsernameRequestDTO.getUsername());
 
-        employee.setusername(changeusernameRequestDTO.getusername().trim().toLowerCase());
+        employee.setUsername(changeUsernameRequestDTO.getUsername().trim().toLowerCase());
 
         log.info("Changing username service complete.");
 
@@ -141,9 +141,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     ) {
         log.info("Authenticating employee service...");
 
-        String normalizedusername = authenticateRequestDTO.getusername().trim().toLowerCase();
+        String normalizedUsername = authenticateRequestDTO.getUsername().trim().toLowerCase();
 
-        var employee = employeeRepository.findByusernameIgnoreCase(normalizedusername)
+        var employee = employeeRepository.findByUsernameIgnoreCase(normalizedUsername)
                 .orElseThrow(() -> new EmployeeBusinessException(EmployeeExceptionCode.EMPLOYEE_NOT_FOUND));
 
         if (!passwordEncoder.matches(authenticateRequestDTO.getPassword(), employee.getPassword())) {
@@ -188,7 +188,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     public PaginatedEmployeeResponseDTO getAllEmployees(RequestContextDTO requestContextDTO, SearchParamsDTO searchParamsDTO) {
         log.info("Getting employee service...");
 
-        var employees = employeeRepository.findAll(searchParamsDTO.getPageable());
+        employeeValidationService.validateStoreId(searchParamsDTO.getStoreId());
+
+        var specification = employeeSpecificationService.buildGetAllSpecification(searchParamsDTO.getStoreId());
+
+        var employees = employeeRepository.findAll(specification, searchParamsDTO.getPageable());
 
         log.info("Getting employee service complete.");
 
@@ -209,6 +213,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public PaginatedEmployeeResponseDTO queryEmployees(RequestContextDTO requestContextDTO, EmployeeQueryRequestDTO employeeQueryRequestDTO) {
         log.info("Querying employees service...");
+
+        employeeValidationService.validateStoreId(employeeQueryRequestDTO.getStoreId());
 
         var pageable = PageableUtil.buildPageable(
                 employeeQueryRequestDTO.getPage(),
@@ -244,6 +250,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public PaginatedEmployeeResponseDTO searchEmployees(RequestContextDTO requestContextDTO, EmployeeSearchRequestDTO employeeSearchRequestDTO) {
         log.info("Searching employees service...");
+
+        employeeValidationService.validateStoreId(employeeSearchRequestDTO.getStoreId());
 
         var pageable = PageableUtil.buildPageable(
                 employeeSearchRequestDTO.getPage(),

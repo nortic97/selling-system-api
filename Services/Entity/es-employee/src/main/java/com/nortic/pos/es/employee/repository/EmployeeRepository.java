@@ -14,9 +14,9 @@ import java.util.UUID;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<EmployeeEntity, UUID>, JpaSpecificationExecutor<EmployeeEntity> {
-    Optional<EmployeeEntity> findByusernameIgnoreCase(String username);
+    Optional<EmployeeEntity> findByUsernameIgnoreCase(String username);
 
-    boolean existsByusernameIgnoreCase(String username);
+    boolean existsByUsernameIgnoreCase(String username);
 
     boolean existsByEmailIgnoreCase(String email);
 
@@ -36,7 +36,25 @@ public interface EmployeeRepository extends JpaRepository<EmployeeEntity, UUID>,
             UUID id
     );
 
-    boolean existsByusernameIgnoreCaseAndIdNot(String username, UUID id);
+    boolean existsByUsernameIgnoreCaseAndIdNot(String username, UUID id);
+
+    boolean existsByStoreIdAndUsernameIgnoreCase(UUID storeId, String username);
+
+    boolean existsByStoreIdAndEmailIgnoreCase(UUID storeId, String email);
+
+    boolean existsByStoreIdAndPhoneIgnoreCase(UUID storeId, String phone);
+
+    boolean existsByStoreIdAndDocumentTypeAndDocumentNumber(
+            UUID storeId,
+            DocumentTypeEnum documentType,
+            String documentNumber
+    );
+
+    boolean existsByStoreIdAndUsernameIgnoreCaseAndIdNot(UUID storeId, String username, UUID id);
+
+    boolean existsByStoreIdAndEmailIgnoreCaseAndIdNot(UUID storeId, String email, UUID id);
+
+    boolean existsByStoreIdAndPhoneIgnoreCaseAndIdNot(UUID storeId, String phone, UUID id);
 
     List<EmployeeEntity> id(UUID id);
 

@@ -59,10 +59,11 @@ public class EmployeeValidationServiceImpl implements EmployeeValidationService 
     @Override
     public void validateEmail(UUID id, String email) {
         String normalizedEmail = email.trim().toLowerCase();
-        if (employeeRepository.existsByEmailIgnoreCaseAndIdNot(
-                normalizedEmail,
-                id
-        )) {
+        var employee = employeeRepository.findById(id).orElseThrow(() ->
+                new EmployeeBusinessException(EmployeeExceptionCode.EMPLOYEE_NOT_FOUND));
+        
+        if (employeeRepository.existsByStoreIdAndEmailIgnoreCaseAndIdNot(
+                employee.getStoreId(), normalizedEmail, id)) {
 
             throw new EmployeeBusinessException(
                     EmployeeExceptionCode.EMAIL_ALREADY_EXISTS
@@ -73,10 +74,11 @@ public class EmployeeValidationServiceImpl implements EmployeeValidationService 
     @Override
     public void validatePhone(UUID id, String phone) {
         String normalizedPhone = phone.trim().toLowerCase();
-        if (employeeRepository.existsByPhoneIgnoreCaseAndIdNot(
-                normalizedPhone,
-                id
-        )) {
+        var employee = employeeRepository.findById(id).orElseThrow(() ->
+                new EmployeeBusinessException(EmployeeExceptionCode.EMPLOYEE_NOT_FOUND));
+        
+        if (employeeRepository.existsByStoreIdAndPhoneIgnoreCaseAndIdNot(
+                employee.getStoreId(), normalizedPhone, id)) {
 
             throw new EmployeeBusinessException(
                     EmployeeExceptionCode.PHONE_ALREADY_EXISTS
@@ -86,7 +88,7 @@ public class EmployeeValidationServiceImpl implements EmployeeValidationService 
 
     @Override
     public void validateNewEmployee(EmployeeDTO employeeDTO) {
-        if (employeeDTO.getusername() == null || employeeDTO.getusername().isBlank()) {
+        if (employeeDTO.getUsername() == null || employeeDTO.getUsername().isBlank()) {
             throw new EmployeeBusinessException(
                     EmployeeExceptionCode.VALIDATION_FAILED,
                     List.of(FieldErrorDetailResponseDTO.builder()
@@ -150,23 +152,34 @@ public class EmployeeValidationServiceImpl implements EmployeeValidationService 
             );
         }
 
-        String normalizedusername = employeeDTO.getusername().trim().toLowerCase();
+        if (employeeDTO.getStoreId() == null) {
+            throw new EmployeeBusinessException(
+                    EmployeeExceptionCode.VALIDATION_FAILED,
+                    List.of(FieldErrorDetailResponseDTO.builder()
+                            .field(ValidationFieldEnum.STORE_ID.getField())
+                            .message(ValidationFieldEnum.STORE_ID.getMessage())
+                            .build())
+            );
+        }
+
+        String normalizedUsername = employeeDTO.getUsername().trim().toLowerCase();
         String normalizedEmail = employeeDTO.getEmail().trim().toLowerCase();
         String normalizedPhone = employeeDTO.getPhone().trim().toLowerCase();
 
-        if (employeeRepository.existsByusernameIgnoreCase(normalizedusername)) {
+        if (employeeRepository.existsByStoreIdAndUsernameIgnoreCase(employeeDTO.getStoreId(), normalizedUsername)) {
             throw new EmployeeBusinessException(EmployeeExceptionCode.USERNAME_ALREADY_EXISTS);
         }
 
-        if (employeeRepository.existsByEmailIgnoreCase(normalizedEmail)) {
+        if (employeeRepository.existsByStoreIdAndEmailIgnoreCase(employeeDTO.getStoreId(), normalizedEmail)) {
             throw new EmployeeBusinessException(EmployeeExceptionCode.EMAIL_ALREADY_EXISTS);
         }
 
-        if (employeeRepository.existsByPhoneIgnoreCase(normalizedPhone)) {
+        if (employeeRepository.existsByStoreIdAndPhoneIgnoreCase(employeeDTO.getStoreId(), normalizedPhone)) {
             throw new EmployeeBusinessException(EmployeeExceptionCode.PHONE_ALREADY_EXISTS);
         }
 
-        if (employeeRepository.existsByDocumentTypeAndDocumentNumber(
+        if (employeeRepository.existsByStoreIdAndDocumentTypeAndDocumentNumber(
+                employeeDTO.getStoreId(),
                 employeeDTO.getDocumentType(),
                 employeeDTO.getDocumentNumber()
         )) {
@@ -175,10 +188,27 @@ public class EmployeeValidationServiceImpl implements EmployeeValidationService 
     }
 
     @Override
-    public void validateusername(UUID id, String username) {
-        String normalizedusername = username.trim().toLowerCase();
-        if (employeeRepository.existsByusernameIgnoreCaseAndIdNot(normalizedusername, id)) {
+    public void validateUsername(UUID id, String username) {
+        String normalizedUsername = username.trim().toLowerCase();
+        var employee = employeeRepository.findById(id).orElseThrow(() ->
+                new EmployeeBusinessException(EmployeeExceptionCode.EMPLOYEE_NOT_FOUND));
+        
+        if (employeeRepository.existsByStoreIdAndUsernameIgnoreCaseAndIdNot(
+                employee.getStoreId(), normalizedUsername, id)) {
             throw new EmployeeBusinessException(EmployeeExceptionCode.USERNAME_ALREADY_EXISTS);
+        }
+    }
+
+    @Override
+    public void validateStoreId(UUID storeId) {
+        if (storeId == null) {
+            throw new EmployeeBusinessException(
+                    EmployeeExceptionCode.VALIDATION_FAILED,
+                    List.of(FieldErrorDetailResponseDTO.builder()
+                            .field(ValidationFieldEnum.STORE_ID.getField())
+                            .message(ValidationFieldEnum.STORE_ID.getMessage())
+                            .build())
+            );
         }
     }
 

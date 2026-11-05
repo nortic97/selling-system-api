@@ -109,28 +109,28 @@ public class EmployeeGrpcControllerImpl extends EmployeeServiceGrpc.EmployeeServ
     }
 
     @Override
-    public void changeusername(EmployeeProto.ChangeusernameRequest request, StreamObserver<EmployeeProto.EmployeeResponse> responseObserver) {
+    public void changeUsername(EmployeeProto.ChangeUsernameRequest request, StreamObserver<EmployeeProto.EmployeeResponse> responseObserver) {
         try {
-            log.info("changeusername gRPC Controller...");
+            log.info("changeUsername gRPC Controller...");
 
             var requestContextDTO = RequestContextDTO.builder()
                     .correlationId(UUID.fromString(ContextKeys.CORRELATION_ID_CONTEXT_KEY.get()))
                     .consumerId(ContextKeys.CONSUMER_ID_CONTEXT_KEY.get())
                     .build();
 
-            var changeusernameRequestDTO = employeeGrpcMapper.toChangeusernameRequestDTO(request);
+            var changeUsernameRequestDTO = employeeGrpcMapper.toChangeUsernameRequestDTO(request);
 
-            var employee = employeeService.changeusername(requestContextDTO, UUID.fromString(request.getId()), changeusernameRequestDTO);
+            var employee = employeeService.changeUsername(requestContextDTO, UUID.fromString(request.getId()), changeUsernameRequestDTO);
 
             var response = employeeGrpcMapper.toEmployeeResponse(employee);
 
-            log.info("changeusername gRPC Controller Completed");
+            log.info("changeUsername gRPC Controller Completed");
 
             responseObserver.onNext(response);
             responseObserver.onCompleted();
 
         } catch (Exception e) {
-            errorLog("changeusername", e);
+            errorLog("changeUsername", e);
             grpcException.grpcException(e, responseObserver);
         }
     }

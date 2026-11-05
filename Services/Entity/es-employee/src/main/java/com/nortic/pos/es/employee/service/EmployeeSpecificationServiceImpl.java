@@ -7,6 +7,8 @@ import com.nortic.pos.es.employee.service.contract.EmployeeSpecificationService;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class EmployeeSpecificationServiceImpl implements EmployeeSpecificationService {
 
@@ -19,6 +21,9 @@ public class EmployeeSpecificationServiceImpl implements EmployeeSpecificationSe
                 criteriaBuilder
         ) -> criteriaBuilder.conjunction();
 
+        spec = spec.and((root, query, cb) ->
+                cb.equal(root.get("storeId"), searchRequest.getStoreId()));
+
         if (searchRequest.getFirstName() != null && !searchRequest.getFirstName().isBlank()) {
             spec = spec.and((root, query, cb) ->
                     cb.like(cb.lower(root.get("firstName")), "%" + searchRequest.getFirstName().toLowerCase() + "%"));
@@ -29,9 +34,9 @@ public class EmployeeSpecificationServiceImpl implements EmployeeSpecificationSe
                     cb.like(cb.lower(root.get("lastName")), "%" + searchRequest.getLastName().toLowerCase() + "%"));
         }
 
-        if (searchRequest.getusername() != null && !searchRequest.getusername().isBlank()) {
+        if (searchRequest.getUsername() != null && !searchRequest.getUsername().isBlank()) {
             spec = spec.and((root, query, cb) ->
-                    cb.like(cb.lower(root.get("username")), "%" + searchRequest.getusername().toLowerCase() + "%"));
+                    cb.like(cb.lower(root.get("username")), "%" + searchRequest.getUsername().toLowerCase() + "%"));
         }
 
         if (searchRequest.getEmail() != null && !searchRequest.getEmail().isBlank()) {
@@ -64,9 +69,9 @@ public class EmployeeSpecificationServiceImpl implements EmployeeSpecificationSe
                     cb.equal(root.get("dateOfBirth"), searchRequest.getDateOfBirth()));
         }
 
-        if (searchRequest.getAddress() != null && searchRequest.getAddress().isBlank()) {
+        if (searchRequest.getAddress() != null && !searchRequest.getAddress().isBlank()) {
             spec = spec.and((root, query, cb) ->
-                    cb.equal(root.get("address"), "%" + searchRequest.getAddress().toLowerCase() + "%"));
+                    cb.like(cb.lower(root.get("address")), "%" + searchRequest.getAddress().toLowerCase() + "%"));
         }
 
         return spec;
@@ -74,13 +79,18 @@ public class EmployeeSpecificationServiceImpl implements EmployeeSpecificationSe
 
     @Override
     public Specification<EmployeeEntity> buildQuerySpecification(EmployeeQueryRequestDTO queryRequest) {
+        Specification<EmployeeEntity> spec = (root, query, cb) -> cb.conjunction();
+
+        spec = spec.and((root, query, cb) ->
+                cb.equal(root.get("storeId"), queryRequest.getStoreId()));
+
         if (queryRequest.getQuery() == null || queryRequest.getQuery().isBlank()) {
-            return (root, query, cb) -> cb.conjunction();
+            return spec;
         }
 
         String searchTerm = "%" + queryRequest.getQuery().toLowerCase() + "%";
 
-        return (root, query, cb) -> cb.or(
+        spec = spec.and((root, query, cb) -> cb.or(
                 cb.like(cb.lower(root.get("firstName")), searchTerm),
                 cb.like(cb.lower(root.get("lastName")), searchTerm),
                 cb.like(cb.lower(root.get("username")), searchTerm),
@@ -88,6 +98,13 @@ public class EmployeeSpecificationServiceImpl implements EmployeeSpecificationSe
                 cb.like(cb.lower(root.get("documentNumber")), searchTerm),
                 cb.like(cb.lower(root.get("phone")), searchTerm),
                 cb.like(cb.lower(root.get("address")), searchTerm)
-        );
+        ));
+
+        return spec;
+    }
+
+    @Override
+    public Specification<EmployeeEntity> buildGetAllSpecification(UUID storeId) {
+        return (root, query, cb) -> cb.equal(root.get("storeId"), storeId);
     }
 }

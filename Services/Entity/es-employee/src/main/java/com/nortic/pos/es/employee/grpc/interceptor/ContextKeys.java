@@ -50,7 +50,7 @@ public final class ContextKeys {
             Map.entry(GRPC_SERVICE + "/ChangeEmployeeStatus", SecurityConstants.PERMISSION_EMPLOYEE_UPDATE),
             Map.entry(GRPC_SERVICE + "/ChangePhone", SecurityConstants.PERMISSION_EMPLOYEE_UPDATE),
             Map.entry(GRPC_SERVICE + "/ChangeEmail", SecurityConstants.PERMISSION_EMPLOYEE_UPDATE),
-            Map.entry(GRPC_SERVICE + "/Changeusername", SecurityConstants.PERMISSION_EMPLOYEE_UPDATE),
+            Map.entry(GRPC_SERVICE + "/ChangeUsername", SecurityConstants.PERMISSION_EMPLOYEE_UPDATE),
             Map.entry(GRPC_SERVICE + "/ChangeEmployeePassword", SecurityConstants.PERMISSION_EMPLOYEE_UPDATE)
     );
 
