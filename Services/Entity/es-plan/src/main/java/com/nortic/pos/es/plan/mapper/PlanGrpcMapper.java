@@ -5,7 +5,11 @@ import com.nortic.pos.es.plan.grpc.PlanProto;
 import com.nortic.pos.es.plan.model.dto.PaginatedPlanResponseDTO;
 import com.nortic.pos.es.plan.model.dto.PlanDTO;
 import com.nortic.pos.es.plan.model.enums.PlanTypeOfPlanEnum;
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
+import org.mapstruct.NullValueCheckStrategy;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import java.time.OffsetDateTime;
 

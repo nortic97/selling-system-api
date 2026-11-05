@@ -2,7 +2,14 @@ package com.nortic.pos.es.role.grpc.interceptor;
 
 import com.nortic.pos.es.role.security.jwt.JwtService;
 import com.nortic.pos.es.role.security.jwt.model.JwtUser;
-import io.grpc.*;
+import io.grpc.Context;
+import io.grpc.Contexts;
+import io.grpc.Metadata;
+import io.grpc.ServerCall;
+import io.grpc.ServerCallHandler;
+import io.grpc.ServerInterceptor;
+import io.grpc.Status;
+import io.grpc.StatusRuntimeException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.grpc.server.GlobalServerInterceptor;
@@ -13,7 +20,11 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-import static com.nortic.pos.es.role.grpc.interceptor.ContextKeys.*;
+import static com.nortic.pos.es.role.grpc.interceptor.ContextKeys.BEARER_PREFIX;
+import static com.nortic.pos.es.role.grpc.interceptor.ContextKeys.METHOD_PERMISSIONS;
+import static com.nortic.pos.es.role.grpc.interceptor.ContextKeys.PERMISSION_DENIED_MESSAGE;
+import static com.nortic.pos.es.role.grpc.interceptor.ContextKeys.PUBLIC_SERVICE_METHODS;
+import static com.nortic.pos.es.role.grpc.interceptor.ContextKeys.UNAUTHENTICATED_MESSAGE;
 
 @Slf4j
 @Component

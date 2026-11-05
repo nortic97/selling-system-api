@@ -2,8 +2,8 @@ package com.nortic.pos.es.employee.service;
 
 import com.nortic.pos.es.employee.exception.EmployeeBusinessException;
 import com.nortic.pos.es.employee.exception.EmployeeExceptionCode;
-import com.nortic.pos.es.employee.model.dto.FieldErrorDetailResponseDTO;
 import com.nortic.pos.es.employee.model.dto.EmployeeDTO;
+import com.nortic.pos.es.employee.model.dto.FieldErrorDetailResponseDTO;
 import com.nortic.pos.es.employee.model.entity.EmployeeEntity;
 import com.nortic.pos.es.employee.model.enums.ValidationFieldEnum;
 import com.nortic.pos.es.employee.repository.EmployeeRepository;

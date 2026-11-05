@@ -4,7 +4,11 @@ import com.nortic.pos.es.store.model.dto.PaginatedStoreResponseDTO;
 import com.nortic.pos.es.store.model.dto.StoreDTO;
 import com.nortic.pos.es.store.model.entity.StoreEntity;
 import com.nortic.pos.es.store.model.entity.UserEntity;
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.Named;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.springframework.data.domain.Page;
 
 import java.util.UUID;
