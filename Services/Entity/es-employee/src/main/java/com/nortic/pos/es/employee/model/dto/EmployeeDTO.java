@@ -1,12 +1,7 @@
 package com.nortic.pos.es.employee.model.dto;
 
 import com.nortic.pos.es.employee.model.enums.DocumentTypeEnum;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.OffsetDateTime;

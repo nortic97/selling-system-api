@@ -1,17 +1,7 @@
 package com.nortic.pos.es.store.mapper;
 
-import com.nortic.pos.es.store.model.dto.ChangeEmailRequestDTO;
-import com.nortic.pos.es.store.model.dto.ChangePhoneRequestDTO;
-import com.nortic.pos.es.store.model.dto.ChangeStatusRequestDTO;
-import com.nortic.pos.es.store.model.dto.PaginatedStoreResponseDTO;
-import com.nortic.pos.es.store.model.dto.StoreDTO;
-import com.nortic.pos.es.store.rest.gen.model.RestModelEmailRequestDTO;
-import com.nortic.pos.es.store.rest.gen.model.RestModelPaginatedStoreResponseDTO;
-import com.nortic.pos.es.store.rest.gen.model.RestModelPhoneRequestDTO;
-import com.nortic.pos.es.store.rest.gen.model.RestModelStatusRequest;
-import com.nortic.pos.es.store.rest.gen.model.RestModelStoreRequestDTO;
-import com.nortic.pos.es.store.rest.gen.model.RestModelStoreResponseDTO;
-import com.nortic.pos.es.store.rest.gen.model.RestModelUpdateStoreRequestDTO;
+import com.nortic.pos.es.store.model.dto.*;
+import com.nortic.pos.es.store.rest.gen.model.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.NullValuePropertyMappingStrategy;

@@ -2,16 +2,8 @@ package com.nortic.pos.es.store.mapper;
 
 import com.google.protobuf.Timestamp;
 import com.nortic.pos.es.store.grpc.StoreProto;
-import com.nortic.pos.es.store.model.dto.ChangeEmailRequestDTO;
-import com.nortic.pos.es.store.model.dto.ChangePhoneRequestDTO;
-import com.nortic.pos.es.store.model.dto.ChangeStatusRequestDTO;
-import com.nortic.pos.es.store.model.dto.PaginatedStoreResponseDTO;
-import com.nortic.pos.es.store.model.dto.StoreDTO;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
-import org.mapstruct.NullValueCheckStrategy;
-import org.mapstruct.NullValuePropertyMappingStrategy;
+import com.nortic.pos.es.store.model.dto.*;
+import org.mapstruct.*;
 
 import java.time.OffsetDateTime;
 

@@ -4,11 +4,7 @@ import com.google.protobuf.Timestamp;
 import com.nortic.pos.es.branch.grpc.BranchProto;
 import com.nortic.pos.es.branch.model.dto.BranchDTO;
 import com.nortic.pos.es.branch.model.dto.PaginatedBranchResponseDTO;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
-import org.mapstruct.NullValueCheckStrategy;
-import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.*;
 
 import java.time.OffsetDateTime;
 
