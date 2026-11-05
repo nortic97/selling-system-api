@@ -1,14 +1,13 @@
 package com.nortic.pos.es.employee.model.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
 @Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class RequestContextDTO {
@@ -16,7 +15,5 @@ public class RequestContextDTO {
     private UUID correlationId;
 
     private String consumerId;
-
-    private UUID storeId;
 
 }

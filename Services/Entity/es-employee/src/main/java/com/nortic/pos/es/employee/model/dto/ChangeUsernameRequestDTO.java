@@ -1,16 +1,15 @@
 package com.nortic.pos.es.employee.model.dto;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
 @Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChangeUsernameRequestDTO {
+public class ChangeusernameRequestDTO {
 
     private String username;
 

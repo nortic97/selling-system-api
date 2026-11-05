@@ -2,8 +2,6 @@ package com.nortic.pos.es.employee.repository;
 
 import com.nortic.pos.es.employee.model.entity.EmployeeEntity;
 import com.nortic.pos.es.employee.model.enums.DocumentTypeEnum;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.NativeQuery;
@@ -16,28 +14,36 @@ import java.util.UUID;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<EmployeeEntity, UUID>, JpaSpecificationExecutor<EmployeeEntity> {
-    Optional<EmployeeEntity> findByUsernameIgnoreCase(String username);
+    Optional<EmployeeEntity> findByusernameIgnoreCase(String username);
 
-    Page<EmployeeEntity> findByStoreIdId(UUID storeId, Pageable pageable);
+    boolean existsByusernameIgnoreCase(String username);
 
-    boolean existsByStoreIdIdAndUsernameIgnoreCase(UUID storeId, String username);
+    boolean existsByEmailIgnoreCase(String email);
 
-    boolean existsByStoreIdIdAndEmailIgnoreCase(UUID storeId, String email);
+    boolean existsByPhoneIgnoreCase(String phone);
 
-    boolean existsByStoreIdIdAndPhoneIgnoreCase(UUID storeId, String phone);
+    boolean existsByPhoneIgnoreCaseAndIdNot(String phone, UUID id);
 
-    boolean existsByStoreIdIdAndDocumentTypeAndDocumentNumber(UUID storeId, DocumentTypeEnum documentType, String documentNumber);
+    boolean existsByPhoneAndIdNot(String phone, UUID id);
 
-    boolean existsByStoreIdIdAndUsernameIgnoreCaseAndIdNot(UUID storeId, String username, UUID id);
+    boolean existsByDocumentTypeAndDocumentNumber(
+            DocumentTypeEnum documentType,
+            String documentNumber
+    );
 
-    boolean existsByStoreIdIdAndEmailIgnoreCaseAndIdNot(UUID storeId, String email, UUID id);
+    boolean existsByEmailIgnoreCaseAndIdNot(
+            String email,
+            UUID id
+    );
 
-    boolean existsByStoreIdIdAndPhoneIgnoreCaseAndIdNot(UUID storeId, String phone, UUID id);
+    boolean existsByusernameIgnoreCaseAndIdNot(String username, UUID id);
 
     List<EmployeeEntity> id(UUID id);
 
-    @NativeQuery("""
-            SELECT * FROM "employee" WHERE id = :id AND deleted_at IS NOT NULL AND is_active IS FALSE;
-            """)
+    @NativeQuery(
+            """
+                    SELECT * FROM "employee" WHERE id = :id AND deleted_at IS NOT NULL AND is_active IS FALSE;
+                    """
+    )
     Optional<EmployeeEntity> findByIdIncludingDeleted(@Param("id") UUID id);
 }

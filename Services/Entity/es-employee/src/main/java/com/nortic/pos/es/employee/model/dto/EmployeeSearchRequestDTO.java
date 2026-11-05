@@ -1,23 +1,19 @@
 package com.nortic.pos.es.employee.model.dto;
 
 import com.nortic.pos.es.employee.model.enums.DocumentTypeEnum;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
-@Data
+@Getter
+@Setter
 @Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmployeeSearchRequestDTO {
-
-    private UUID storeId;
 
     private  String firstName;
 

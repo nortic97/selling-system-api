@@ -109,28 +109,28 @@ public class EmployeeGrpcControllerImpl extends EmployeeServiceGrpc.EmployeeServ
     }
 
     @Override
-    public void changeUsername(EmployeeProto.ChangeUsernameRequest request, StreamObserver<EmployeeProto.EmployeeResponse> responseObserver) {
+    public void changeusername(EmployeeProto.ChangeusernameRequest request, StreamObserver<EmployeeProto.EmployeeResponse> responseObserver) {
         try {
-            log.info("changeUsername gRPC Controller...");
+            log.info("changeusername gRPC Controller...");
 
             var requestContextDTO = RequestContextDTO.builder()
                     .correlationId(UUID.fromString(ContextKeys.CORRELATION_ID_CONTEXT_KEY.get()))
                     .consumerId(ContextKeys.CONSUMER_ID_CONTEXT_KEY.get())
                     .build();
 
-            var changeUsernameRequestDTO = employeeGrpcMapper.toChangeUsernameRequestDTO(request);
+            var changeusernameRequestDTO = employeeGrpcMapper.toChangeusernameRequestDTO(request);
 
-            var employee = employeeService.changeUsername(requestContextDTO, UUID.fromString(request.getId()), changeUsernameRequestDTO);
+            var employee = employeeService.changeusername(requestContextDTO, UUID.fromString(request.getId()), changeusernameRequestDTO);
 
             var response = employeeGrpcMapper.toEmployeeResponse(employee);
 
-            log.info("changeUsername gRPC Controller Completed");
+            log.info("changeusername gRPC Controller Completed");
 
             responseObserver.onNext(response);
             responseObserver.onCompleted();
 
         } catch (Exception e) {
-            errorLog("changeUsername", e);
+            errorLog("changeusername", e);
             grpcException.grpcException(e, responseObserver);
         }
     }
@@ -379,7 +379,6 @@ public class EmployeeGrpcControllerImpl extends EmployeeServiceGrpc.EmployeeServ
             var requestContextDTO = RequestContextDTO.builder()
                     .correlationId(UUID.fromString(ContextKeys.CORRELATION_ID_CONTEXT_KEY.get()))
                     .consumerId(ContextKeys.CONSUMER_ID_CONTEXT_KEY.get())
-                    .storeId(UUID.fromString(ContextKeys.STORE_ID_CONTEXT_KEY.get()))
                     .build();
 
             var pageable = PageableUtil.buildPageable(request.getPage(), request.getSize(), request.getSortList());

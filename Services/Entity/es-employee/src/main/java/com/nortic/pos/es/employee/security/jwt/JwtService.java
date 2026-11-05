@@ -1,8 +1,8 @@
 package com.nortic.pos.es.employee.security.jwt;
 
 import com.nortic.pos.es.employee.security.jwt.model.JwtClaim;
-import com.nortic.pos.es.employee.security.jwt.model.JwtEmployee;
 import com.nortic.pos.es.employee.security.jwt.model.JwtProperties;
+import com.nortic.pos.es.employee.security.jwt.model.JwtEmployee;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;

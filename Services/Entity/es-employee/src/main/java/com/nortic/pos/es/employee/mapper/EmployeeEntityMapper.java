@@ -1,17 +1,14 @@
 package com.nortic.pos.es.employee.mapper;
 
-import com.nortic.pos.es.employee.model.dto.EmployeeDTO;
 import com.nortic.pos.es.employee.model.dto.PaginatedEmployeeResponseDTO;
+import com.nortic.pos.es.employee.model.dto.EmployeeDTO;
 import com.nortic.pos.es.employee.model.entity.EmployeeEntity;
-import com.nortic.pos.es.employee.model.entity.StoreEntity;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.springframework.data.domain.Page;
-
-import java.util.UUID;
 
 @Mapper(
         componentModel = "spring",
@@ -20,16 +17,11 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public abstract class EmployeeEntityMapper {
 
-    @Mapping(target = "storeId", source = "storeId.id")
     public abstract EmployeeDTO toEmployeeDTO(EmployeeEntity employeeEntity);
 
     @Mapping(
-            target = "storeId",
-            expression = "java(mapStore(employeeDTO.getStoreId()))"
-    )
-    @Mapping(
             target = "username",
-            expression = "java(normalizeString(employeeDTO.getUsername()))"
+            expression = "java(normalizeString(employeeDTO.getusername()))"
     )
     @Mapping(
             target = "email",
@@ -64,12 +56,5 @@ public abstract class EmployeeEntityMapper {
 
         return value.trim().toLowerCase();
 
-    }
-
-    protected StoreEntity mapStore(UUID storeId) {
-        if (storeId == null) {
-            return null;
-        }
-        return StoreEntity.builder().id(storeId).build();
     }
 }

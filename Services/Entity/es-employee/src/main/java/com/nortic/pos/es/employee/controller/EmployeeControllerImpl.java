@@ -119,11 +119,11 @@ public class EmployeeControllerImpl implements EmployeeApi {
     }
 
     @Override
-    public ResponseEntity<RestModelEmployeeResponseDTO> changeUsername(
+    public ResponseEntity<RestModelEmployeeResponseDTO> changeusername(
             UUID correlationId,
             UUID id,
             String consumerId,
-            RestModelChangeUsernameRequest restModelChangeUsernameRequest
+            RestModelChangeusernameRequest restModelChangeusernameRequest
     ) {
         log.info("Changing username REST controller...");
 
@@ -132,9 +132,9 @@ public class EmployeeControllerImpl implements EmployeeApi {
                 .consumerId(consumerId)
                 .build();
 
-        var changeUsernameRequestDTO = employeeRestMapper.toChangeUsernameRequestDTO(restModelChangeUsernameRequest);
+        var changeusernameRequestDTO = employeeRestMapper.toChangeusernameRequestDTO(restModelChangeusernameRequest);
 
-        var changedEmployee = employeeService.changeUsername(requestContextDTO, id, changeUsernameRequestDTO);
+        var changedEmployee = employeeService.changeusername(requestContextDTO, id, changeusernameRequestDTO);
 
         log.info("Changing username REST controller finished...");
 
@@ -213,7 +213,6 @@ public class EmployeeControllerImpl implements EmployeeApi {
     public ResponseEntity<RestModelPaginatedEmployeeResponseDTO> getAllEmployees(
             UUID correlationId,
             String consumerId,
-            UUID storeId,
             Integer page,
             Integer size,
             @Nullable List<String> sort
@@ -223,7 +222,6 @@ public class EmployeeControllerImpl implements EmployeeApi {
         var requestContextDTO = RequestContextDTO.builder()
                 .correlationId(correlationId)
                 .consumerId(consumerId)
-                .storeId(storeId)
                 .build();
 
         var pagination = SearchParamsDTO.builder()
