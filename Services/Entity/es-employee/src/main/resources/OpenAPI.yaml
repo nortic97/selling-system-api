@@ -30,7 +30,6 @@ paths:
       parameters:
         - $ref: '#/components/parameters/CorrelationIdHeader'
         - $ref: '#/components/parameters/ConsumerIdHeader'
-        - $ref: '#/components/parameters/StoreIdHeader'
         - $ref: '#/components/parameters/PageParam'
         - $ref: '#/components/parameters/SizeParam'
         - $ref: '#/components/parameters/SortParam'
@@ -497,15 +496,6 @@ components:
         type: string
         example: "SVP"
       description: Header obligatorio de trazabilidad distribuida para consumidor.
-    StoreIdHeader:
-      name: Store-Id
-      in: header
-      required: true
-      schema:
-        type: string
-        format: uuid
-        example: "b3bea282-4019-4c7e-bd4f-83c4ab15ad4f"
-      description: Header obligatorio con el ID de la tienda para validar contexto de operaciones.
     EmployeeIdPathParam:
       name: id
       in: path
@@ -662,7 +652,6 @@ components:
       type: object
       required:
         - id
-        - storeId
         - firstName
         - lastName
         - documentType
@@ -674,9 +663,6 @@ components:
         - updatedAt
       properties:
         id:
-          type: string
-          format: uuid
-        storeId:
           type: string
           format: uuid
         firstName:
@@ -724,7 +710,6 @@ components:
     CreateEmployeeRequestDTO:
       type: object
       required:
-        - storeId
         - firstName
         - lastName
         - documentType
@@ -734,10 +719,6 @@ components:
         - email
         - phone
       properties:
-        storeId:
-          type: string
-          format: uuid
-          x-field-extra-annotation: "@NotNull"
         firstName:
           type: string
           maxLength: 100
@@ -815,13 +796,7 @@ components:
     EmployeeQueryRequestDTO:
       type: object
       description: DTO para búsqueda global de empleados mediante un string de búsqueda.
-      required:
-        - storeId
       properties:
-        storeId:
-          type: string
-          format: uuid
-          description: Filtro por ID de tienda (requerido).
         query:
           type: string
           maxLength: 255
@@ -846,13 +821,7 @@ components:
     EmployeeSearchRequestDTO:
       type: object
       description: DTO para búsqueda avanzada de empleados con filtros específicos por campo.
-      required:
-        - storeId
       properties:
-        storeId:
-          type: string
-          format: uuid
-          description: Filtro por ID de tienda (requerido).
         firstName:
           type: string
           maxLength: 100

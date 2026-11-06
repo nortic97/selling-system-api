@@ -34,28 +34,26 @@ message GetAllEmployeesRequest {
 }
 
 message EmployeeQueryRequest {
-  string store_id = 1;
-  optional string query = 2;
-  int32 page = 3;
-  int32 size = 4;
-  repeated string sort = 5;
-}
-
-message SearchEmployeesRequest {
-  string store_id = 1;
+  optional string query = 1;
   int32 page = 2;
   int32 size = 3;
   repeated string sort = 4;
+}
 
-  optional string first_name = 5;
-  optional string last_name = 6;
-  optional string document_type = 7;
-  optional string document_number = 8;
-  optional string username = 9;
-  optional string email = 10;
-  optional string phone = 11;
-  optional string address = 12;
-  optional string date_of_birth = 13;
+message SearchEmployeesRequest {
+  int32 page = 1;
+  int32 size = 2;
+  repeated string sort = 3;
+
+  optional string first_name = 4;
+  optional string last_name = 5;
+  optional string document_type = 6;
+  optional string document_number = 7;
+  optional string username = 8;
+  optional string email = 9;
+  optional string phone = 10;
+  optional string address = 11;
+  optional string date_of_birth = 12;
   optional bool is_active = 14;
 }
 
@@ -72,19 +70,18 @@ message RestoreEmployeeRequest {
 }
 
 message CreateEmployeeRequest {
-  string store_id = 1;
-  string first_name = 2;
-  string last_name = 3;
-  string document_type = 4;
-  string document_number = 5;
-  string username = 6;
-  string password = 7;
-  string email = 8;
-  string phone = 9;
+  string first_name = 1;
+  string last_name = 2;
+  string document_type = 3;
+  string document_number = 4;
+  string username = 5;
+  string password = 6;
+  string email = 7;
+  string phone = 8;
 
-  optional string date_of_birth = 10;
-  optional string address = 11;
-  optional string photo_url = 12;
+  optional string date_of_birth = 9;
+  optional string address = 10;
+  optional string photo_url = 11;
 }
 
 message UpdateEmployeeRequest {
@@ -136,23 +133,22 @@ message AuthenticateRequest {
 
 message EmployeeResponse {
   string id = 1;
-  string store_id = 2;
-  string first_name = 3;
-  string last_name = 4;
-  string document_type = 5;
-  string document_number = 6;
-  string username = 7;
-  string email = 8;
-  optional string password = 9;
-  optional string phone = 10;
-  bool is_active = 11;
-  optional string address = 12;
-  optional string date_of_birth = 13;
-  optional string photo_url = 14;
+  string first_name = 2;
+  string last_name = 3;
+  string document_type = 4;
+  string document_number = 5;
+  string username = 6;
+  string email = 7;
+  optional string password = 8;
+  optional string phone = 9;
+  bool is_active = 10;
+  optional string address = 11;
+  optional string date_of_birth = 12;
+  optional string photo_url = 13;
 
-  google.protobuf.Timestamp created_at = 15;
-  google.protobuf.Timestamp updated_at = 16;
-  optional google.protobuf.Timestamp deleted_at = 17;
+  google.protobuf.Timestamp created_at = 14;
+  google.protobuf.Timestamp updated_at = 15;
+  optional google.protobuf.Timestamp deleted_at = 16;
 }
 
 message PaginatedEmployeeResponse {
