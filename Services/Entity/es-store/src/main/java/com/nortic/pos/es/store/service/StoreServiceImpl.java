@@ -60,7 +60,7 @@ public class StoreServiceImpl implements StoreService {
     public PaginatedStoreResponseDTO listStores(RequestContextDTO requestContextDTO, SearchParamsDTO searchParamsDTO) {
         log.info("List stores service ...");
 
-        var stores = storeRepository.findByOwnerIdId(searchParamsDTO.getOwnerId(), searchParamsDTO.getPageable());
+        var stores = storeRepository.findByOwnerIdId(requestContextDTO.getOwnerId(), searchParamsDTO.getPageable());
 
         log.info("List stores service completed ... ");
 

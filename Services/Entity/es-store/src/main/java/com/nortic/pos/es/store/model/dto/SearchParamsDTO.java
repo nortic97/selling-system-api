@@ -8,8 +8,6 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.domain.Pageable;
 
-import java.util.UUID;
-
 @Getter
 @Setter
 @Builder
@@ -18,6 +16,5 @@ import java.util.UUID;
 @AllArgsConstructor
 public class SearchParamsDTO {
     private String value;
-    private UUID ownerId;
     private Pageable pageable;
 }
