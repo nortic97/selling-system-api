@@ -67,7 +67,6 @@ public class StoreGrpcControllerImpl extends StoreServiceGrpc.StoreServiceImplBa
 
             var pageable = PageableUtil.buildPageable(request.getPage(), request.getSize(), request.getSortList());
             var pagination = SearchParamsDTO.builder()
-                    .ownerId(UUID.fromString(ContextKeys.OWNER_ID_CONTEXT_KEY.get()))
                     .pageable(pageable)
                     .build();
 
