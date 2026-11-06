@@ -1,0 +1,984 @@
+openapi: 3.0.3
+info:
+  title: Enterprise Selling System - Employee Entity Service (es-employee)
+  description: Servicio de entidad encargado de la persistencia, validación y operaciones CRUD de empleados.
+  version: 0.0.1
+security:
+  - bearerAuth: [ ]
+
+servers:
+  - url: "{protocol}://{server}:{port}"
+    variables:
+      protocol:
+        enum:
+          - http
+          - https
+        default: https
+      server:
+        default: localhost
+      port:
+        default: "8080"
+
+paths:
+  /api/v1/es/employee:
+    get:
+      summary: Obtener empleados paginados
+      description: Retorna una lista paginada de todos los empleados activos. Soporta paginación y ordenamiento mediante query params.
+      operationId: getAllEmployees
+      tags:
+        - Employee
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+        - $ref: '#/components/parameters/StoreIdHeader'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/SizeParam'
+        - $ref: '#/components/parameters/SortParam'
+      responses:
+        '200':
+          description: Operación exitosa. Retorna la estructura paginada con todos los empleados activos.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedEmployeeResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+    post:
+      summary: Crear un nuevo empleado
+      description: Registra un nuevo empleado en el sistema. Valida todos los campos obligatorios.
+      operationId: createEmployee
+      tags:
+        - Employee
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      requestBody:
+        required: true
+        description: Datos del nuevo empleado a crear.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEmployeeRequestDTO'
+      responses:
+        '201':
+          description: Empleado creado exitosamente. Retorna el empleado creado sin la contraseña.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+  /api/v1/es/employee/search:
+    post:
+      summary: Búsqueda global de empleados
+      description: Busca empleados mediante un string de búsqueda que busca coincidencias parciales en múltiples campos. La paginación y ordenamiento se envían en el body.
+      operationId: queryEmployees
+      tags:
+        - Employee
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      requestBody:
+        required: false
+        description: Criterio de búsqueda global, paginación y ordenamiento.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeQueryRequestDTO'
+      responses:
+        '200':
+          description: Operación exitosa. Retorna la estructura paginada filtrada.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedEmployeeResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+  /api/v1/es/employee/query:
+    post:
+      summary: Búsqueda avanzada de empleados
+      description: Busca empleados con filtros específicos por campo. Soporta filtros avanzados opcionales. La paginación y ordenamiento se envían en el body.
+      operationId: searchEmployees
+      tags:
+        - Employee
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      requestBody:
+        required: false
+        description: Criterios de búsqueda avanzada, paginación y ordenamiento.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeSearchRequestDTO'
+      responses:
+        '200':
+          description: Operación exitosa. Retorna la estructura paginada filtrada.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedEmployeeResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+  /api/v1/es/employee/{id}:
+    get:
+      summary: Obtener un empleado por ID
+      description: Recupera los detalles de un empleado mediante su UUID único.
+      operationId: getEmployeeById
+      tags:
+        - Employee
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/EmployeeIdPathParam'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      responses:
+        '200':
+          description: Empleado encontrado con éxito.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponseDTO'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+    put:
+      summary: Actualizar un empleado existente
+      description: Modifica los campos de un empleado existente. Valida la estructura de entrada.
+      operationId: updateEmployee
+      tags:
+        - Employee
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/EmployeeIdPathParam'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      requestBody:
+        required: true
+        description: Campos del empleado a actualizar.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateEmployeeRequestDTO'
+      responses:
+        '200':
+          description: Empleado actualizado con éxito.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+    delete:
+      summary: Eliminación lógica (Soft Delete)
+      description: Realiza una eliminación lógica del empleado. El empleado no se elimina físicamente, solo se marca como eliminado.
+      operationId: deleteEmployee
+      tags:
+        - Employee
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/EmployeeIdPathParam'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      responses:
+        '204':
+          description: Registro marcado como eliminado lógicamente. No retorna cuerpo.
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+  /api/v1/es/employee/{id}/restore:
+    patch:
+      summary: Restaurar empleado eliminado
+      description: Revierte la eliminación lógica de un empleado. El empleado vuelve a estar disponible en búsquedas estándar.
+      operationId: restoreEmployee
+      tags:
+        - Employee
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/EmployeeIdPathParam'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      responses:
+        '200':
+          description: Empleado restaurado y habilitado nuevamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponseDTO'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+  /api/v1/es/employee/{id}/password:
+    patch:
+      summary: Cambiar contraseña de empleado
+      description: Actualiza la contraseña de un empleado existente. Requiere la contraseña actual para validación.
+      operationId: changeEmployeePassword
+      tags:
+        - Employee
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/EmployeeIdPathParam'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      requestBody:
+        required: true
+        description: Contraseña actual y nueva contraseña del empleado.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangePasswordRequest'
+      responses:
+        '200':
+          description: Contraseña actualizada exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '409':
+          description: La contraseña actual no coincide.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDTO'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+  /api/v1/es/employee/{id}/username:
+    patch:
+      summary: Cambiar nombre de usuario
+      description: Actualiza el nombre de usuario (username) de un empleado existente.
+      operationId: changeUsername
+      tags:
+        - Employee
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/EmployeeIdPathParam'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      requestBody:
+        required: true
+        description: Nuevo nombre de usuario.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangeUsernameRequest'
+      responses:
+        '200':
+          description: Nombre de usuario actualizado exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '409':
+          description: El nombre de usuario ya está en uso.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDTO'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+  /api/v1/es/employee/{id}/email:
+    patch:
+      summary: Cambiar email de empleado
+      description: Actualiza el correo electrónico de un empleado existente.
+      operationId: changeEmail
+      tags:
+        - Employee
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/EmployeeIdPathParam'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      requestBody:
+        required: true
+        description: Nuevo correo electrónico.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangeEmailRequest'
+      responses:
+        '200':
+          description: Email actualizado exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '409':
+          description: El email ya está en uso.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDTO'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+  /api/v1/es/employee/{id}/phone:
+    patch:
+      summary: Cambiar teléfono de empleado
+      description: Actualiza el número de teléfono de un empleado existente.
+      operationId: changePhone
+      tags:
+        - Employee
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/EmployeeIdPathParam'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      requestBody:
+        required: true
+        description: Nuevo número de teléfono.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangePhoneRequest'
+      responses:
+        '200':
+          description: Teléfono actualizado exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+  /api/v1/es/employee/{id}/status:
+    patch:
+      summary: Cambiar estado de empleado
+      description: Activa o desactiva un empleado existente.
+      operationId: changeEmployeeStatus
+      tags:
+        - Employee
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/EmployeeIdPathParam'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      requestBody:
+        required: true
+        description: Nuevo estado del empleado (activo/inactivo).
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangeEmployeeStatusRequest'
+      responses:
+        '200':
+          description: Estado de empleado actualizado exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+  /api/v1/es/employee/authenticate:
+    post:
+      summary: Autenticar empleado
+      description: Autentica un empleado mediante username y password. Retorna los datos del empleado si las credenciales son válidas.
+      operationId: authenticate
+      tags:
+        - Employee
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      requestBody:
+        required: true
+        description: Credenciales de autenticación (username y password).
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthenticateRequest'
+      responses:
+        '200':
+          description: Autenticación exitosa. Retorna los datos del empleado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          description: Credenciales inválidas (password incorrecto).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDTO'
+        '404':
+          description: Empleado no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDTO'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  parameters:
+    CorrelationIdHeader:
+      name: Correlation-Id
+      in: header
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+      description: Header obligatorio de trazabilidad distribuida para logs correlacionados.
+    ConsumerIdHeader:
+      name: Consumer-Id
+      in: header
+      required: true
+      schema:
+        type: string
+        example: "SVP"
+      description: Header obligatorio de trazabilidad distribuida para consumidor.
+    StoreIdHeader:
+      name: Store-Id
+      in: header
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: "b3bea282-4019-4c7e-bd4f-83c4ab15ad4f"
+      description: Header obligatorio con el ID de la tienda para validar contexto de operaciones.
+    EmployeeIdPathParam:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d"
+      description: Identificador único universal (UUID v4) del empleado.
+    PageParam:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+      description: Número de página (basado en índice cero).
+      style: form
+      explode: true
+      x-spring-paginated: true
+    SizeParam:
+      name: size
+      in: query
+      required: false
+      schema:
+        minimum: 5
+        maximum: 100
+        type: integer
+        default: 5
+      description: Cantidad de registros por página.
+      style: form
+      explode: true
+      x-spring-paginated: true
+    SortParam:
+      name: sort
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+      description: Criterio de ordenamiento con formato 'campo,asc' o 'campo,desc'. Soporta múltiples criterios.
+      style: form
+      explode: true
+      x-spring-paginated: true
+
+  responses:
+    400BadRequest:
+      description: Error de validación en los datos enviados o sintaxis JSON incorrecta.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseDTO'
+    403Forbidden:
+      description: El cliente no posee los roles o permisos suficientes.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseDTO'
+    404NotFound:
+      description: El recurso solicitado no existe o está eliminado.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseDTO'
+    500InternalServerError:
+      description: Excepción no controlada en el servidor.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseDTO'
+
+  schemas:
+    DocumentTypeEnum:
+      type: string
+      enum:
+        - CC
+        - TI
+        - DNI
+        - NIT
+        - PEP
+      default: CC
+      description: Tipo de documento de identificación
+
+    ErrorResponseDTO:
+      type: object
+      required:
+        - code
+        - message
+        - timestamp
+      properties:
+        code:
+          type: string
+          example: "VALIDATION_FAILED"
+        message:
+          type: string
+          example: "Uno o más campos enviados en la solicitud no pasaron las validaciones."
+        timestamp:
+          type: string
+          format: date-time
+          example: "2026-06-18T12:40:00Z"
+        details:
+          type: array
+          description: Lista de errores específicos por cada campo (aparece si es error de validación de entrada).
+          items:
+            $ref: '#/components/schemas/FieldErrorDetailDTO'
+
+    FieldErrorDetailDTO:
+      type: object
+      required:
+        - field
+        - message
+      properties:
+        field:
+          type: string
+          example: "email"
+        rejected_value:
+          type: string
+          example: "null"
+          nullable: true
+        message:
+          type: string
+          example: "El campo es requerido y no puede ser nulo o vacío."
+
+    PaginatedEmployeeResponseDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmployeeResponseDTO'
+        totalElements:
+          type: integer
+          format: int64
+          example: 125
+        totalPages:
+          type: integer
+          example: 13
+        size:
+          type: integer
+          example: 10
+        number:
+          type: integer
+          example: 0
+        first:
+          type: boolean
+          example: true
+        last:
+          type: boolean
+          example: false
+
+    EmployeeResponseDTO:
+      type: object
+      required:
+        - id
+        - storeId
+        - firstName
+        - lastName
+        - documentType
+        - documentNumber
+        - username
+        - email
+        - isActive
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: string
+          format: uuid
+        storeId:
+          type: string
+          format: uuid
+        firstName:
+          type: string
+        lastName:
+          type: string
+        documentType:
+          $ref: '#/components/schemas/DocumentTypeEnum'
+        documentNumber:
+          type: string
+        username:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          nullable: true
+        phone:
+          type: string
+          nullable: true
+        isActive:
+          type: boolean
+        address:
+          type: string
+          nullable: true
+        dateOfBirth:
+          type: string
+          format: date
+          nullable: true
+        photoUrl:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        deletedAt:
+          type: string
+          format: date-time
+          nullable: true
+
+    CreateEmployeeRequestDTO:
+      type: object
+      required:
+        - storeId
+        - firstName
+        - lastName
+        - documentType
+        - documentNumber
+        - username
+        - password
+        - email
+        - phone
+      properties:
+        storeId:
+          type: string
+          format: uuid
+          x-field-extra-annotation: "@NotNull"
+        firstName:
+          type: string
+          maxLength: 100
+          x-field-extra-annotation: "@NotBlank"
+        lastName:
+          type: string
+          maxLength: 100
+          x-field-extra-annotation: "@NotBlank"
+        documentType:
+          $ref: '#/components/schemas/DocumentTypeEnum'
+          x-field-extra-annotation: "@NotNull"
+        documentNumber:
+          type: string
+          maxLength: 100
+          x-field-extra-annotation: "@NotBlank"
+        username:
+          type: string
+          maxLength: 100
+          x-field-extra-annotation: "@NotBlank"
+        password:
+          type: string
+          minLength: 8
+          maxLength: 255
+          x-field-extra-annotation: "@NotBlank"
+        email:
+          type: string
+          format: email
+          maxLength: 255
+          x-field-extra-annotation: "@NotBlank"
+        phone:
+          type: string
+          maxLength: 20
+          x-field-extra-annotation: "@NotBlank"
+        address:
+          type: string
+          maxLength: 255
+        dateOfBirth:
+          type: string
+          format: date
+        photoUrl:
+          type: string
+
+    UpdateEmployeeRequestDTO:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - documentType
+        - documentNumber
+      properties:
+        firstName:
+          type: string
+          maxLength: 100
+          x-field-extra-annotation: "@NotBlank"
+        lastName:
+          type: string
+          maxLength: 100
+          x-field-extra-annotation: "@NotBlank"
+        documentType:
+          $ref: '#/components/schemas/DocumentTypeEnum'
+          x-field-extra-annotation: "@NotNull"
+        documentNumber:
+          type: string
+          maxLength: 100
+          x-field-extra-annotation: "@NotBlank"
+        address:
+          type: string
+          maxLength: 255
+        dateOfBirth:
+          type: string
+          format: date
+        photoUrl:
+          type: string
+
+    EmployeeQueryRequestDTO:
+      type: object
+      description: DTO para búsqueda global de empleados mediante un string de búsqueda.
+      required:
+        - storeId
+      properties:
+        storeId:
+          type: string
+          format: uuid
+          description: Filtro por ID de tienda (requerido).
+        query:
+          type: string
+          maxLength: 255
+          description: String de búsqueda global que busca coincidencias parciales en múltiples campos.
+        page:
+          type: integer
+          minimum: 0
+          default: 0
+          description: Número de página (basado en índice cero).
+        size:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 10
+          description: Cantidad de registros por página.
+        sort:
+          type: array
+          items:
+            type: string
+          description: Criterios de ordenamiento con formato 'campo,asc' o 'campo,desc'.
+
+    EmployeeSearchRequestDTO:
+      type: object
+      description: DTO para búsqueda avanzada de empleados con filtros específicos por campo.
+      required:
+        - storeId
+      properties:
+        storeId:
+          type: string
+          format: uuid
+          description: Filtro por ID de tienda (requerido).
+        firstName:
+          type: string
+          maxLength: 100
+          description: Filtro por nombre.
+        lastName:
+          type: string
+          maxLength: 100
+          description: Filtro por apellido.
+        documentType:
+          $ref: '#/components/schemas/DocumentTypeEnum'
+          description: Filtro por tipo de documento.
+        documentNumber:
+          type: string
+          maxLength: 100
+          description: Filtro por número de documento.
+        username:
+          type: string
+          maxLength: 100
+          description: Filtro por nombre de usuario.
+        email:
+          type: string
+          format: email
+          maxLength: 255
+          description: Filtro por email.
+        phone:
+          type: string
+          maxLength: 20
+          description: Filtro por teléfono.
+        address:
+          type: string
+          maxLength: 255
+          description: Filtro por dirección.
+        dateOfBirth:
+          type: string
+          format: date
+          description: Filtro por fecha de nacimiento.
+        isActive:
+          type: boolean
+          description: Filtro por estado activo/inactivo.
+        page:
+          type: integer
+          minimum: 0
+          default: 0
+          description: Número de página (basado en índice cero).
+        size:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 10
+          description: Cantidad de registros por página.
+        sort:
+          type: array
+          items:
+            type: string
+          description: Criterios de ordenamiento con formato 'campo,asc' o 'campo,desc'.
+
+    ChangePasswordRequest:
+      type: object
+      required:
+        - currentPassword
+        - newPassword
+      properties:
+        currentPassword:
+          type: string
+          minLength: 8
+          maxLength: 255
+          x-field-extra-annotation: "@NotBlank"
+        newPassword:
+          type: string
+          minLength: 8
+          maxLength: 255
+          x-field-extra-annotation: "@NotBlank"
+
+    ChangeUsernameRequest:
+      type: object
+      required:
+        - username
+      properties:
+        username:
+          type: string
+          minLength: 4
+          maxLength: 100
+          x-field-extra-annotation: "@NotBlank"
+
+    ChangeEmailRequest:
+      type: object
+      required:
+        - email
+      properties:
+        email:
+          type: string
+          format: email
+          maxLength: 255
+          x-field-extra-annotation: "@NotBlank"
+
+    ChangePhoneRequest:
+      type: object
+      required:
+        - phone
+      properties:
+        phone:
+          type: string
+          maxLength: 20
+
+    ChangeEmployeeStatusRequest:
+      type: object
+      required:
+        - active
+      properties:
+        active:
+          type: boolean
+          x-field-extra-annotation: "@NotNull"
+
+    AuthenticateRequest:
+      type: object
+      required:
+        - username
+        - password
+      properties:
+        username:
+          type: string
+          minLength: 4
+          maxLength: 100
+          x-field-extra-annotation: "@NotBlank"
+        password:
+          type: string
+          minLength: 8
+          maxLength: 255
+          x-field-extra-annotation: "@NotBlank"

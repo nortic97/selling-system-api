@@ -1,0 +1,166 @@
+syntax = "proto3";
+
+package com.nortic.pos.es.employee.grpc;
+
+option java_multiple_files = false;
+option java_package = "com.nortic.pos.es.employee.grpc";
+option java_outer_classname = "EmployeeProto";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+service EmployeeService {
+  rpc GetAllEmployees(GetAllEmployeesRequest) returns (PaginatedEmployeeResponse);
+  rpc QueryEmployees(EmployeeQueryRequest) returns (PaginatedEmployeeResponse);
+  rpc SearchEmployees(SearchEmployeesRequest) returns (PaginatedEmployeeResponse);
+  rpc GetEmployeeById(GetEmployeeByIdRequest) returns (EmployeeResponse);
+  rpc CreateEmployee(CreateEmployeeRequest) returns (EmployeeResponse);
+  rpc UpdateEmployee(UpdateEmployeeRequest) returns (EmployeeResponse);
+  rpc DeleteEmployee(DeleteEmployeeRequest) returns (google.protobuf.Empty);
+  rpc RestoreEmployee(RestoreEmployeeRequest) returns (EmployeeResponse);
+  rpc ChangeEmployeePassword(ChangeEmployeePasswordRequest) returns (EmployeeResponse);
+  rpc ChangeUsername(ChangeUsernameRequest) returns (EmployeeResponse);
+  rpc ChangeEmail(ChangeEmailRequest) returns (EmployeeResponse);
+  rpc ChangePhone(ChangePhoneRequest) returns (EmployeeResponse);
+  rpc ChangeEmployeeStatus(ChangeEmployeeStatusRequest) returns (EmployeeResponse);
+  rpc Authenticate(AuthenticateRequest) returns (EmployeeResponse);
+}
+
+
+message GetAllEmployeesRequest {
+  int32 page = 1;
+  int32 size = 2;
+  repeated string sort = 3;
+}
+
+message EmployeeQueryRequest {
+  string store_id = 1;
+  optional string query = 2;
+  int32 page = 3;
+  int32 size = 4;
+  repeated string sort = 5;
+}
+
+message SearchEmployeesRequest {
+  string store_id = 1;
+  int32 page = 2;
+  int32 size = 3;
+  repeated string sort = 4;
+
+  optional string first_name = 5;
+  optional string last_name = 6;
+  optional string document_type = 7;
+  optional string document_number = 8;
+  optional string username = 9;
+  optional string email = 10;
+  optional string phone = 11;
+  optional string address = 12;
+  optional string date_of_birth = 13;
+  optional bool is_active = 14;
+}
+
+message GetEmployeeByIdRequest {
+  string id = 1;
+}
+
+message DeleteEmployeeRequest {
+  string id = 1;
+}
+
+message RestoreEmployeeRequest {
+  string id = 1;
+}
+
+message CreateEmployeeRequest {
+  string store_id = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string document_type = 4;
+  string document_number = 5;
+  string username = 6;
+  string password = 7;
+  string email = 8;
+  string phone = 9;
+
+  optional string date_of_birth = 10;
+  optional string address = 11;
+  optional string photo_url = 12;
+}
+
+message UpdateEmployeeRequest {
+  string id = 1;
+
+  optional string first_name = 2;
+  optional string last_name = 3;
+  optional string document_type = 4;
+  optional string document_number = 5;
+  optional string username = 6;
+  optional string email = 8;
+  optional string phone = 9;
+  optional string address = 10;
+  optional string date_of_birth = 11;
+  optional string photo_url = 12;
+}
+
+message ChangeEmployeePasswordRequest {
+  string id = 1;
+  string current_password = 2;
+  string new_password = 3;
+}
+
+message ChangeUsernameRequest {
+  string id = 1;
+  string username = 2;
+}
+
+message ChangeEmailRequest {
+  string id = 1;
+  string email = 2;
+}
+
+message ChangePhoneRequest {
+  string id = 1;
+  string phone = 2;
+}
+
+message ChangeEmployeeStatusRequest {
+  string id = 1;
+  bool active = 2;
+}
+
+message AuthenticateRequest {
+  string username = 1;
+  string password = 2;
+}
+
+
+message EmployeeResponse {
+  string id = 1;
+  string store_id = 2;
+  string first_name = 3;
+  string last_name = 4;
+  string document_type = 5;
+  string document_number = 6;
+  string username = 7;
+  string email = 8;
+  optional string password = 9;
+  optional string phone = 10;
+  bool is_active = 11;
+  optional string address = 12;
+  optional string date_of_birth = 13;
+  optional string photo_url = 14;
+
+  google.protobuf.Timestamp created_at = 15;
+  google.protobuf.Timestamp updated_at = 16;
+  optional google.protobuf.Timestamp deleted_at = 17;
+}
+
+message PaginatedEmployeeResponse {
+  repeated EmployeeResponse content = 1;
+  int64 total_elements = 2;
+  int32 total_pages = 3;
+  int32 size = 4;
+  int32 number = 5;
+  bool first = 6;
+  bool last = 7;
+}

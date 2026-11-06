@@ -58,7 +58,7 @@ public class RoleServiceImpl implements RoleService {
     public PaginatedRoleResponseDTO listRoles(RequestContextDTO requestContextDTO, SearchParamsDTO searchParamsDTO) {
         log.info("List roles service ...");
 
-        var roles = roleRepository.findAll(searchParamsDTO.getPageable());
+        var roles = roleRepository.findByStoreIdId(requestContextDTO.getStoreId(), searchParamsDTO.getPageable());
 
         log.info("List roles service completed ... ");
 

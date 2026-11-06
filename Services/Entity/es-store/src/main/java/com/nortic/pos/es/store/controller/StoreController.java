@@ -165,12 +165,13 @@ public class StoreController implements StoreApi {
     }
 
     @Override
-    public ResponseEntity<RestModelPaginatedStoreResponseDTO> getAllStores(UUID correlationId, String consumerId, Integer page, Integer size, @Nullable List<String> sort) {
+    public ResponseEntity<RestModelPaginatedStoreResponseDTO> getAllStores(UUID correlationId, String consumerId, UUID ownerId, Integer page, Integer size, @Nullable List<String> sort) {
         log.info("List stores controller ...");
 
         var requestContextDTO = RequestContextDTO.builder()
                 .correlationId(correlationId)
                 .consumerId(consumerId)
+                .ownerId(ownerId)
                 .build();
 
         var pagination = SearchParamsDTO.builder()
