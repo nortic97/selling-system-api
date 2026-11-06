@@ -82,6 +82,12 @@ public enum EmployeeExceptionCode {
             "MISSING_HEADER",
             "A required header is missing.",
             HttpStatus.BAD_REQUEST
+    ),
+
+    STORE_NOT_FOUND(
+            "STORE_NOT_FOUND",
+            "Store not found.",
+            HttpStatus.NOT_FOUND
     );
 
     private final String code;

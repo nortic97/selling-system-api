@@ -3,18 +3,7 @@ package com.nortic.pos.es.employee.service;
 import com.nortic.pos.es.employee.exception.EmployeeBusinessException;
 import com.nortic.pos.es.employee.exception.EmployeeExceptionCode;
 import com.nortic.pos.es.employee.mapper.EmployeeEntityMapper;
-import com.nortic.pos.es.employee.model.dto.AuthenticateRequestDTO;
-import com.nortic.pos.es.employee.model.dto.ChangeEmailRequestDTO;
-import com.nortic.pos.es.employee.model.dto.ChangeEmployeeStatusRequestDTO;
-import com.nortic.pos.es.employee.model.dto.ChangePasswordRequestDTO;
-import com.nortic.pos.es.employee.model.dto.ChangePhoneRequestDTO;
-import com.nortic.pos.es.employee.model.dto.ChangeusernameRequestDTO;
-import com.nortic.pos.es.employee.model.dto.EmployeeDTO;
-import com.nortic.pos.es.employee.model.dto.EmployeeQueryRequestDTO;
-import com.nortic.pos.es.employee.model.dto.EmployeeSearchRequestDTO;
-import com.nortic.pos.es.employee.model.dto.PaginatedEmployeeResponseDTO;
-import com.nortic.pos.es.employee.model.dto.RequestContextDTO;
-import com.nortic.pos.es.employee.model.dto.SearchParamsDTO;
+import com.nortic.pos.es.employee.model.dto.*;
 import com.nortic.pos.es.employee.repository.EmployeeRepository;
 import com.nortic.pos.es.employee.service.contract.EmployeeService;
 import com.nortic.pos.es.employee.service.contract.EmployeeSpecificationService;
@@ -127,18 +116,18 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     @Transactional
-    public EmployeeDTO changeusername(
+    public EmployeeDTO changeUsername(
             RequestContextDTO requestContextDTO,
             UUID id,
-            ChangeusernameRequestDTO changeusernameRequestDTO
+            ChangeUsernameRequestDTO changeUsernameRequestDTO
     ) {
         log.info("Changing username service...");
 
         var employee = employeeValidationService.validateAndGetEmployee(id);
 
-        employeeValidationService.validateusername(id, changeusernameRequestDTO.getusername());
+        employeeValidationService.validateUsername(id, changeUsernameRequestDTO.getUsername());
 
-        employee.setusername(changeusernameRequestDTO.getusername().trim().toLowerCase());
+        employee.setUsername(changeUsernameRequestDTO.getUsername().trim().toLowerCase());
 
         log.info("Changing username service complete.");
 
@@ -152,9 +141,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     ) {
         log.info("Authenticating employee service...");
 
-        String normalizedusername = authenticateRequestDTO.getusername().trim().toLowerCase();
+        String normalizedUsername = authenticateRequestDTO.getUsername().trim().toLowerCase();
 
-        var employee = employeeRepository.findByusernameIgnoreCase(normalizedusername)
+        var employee = employeeRepository.findByUsernameIgnoreCase(normalizedUsername)
                 .orElseThrow(() -> new EmployeeBusinessException(EmployeeExceptionCode.EMPLOYEE_NOT_FOUND));
 
         if (!passwordEncoder.matches(authenticateRequestDTO.getPassword(), employee.getPassword())) {
@@ -199,7 +188,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public PaginatedEmployeeResponseDTO getAllEmployees(RequestContextDTO requestContextDTO, SearchParamsDTO searchParamsDTO) {
         log.info("Getting employee service...");
 
-        var employees = employeeRepository.findAll(searchParamsDTO.getPageable());
+        var employees = employeeRepository.findByStoreIdId(requestContextDTO.getStoreId(), searchParamsDTO.getPageable());
 
         log.info("Getting employee service complete.");
 
@@ -220,6 +209,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public PaginatedEmployeeResponseDTO queryEmployees(RequestContextDTO requestContextDTO, EmployeeQueryRequestDTO employeeQueryRequestDTO) {
         log.info("Querying employees service...");
+
+        employeeValidationService.validateStoreId(employeeQueryRequestDTO.getStoreId());
 
         var pageable = PageableUtil.buildPageable(
                 employeeQueryRequestDTO.getPage(),
@@ -255,6 +246,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public PaginatedEmployeeResponseDTO searchEmployees(RequestContextDTO requestContextDTO, EmployeeSearchRequestDTO employeeSearchRequestDTO) {
         log.info("Searching employees service...");
+
+        employeeValidationService.validateStoreId(employeeSearchRequestDTO.getStoreId());
 
         var pageable = PageableUtil.buildPageable(
                 employeeSearchRequestDTO.getPage(),
