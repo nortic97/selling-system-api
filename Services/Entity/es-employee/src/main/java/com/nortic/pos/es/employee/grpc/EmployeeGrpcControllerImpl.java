@@ -379,6 +379,7 @@ public class EmployeeGrpcControllerImpl extends EmployeeServiceGrpc.EmployeeServ
             var requestContextDTO = RequestContextDTO.builder()
                     .correlationId(UUID.fromString(ContextKeys.CORRELATION_ID_CONTEXT_KEY.get()))
                     .consumerId(ContextKeys.CONSUMER_ID_CONTEXT_KEY.get())
+                    .storeId(UUID.fromString(ContextKeys.STORE_ID_CONTEXT_KEY.get()))
                     .build();
 
             var pageable = PageableUtil.buildPageable(request.getPage(), request.getSize(), request.getSortList());

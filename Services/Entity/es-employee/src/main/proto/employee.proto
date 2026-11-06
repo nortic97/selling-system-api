@@ -28,10 +28,9 @@ service EmployeeService {
 
 
 message GetAllEmployeesRequest {
-  string store_id = 1;
-  int32 page = 2;
-  int32 size = 3;
-  repeated string sort = 4;
+  int32 page = 1;
+  int32 size = 2;
+  repeated string sort = 3;
 }
 
 message EmployeeQueryRequest {
