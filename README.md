@@ -575,3 +575,4 @@ Este patrón debe aplicarse consistentemente en todos los Entity Services (es-st
 - [ ] Configurar docker-compose completo
 - [ ] Configurar Grafana dashboards
 - [ ] Configurar CI/CD pipeline
+
