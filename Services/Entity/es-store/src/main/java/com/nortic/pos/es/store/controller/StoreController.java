@@ -171,10 +171,10 @@ public class StoreController implements StoreApi {
         var requestContextDTO = RequestContextDTO.builder()
                 .correlationId(correlationId)
                 .consumerId(consumerId)
+                .ownerId(ownerId)
                 .build();
 
         var pagination = SearchParamsDTO.builder()
-                .ownerId(ownerId)
                 .pageable(PageableUtil.buildPageable(page, size, sort))
                 .build();
 

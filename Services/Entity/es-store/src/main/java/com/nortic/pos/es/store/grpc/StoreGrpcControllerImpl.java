@@ -62,11 +62,11 @@ public class StoreGrpcControllerImpl extends StoreServiceGrpc.StoreServiceImplBa
             var requestContextDTO = RequestContextDTO.builder()
                     .correlationId(UUID.fromString(ContextKeys.CORRELATION_ID_CONTEXT_KEY.get()))
                     .consumerId(ContextKeys.CONSUMER_ID_CONTEXT_KEY.get())
+                    .ownerId(UUID.fromString(ContextKeys.OWNER_ID_CONTEXT_KEY.get()))
                     .build();
 
             var pageable = PageableUtil.buildPageable(request.getPage(), request.getSize(), request.getSortList());
             var pagination = SearchParamsDTO.builder()
-                    .ownerId(UUID.fromString(ContextKeys.OWNER_ID_CONTEXT_KEY.get()))
                     .pageable(pageable)
                     .build();
 
