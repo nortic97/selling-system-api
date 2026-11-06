@@ -86,7 +86,7 @@ public class UserValidationServiceImpl implements UserValidationService {
 
     @Override
     public void validateNewUser(UserDTO userDTO) {
-        if (userDTO.getUsername() == null || userDTO.getUsername().isBlank()) {
+        if (userDTO.getUsername().isBlank()) {
             throw new UserBusinessException(
                     UserExceptionCode.VALIDATION_FAILED,
                     List.of(FieldErrorDetailResponseDTO.builder()
@@ -95,7 +95,7 @@ public class UserValidationServiceImpl implements UserValidationService {
                             .build())
             );
         }
-        if (userDTO.getEmail() == null || userDTO.getEmail().isBlank()) {
+        if (userDTO.getEmail().isBlank()) {
             throw new UserBusinessException(
                     UserExceptionCode.VALIDATION_FAILED,
                     List.of(FieldErrorDetailResponseDTO.builder()
@@ -104,7 +104,7 @@ public class UserValidationServiceImpl implements UserValidationService {
                             .build())
             );
         }
-        if (userDTO.getDocumentNumber() == null || userDTO.getDocumentNumber().isBlank()) {
+        if (userDTO.getDocumentNumber().isBlank()) {
             throw new UserBusinessException(
                     UserExceptionCode.VALIDATION_FAILED,
                     List.of(FieldErrorDetailResponseDTO.builder()
@@ -122,7 +122,7 @@ public class UserValidationServiceImpl implements UserValidationService {
                             .build())
             );
         }
-        if (userDTO.getFirstName() == null || userDTO.getFirstName().isBlank()) {
+        if (userDTO.getFirstName().isBlank()) {
             throw new UserBusinessException(
                     UserExceptionCode.VALIDATION_FAILED,
                     List.of(FieldErrorDetailResponseDTO.builder()
@@ -131,7 +131,7 @@ public class UserValidationServiceImpl implements UserValidationService {
                             .build())
             );
         }
-        if (userDTO.getLastName() == null || userDTO.getLastName().isBlank()) {
+        if (userDTO.getLastName().isBlank()) {
             throw new UserBusinessException(
                     UserExceptionCode.VALIDATION_FAILED,
                     List.of(FieldErrorDetailResponseDTO.builder()
@@ -140,7 +140,7 @@ public class UserValidationServiceImpl implements UserValidationService {
                             .build())
             );
         }
-        if (userDTO.getPhone() == null || userDTO.getPhone().isBlank()) {
+        if (userDTO.getPhone().isBlank()) {
             throw new UserBusinessException(
                     UserExceptionCode.VALIDATION_FAILED,
                     List.of(FieldErrorDetailResponseDTO.builder()

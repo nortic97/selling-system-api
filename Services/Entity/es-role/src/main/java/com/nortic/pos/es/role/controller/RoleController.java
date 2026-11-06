@@ -63,13 +63,14 @@ public class RoleController implements RoleApi {
     }
 
     @Override
-    public ResponseEntity<RestModelPaginatedRoleResponseDTO> getAllRoles(UUID correlationId, String consumerId, Integer page, Integer size, @Nullable List<String> sort) {
+    public ResponseEntity<RestModelPaginatedRoleResponseDTO> getAllRoles(UUID correlationId, String consumerId, UUID storeId, Integer page, Integer size, @Nullable List<String> sort) {
 
         log.info("List roles controller ...");
 
         var requestContextDTO = RequestContextDTO.builder()
                 .correlationId(correlationId)
                 .consumerId(consumerId)
+                .storeId(storeId)
                 .build();
 
         var pagination = SearchParamsDTO.builder()

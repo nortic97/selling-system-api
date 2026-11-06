@@ -58,13 +58,14 @@ paths:
 
     get:
       summary: Listar todas las tiendas
-      description: Obtiene una lista paginada de todas las tiendas
+      description: Obtiene una lista paginada de todas las tiendas del propietario
       operationId: getAllStores
       tags:
         - Store
       parameters:
         - $ref: '#/components/parameters/CorrelationIdHeader'
         - $ref: '#/components/parameters/ConsumerIdHeader'
+        - $ref: '#/components/parameters/OwnerIdHeader'
         - $ref: '#/components/parameters/PageParam'
         - $ref: '#/components/parameters/SizeParam'
         - $ref: '#/components/parameters/SortParam'
@@ -309,6 +310,15 @@ components:
         type: string
         example: "SVP"
       description: Header obligatorio de trazabilidad distribuida para consumidor.
+    OwnerIdHeader:
+      name: Owner-Id
+      in: header
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+      description: Header obligatorio con el ID del propietario para filtrar tiendas.
     PageParam:
       name: page
       in: query

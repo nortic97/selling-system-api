@@ -678,6 +678,9 @@ components:
         email:
           type: string
           format: email
+        password:
+          type: string
+          nullable: true
         phone:
           type: string
           nullable: true

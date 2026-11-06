@@ -2,6 +2,8 @@ package com.nortic.pos.es.store.repository;
 
 import com.nortic.pos.es.store.model.entity.StoreEntity;
 import com.nortic.pos.es.store.model.enums.TaxTypeEnum;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.NativeQuery;
 import org.springframework.data.repository.query.Param;
@@ -21,10 +23,10 @@ public interface StoreRepository extends JpaRepository<StoreEntity, UUID> {
 
     boolean existsByContactEmailIgnoreCaseAndIdNot(String contactEmail, UUID id);
 
-    @NativeQuery(
-            """
-                    SELECT * FROM store WHERE id = :id AND deleted_at IS NOT NULL AND is_active IS FALSE;
-                    """
-    )
+    @NativeQuery("""
+            SELECT * FROM store WHERE id = :id AND deleted_at IS NOT NULL AND is_active IS FALSE;
+            """)
     Optional<StoreEntity> findByIdIncludingDeleted(@Param("id") UUID id);
+
+    Page<StoreEntity> findByOwnerIdId(UUID ownerId, Pageable pageable);
 }

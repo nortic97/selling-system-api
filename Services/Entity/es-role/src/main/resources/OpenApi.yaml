@@ -58,13 +58,14 @@ paths:
 
     get:
       summary: Listar todos los roles
-      description: Obtiene una lista paginada de todos los roles
+      description: Obtiene una lista paginada de todos los roles de la tienda
       operationId: getAllRoles
       tags:
         - Role
       parameters:
         - $ref: '#/components/parameters/CorrelationIdHeader'
         - $ref: '#/components/parameters/ConsumerIdHeader'
+        - $ref: '#/components/parameters/StoreIdHeader'
         - $ref: '#/components/parameters/PageParam'
         - $ref: '#/components/parameters/SizeParam'
         - $ref: '#/components/parameters/SortParam'
@@ -354,6 +355,15 @@ components:
         type: string
         example: "SVP"
       description: Header obligatorio de trazabilidad distribuida para consumidor.
+    StoreIdHeader:
+      name: Store-Id
+      in: header
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+      description: Header obligatorio con el ID de la tienda para filtrar roles.
     PageParam:
       name: page
       in: query

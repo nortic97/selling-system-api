@@ -15,17 +15,24 @@ public final class ContextKeys {
 
     private static final String CONSUMER_ID_CONSTANT = "consumer-id";
 
+    private static final String OWNER_ID_CONSTANT = "owner-id";
+
     private static final String AUTHORIZATION_CONSTANT = "authorization";
 
     public static final Context.Key<String> CORRELATION_ID_CONTEXT_KEY = Context.key(CORRELATION_ID_CONSTANT);
 
     public static final Context.Key<String> CONSUMER_ID_CONTEXT_KEY = Context.key(CONSUMER_ID_CONSTANT);
 
+    public static final Context.Key<String> OWNER_ID_CONTEXT_KEY = Context.key(OWNER_ID_CONSTANT);
+
     public static final Metadata.Key<String> METADATA_CORRELATION_ID =
             Metadata.Key.of(CORRELATION_ID_CONSTANT, Metadata.ASCII_STRING_MARSHALLER);
 
     public static final Metadata.Key<String> METADATA_CONSUMER_ID =
             Metadata.Key.of(CONSUMER_ID_CONSTANT, Metadata.ASCII_STRING_MARSHALLER);
+
+    public static final Metadata.Key<String> METADATA_OWNER_ID =
+            Metadata.Key.of(OWNER_ID_CONSTANT, Metadata.ASCII_STRING_MARSHALLER);
 
     public static final Metadata.Key<String> AUTHORIZATION_METADATA_KEY =
             Metadata.Key.of(AUTHORIZATION_CONSTANT, Metadata.ASCII_STRING_MARSHALLER);
