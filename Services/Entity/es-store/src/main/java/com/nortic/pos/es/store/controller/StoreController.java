@@ -175,6 +175,7 @@ public class StoreController implements StoreApi {
                 .build();
 
         var pagination = SearchParamsDTO.builder()
+                .ownerId(ownerId)
                 .pageable(PageableUtil.buildPageable(page, size, sort))
                 .build();
 
