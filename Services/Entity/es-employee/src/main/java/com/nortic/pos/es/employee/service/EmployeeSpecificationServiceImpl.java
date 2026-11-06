@@ -22,7 +22,7 @@ public class EmployeeSpecificationServiceImpl implements EmployeeSpecificationSe
         ) -> criteriaBuilder.conjunction();
 
         spec = spec.and((root, query, cb) ->
-                cb.equal(root.get("storeId"), searchRequest.getStoreId()));
+                cb.equal(root.get("storeId").get("id"), searchRequest.getStoreId()));
 
         if (searchRequest.getFirstName() != null && !searchRequest.getFirstName().isBlank()) {
             spec = spec.and((root, query, cb) ->
@@ -82,7 +82,7 @@ public class EmployeeSpecificationServiceImpl implements EmployeeSpecificationSe
         Specification<EmployeeEntity> spec = (root, query, cb) -> cb.conjunction();
 
         spec = spec.and((root, query, cb) ->
-                cb.equal(root.get("storeId"), queryRequest.getStoreId()));
+                cb.equal(root.get("storeId").get("id"), queryRequest.getStoreId()));
 
         if (queryRequest.getQuery() == null || queryRequest.getQuery().isBlank()) {
             return spec;
@@ -105,6 +105,6 @@ public class EmployeeSpecificationServiceImpl implements EmployeeSpecificationSe
 
     @Override
     public Specification<EmployeeEntity> buildGetAllSpecification(UUID storeId) {
-        return (root, query, cb) -> cb.equal(root.get("storeId"), storeId);
+        return (root, query, cb) -> cb.equal(root.get("storeId").get("id"), storeId);
     }
 }

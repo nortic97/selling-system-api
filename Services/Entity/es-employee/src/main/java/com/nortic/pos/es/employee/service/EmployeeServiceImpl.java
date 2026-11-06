@@ -188,11 +188,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public PaginatedEmployeeResponseDTO getAllEmployees(RequestContextDTO requestContextDTO, SearchParamsDTO searchParamsDTO) {
         log.info("Getting employee service...");
 
-        employeeValidationService.validateStoreId(searchParamsDTO.getStoreId());
-
-        var specification = employeeSpecificationService.buildGetAllSpecification(searchParamsDTO.getStoreId());
-
-        var employees = employeeRepository.findAll(specification, searchParamsDTO.getPageable());
+        var employees = employeeRepository.findByStoreIdId(requestContextDTO.getStoreId(), searchParamsDTO.getPageable());
 
         log.info("Getting employee service complete.");
 

@@ -17,4 +17,6 @@ public class RequestContextDTO {
 
     private String consumerId;
 
+    private UUID storeId;
+
 }

@@ -37,8 +37,9 @@ public class EmployeeEntity {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
-    @Column(name = "store_id", nullable = false)
-    private UUID storeId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "store_id", nullable = false, foreignKey = @ForeignKey(name = "fk_employee_store"))
+    private StoreEntity storeId;
 
     @Column(name = "first_name", length = 100, nullable = false)
     private String firstName;

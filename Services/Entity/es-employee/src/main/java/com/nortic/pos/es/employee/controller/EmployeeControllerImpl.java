@@ -223,10 +223,10 @@ public class EmployeeControllerImpl implements EmployeeApi {
         var requestContextDTO = RequestContextDTO.builder()
                 .correlationId(correlationId)
                 .consumerId(consumerId)
+                .storeId(storeId)
                 .build();
 
         var pagination = SearchParamsDTO.builder()
-                .storeId(storeId)
                 .pageable(PageableUtil.buildPageable(page, size, sort))
                 .build();
 
