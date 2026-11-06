@@ -573,5 +573,5 @@ Este patrón debe aplicarse consistentemente en todos los Entity Services (es-st
 - [ ] Implementar primer Microservice con arquitectura hexagonal
 - [ ] Implementar primer Task Service
 - [ ] Configurar docker-compose completo
-- [ ] Configurar Grafana dashboards
+- [X] Configurar Grafana dashboards
 - [ ] Configurar CI/CD pipeline
