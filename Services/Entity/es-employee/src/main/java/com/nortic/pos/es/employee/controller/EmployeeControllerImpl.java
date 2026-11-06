@@ -226,7 +226,6 @@ public class EmployeeControllerImpl implements EmployeeApi {
                 .build();
 
         var pagination = SearchParamsDTO.builder()
-                .storeId(storeId)
                 .pageable(PageableUtil.buildPageable(page, size, sort))
                 .build();
 
