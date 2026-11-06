@@ -42,7 +42,7 @@ public abstract class EmployeeRestMapper {
 
     public abstract ChangeEmployeeStatusRequestDTO toChangeEmployeeStatusRequestDTO(RestModelChangeEmployeeStatusRequest restModelChangeEmployeeStatusRequest);
 
-    public abstract ChangeUsernameRequestDTO toChangeUsernameRequestDTO(RestModelChangeUsernameRequest restModelChangeUsernameRequest);
+    public abstract ChangeusernameRequestDTO toChangeusernameRequestDTO(RestModelChangeusernameRequest restModelChangeusernameRequest);
 
     public abstract AuthenticateRequestDTO toAuthenticateRequestDTO(RestModelAuthenticateRequest restModelAuthenticateRequest);
 
