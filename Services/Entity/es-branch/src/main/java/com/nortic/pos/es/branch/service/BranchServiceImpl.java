@@ -54,7 +54,7 @@ public class BranchServiceImpl implements BranchService {
     public PaginatedBranchResponseDTO getAllBranches(RequestContextDTO requestContextDTO, SearchParamsDTO searchParamsDTO) {
         log.info("List branches service ...");
 
-        var branches = branchRepository.findAll(searchParamsDTO.getPageable());
+        var branches = branchRepository.findByStoreIdId(requestContextDTO.getStoreId(), searchParamsDTO.getPageable());
 
         log.info("List branches service completed ... ");
 

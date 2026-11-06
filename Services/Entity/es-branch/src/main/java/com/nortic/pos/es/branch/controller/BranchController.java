@@ -79,12 +79,13 @@ public class BranchController implements BranchApi {
     }
 
     @Override
-    public ResponseEntity<RestModelPaginatedBranchResponseDTO> getAllBranches(UUID correlationId, String consumerId, Integer page, Integer size, @Nullable List<String> sort) {
+    public ResponseEntity<RestModelPaginatedBranchResponseDTO> getAllBranches(UUID correlationId, String consumerId, UUID storeId, Integer page, Integer size, @Nullable List<String> sort) {
         log.info("List branches controller ...");
 
         var requestContextDTO = RequestContextDTO.builder()
                 .correlationId(correlationId)
                 .consumerId(consumerId)
+                .storeId(storeId)
                 .build();
 
         var pagination = SearchParamsDTO.builder()

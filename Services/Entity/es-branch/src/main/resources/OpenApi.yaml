@@ -65,6 +65,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/CorrelationIdHeader'
         - $ref: '#/components/parameters/ConsumerIdHeader'
+        - $ref: '#/components/parameters/StoreIdHeader'
         - $ref: '#/components/parameters/PageParam'
         - $ref: '#/components/parameters/SizeParam'
         - $ref: '#/components/parameters/SortParam'
@@ -243,6 +244,15 @@ components:
         type: string
         example: "SVP"
       description: Header obligatorio de trazabilidad distribuida para consumidor.
+    StoreIdHeader:
+      name: Store-Id
+      in: header
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: "b3bea282-4019-4c7e-bd4f-83c4ab15ad4f"
+      description: Header obligatorio con el ID de la tienda para validar contexto de operaciones.
     PageParam:
       name: page
       in: query
