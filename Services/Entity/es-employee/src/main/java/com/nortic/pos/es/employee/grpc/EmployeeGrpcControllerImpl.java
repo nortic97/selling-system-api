@@ -109,7 +109,7 @@ public class EmployeeGrpcControllerImpl extends EmployeeServiceGrpc.EmployeeServ
     }
 
     @Override
-    public void changeusername(EmployeeProto.ChangeusernameRequest request, StreamObserver<EmployeeProto.EmployeeResponse> responseObserver) {
+    public void changeUsername(EmployeeProto.ChangeUsernameRequest request, StreamObserver<EmployeeProto.EmployeeResponse> responseObserver) {
         try {
             log.info("changeusername gRPC Controller...");
 
@@ -120,7 +120,7 @@ public class EmployeeGrpcControllerImpl extends EmployeeServiceGrpc.EmployeeServ
 
             var changeusernameRequestDTO = employeeGrpcMapper.toChangeusernameRequestDTO(request);
 
-            var employee = employeeService.changeusername(requestContextDTO, UUID.fromString(request.getId()), changeusernameRequestDTO);
+            var employee = employeeService.changeUsername(requestContextDTO, UUID.fromString(request.getId()), changeusernameRequestDTO);
 
             var response = employeeGrpcMapper.toEmployeeResponse(employee);
 
@@ -325,6 +325,7 @@ public class EmployeeGrpcControllerImpl extends EmployeeServiceGrpc.EmployeeServ
             var requestContextDTO = RequestContextDTO.builder()
                     .correlationId(UUID.fromString(ContextKeys.CORRELATION_ID_CONTEXT_KEY.get()))
                     .consumerId(ContextKeys.CONSUMER_ID_CONTEXT_KEY.get())
+                    .storeId(ContextKeys.STORE_ID_CONTEXT_KEY.get() != null ? UUID.fromString(ContextKeys.STORE_ID_CONTEXT_KEY.get()) : null)
                     .build();
 
             var searchRequestDTO = employeeGrpcMapper.toEmployeeSearchRequestDTO(request);
@@ -352,6 +353,7 @@ public class EmployeeGrpcControllerImpl extends EmployeeServiceGrpc.EmployeeServ
             var requestContextDTO = RequestContextDTO.builder()
                     .correlationId(UUID.fromString(ContextKeys.CORRELATION_ID_CONTEXT_KEY.get()))
                     .consumerId(ContextKeys.CONSUMER_ID_CONTEXT_KEY.get())
+                    .storeId(ContextKeys.STORE_ID_CONTEXT_KEY.get() != null ? UUID.fromString(ContextKeys.STORE_ID_CONTEXT_KEY.get()) : null)
                     .build();
 
             var queryRequestDTO = employeeGrpcMapper.toEmployeeQueryRequestDTO(request);
@@ -379,6 +381,7 @@ public class EmployeeGrpcControllerImpl extends EmployeeServiceGrpc.EmployeeServ
             var requestContextDTO = RequestContextDTO.builder()
                     .correlationId(UUID.fromString(ContextKeys.CORRELATION_ID_CONTEXT_KEY.get()))
                     .consumerId(ContextKeys.CONSUMER_ID_CONTEXT_KEY.get())
+                    .storeId(ContextKeys.STORE_ID_CONTEXT_KEY.get() != null ? UUID.fromString(ContextKeys.STORE_ID_CONTEXT_KEY.get()) : null)
                     .build();
 
             var pageable = PageableUtil.buildPageable(request.getPage(), request.getSize(), request.getSortList());

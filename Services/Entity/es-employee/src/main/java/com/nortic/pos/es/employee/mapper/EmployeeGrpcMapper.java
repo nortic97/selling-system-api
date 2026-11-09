@@ -98,7 +98,7 @@ public abstract class EmployeeGrpcMapper {
 
     public abstract ChangeEmployeeStatusRequestDTO toChangeEmployeeStatusRequestDTO(EmployeeProto.ChangeEmployeeStatusRequest request);
 
-    public abstract ChangeUsernameRequestDTO toChangeusernameRequestDTO(EmployeeProto.ChangeusernameRequest request);
+    public abstract ChangeUsernameRequestDTO toChangeusernameRequestDTO(EmployeeProto.ChangeUsernameRequest request);
 
     public abstract AuthenticateRequestDTO toAuthenticateRequestDTO(EmployeeProto.AuthenticateRequest request);
 

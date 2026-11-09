@@ -14,7 +14,7 @@ public interface EmployeeService {
 
     EmployeeDTO changeEmployeeStatus(RequestContextDTO requestContextDTO, UUID id, ChangeEmployeeStatusRequestDTO changeStatusRequestDTO);
 
-    EmployeeDTO changeusername(RequestContextDTO requestContextDTO, UUID id, ChangeUsernameRequestDTO changeusernameRequestDTO);
+    EmployeeDTO changeUsername(RequestContextDTO requestContextDTO, UUID id, ChangeUsernameRequestDTO changeusernameRequestDTO);
 
     EmployeeDTO authenticate(RequestContextDTO requestContextDTO, AuthenticateRequestDTO authenticateRequestDTO);
 

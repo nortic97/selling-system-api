@@ -119,11 +119,11 @@ public class EmployeeControllerImpl implements EmployeeApi {
     }
 
     @Override
-    public ResponseEntity<RestModelEmployeeResponseDTO> changeusername(
+    public ResponseEntity<RestModelEmployeeResponseDTO> changeUsername(
             UUID correlationId,
             UUID id,
             String consumerId,
-            RestModelChangeusernameRequest restModelChangeusernameRequest
+            RestModelChangeUsernameRequest restModelChangeusernameRequest
     ) {
         log.info("Changing username REST controller...");
 
@@ -134,7 +134,7 @@ public class EmployeeControllerImpl implements EmployeeApi {
 
         var changeusernameRequestDTO = employeeRestMapper.toChangeusernameRequestDTO(restModelChangeusernameRequest);
 
-        var changedEmployee = employeeService.changeusername(requestContextDTO, id, changeusernameRequestDTO);
+        var changedEmployee = employeeService.changeUsername(requestContextDTO, id, changeusernameRequestDTO);
 
         log.info("Changing username REST controller finished...");
 
@@ -213,6 +213,7 @@ public class EmployeeControllerImpl implements EmployeeApi {
     public ResponseEntity<RestModelPaginatedEmployeeResponseDTO> getAllEmployees(
             UUID correlationId,
             String consumerId,
+            UUID storeId,
             Integer page,
             Integer size,
             @Nullable List<String> sort
@@ -261,6 +262,7 @@ public class EmployeeControllerImpl implements EmployeeApi {
     public ResponseEntity<RestModelPaginatedEmployeeResponseDTO> queryEmployees(
             UUID correlationId,
             String consumerId,
+            UUID storeId,
             @Nullable RestModelEmployeeQueryRequestDTO restModelEmployeeQueryRequestDTO
     ) {
         log.info("Querying employees REST controller...");
@@ -268,6 +270,7 @@ public class EmployeeControllerImpl implements EmployeeApi {
         var requestContextDTO = RequestContextDTO.builder()
                 .correlationId(correlationId)
                 .consumerId(consumerId)
+                .storeId(storeId)
                 .build();
 
         var employeeQueryRequestDTO = employeeRestMapper.toEmployeeQueryRequestDTO(restModelEmployeeQueryRequestDTO);
@@ -303,6 +306,7 @@ public class EmployeeControllerImpl implements EmployeeApi {
     public ResponseEntity<RestModelPaginatedEmployeeResponseDTO> searchEmployees(
             UUID correlationId,
             String consumerId,
+            UUID storeId,
             @Nullable RestModelEmployeeSearchRequestDTO restModelEmployeeSearchRequestDTO
     ) {
         log.info("Searching employees REST controller...");
@@ -310,6 +314,7 @@ public class EmployeeControllerImpl implements EmployeeApi {
         var requestContextDTO = RequestContextDTO.builder()
                 .correlationId(correlationId)
                 .consumerId(consumerId)
+                .storeId(storeId)
                 .build();
 
         var employeeSearchRequestDTO = employeeRestMapper.toEmployeeSearchRequestDTO(restModelEmployeeSearchRequestDTO);

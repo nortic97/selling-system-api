@@ -210,7 +210,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public PaginatedEmployeeResponseDTO queryEmployees(RequestContextDTO requestContextDTO, EmployeeQueryRequestDTO employeeQueryRequestDTO) {
         log.info("Querying employees service...");
 
-        employeeValidationService.validateStoreId(employeeQueryRequestDTO.getStoreId());
+        employeeValidationService.validateStoreId(requestContextDTO.getStoreId());
 
         var pageable = PageableUtil.buildPageable(
                 employeeQueryRequestDTO.getPage(),
@@ -218,7 +218,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 employeeQueryRequestDTO.getSort()
         );
 
-        var specification = employeeSpecificationService.buildQuerySpecification(employeeQueryRequestDTO);
+        var specification = employeeSpecificationService.buildQuerySpecification(employeeQueryRequestDTO, requestContextDTO.getStoreId());
 
         var employees = employeeRepository.findAll(specification, pageable);
 
@@ -247,7 +247,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public PaginatedEmployeeResponseDTO searchEmployees(RequestContextDTO requestContextDTO, EmployeeSearchRequestDTO employeeSearchRequestDTO) {
         log.info("Searching employees service...");
 
-        employeeValidationService.validateStoreId(employeeSearchRequestDTO.getStoreId());
+        employeeValidationService.validateStoreId(requestContextDTO.getStoreId());
 
         var pageable = PageableUtil.buildPageable(
                 employeeSearchRequestDTO.getPage(),
@@ -255,7 +255,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 employeeSearchRequestDTO.getSort()
         );
 
-        var specification = employeeSpecificationService.buildSearchSpecification(employeeSearchRequestDTO);
+        var specification = employeeSpecificationService.buildSearchSpecification(employeeSearchRequestDTO, requestContextDTO.getStoreId());
 
         var employees = employeeRepository.findAll(specification, pageable);
 

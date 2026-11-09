@@ -44,6 +44,8 @@ public class GrpcInterceptor implements ServerInterceptor {
             var correlationId = validateHeaders(ContextKeys.METADATA_CORRELATION_ID.name(),
                     headers.get(ContextKeys.METADATA_CORRELATION_ID));
 
+            var storeId = headers.get(ContextKeys.METADATA_STORE_ID);
+
             var authorization = validateHeaders(ContextKeys.AUTHORIZATION_METADATA_KEY.name(),
                     headers.get(ContextKeys.AUTHORIZATION_METADATA_KEY));
 
@@ -58,6 +60,7 @@ public class GrpcInterceptor implements ServerInterceptor {
             Context context = Context.current()
                     .withValue(ContextKeys.CORRELATION_ID_CONTEXT_KEY, correlationId)
                     .withValue(ContextKeys.CONSUMER_ID_CONTEXT_KEY, consumerId)
+                    .withValue(ContextKeys.STORE_ID_CONTEXT_KEY, storeId)
                     .withValue(ContextKeys.AUTHORIZATION_CONTEXT_KEY, authorization);
 
             log.debug("gRPC request - CorrelationId: {}, ConsumerId: {}",
