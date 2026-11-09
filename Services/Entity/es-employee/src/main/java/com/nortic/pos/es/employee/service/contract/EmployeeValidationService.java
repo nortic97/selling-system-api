@@ -21,6 +21,8 @@ public interface EmployeeValidationService {
 
     void validateNewEmployee(EmployeeDTO employeeDTO);
 
-    void validateusername(UUID id, String username);
+    void validateUsername(UUID id, String username);
+
+    void validateStoreId(UUID storeId);
 
 }

@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+package com.nortic.pos.es.employee.workspace.grpc;
+
+option java_multiple_files = false;
+option java_package = "com.nortic.pos.es.employee.workspace.grpc";
+option java_outer_classname = "EmployeeWorkspaceProto";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+service EmployeeWorkspaceService {
+  rpc GetAllEmployeeWorkspaces(GetAllEmployeeWorkspacesRequest) returns (PaginatedEmployeeWorkspaceResponse);
+  rpc GetEmployeeWorkspaceById(GetEmployeeWorkspaceByIdRequest) returns (EmployeeWorkspaceResponse);
+  rpc CreateEmployeeWorkspace(CreateEmployeeWorkspaceRequest) returns (EmployeeWorkspaceResponse);
+  rpc UpdateEmployeeWorkspace(UpdateEmployeeWorkspaceRequest) returns (EmployeeWorkspaceResponse);
+  rpc DeleteEmployeeWorkspace(DeleteEmployeeWorkspaceRequest) returns (google.protobuf.Empty);
+  rpc RestoreEmployeeWorkspace(RestoreEmployeeWorkspaceRequest) returns (EmployeeWorkspaceResponse);
+  rpc UpdateLastAccess(UpdateLastAccessRequest) returns (EmployeeWorkspaceResponse);
+}
+
+
+message GetAllEmployeeWorkspacesRequest {
+  int32 page = 1;
+  int32 size = 2;
+  repeated string sort = 3;
+}
+
+message GetEmployeeWorkspaceByIdRequest {
+  string id = 1;
+}
+
+message DeleteEmployeeWorkspaceRequest {
+  string id = 1;
+}
+
+message RestoreEmployeeWorkspaceRequest {
+  string id = 1;
+}
+
+message UpdateLastAccessRequest {
+  string id = 1;
+}
+
+message CreateEmployeeWorkspaceRequest {
+  string store_id = 1;
+  string employee_id = 2;
+  string branch_id = 3;
+  string role_id = 4;
+  bool is_default = 5;
+}
+
+message UpdateEmployeeWorkspaceRequest {
+  string id = 1;
+  string branch_id = 2;
+  string role_id = 3;
+  bool is_default = 4;
+}
+
+
+message EmployeeWorkspaceResponse {
+  string id = 1;
+  string store_id = 2;
+  string employee_id = 3;
+  string branch_id = 4;
+  string role_id = 5;
+  bool is_default = 6;
+  optional google.protobuf.Timestamp last_access_at = 7;
+  bool is_active = 8;
+
+  google.protobuf.Timestamp created_at = 9;
+  google.protobuf.Timestamp updated_at = 10;
+  optional google.protobuf.Timestamp deleted_at = 11;
+}
+
+message PaginatedEmployeeWorkspaceResponse {
+  repeated EmployeeWorkspaceResponse content = 1;
+  int64 total_elements = 2;
+  int32 total_pages = 3;
+  int32 size = 4;
+  int32 number = 5;
+  bool first = 6;
+  bool last = 7;
+}

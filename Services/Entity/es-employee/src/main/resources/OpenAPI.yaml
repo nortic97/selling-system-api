@@ -23,13 +23,14 @@ paths:
   /api/v1/es/employee:
     get:
       summary: Obtener empleados paginados
-      description: Retorna una lista paginada de todos los empleados activos. Soporta paginación y ordenamiento mediante query params.
+      description: Retorna una lista paginada de todos los empleados activos de la tienda especificada. Soporta paginación y ordenamiento mediante query params.
       operationId: getAllEmployees
       tags:
         - Employee
       parameters:
         - $ref: '#/components/parameters/CorrelationIdHeader'
         - $ref: '#/components/parameters/ConsumerIdHeader'
+        - $ref: '#/components/parameters/StoreIdHeader'
         - $ref: '#/components/parameters/PageParam'
         - $ref: '#/components/parameters/SizeParam'
         - $ref: '#/components/parameters/SortParam'
@@ -49,7 +50,7 @@ paths:
 
     post:
       summary: Crear un nuevo empleado
-      description: Registra un nuevo empleado en el sistema. Valida todos los campos obligatorios.
+      description: Registra un nuevo empleado en el sistema para la tienda especificada. Valida todos los campos obligatorios.
       operationId: createEmployee
       tags:
         - Employee
@@ -80,13 +81,14 @@ paths:
   /api/v1/es/employee/search:
     post:
       summary: Búsqueda global de empleados
-      description: Busca empleados mediante un string de búsqueda que busca coincidencias parciales en múltiples campos. La paginación y ordenamiento se envían en el body.
+      description: Busca empleados de la tienda especificada mediante un string de búsqueda que busca coincidencias parciales en múltiples campos. La paginación y ordenamiento se envían en el body.
       operationId: queryEmployees
       tags:
         - Employee
       parameters:
         - $ref: '#/components/parameters/CorrelationIdHeader'
         - $ref: '#/components/parameters/ConsumerIdHeader'
+        - $ref: '#/components/parameters/StoreIdHeader'
       requestBody:
         required: false
         description: Criterio de búsqueda global, paginación y ordenamiento.
@@ -111,13 +113,14 @@ paths:
   /api/v1/es/employee/query:
     post:
       summary: Búsqueda avanzada de empleados
-      description: Busca empleados con filtros específicos por campo. Soporta filtros avanzados opcionales. La paginación y ordenamiento se envían en el body.
+      description: Busca empleados de la tienda especificada con filtros específicos por campo. Soporta filtros avanzados opcionales. La paginación y ordenamiento se envían en el body.
       operationId: searchEmployees
       tags:
         - Employee
       parameters:
         - $ref: '#/components/parameters/CorrelationIdHeader'
         - $ref: '#/components/parameters/ConsumerIdHeader'
+        - $ref: '#/components/parameters/StoreIdHeader'
       requestBody:
         required: false
         description: Criterios de búsqueda avanzada, paginación y ordenamiento.
@@ -505,6 +508,15 @@ components:
         format: uuid
         example: "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d"
       description: Identificador único universal (UUID v4) del empleado.
+    StoreIdHeader:
+      name: Store-Id
+      in: header
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d"
+      description: Header obligatorio para filtrar empleados por tienda. Solo se retornan empleados de la tienda especificada.
     PageParam:
       name: page
       in: query
@@ -710,6 +722,7 @@ components:
     CreateEmployeeRequestDTO:
       type: object
       required:
+        - storeId
         - firstName
         - lastName
         - documentType
@@ -719,6 +732,10 @@ components:
         - email
         - phone
       properties:
+        storeId:
+          type: string
+          format: uuid
+          x-field-extra-annotation: "@NotBlank"
         firstName:
           type: string
           maxLength: 100

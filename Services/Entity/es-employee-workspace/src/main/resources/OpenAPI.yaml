@@ -1,0 +1,476 @@
+openapi: 3.0.3
+info:
+  title: Enterprise Selling System - Employee Workspace Entity Service (es-employee-workspace)
+  description: Servicio de entidad encargado de la persistencia, validación y operaciones CRUD de espacios de trabajo de empleados (asignaciones a tiendas, sucursales y roles).
+  version: 0.0.1
+security:
+  - bearerAuth: [ ]
+
+servers:
+  - url: "{protocol}://{server}:{port}"
+    variables:
+      protocol:
+        enum:
+          - http
+          - https
+        default: https
+      server:
+        default: localhost
+      port:
+        default: "8080"
+
+paths:
+  /api/v1/es/employee-workspace:
+    get:
+      summary: Obtener espacios de trabajo de empleados paginados
+      description: Retorna una lista paginada de los espacios de trabajo de empleados para una tienda específica. Soporta paginación y ordenamiento mediante query params.
+      operationId: getAllEmployeeWorkspaces
+      tags:
+        - EmployeeWorkspace
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+        - $ref: '#/components/parameters/StoreIdHeader'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/SizeParam'
+        - $ref: '#/components/parameters/SortParam'
+      responses:
+        '200':
+          description: Operación exitosa. Retorna la estructura paginada con todos los espacios de trabajo de empleados activos.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedEmployeeWorkspaceResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+    post:
+      summary: Crear un nuevo espacio de trabajo de empleado
+      description: Registra una nueva asignación de empleado a tienda, sucursal y rol. Valida todos los campos obligatorios.
+      operationId: createEmployeeWorkspace
+      tags:
+        - EmployeeWorkspace
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      requestBody:
+        required: true
+        description: Datos del nuevo espacio de trabajo de empleado a crear.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEmployeeWorkspaceRequestDTO'
+      responses:
+        '201':
+          description: Espacio de trabajo de empleado creado exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeWorkspaceResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+  /api/v1/es/employee-workspace/{id}:
+    get:
+      summary: Obtener un espacio de trabajo de empleado por ID
+      description: Recupera los detalles de un espacio de trabajo de empleado mediante su UUID único.
+      operationId: getEmployeeWorkspaceById
+      tags:
+        - EmployeeWorkspace
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/EmployeeWorkspaceIdPathParam'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      responses:
+        '200':
+          description: Espacio de trabajo de empleado encontrado con éxito.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeWorkspaceResponseDTO'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+    put:
+      summary: Actualizar un espacio de trabajo de empleado existente
+      description: Modifica los campos de un espacio de trabajo de empleado existente. Valida la estructura de entrada.
+      operationId: updateEmployeeWorkspace
+      tags:
+        - EmployeeWorkspace
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/EmployeeWorkspaceIdPathParam'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      requestBody:
+        required: true
+        description: Campos del espacio de trabajo de empleado a actualizar.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateEmployeeWorkspaceRequestDTO'
+      responses:
+        '200':
+          description: Espacio de trabajo de empleado actualizado con éxito.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeWorkspaceResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+    delete:
+      summary: Eliminación lógica (Soft Delete)
+      description: Realiza una eliminación lógica del espacio de trabajo de empleado. El registro no se elimina físicamente, solo se marca como eliminado.
+      operationId: deleteEmployeeWorkspace
+      tags:
+        - EmployeeWorkspace
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/EmployeeWorkspaceIdPathParam'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      responses:
+        '204':
+          description: Registro marcado como eliminado lógicamente. No retorna cuerpo.
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+  /api/v1/es/employee-workspace/{id}/restore:
+    patch:
+      summary: Restaurar espacio de trabajo de empleado eliminado
+      description: Revierte la eliminación lógica de un espacio de trabajo de empleado. El registro vuelve a estar disponible en búsquedas estándar.
+      operationId: restoreEmployeeWorkspace
+      tags:
+        - EmployeeWorkspace
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/EmployeeWorkspaceIdPathParam'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      responses:
+        '200':
+          description: Espacio de trabajo de empleado restaurado y habilitado nuevamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeWorkspaceResponseDTO'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+  /api/v1/es/employee-workspace/{id}/last-access:
+    patch:
+      summary: Actualizar último acceso
+      description: Actualiza el timestamp de último acceso del espacio de trabajo de empleado.
+      operationId: updateLastAccess
+      tags:
+        - EmployeeWorkspace
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/EmployeeWorkspaceIdPathParam'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      responses:
+        '200':
+          description: Último acceso actualizado exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeWorkspaceResponseDTO'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  parameters:
+    CorrelationIdHeader:
+      name: Correlation-Id
+      in: header
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+      description: Header obligatorio de trazabilidad distribuida para logs correlacionados.
+    ConsumerIdHeader:
+      name: Consumer-Id
+      in: header
+      required: true
+      schema:
+        type: string
+        example: "SVP"
+      description: Header obligatorio de trazabilidad distribuida para consumidor.
+    StoreIdHeader:
+      name: Store-Id
+      in: header
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+      description: Header obligatorio con el ID de la tienda para filtrar los espacios de trabajo.
+    EmployeeWorkspaceIdPathParam:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d"
+      description: Identificador único universal (UUID v4) del espacio de trabajo de empleado.
+    PageParam:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+      description: Número de página (basado en índice cero).
+      style: form
+      explode: true
+      x-spring-paginated: true
+    SizeParam:
+      name: size
+      in: query
+      required: false
+      schema:
+        minimum: 5
+        maximum: 100
+        type: integer
+        default: 5
+      description: Cantidad de registros por página.
+      style: form
+      explode: true
+      x-spring-paginated: true
+    SortParam:
+      name: sort
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+      description: Criterio de ordenamiento con formato 'campo,asc' o 'campo,desc'. Soporta múltiples criterios.
+      style: form
+      explode: true
+      x-spring-paginated: true
+
+  responses:
+    400BadRequest:
+      description: Error de validación en los datos enviados o sintaxis JSON incorrecta.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseDTO'
+    403Forbidden:
+      description: El cliente no posee los roles o permisos suficientes.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseDTO'
+    404NotFound:
+      description: El recurso solicitado no existe o está eliminado.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseDTO'
+    500InternalServerError:
+      description: Excepción no controlada en el servidor.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseDTO'
+
+  schemas:
+    ErrorResponseDTO:
+      type: object
+      required:
+        - code
+        - message
+        - timestamp
+      properties:
+        code:
+          type: string
+          example: "VALIDATION_FAILED"
+        message:
+          type: string
+          example: "Uno o más campos enviados en la solicitud no pasaron las validaciones."
+        timestamp:
+          type: string
+          format: date-time
+          example: "2026-06-18T12:40:00Z"
+        details:
+          type: array
+          description: Lista de errores específicos por cada campo (aparece si es error de validación de entrada).
+          items:
+            $ref: '#/components/schemas/FieldErrorDetailDTO'
+
+    FieldErrorDetailDTO:
+      type: object
+      required:
+        - field
+        - message
+      properties:
+        field:
+          type: string
+          example: "storeId"
+        rejected_value:
+          type: string
+          example: "null"
+          nullable: true
+        message:
+          type: string
+          example: "El campo es requerido y no puede ser nulo o vacío."
+
+    PaginatedEmployeeWorkspaceResponseDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmployeeWorkspaceResponseDTO'
+        totalElements:
+          type: integer
+          format: int64
+          example: 125
+        totalPages:
+          type: integer
+          example: 13
+        size:
+          type: integer
+          example: 10
+        number:
+          type: integer
+          example: 0
+        first:
+          type: boolean
+          example: true
+        last:
+          type: boolean
+          example: false
+
+    EmployeeWorkspaceResponseDTO:
+      type: object
+      required:
+        - id
+        - storeId
+        - employeeId
+        - branchId
+        - roleId
+        - isDefault
+        - isActive
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: string
+          format: uuid
+        storeId:
+          type: string
+          format: uuid
+        employeeId:
+          type: string
+          format: uuid
+        branchId:
+          type: string
+          format: uuid
+        roleId:
+          type: string
+          format: uuid
+        isDefault:
+          type: boolean
+        lastAccessAt:
+          type: string
+          format: date-time
+          nullable: true
+        isActive:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        deletedAt:
+          type: string
+          format: date-time
+          nullable: true
+
+    CreateEmployeeWorkspaceRequestDTO:
+      type: object
+      required:
+        - storeId
+        - employeeId
+        - branchId
+        - roleId
+      properties:
+        storeId:
+          type: string
+          format: uuid
+          x-field-extra-annotation: "@NotBlank"
+        employeeId:
+          type: string
+          format: uuid
+          x-field-extra-annotation: "@NotBlank"
+        branchId:
+          type: string
+          format: uuid
+          x-field-extra-annotation: "@NotBlank"
+        roleId:
+          type: string
+          format: uuid
+          x-field-extra-annotation: "@NotBlank"
+        isDefault:
+          type: boolean
+          default: false
+          x-field-extra-annotation: "@NotNull"
+
+    UpdateEmployeeWorkspaceRequestDTO:
+      type: object
+      required:
+        - branchId
+        - roleId
+      properties:
+        branchId:
+          type: string
+          format: uuid
+          x-field-extra-annotation: "@NotBlank"
+        roleId:
+          type: string
+          format: uuid
+          x-field-extra-annotation: "@NotBlank"
+        isDefault:
+          type: boolean
+          x-field-extra-annotation: "@NotNull"
