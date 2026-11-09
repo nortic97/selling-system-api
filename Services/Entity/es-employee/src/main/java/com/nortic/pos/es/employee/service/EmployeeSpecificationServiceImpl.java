@@ -13,7 +13,7 @@ import java.util.UUID;
 public class EmployeeSpecificationServiceImpl implements EmployeeSpecificationService {
 
     @Override
-    public Specification<EmployeeEntity> buildSearchSpecification(EmployeeSearchRequestDTO searchRequest) {
+    public Specification<EmployeeEntity> buildSearchSpecification(EmployeeSearchRequestDTO searchRequest, UUID storeId) {
 
         Specification<EmployeeEntity> spec = (
                 root,
@@ -22,7 +22,7 @@ public class EmployeeSpecificationServiceImpl implements EmployeeSpecificationSe
         ) -> criteriaBuilder.conjunction();
 
         spec = spec.and((root, query, cb) ->
-                cb.equal(root.get("storeId").get("id"), searchRequest.getStoreId()));
+                cb.equal(root.get("storeId").get("id"), storeId));
 
         if (searchRequest.getFirstName() != null && !searchRequest.getFirstName().isBlank()) {
             spec = spec.and((root, query, cb) ->
@@ -78,11 +78,11 @@ public class EmployeeSpecificationServiceImpl implements EmployeeSpecificationSe
     }
 
     @Override
-    public Specification<EmployeeEntity> buildQuerySpecification(EmployeeQueryRequestDTO queryRequest) {
+    public Specification<EmployeeEntity> buildQuerySpecification(EmployeeQueryRequestDTO queryRequest, UUID storeId) {
         Specification<EmployeeEntity> spec = (root, query, cb) -> cb.conjunction();
 
         spec = spec.and((root, query, cb) ->
-                cb.equal(root.get("storeId").get("id"), queryRequest.getStoreId()));
+                cb.equal(root.get("storeId").get("id"), storeId));
 
         if (queryRequest.getQuery() == null || queryRequest.getQuery().isBlank()) {
             return spec;
@@ -101,10 +101,5 @@ public class EmployeeSpecificationServiceImpl implements EmployeeSpecificationSe
         ));
 
         return spec;
-    }
-
-    @Override
-    public Specification<EmployeeEntity> buildGetAllSpecification(UUID storeId) {
-        return (root, query, cb) -> cb.equal(root.get("storeId").get("id"), storeId);
     }
 }
