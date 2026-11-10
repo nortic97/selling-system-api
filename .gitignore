@@ -1,6 +1,9 @@
 ## Compile folder
 **/.idea/
 **/.vscode/
+
+### Local testing directory
+testing_tools/
 **/dist/
 /services/**.md
 **/logs/
@@ -22,3 +25,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Local testing directory
+testing_tools/
