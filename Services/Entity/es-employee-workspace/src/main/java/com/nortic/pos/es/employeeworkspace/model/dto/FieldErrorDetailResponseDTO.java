@@ -1,0 +1,19 @@
+package com.nortic.pos.es.employeeworkspace.model.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class FieldErrorDetailResponseDTO {
+
+    private String field;
+
+    private String rejectedValue;
+
+    private String message;
+}
