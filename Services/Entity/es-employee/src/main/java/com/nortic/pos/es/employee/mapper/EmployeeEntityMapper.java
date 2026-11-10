@@ -29,7 +29,7 @@ public abstract class EmployeeEntityMapper {
     )
     @Mapping(
             target = "username",
-            expression = "java(normalizeString(employeeDTO.getusername()))"
+            expression = "java(normalizeString(employeeDTO.getUsername()))"
     )
     @Mapping(
             target = "email",
