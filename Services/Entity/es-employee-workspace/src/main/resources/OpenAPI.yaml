@@ -439,19 +439,19 @@ components:
         storeId:
           type: string
           format: uuid
-          x-field-extra-annotation: "@NotBlank"
+          x-field-extra-annotation: "@NotNull"
         employeeId:
           type: string
           format: uuid
-          x-field-extra-annotation: "@NotBlank"
+          x-field-extra-annotation: "@NotNull"
         branchId:
           type: string
           format: uuid
-          x-field-extra-annotation: "@NotBlank"
+          x-field-extra-annotation: "@NotNull"
         roleId:
           type: string
           format: uuid
-          x-field-extra-annotation: "@NotBlank"
+          x-field-extra-annotation: "@NotNull"
         isDefault:
           type: boolean
           default: false
@@ -466,11 +466,11 @@ components:
         branchId:
           type: string
           format: uuid
-          x-field-extra-annotation: "@NotBlank"
+          x-field-extra-annotation: "@NotNull"
         roleId:
           type: string
           format: uuid
-          x-field-extra-annotation: "@NotBlank"
+          x-field-extra-annotation: "@NotNull"
         isDefault:
           type: boolean
           x-field-extra-annotation: "@NotNull"
