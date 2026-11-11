@@ -24,6 +24,11 @@ public abstract class EmployeeWorkspaceEntityMapper {
     @Mapping(target = "roleId", source = "roleId.id")
     public abstract EmployeeWorkspaceDTO toEmployeeWorkspaceDTO(EmployeeWorkspaceEntity employeeWorkspaceEntity);
 
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "lastAccessAt", ignore = true)
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "deletedAt", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "storeId", source = "storeId", qualifiedByName = "uuidToStoreEntity")
     @Mapping(target = "employeeId", source = "employeeId", qualifiedByName = "uuidToEmployeeEntity")
     @Mapping(target = "branchId", source = "branchId", qualifiedByName = "uuidToBranchEntity")
@@ -31,6 +36,14 @@ public abstract class EmployeeWorkspaceEntityMapper {
     @Mapping(target = "isActive", constant = "true")
     public abstract EmployeeWorkspaceEntity toEmployeeWorkspaceEntity(CreateEmployeeWorkspaceRequestDTO requestDTO);
 
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "storeId", ignore = true)
+    @Mapping(target = "lastAccessAt", ignore = true)
+    @Mapping(target = "isActive", ignore = true)
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "employeeId", ignore = true)
+    @Mapping(target = "deletedAt", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "branchId", source = "branchId", qualifiedByName = "uuidToBranchEntity")
     @Mapping(target = "roleId", source = "roleId", qualifiedByName = "uuidToRoleEntity")
     public abstract EmployeeWorkspaceEntity toEmployeeWorkspaceEntity(UpdateEmployeeWorkspaceRequestDTO requestDTO);

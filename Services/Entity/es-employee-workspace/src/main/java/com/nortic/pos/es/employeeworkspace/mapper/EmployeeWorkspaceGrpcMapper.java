@@ -34,6 +34,21 @@ public abstract class EmployeeWorkspaceGrpcMapper {
         return builder.build();
     }
 
+    @Mapping(target = "unknownFields", ignore = true)
+    @Mapping(target = "storeIdBytes", ignore = true)
+    @Mapping(target = "roleIdBytes", ignore = true)
+    @Mapping(target = "mergeUpdatedAt", ignore = true)
+    @Mapping(target = "mergeUnknownFields", ignore = true)
+    @Mapping(target = "mergeLastAccessAt", ignore = true)
+    @Mapping(target = "mergeFrom", ignore = true)
+    @Mapping(target = "mergeDeletedAt", ignore = true)
+    @Mapping(target = "mergeCreatedAt", ignore = true)
+    @Mapping(target = "idBytes", ignore = true)
+    @Mapping(target = "employeeIdBytes", ignore = true)
+    @Mapping(target = "clearOneof", ignore = true)
+    @Mapping(target = "clearField", ignore = true)
+    @Mapping(target = "branchIdBytes", ignore = true)
+    @Mapping(target = "allFields", ignore = true)
     @Mapping(target = "createdAt", qualifiedByName = "offsetDateTimeToTimestamp")
     @Mapping(target = "updatedAt", qualifiedByName = "offsetDateTimeToTimestamp")
     @Mapping(target = "deletedAt", qualifiedByName = "offsetDateTimeToTimestamp")
