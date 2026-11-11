@@ -19,6 +19,7 @@ public abstract class EmployeeRestMapper {
     @Mapping(target = "createdAt", ignore = true)
     public abstract EmployeeDTO toEmployeeDTO(RestModelCreateEmployeeRequestDTO employee);
 
+    @Mapping(target = "storeId", ignore = true)
     @Mapping(target = "username", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "phone", ignore = true)

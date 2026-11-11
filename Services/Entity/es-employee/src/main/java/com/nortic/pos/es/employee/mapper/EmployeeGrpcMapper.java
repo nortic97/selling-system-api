@@ -109,6 +109,7 @@ public abstract class EmployeeGrpcMapper {
     @Mapping(target = "sort", source = "sortList")
     public abstract EmployeeSearchRequestDTO toEmployeeSearchRequestDTO(EmployeeProto.SearchEmployeesRequest request);
 
+    @Mapping(target = "storeId", ignore = true)
     @Mapping(target = "password", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "isActive", ignore = true)
