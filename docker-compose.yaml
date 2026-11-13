@@ -139,7 +139,7 @@ services:
     build:
       context: ./Services/Utility/us-eureka-server
       dockerfile: Dockerfile
-    container_name: us-eureka-server
+    container_name: us-eureka
     ports:
       - "8761:8761"
     environment:
