@@ -1,0 +1,153 @@
+name: selling-system
+
+networks:
+  nortic-network:
+    name: nortic-network
+    driver: bridge
+
+services:
+
+  es-user:
+    build:
+      context: ./Services/Entity/es-user
+      dockerfile: Dockerfile
+    container_name: es-user
+    ports:
+      - "8081:8080"
+      - "9091:9090"
+    environment:
+      DB_HOST: PC-David.lan
+      EUREKA_URL: http://us-eureka:8761/eureka
+      ENVIRONMENT: DEV
+    networks:
+      - nortic-network
+    restart: unless-stopped
+
+  es-store:
+    build:
+      context: ./Services/Entity/es-store
+      dockerfile: Dockerfile
+    container_name: es-store
+    ports:
+      - "8082:8080"
+      - "9092:9090"
+    environment:
+      DB_HOST: PC-David.lan
+      EUREKA_URL: http://us-eureka:8761/eureka
+      ENVIRONMENT: DEV
+    networks:
+      - nortic-network
+    restart: unless-stopped
+
+  es-branch:
+    build:
+      context: ./Services/Entity/es-branch
+      dockerfile: Dockerfile
+    container_name: es-branch
+    ports:
+      - "8083:8080"
+      - "9093:9090"
+    environment:
+      DB_HOST: PC-David.lan
+      EUREKA_URL: http://us-eureka:8761/eureka
+      ENVIRONMENT: DEV
+    networks:
+      - nortic-network
+    restart: unless-stopped
+
+  es-permission:
+    build:
+      context: ./Services/Entity/es-permission
+      dockerfile: Dockerfile
+    container_name: es-permission
+    ports:
+      - "8084:8080"
+      - "9094:9090"
+    environment:
+      DB_HOST: PC-David.lan
+      EUREKA_URL: http://us-eureka:8761/eureka
+      ENVIRONMENT: DEV
+    networks:
+      - nortic-network
+    restart: unless-stopped
+
+  es-role:
+    build:
+      context: ./Services/Entity/es-role
+      dockerfile: Dockerfile
+    container_name: es-role
+    ports:
+      - "8085:8080"
+      - "9095:9090"
+    environment:
+      DB_HOST: PC-David.lan
+      EUREKA_URL: http://us-eureka:8761/eureka
+      ENVIRONMENT: DEV
+    networks:
+      - nortic-network
+    restart: unless-stopped
+
+  es-employee:
+    build:
+      context: ./Services/Entity/es-employee
+      dockerfile: Dockerfile
+    container_name: es-employee
+    ports:
+      - "8086:8080"
+      - "9096:9090"
+    environment:
+      DB_HOST: PC-David.lan
+      EUREKA_URL: http://us-eureka:8761/eureka
+      ENVIRONMENT: DEV
+    networks:
+      - nortic-network
+    restart: unless-stopped
+
+  es-employee-workspace:
+    build:
+      context: ./Services/Entity/es-employee-workspace
+      dockerfile: Dockerfile
+    container_name: es-employee-workspace
+    ports:
+      - "8087:8080"
+      - "9097:9090"
+    environment:
+      DB_HOST: PC-David.lan
+      EUREKA_URL: http://us-eureka:8761/eureka
+      ENVIRONMENT: DEV
+    networks:
+      - nortic-network
+    restart: unless-stopped
+
+  es-feature:
+    build:
+      context: ./Services/Entity/es-feature
+      dockerfile: Dockerfile
+    container_name: es-feature
+    ports:
+      - "8088:8080"
+      - "9098:9090"
+    environment:
+      DB_HOST: PC-David.lan
+      EUREKA_URL: http://us-eureka:8761/eureka
+      ENVIRONMENT: DEV
+    networks:
+      - nortic-network
+    restart: unless-stopped
+
+  us-eureka:
+    build:
+      context: ./Services/Utility/us-eureka-server
+      dockerfile: Dockerfile
+    container_name: us-eureka-server
+    ports:
+      - "8761:8761"
+    environment:
+      ENVIRONMENT: DEV
+    networks:
+      - nortic-network
+    restart: unless-stopped
+
+networks:
+  nortic-network:
+    driver: bridge

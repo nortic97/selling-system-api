@@ -8,14 +8,6 @@
 # -----------------------------------------------------------------------------
 FROM maven:3.9.9-eclipse-temurin-21 AS builder
 
-# Install Protocol Buffers compiler
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-        protobuf-compiler \
-        unzip \
-        curl \
-    && rm -rf /var/lib/apt/lists/*
-
 WORKDIR /app
 
 # Maven dependencies (Docker layer cache)
