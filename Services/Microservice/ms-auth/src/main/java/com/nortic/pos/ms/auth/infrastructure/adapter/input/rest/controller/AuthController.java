@@ -3,8 +3,8 @@ package com.nortic.pos.ms.auth.infrastructure.adapter.input.rest.controller;
 import com.nortic.pos.ms.auth.application.service.LoginService;
 import com.nortic.pos.ms.auth.infrastructure.adapter.input.rest.mapper.AuthRestMapper;
 import com.nortic.pos.ms.auth.rest.gen.api.AuthenticationApi;
-import com.nortic.pos.ms.auth.rest.gen.model.RestModelLoginRequest;
-import com.nortic.pos.ms.auth.rest.gen.model.RestModelLoginResponse;
+import com.nortic.pos.ms.auth.rest.gen.model.RestModelLoginRequestDTO;
+import com.nortic.pos.ms.auth.rest.gen.model.RestModelLoginResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -17,15 +17,15 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class AuthController implements AuthenticationApi {
 
-    private LoginService loginService;
-    private AuthRestMapper authRestMapper;
+    private final LoginService loginService;
+    private final AuthRestMapper authRestMapper;
 
     @Override
-    public ResponseEntity<RestModelLoginResponse> login(UUID correlationId, String consumerId, RestModelLoginRequest restModelLoginRequest) {
+    public ResponseEntity<RestModelLoginResponseDTO> login(UUID correlationId, String consumerId, RestModelLoginRequestDTO restModelLoginRequest) {
         log.info("Auth Controller Start...");
         var loginCredentials = authRestMapper.toLoginCredentials(restModelLoginRequest);
-        var l = loginService.login(loginCredentials);
+        var authResponse = loginService.loginUser(loginCredentials);
         log.info("Auth Controller Finalized...");
-        return ResponseEntity.ok().body(authRestMapper.toLoginResponse(l));
+        return ResponseEntity.ok().body(authRestMapper.toLoginResponse(authResponse));
     }
 }

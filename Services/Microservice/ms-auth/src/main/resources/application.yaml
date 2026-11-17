@@ -1,12 +1,25 @@
 spring:
   application:
     name: ms-auth
+    env: ${ENVIRONMENT:local}
+
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
+
+  web:
+    error:
+      include-stacktrace: never
+      include-exception: false
+      whitelabel:
+        enabled: false
+      include-path: never
+
   grpc:
     server:
-      port: 9090
-      reflection:
-        enabled: true
+      port: ${GRPC_PORT:9090}
       health:
+        enabled: true
+      reflection:
         enabled: true
     client:
       channel:
@@ -15,12 +28,40 @@ spring:
         es-employee:
           target: static://localhost:9096
 
+  jackson:
+    time-zone: ${TIME_ZONE:America/Bogota}
+
 server:
-  port: 8080
+  port: ${PORT:8080}
+  address: ${SERVER_ADDRESS:0.0.0.0}
+  shutdown: graceful
 
+security:
+  jwt:
+    secret: ${JWT_SECRET:TjByNzFjUDBzXzIwMjZfQmFja2VuZF9Vc2VyX1NlcnZpY2VfSnd0X1NlY3JldF9WM19BOXhMMm1RN3BSOHRXNG5L}
 
-jwt:
-  secret: ${JWT_SECRET:N0r71cP0s_2026_Backend_User_Service_Jwt_Secret_V3_A9xL2mQ7pR8tW4nK}
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
+    registry-fetch-interval-seconds: 5
+  instance:
+    prefer-ip-address: true
+    metadata-map:
+      metrics-path: ${EUREKA_METRICS_PATH:/actuator/prometheus}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - prometheus
+          - health
+          - info
+
+  endpoint:
+    health:
+      show-details: always
 
 springdoc:
   swagger-ui:

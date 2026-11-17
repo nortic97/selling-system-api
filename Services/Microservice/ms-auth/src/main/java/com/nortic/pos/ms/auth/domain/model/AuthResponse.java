@@ -1,5 +1,6 @@
 package com.nortic.pos.ms.auth.domain.model;
 
+import com.nortic.pos.ms.auth.domain.model.enums.TokenTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,5 +13,5 @@ import lombok.NoArgsConstructor;
 public class AuthResponse {
     private String token;
     private String refreshToken;
-    private String tokenType;
+    private TokenTypeEnum tokenTypeEnum;
 }

@@ -1,8 +1,10 @@
 openapi: 3.0.3
 info:
-  title: Authentication Service
-  description: Microservice for authentication and token generation
-  version: 1.0.0
+  title: Enterprise Selling System - Authentication Microservice (ms-auth)
+  description: Microservicio encargado de la autenticación de usuarios y generación de tokens JWT.
+  version: 0.0.1
+security:
+  - bearerAuth: [ ]
 servers:
   - url: "{protocol}://{server}:{port}"
     variables:
@@ -16,10 +18,10 @@ servers:
       port:
         default: "8080"
 paths:
-  /auth/login:
+  /api/v1/ms/auth/login:
     post:
-      summary: Authenticate user and generate token
-      description: Authenticates a user with username and password, returning an access token and refresh token
+      summary: Autenticar usuario y generar token
+      description: Autentica un usuario mediante username y password, retornando un token de acceso y token de refresco.
       operationId: login
       tags:
         - Authentication
@@ -31,27 +33,31 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/LoginRequest'
+              $ref: '#/components/schemas/LoginRequestDTO'
       responses:
         '200':
-          description: Successful authentication
+          description: Autenticación exitosa. Retorna el token de acceso y token de refresco.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/LoginResponse'
+                $ref: '#/components/schemas/LoginResponseDTO'
         '401':
-          description: Invalid credentials
+          description: Credenciales inválidas.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: '#/components/schemas/ErrorResponseDTO'
         '400':
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          $ref: '#/components/responses/400BadRequest'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
   parameters:
     CorrelationIdHeader:
       name: Correlation-Id
@@ -70,49 +76,38 @@ components:
         type: string
         example: "SVP"
       description: Header obligatorio de trazabilidad distribuida para consumidor.
+
+  responses:
+    400BadRequest:
+      description: Error de validación en los datos enviados o sintaxis JSON incorrecta.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseDTO'
+    500InternalServerError:
+      description: Excepción no controlada en el servidor.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseDTO'
+
   schemas:
-    LoginRequest:
-      type: object
-      required:
-        - username
-        - password
-        - accessType
-      properties:
-        username:
-          type: string
-          description: User username
-          example: admin
-        password:
-          type: string
-          format: password
-          description: User password
-          example: password123
-        accessType:
-          type: string
-          enum: [SYSTEM, POS, ADMIN]
-          description: Type of access to determine which entity to consult
-          example: ADMIN
-    LoginResponse:
-      type: object
-      required:
-        - token
-        - refreshToken
-        - tokenType
-      properties:
-        token:
-          type: string
-          description: JWT access token
-          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-        refreshToken:
-          type: string
-          description: Refresh token for obtaining new access tokens
-          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-        tokenType:
-          type: string
-          enum: [BEARER]
-          description: Type of token
-          example: Bearer
-    ErrorResponse:
+    # Enum Schemas
+    AccessTypeEnum:
+      type: string
+      enum:
+        - SYSTEM
+        - POS
+        - ADMIN
+      description: Tipo de acceso para determinar qué entidad consultar.
+    TokenTypeEnum:
+      type: string
+      enum:
+        - Bearer
+      description: Tipo de token.
+
+    # Error Schemas
+    ErrorResponseDTO:
       type: object
       required:
         - code
@@ -121,23 +116,21 @@ components:
       properties:
         code:
           type: string
-          description: Error code
-          example: AUTH_001
+          example: "AUTH_001"
         message:
           type: string
-          description: Error message
-          example: Invalid credentials
+          example: "Credenciales inválidas"
         timestamp:
           type: string
           format: date-time
-          description: Timestamp when the error occurred
-          example: '2024-01-01T00:00:00Z'
+          example: "2024-01-01T00:00:00Z"
         details:
           type: array
-          description: Additional error details
+          description: Lista de errores específicos por cada campo (aparece si es error de validación de entrada).
           items:
-            $ref: '#/components/schemas/FieldErrorDetail'
-    FieldErrorDetail:
+            $ref: '#/components/schemas/FieldErrorDetailDTO'
+
+    FieldErrorDetailDTO:
       type: object
       required:
         - field
@@ -145,13 +138,59 @@ components:
       properties:
         field:
           type: string
-          description: Field that caused the error
-          example: username
-        message:
-          type: string
-          description: Error message for the field
-          example: Username is required
+          example: "username"
         rejectedValue:
           type: string
-          description: The rejected value
-          example: ''
+          example: ""
+          nullable: true
+        message:
+          type: string
+          example: "El campo es requerido y no puede ser nulo o vacío."
+
+    # Request DTOs
+    LoginRequestDTO:
+      type: object
+      required:
+        - username
+        - password
+        - accessType
+      properties:
+        username:
+          type: string
+          minLength: 4
+          maxLength: 100
+          description: Nombre de usuario
+          example: admin
+          x-field-extra-annotation: "@NotBlank"
+        password:
+          type: string
+          format: password
+          minLength: 8
+          maxLength: 255
+          description: Contraseña del usuario
+          example: password123
+          x-field-extra-annotation: "@NotBlank"
+        accessType:
+          $ref: '#/components/schemas/AccessTypeEnum'
+          description: Tipo de acceso para determinar qué entidad consultar
+          x-field-extra-annotation: "@NotNull"
+
+    # Response DTOs
+    LoginResponseDTO:
+      type: object
+      required:
+        - token
+        - refreshToken
+        - tokenType
+      properties:
+        token:
+          type: string
+          description: Token de acceso JWT
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        refreshToken:
+          type: string
+          description: Token de refresco para obtener nuevos tokens de acceso
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        tokenType:
+          $ref: '#/components/schemas/TokenTypeEnum'
+          description: Tipo de token

@@ -4,5 +4,5 @@ import com.nortic.pos.ms.auth.domain.model.AuthResponse;
 import com.nortic.pos.ms.auth.domain.model.LoginCredentials;
 
 public interface LoginUseCase {
-    AuthResponse login(LoginCredentials credentials);
+    AuthResponse loginUser(LoginCredentials credentials);
 }

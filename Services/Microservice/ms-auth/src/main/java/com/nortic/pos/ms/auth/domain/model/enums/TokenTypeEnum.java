@@ -5,8 +5,10 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum AccessType {
-    SYSTEM,
-    POS,
-    ADMIN
+public enum TokenTypeEnum {
+
+    BEARER("Bearer");
+
+    private final String value;
+
 }
