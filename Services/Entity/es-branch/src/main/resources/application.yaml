@@ -77,3 +77,8 @@ management:
   endpoint:
     health:
       show-details: always
+
+springdoc:
+  swagger-ui:
+    path: /swagger
+  show-actuator: true

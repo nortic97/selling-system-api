@@ -1,0 +1,157 @@
+openapi: 3.0.3
+info:
+  title: Authentication Service
+  description: Microservice for authentication and token generation
+  version: 1.0.0
+servers:
+  - url: "{protocol}://{server}:{port}"
+    variables:
+      protocol:
+        enum:
+          - http
+          - https
+        default: https
+      server:
+        default: localhost
+      port:
+        default: "8080"
+paths:
+  /auth/login:
+    post:
+      summary: Authenticate user and generate token
+      description: Authenticates a user with username and password, returning an access token and refresh token
+      operationId: login
+      tags:
+        - Authentication
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Successful authentication
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  parameters:
+    CorrelationIdHeader:
+      name: Correlation-Id
+      in: header
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+      description: Header obligatorio de trazabilidad distribuida para logs correlacionados.
+    ConsumerIdHeader:
+      name: Consumer-Id
+      in: header
+      required: true
+      schema:
+        type: string
+        example: "SVP"
+      description: Header obligatorio de trazabilidad distribuida para consumidor.
+  schemas:
+    LoginRequest:
+      type: object
+      required:
+        - username
+        - password
+        - accessType
+      properties:
+        username:
+          type: string
+          description: User username
+          example: admin
+        password:
+          type: string
+          format: password
+          description: User password
+          example: password123
+        accessType:
+          type: string
+          enum: [SYSTEM, POS, ADMIN]
+          description: Type of access to determine which entity to consult
+          example: ADMIN
+    LoginResponse:
+      type: object
+      required:
+        - token
+        - refreshToken
+        - tokenType
+      properties:
+        token:
+          type: string
+          description: JWT access token
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        refreshToken:
+          type: string
+          description: Refresh token for obtaining new access tokens
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        tokenType:
+          type: string
+          enum: [BEARER]
+          description: Type of token
+          example: Bearer
+    ErrorResponse:
+      type: object
+      required:
+        - code
+        - message
+        - timestamp
+      properties:
+        code:
+          type: string
+          description: Error code
+          example: AUTH_001
+        message:
+          type: string
+          description: Error message
+          example: Invalid credentials
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the error occurred
+          example: '2024-01-01T00:00:00Z'
+        details:
+          type: array
+          description: Additional error details
+          items:
+            $ref: '#/components/schemas/FieldErrorDetail'
+    FieldErrorDetail:
+      type: object
+      required:
+        - field
+        - message
+      properties:
+        field:
+          type: string
+          description: Field that caused the error
+          example: username
+        message:
+          type: string
+          description: Error message for the field
+          example: Username is required
+        rejectedValue:
+          type: string
+          description: The rejected value
+          example: ''

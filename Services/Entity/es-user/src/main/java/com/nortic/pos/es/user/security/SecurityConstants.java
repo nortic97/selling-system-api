@@ -60,6 +60,7 @@ public final class SecurityConstants {
             "/actuator/**",
             "/swagger-ui/**",
             "/v3/api-docs/**",
+            "/swagger",
             USER_AUTHENTICATE
     };
 }

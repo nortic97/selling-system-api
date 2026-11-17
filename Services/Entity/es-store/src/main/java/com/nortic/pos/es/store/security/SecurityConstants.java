@@ -54,6 +54,7 @@ public final class SecurityConstants {
     public static final String[] PUBLIC_ENDPOINTS = {
             "/actuator/**",
             "/swagger-ui/**",
-            "/v3/api-docs/**"
+            "/v3/api-docs/**",
+            "/swagger"
     };
 }
