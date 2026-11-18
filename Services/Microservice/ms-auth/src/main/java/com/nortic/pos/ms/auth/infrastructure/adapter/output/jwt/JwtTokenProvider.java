@@ -44,7 +44,7 @@ public class JwtTokenProvider implements TokenProvider {
                 .subject(user.getId().toString())
                 .claim(JwtConstants.STORE_ID, null)
                 .claim(JwtConstants.BRANCH_ID, null)
-                .claim(JwtConstants.PERMISSIONS, List.of("system.all"))
+                .claim(JwtConstants.PERMISSIONS, List.of("admin.all"))
                 .claim(JwtConstants.TYPE, JwtConstants.ACCESS_TYPE_TOKEN)
                 .issuedAt(Date.from(now))
                 .expiration(Date.from(expiration))
