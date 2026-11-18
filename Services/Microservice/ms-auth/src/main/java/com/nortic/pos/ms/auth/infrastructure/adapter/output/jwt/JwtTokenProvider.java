@@ -65,8 +65,6 @@ public class JwtTokenProvider implements TokenProvider {
         return Jwts.builder()
                 .issuer(issuer)
                 .subject(issuer)
-                .claim(JwtConstants.STORE_ID, null)
-                .claim(JwtConstants.BRANCH_ID, null)
                 .claim(JwtConstants.PERMISSIONS, JwtConstants.INTERNAL_PERMISSIONS)
                 .claim(JwtConstants.TYPE, JwtConstants.INTERNAL_TYPE_TOKEN)
                 .issuedAt(Date.from(now))
