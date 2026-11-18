@@ -24,9 +24,9 @@ spring:
     client:
       channel:
         es-user:
-          target: static://localhost:9091
+          target: static://${USER_GRPC_HOST:localhost:9091}
         es-employee:
-          target: static://localhost:9096
+          target: static://${EMPLOYEE_GRPC_HOST:localhost:9096}
 
   jackson:
     time-zone: ${TIME_ZONE:America/Bogota}
