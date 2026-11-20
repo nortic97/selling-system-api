@@ -1,13 +1,17 @@
 package com.nortic.pos.ms.auth.infrastructure.adapter.output.jwt;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nortic.pos.ms.auth.application.port.output.TokenProvider;
 import com.nortic.pos.ms.auth.domain.model.User;
 import com.nortic.pos.ms.auth.infrastructure.adapter.output.jwt.constants.JwtConstants;
+import com.nortic.pos.ms.auth.infrastructure.adapter.output.jwt.dto.JwtClaims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -15,41 +19,64 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 @Slf4j
 @Component
 public class JwtTokenProvider implements TokenProvider {
 
-    private final SecretKey jwtSecret;
     private final String issuer;
+    private final SecretKey jwtSecret;
+    private final List<String> permissions;
+    private final ObjectMapper objectMapper;
 
     public JwtTokenProvider(
             @Value("${security.jwt.secret}") String jwtSecret,
-            @Value("${spring.application.name}") String issuer) {
+            @Value("${spring.application.name}") String issuer,
+            ObjectMapper objectMapper,
+            @Value("${security.owner.permissions}") List<String> permissions) {
 
-        this.jwtSecret = Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
         this.issuer = issuer;
+        this.jwtSecret = Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
+        this.permissions = permissions;
+        this.objectMapper = objectMapper;
     }
 
     @Override
     public String generateUserJwt(User user) {
         log.info("Generating JWT for user: {}", user.getId());
 
-        Instant now = Instant.now();
-        Instant expiration = now.plus(JwtConstants.EXPIRATION_HOURS, ChronoUnit.HOURS);
+        var expiration = Instant.now().plus(JwtConstants.ACCESS_EXPIRATION_MINUTES, ChronoUnit.MINUTES);
+
+        var claims = JwtClaims.builder()
+                .permissions(permissions)
+                .type(JwtConstants.ACCESS_TYPE_TOKEN)
+                .build();
 
         log.info("Generating JWT for user: {} finished", user.getId());
-        return Jwts.builder()
-                .issuer(issuer)
-                .subject(user.getId().toString())
-                .claim(JwtConstants.STORE_ID, null)
-                .claim(JwtConstants.BRANCH_ID, null)
-                .claim(JwtConstants.PERMISSIONS, List.of("admin.all"))
-                .claim(JwtConstants.TYPE, JwtConstants.ACCESS_TYPE_TOKEN)
-                .issuedAt(Date.from(now))
-                .expiration(Date.from(expiration))
-                .signWith(jwtSecret, Jwts.SIG.HS256)
-                .compact();
+
+        return generateJwt(user.getId().toString(), claims, expiration);
+    }
+
+    @Override
+    public String generateEmployeeJwt() {
+        return "";
+    }
+
+    @Override
+    public String generateRefreshToken(UUID subjectId) {
+        log.info("Generating refresh token for user: {}", subjectId);
+        var expiration = Instant.now().plus(JwtConstants.REFRESH_EXPIRATION_DAYS, ChronoUnit.DAYS);
+
+        var claims = JwtClaims.builder()
+                .type(JwtConstants.REFRESH_TYPE_TOKEN)
+                .build();
+
+
+        log.info("Generating refresh token for user: {} finished", subjectId);
+
+        return generateJwt(subjectId.toString(), claims, expiration);
     }
 
     @Override
@@ -57,19 +84,33 @@ public class JwtTokenProvider implements TokenProvider {
 
         log.info("Generating internal JWT");
 
-        Instant now = Instant.now();
-        Instant expiration = now.plus(JwtConstants.EXPIRATION_HOURS, ChronoUnit.HOURS);
+        var expiration = Instant.now().plus(JwtConstants.INTERNAL_EXPIRATION_MINUTES, ChronoUnit.MINUTES);
+
+        var claims = JwtClaims.builder()
+                .permissions(JwtConstants.INTERNAL_PERMISSIONS)
+                .type(JwtConstants.INTERNAL_TYPE_TOKEN)
+                .build();
 
         log.info("Generating internal JWT finished");
 
+        return generateJwt(issuer, claims, expiration);
+    }
+
+    private String generateJwt(String subject, JwtClaims claims, Instant expiration) {
+        Instant now = Instant.now();
+
         return Jwts.builder()
                 .issuer(issuer)
-                .subject(issuer)
-                .claim(JwtConstants.PERMISSIONS, JwtConstants.INTERNAL_PERMISSIONS)
-                .claim(JwtConstants.TYPE, JwtConstants.INTERNAL_TYPE_TOKEN)
+                .subject(subject)
+                .claims(toClaims(claims))
                 .issuedAt(Date.from(now))
                 .expiration(Date.from(expiration))
                 .signWith(jwtSecret, Jwts.SIG.HS256)
                 .compact();
     }
+
+    private Map<String, Object> toClaims(JwtClaims claims) {
+        return objectMapper.convertValue(claims, new TypeReference<>() {});
+    }
+
 }

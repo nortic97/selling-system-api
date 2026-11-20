@@ -12,14 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 public class JwtUser {
 
-    private String userId;
-
-    private String storeId;
-
-    private String branchId;
-
-    private String tokenType;
-
     private List<String> permissions;
 
     public boolean hasPermission(String permission) {

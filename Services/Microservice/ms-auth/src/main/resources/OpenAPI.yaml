@@ -51,6 +51,40 @@ paths:
           $ref: '#/components/responses/400BadRequest'
         '500':
           $ref: '#/components/responses/500InternalServerError'
+
+  /api/v1/ms/auth/employee/login:
+    post:
+      summary: Autenticar empleado y generar token
+      description: Autentica un empleado mediante username y password, retornando un token de acceso y token de refresco.
+      operationId: employeeLogin
+      tags:
+        - Authentication
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequestDTO'
+      responses:
+        '200':
+          description: Autenticación exitosa. Retorna el token de acceso y token de refresco.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponseDTO'
+        '401':
+          description: Credenciales inválidas.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
 components:
   securitySchemes:
     bearerAuth:

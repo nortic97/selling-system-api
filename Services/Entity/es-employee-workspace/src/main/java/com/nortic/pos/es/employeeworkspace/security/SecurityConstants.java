@@ -12,6 +12,8 @@ public final class SecurityConstants {
     // API Routes
     public static final String API_BASE_PATH = "/api/v1/es/employee-workspace";
 
+    public static final String EMPLOYEE_WORKSPACE_BY_STORE = API_BASE_PATH + "/store/{storeId}";
+    public static final String EMPLOYEE_WORKSPACE_BY_EMPLOYEE = API_BASE_PATH + "/employee/{employeeId}";
     public static final String EMPLOYEE_WORKSPACE_ID = API_BASE_PATH + "/{id}";
     public static final String EMPLOYEE_WORKSPACE_LAST_ACCESS = EMPLOYEE_WORKSPACE_ID + "/last-access";
     public static final String EMPLOYEE_WORKSPACE_RESTORE = EMPLOYEE_WORKSPACE_ID + "/restore";

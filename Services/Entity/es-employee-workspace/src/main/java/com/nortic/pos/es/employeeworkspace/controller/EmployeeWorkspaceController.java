@@ -28,16 +28,31 @@ public class EmployeeWorkspaceController implements EmployeeWorkspaceApi {
     private final EmployeeWorkspaceService employeeWorkspaceService;
 
     @Override
-    public ResponseEntity<RestModelPaginatedEmployeeWorkspaceResponseDTO> getAllEmployeeWorkspaces(UUID correlationId, String consumerId, UUID storeId, Integer page, Integer size, List<String> sort) {
-        log.info("Getting all employee workspaces REST controller...");
+    public ResponseEntity<RestModelPaginatedEmployeeWorkspaceResponseDTO> getEmployeeWorkspacesByStore(UUID correlationId, String consumerId, UUID storeId, Integer page, Integer size, List<String> sort) {
+        log.info("Getting employee workspaces by store REST controller...");
 
-        var requestContextDTO = RequestContextDTO.builder().correlationId(correlationId).consumerId(consumerId).storeId(storeId).build();
+        var requestContextDTO = RequestContextDTO.builder().correlationId(correlationId).consumerId(consumerId).build();
 
-        var pageable = PageableUtil.buildPageable(page, size, sort);
+        var requestDTO = employeeWorkspaceRestMapper.toGetEmployeeWorkspacesByStoreRequestDTO(storeId.toString(), page, size, sort);
 
-        var paginatedEmployeeWorkspaces = employeeWorkspaceService.getAllEmployeeWorkspaces(requestContextDTO, pageable);
+        var paginatedEmployeeWorkspaces = employeeWorkspaceService.getEmployeeWorkspacesByStore(requestContextDTO, requestDTO);
 
-        log.info("Getting all employee workspaces REST controller finished...");
+        log.info("Getting employee workspaces by store REST controller finished...");
+
+        return ResponseEntity.ok(employeeWorkspaceRestMapper.toRestModelPaginatedEmployeeWorkspaceResponseDTO(paginatedEmployeeWorkspaces));
+    }
+
+    @Override
+    public ResponseEntity<RestModelPaginatedEmployeeWorkspaceResponseDTO> getEmployeeWorkspacesByEmployee(UUID correlationId, String consumerId, UUID employeeId, Integer page, Integer size, List<String> sort) {
+        log.info("Getting employee workspaces by employee REST controller...");
+
+        var requestContextDTO = RequestContextDTO.builder().correlationId(correlationId).consumerId(consumerId).build();
+
+        var requestDTO = employeeWorkspaceRestMapper.toGetEmployeeWorkspacesByEmployeeRequestDTO(employeeId.toString(), page, size, sort);
+
+        var paginatedEmployeeWorkspaces = employeeWorkspaceService.getEmployeeWorkspacesByEmployee(requestContextDTO, requestDTO);
+
+        log.info("Getting employee workspaces by employee REST controller finished...");
 
         return ResponseEntity.ok(employeeWorkspaceRestMapper.toRestModelPaginatedEmployeeWorkspaceResponseDTO(paginatedEmployeeWorkspaces));
     }

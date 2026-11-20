@@ -664,6 +664,7 @@ components:
       type: object
       required:
         - id
+        - storeId
         - firstName
         - lastName
         - documentType
@@ -677,6 +678,10 @@ components:
         id:
           type: string
           format: uuid
+        storeId:
+          type: string
+          format: uuid
+          description: Identificador de la tienda a la que pertenece el empleado
         firstName:
           type: string
         lastName:

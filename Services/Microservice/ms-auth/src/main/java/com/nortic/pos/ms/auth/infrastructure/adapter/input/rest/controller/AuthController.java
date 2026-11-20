@@ -21,6 +21,15 @@ public class AuthController implements AuthenticationApi {
     private final AuthRestMapper authRestMapper;
 
     @Override
+    public ResponseEntity<RestModelLoginResponseDTO> employeeLogin(UUID correlationId, String consumerId, RestModelLoginRequestDTO restModelLoginRequestDTO) {
+        log.info("Employee Auth Controller Start...");
+        var loginCredentials = authRestMapper.toLoginCredentials(restModelLoginRequestDTO);
+        var authResponse = loginUseCase.loginEmployee(loginCredentials);
+        log.info("Employee Auth Controller Finalized...");
+        return ResponseEntity.ok().body(authRestMapper.toLoginResponse(authResponse));
+    }
+
+    @Override
     public ResponseEntity<RestModelLoginResponseDTO> login(UUID correlationId, String consumerId, RestModelLoginRequestDTO restModelLoginRequest) {
         log.info("Auth Controller Start...");
         var loginCredentials = authRestMapper.toLoginCredentials(restModelLoginRequest);
@@ -28,4 +37,6 @@ public class AuthController implements AuthenticationApi {
         log.info("Auth Controller Finalized...");
         return ResponseEntity.ok().body(authRestMapper.toLoginResponse(authResponse));
     }
+
+
 }

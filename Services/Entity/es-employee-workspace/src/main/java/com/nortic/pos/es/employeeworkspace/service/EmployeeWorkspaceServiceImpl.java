@@ -8,6 +8,7 @@ import com.nortic.pos.es.employeeworkspace.model.entity.EmployeeWorkspaceEntity;
 import com.nortic.pos.es.employeeworkspace.repository.EmployeeWorkspaceRepository;
 import com.nortic.pos.es.employeeworkspace.service.contract.EmployeeWorkspaceService;
 import com.nortic.pos.es.employeeworkspace.service.contract.EmployeeWorkspaceValidationService;
+import com.nortic.pos.es.employeeworkspace.util.PageableUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -30,18 +31,39 @@ public class EmployeeWorkspaceServiceImpl implements EmployeeWorkspaceService {
     private final EmployeeWorkspaceValidationService employeeWorkspaceValidationService;
 
     @Override
-    public PaginatedEmployeeWorkspaceResponseDTO getAllEmployeeWorkspaces(
+    public PaginatedEmployeeWorkspaceResponseDTO getEmployeeWorkspacesByStore(
             RequestContextDTO requestContextDTO,
-            Pageable pageable
+            GetEmployeeWorkspacesByStoreRequestDTO requestDTO
     ) {
-        log.info("Getting all employee workspaces service...");
+        log.info("Getting employee workspaces by store service...");
 
-        employeeWorkspaceValidationService.validateStoreId(requestContextDTO.getStoreId());
+        employeeWorkspaceValidationService.validateStoreId(requestDTO.getStoreId());
+
+        var pageable = PageableUtil.buildPageable(requestDTO.getPage(), requestDTO.getSize(), requestDTO.getSort());
 
         Page<EmployeeWorkspaceEntity> employeeWorkspaces = employeeWorkspaceRepository
-                .findByStoreIdIdAndIsActiveTrue(requestContextDTO.getStoreId(), pageable);
+                .findByStoreIdIdAndIsActiveTrue(requestDTO.getStoreId(), pageable);
 
-        log.info("Getting all employee workspaces service complete.");
+        log.info("Getting employee workspaces by store service complete.");
+
+        return employeeWorkspaceEntityMapper.toPaginatedEmployeeWorkspaceDTO(employeeWorkspaces);
+    }
+
+    @Override
+    public PaginatedEmployeeWorkspaceResponseDTO getEmployeeWorkspacesByEmployee(
+            RequestContextDTO requestContextDTO,
+            GetEmployeeWorkspacesByEmployeeRequestDTO requestDTO
+    ) {
+        log.info("Getting employee workspaces by employee service...");
+
+        employeeWorkspaceValidationService.validateEmployeeId(requestDTO.getEmployeeId());
+
+        var pageable = PageableUtil.buildPageable(requestDTO.getPage(), requestDTO.getSize(), requestDTO.getSort());
+
+        Page<EmployeeWorkspaceEntity> employeeWorkspaces = employeeWorkspaceRepository
+                .findByEmployeeIdIdAndIsActiveTrue(requestDTO.getEmployeeId(), pageable);
+
+        log.info("Getting employee workspaces by employee service complete.");
 
         return employeeWorkspaceEntityMapper.toPaginatedEmployeeWorkspaceDTO(employeeWorkspaces);
     }

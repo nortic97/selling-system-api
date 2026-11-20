@@ -7,9 +7,14 @@ import java.util.UUID;
 
 public interface EmployeeWorkspaceService {
 
-    PaginatedEmployeeWorkspaceResponseDTO getAllEmployeeWorkspaces(
+    PaginatedEmployeeWorkspaceResponseDTO getEmployeeWorkspacesByStore(
             RequestContextDTO requestContextDTO,
-            Pageable pageable
+            GetEmployeeWorkspacesByStoreRequestDTO requestDTO
+    );
+
+    PaginatedEmployeeWorkspaceResponseDTO getEmployeeWorkspacesByEmployee(
+            RequestContextDTO requestContextDTO,
+            GetEmployeeWorkspacesByEmployeeRequestDTO requestDTO
     );
 
     EmployeeWorkspaceDTO createEmployeeWorkspace(

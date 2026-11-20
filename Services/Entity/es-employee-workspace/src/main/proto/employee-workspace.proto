@@ -10,7 +10,8 @@ import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
 
 service EmployeeWorkspaceService {
-  rpc GetAllEmployeeWorkspaces(GetAllEmployeeWorkspacesRequest) returns (PaginatedEmployeeWorkspaceResponse);
+  rpc GetEmployeeWorkspacesByStore(GetEmployeeWorkspacesByStoreRequest) returns (PaginatedEmployeeWorkspaceResponse);
+  rpc GetEmployeeWorkspacesByEmployee(GetEmployeeWorkspacesByEmployeeRequest) returns (PaginatedEmployeeWorkspaceResponse);
   rpc GetEmployeeWorkspaceById(GetEmployeeWorkspaceByIdRequest) returns (EmployeeWorkspaceResponse);
   rpc CreateEmployeeWorkspace(CreateEmployeeWorkspaceRequest) returns (EmployeeWorkspaceResponse);
   rpc UpdateEmployeeWorkspace(UpdateEmployeeWorkspaceRequest) returns (EmployeeWorkspaceResponse);
@@ -20,10 +21,18 @@ service EmployeeWorkspaceService {
 }
 
 
-message GetAllEmployeeWorkspacesRequest {
-  int32 page = 1;
-  int32 size = 2;
-  repeated string sort = 3;
+message GetEmployeeWorkspacesByStoreRequest {
+  string store_id = 1;
+  int32 page = 2;
+  int32 size = 3;
+  repeated string sort = 4;
+}
+
+message GetEmployeeWorkspacesByEmployeeRequest {
+  string employee_id = 1;
+  int32 page = 2;
+  int32 size = 3;
+  repeated string sort = 4;
 }
 
 message GetEmployeeWorkspaceByIdRequest {

@@ -32,10 +32,6 @@ public class JwtService {
                 .getPayload();
 
         return JwtUser.builder()
-                .userId(claims.getSubject())
-                .storeId(claims.get(JwtClaim.STORE_ID.getValue(), String.class))
-                .branchId(claims.get(JwtClaim.BRANCH_ID.getValue(), String.class))
-                .tokenType(claims.get(JwtClaim.TOKEN_TYPE.getValue(), String.class))
                 .permissions(claims.get(JwtClaim.PERMISSIONS.getValue(), List.class))
                 .build();
     }
