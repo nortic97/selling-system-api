@@ -81,6 +81,31 @@ paths:
         '500':
           $ref: '#/components/responses/500InternalServerError'
 
+  /api/v1/es/store/tax-id/{taxId}:
+    get:
+      summary: Obtener una tienda por Tax ID
+      description: Obtiene los detalles de una tienda específica mediante su identificación fiscal (taxId)
+      operationId: getStoreByTaxId
+      tags:
+        - Store
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+        - $ref: '#/components/parameters/TaxIdPathParam'
+      responses:
+        '200':
+          description: Detalles de la tienda
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StoreResponseDTO'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
   /api/v1/es/store/{id}:
     get:
       summary: Obtener una tienda por ID
@@ -364,6 +389,14 @@ components:
       schema:
         type: string
         format: uuid
+    TaxIdPathParam:
+      name: taxId
+      in: path
+      required: true
+      description: Identificación fiscal de la tienda (taxId)
+      schema:
+        type: string
+        maxLength: 100
 
   responses:
     400BadRequest:

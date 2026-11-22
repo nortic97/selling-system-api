@@ -740,7 +740,7 @@ components:
         storeId:
           type: string
           format: uuid
-          x-field-extra-annotation: "@NotBlank"
+          x-field-extra-annotation: "@NotNull"
         firstName:
           type: string
           maxLength: 100
@@ -960,9 +960,14 @@ components:
     AuthenticateRequest:
       type: object
       required:
+        - storeId
         - username
         - password
       properties:
+        storeId:
+          type: string
+          format: uuid
+          x-field-extra-annotation: "@NotNull"
         username:
           type: string
           minLength: 4

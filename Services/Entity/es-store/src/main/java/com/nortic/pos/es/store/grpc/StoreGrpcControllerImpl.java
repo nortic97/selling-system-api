@@ -111,6 +111,31 @@ public class StoreGrpcControllerImpl extends StoreServiceGrpc.StoreServiceImplBa
     }
 
     @Override
+    public void getStoreByTaxId(StoreProto.TaxIdRequest request, StreamObserver<StoreProto.StoreResponse> responseObserver) {
+        try {
+            log.info("getStoreByTaxId gRPC Controller...");
+
+            var requestContextDTO = RequestContextDTO.builder()
+                    .correlationId(UUID.fromString(ContextKeys.CORRELATION_ID_CONTEXT_KEY.get()))
+                    .consumerId(ContextKeys.CONSUMER_ID_CONTEXT_KEY.get())
+                    .build();
+
+            var store = storeService.getStoreByTaxId(requestContextDTO, request.getTaxId());
+
+            var response = storeGrpcMapper.toStoreResponse(store);
+
+            log.info("getStoreByTaxId gRPC Controller Completed");
+
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+
+        } catch (Exception e) {
+            errorLog("getStoreByTaxId", e);
+            grpcException.grpcException(e, responseObserver);
+        }
+    }
+
+    @Override
     public void updateStore(StoreProto.UpdateStoreRequest request, StreamObserver<StoreProto.StoreResponse> responseObserver) {
         try {
             log.info("updateStore gRPC Controller...");
