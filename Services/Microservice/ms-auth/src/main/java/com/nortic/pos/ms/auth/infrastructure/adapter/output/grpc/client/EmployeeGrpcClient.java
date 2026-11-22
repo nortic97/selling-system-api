@@ -25,10 +25,10 @@ public class EmployeeGrpcClient implements EmployeeClient {
     public Employee authenticate(LoginCredentials loginCredentials) {
         log.info("EmployeeGrpcClient authenticate Start...");
         var credentials = employeeGrpcMapper.toAuthenticateRequest(loginCredentials);
-        var response = employeeStub.withInterceptors(
+        var employee = employeeStub.withInterceptors(
                 MetadataUtils.newAttachHeadersInterceptor(grpcHeaders.generateHeaders())
         ).authenticate(credentials);
         log.info("EmployeeGrpcClient authenticate Finalized...");
-        return null;
+        return employeeGrpcMapper.toEmployee(employee);
     }
 }

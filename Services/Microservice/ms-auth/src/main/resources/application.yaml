@@ -41,6 +41,8 @@ security:
     secret: ${JWT_SECRET:TjByNzFjUDBzXzIwMjZfQmFja2VuZF9Vc2VyX1NlcnZpY2VfSnd0X1NlY3JldF9WM19BOXhMMm1RN3BSOHRXNG5L}
   owner:
     permissions: ${OWNER_PERMISSIONS}
+  employee:
+    permissions: ${EMPLOYEE_PERMISSIONS}
 
 eureka:
   client:

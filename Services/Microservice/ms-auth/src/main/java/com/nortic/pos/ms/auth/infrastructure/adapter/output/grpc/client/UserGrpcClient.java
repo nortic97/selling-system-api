@@ -25,13 +25,13 @@ public class UserGrpcClient implements UserClient {
         log.info("Authenticating user grpc: {}", loginCredentials.getUsername());
 
         var credentials = userGrpcMapper.toAuthenticateRequest(loginCredentials);
-        var response = userStub
+        var user = userStub
                 .withInterceptors(
                         MetadataUtils.newAttachHeadersInterceptor(grpcHeaders.generateHeaders())
                 )
                 .authenticate(credentials);
     log.info("Authenticate user grpc finalized...");
-        return userGrpcMapper.toUser(response);
+        return userGrpcMapper.toUser(user);
     }
 
 

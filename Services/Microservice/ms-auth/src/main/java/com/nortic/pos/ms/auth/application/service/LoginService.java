@@ -38,7 +38,7 @@ public class LoginService implements LoginUseCase {
     public AuthResponse loginEmployee(LoginCredentials credentials) {
         log.info("Login Employee Service Start...");
         var employeeAuthenticate = employeeClient.authenticate(credentials);
-        var token = tokenProvider.generateEmployeeJwt();
+        var token = tokenProvider.generateEmployeeJwt(employeeAuthenticate);
         var refreshToken = tokenProvider.generateRefreshToken(employeeAuthenticate.getId());
         log.info("Login Employee Service Finalized...");
         return AuthResponse.builder()

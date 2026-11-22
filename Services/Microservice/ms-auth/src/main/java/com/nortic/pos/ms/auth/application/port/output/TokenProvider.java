@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public interface TokenProvider {
     String generateUserJwt(User user);
-    String generateEmployeeJwt();
+    String generateEmployeeJwt(Employee employee);
     String generateRefreshToken(UUID subjectId);
     String generateInternalJwt();
 }

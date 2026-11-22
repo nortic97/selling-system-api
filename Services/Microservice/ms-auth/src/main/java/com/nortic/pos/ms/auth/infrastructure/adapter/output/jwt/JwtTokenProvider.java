@@ -3,6 +3,7 @@ package com.nortic.pos.ms.auth.infrastructure.adapter.output.jwt;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nortic.pos.ms.auth.application.port.output.TokenProvider;
+import com.nortic.pos.ms.auth.domain.model.Employee;
 import com.nortic.pos.ms.auth.domain.model.User;
 import com.nortic.pos.ms.auth.infrastructure.adapter.output.jwt.constants.JwtConstants;
 import com.nortic.pos.ms.auth.infrastructure.adapter.output.jwt.dto.JwtClaims;
@@ -11,7 +12,6 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -28,18 +28,21 @@ public class JwtTokenProvider implements TokenProvider {
 
     private final String issuer;
     private final SecretKey jwtSecret;
-    private final List<String> permissions;
+    private final List<String> userPermissions;
+    private final List<String> employeePermissions;
     private final ObjectMapper objectMapper;
 
     public JwtTokenProvider(
             @Value("${security.jwt.secret}") String jwtSecret,
             @Value("${spring.application.name}") String issuer,
             ObjectMapper objectMapper,
-            @Value("${security.owner.permissions}") List<String> permissions) {
+            @Value("${security.owner.permissions}") List<String> userPermissions,
+            @Value("${security.employee.permissions}") List<String> employeePermissions) {
 
         this.issuer = issuer;
         this.jwtSecret = Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
-        this.permissions = permissions;
+        this.userPermissions = userPermissions;
+        this.employeePermissions = employeePermissions;
         this.objectMapper = objectMapper;
     }
 
@@ -50,7 +53,7 @@ public class JwtTokenProvider implements TokenProvider {
         var expiration = Instant.now().plus(JwtConstants.ACCESS_EXPIRATION_MINUTES, ChronoUnit.MINUTES);
 
         var claims = JwtClaims.builder()
-                .permissions(permissions)
+                .permissions(userPermissions)
                 .type(JwtConstants.ACCESS_TYPE_TOKEN)
                 .build();
 
@@ -60,8 +63,21 @@ public class JwtTokenProvider implements TokenProvider {
     }
 
     @Override
-    public String generateEmployeeJwt() {
-        return "";
+    public String generateEmployeeJwt(Employee employee) {
+
+        log.info("Generating JWT for employee: {}", employee.getId());
+
+        var expiration = Instant.now().plus(JwtConstants.ACCESS_EXPIRATION_MINUTES, ChronoUnit.MINUTES);
+
+        var claims = JwtClaims.builder()
+                .permissions(employeePermissions)
+                .type(JwtConstants.ACCESS_TYPE_TOKEN)
+                .build();
+
+        log.info("Generating JWT for employee: {} finished", employee.getId());
+
+        return generateJwt(employee.getId().toString(), claims, expiration);
+
     }
 
     @Override
@@ -110,7 +126,8 @@ public class JwtTokenProvider implements TokenProvider {
     }
 
     private Map<String, Object> toClaims(JwtClaims claims) {
-        return objectMapper.convertValue(claims, new TypeReference<>() {});
+        return objectMapper.convertValue(claims, new TypeReference<>() {
+        });
     }
 
 }
