@@ -7,7 +7,6 @@ import com.nortic.pos.es.employeeworkspace.grpc.interceptor.GrpcInterceptor;
 import com.nortic.pos.es.employeeworkspace.mapper.EmployeeWorkspaceGrpcMapper;
 import com.nortic.pos.es.employeeworkspace.model.dto.RequestContextDTO;
 import com.nortic.pos.es.employeeworkspace.service.contract.EmployeeWorkspaceService;
-import com.nortic.pos.es.employeeworkspace.util.PageableUtil;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,28 +26,53 @@ public class EmployeeWorkspaceGrpcControllerImpl extends EmployeeWorkspaceServic
     private final EmployeeWorkspaceGrpcMapper employeeWorkspaceGrpcMapper;
 
     @Override
-    public void getAllEmployeeWorkspaces(EmployeeWorkspaceProto.GetAllEmployeeWorkspacesRequest request, StreamObserver<EmployeeWorkspaceProto.PaginatedEmployeeWorkspaceResponse> responseObserver) {
-        log.info("getAllEmployeeWorkspaces gRPC Controller...");
+    public void getEmployeeWorkspacesByStore(EmployeeWorkspaceProto.GetEmployeeWorkspacesByStoreRequest request, StreamObserver<EmployeeWorkspaceProto.PaginatedEmployeeWorkspaceResponse> responseObserver) {
+        log.info("getEmployeeWorkspacesByStore gRPC Controller...");
 
         try {
             var requestContextDTO = RequestContextDTO.builder()
                     .correlationId(UUID.fromString(ContextKeys.CORRELATION_ID_CONTEXT_KEY.get()))
                     .consumerId(ContextKeys.CONSUMER_ID_CONTEXT_KEY.get())
-                    .storeId(ContextKeys.STORE_ID_CONTEXT_KEY.get() != null ? UUID.fromString(ContextKeys.STORE_ID_CONTEXT_KEY.get()) : null)
                     .build();
 
-            var pageable = PageableUtil.buildPageable(request.getPage(), request.getSize(), request.getSortList());
+            var requestDTO = employeeWorkspaceGrpcMapper.toGetEmployeeWorkspacesByStoreRequestDTO(request);
 
-            var paginatedEmployeeWorkspaces = employeeWorkspaceService.getAllEmployeeWorkspaces(requestContextDTO, pageable);
+            var paginatedEmployeeWorkspaces = employeeWorkspaceService.getEmployeeWorkspacesByStore(requestContextDTO, requestDTO);
 
             var response = employeeWorkspaceGrpcMapper.toPaginatedEmployeeWorkspaceResponse(paginatedEmployeeWorkspaces);
 
             responseObserver.onNext(response);
             responseObserver.onCompleted();
 
-            log.info("getAllEmployeeWorkspaces gRPC Controller complete.");
+            log.info("getEmployeeWorkspacesByStore gRPC Controller complete.");
         } catch (Exception e) {
-            errorLog("getAllEmployeeWorkspaces", e);
+            errorLog("getEmployeeWorkspacesByStore", e);
+            grpcException.grpcException(e, responseObserver);
+        }
+    }
+
+    @Override
+    public void getEmployeeWorkspacesByEmployee(EmployeeWorkspaceProto.GetEmployeeWorkspacesByEmployeeRequest request, StreamObserver<EmployeeWorkspaceProto.PaginatedEmployeeWorkspaceResponse> responseObserver) {
+        log.info("getEmployeeWorkspacesByEmployee gRPC Controller...");
+
+        try {
+            var requestContextDTO = RequestContextDTO.builder()
+                    .correlationId(UUID.fromString(ContextKeys.CORRELATION_ID_CONTEXT_KEY.get()))
+                    .consumerId(ContextKeys.CONSUMER_ID_CONTEXT_KEY.get())
+                    .build();
+
+            var requestDTO = employeeWorkspaceGrpcMapper.toGetEmployeeWorkspacesByEmployeeRequestDTO(request);
+
+            var paginatedEmployeeWorkspaces = employeeWorkspaceService.getEmployeeWorkspacesByEmployee(requestContextDTO, requestDTO);
+
+            var response = employeeWorkspaceGrpcMapper.toPaginatedEmployeeWorkspaceResponse(paginatedEmployeeWorkspaces);
+
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+
+            log.info("getEmployeeWorkspacesByEmployee gRPC Controller complete.");
+        } catch (Exception e) {
+            errorLog("getEmployeeWorkspacesByEmployee", e);
             grpcException.grpcException(e, responseObserver);
         }
     }

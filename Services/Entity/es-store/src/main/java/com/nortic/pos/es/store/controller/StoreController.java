@@ -131,6 +131,21 @@ public class StoreController implements StoreApi {
     }
 
     @Override
+    public ResponseEntity<RestModelStoreResponseDTO> getStoreByTaxId(UUID correlationId, String consumerId, String taxId) {
+        log.info("Get store by taxId controller ...");
+
+        var requestContextDTO = RequestContextDTO.builder()
+                .correlationId(correlationId)
+                .consumerId(consumerId)
+                .build();
+
+        var storeDTO = storeService.getStoreByTaxId(requestContextDTO, taxId);
+
+        log.info("Get store by taxId controller completed ...");
+        return ResponseEntity.ok(storeRestMapper.toStoreResponseDTO(storeDTO));
+    }
+
+    @Override
     public ResponseEntity<RestModelStoreResponseDTO> restoreStore(UUID correlationId, String consumerId, UUID id) {
         log.info("Restore store controller ...");
 

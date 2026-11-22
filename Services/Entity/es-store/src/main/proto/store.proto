@@ -59,6 +59,10 @@ message StoreIdRequest {
   string id = 1;
 }
 
+message TaxIdRequest {
+  string tax_id = 1;
+}
+
 message ChangeStatusRequest {
   string id = 1;
   bool active = 2;
@@ -130,6 +134,7 @@ service StoreService {
   rpc CreateStore(StoreRequest) returns (StoreResponse);
   rpc ListStores(PaginationRequest) returns (PaginatedStoreResponse);
   rpc GetStore(StoreIdRequest) returns (StoreResponse);
+  rpc GetStoreByTaxId(TaxIdRequest) returns (StoreResponse);
   rpc UpdateStore(UpdateStoreRequest) returns (StoreResponse);
   rpc DeleteStore(StoreIdRequest) returns (google.protobuf.Empty);
   rpc ChangeStatus(ChangeStatusRequest) returns (StoreResponse);

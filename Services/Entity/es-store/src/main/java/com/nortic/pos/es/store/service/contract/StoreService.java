@@ -8,6 +8,8 @@ public interface StoreService {
 
     StoreDTO getStore(RequestContextDTO requestContextDTO, UUID id);
 
+    StoreDTO getStoreByTaxId(RequestContextDTO requestContextDTO, String taxId);
+
     StoreDTO createStore(RequestContextDTO requestContextDTO, StoreDTO storeDTO);
 
     PaginatedStoreResponseDTO listStores(RequestContextDTO requestContextDTO, SearchParamsDTO searchParamsDTO);

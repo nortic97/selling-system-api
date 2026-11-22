@@ -4,11 +4,19 @@ spring:
     name: ${APPLICATION_NAME:es-role}
     env: ${ENVIRONMENT:local}
 
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
+
   datasource:
     url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:selling_system}
     username: ${DB_USERNAME:postgres}
     password: ${DB_PASSWORD:123456}
     driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 3
+      minimum-idle: 1
+      idle-timeout: 30000
+      max-lifetime: 1800000
 
   sql:
     init:
@@ -30,7 +38,7 @@ spring:
 
   grpc:
     server:
-      port: ${GRPC_PORT:9091}
+      port: ${GRPC_PORT:9090}
       health:
         enabled: true
       reflection:
@@ -42,7 +50,7 @@ spring:
 server:
   port: ${PORT:8080}
   address: ${SERVER_ADDRESS:0.0.0.0}
-  shutdown: ${SHUTDOWN:IMMEDIATE}
+  shutdown: graceful
 
 security:
   jwt:
@@ -70,3 +78,8 @@ management:
   endpoint:
     health:
       show-details: always
+
+springdoc:
+  swagger-ui:
+    path: /swagger
+  show-actuator: true

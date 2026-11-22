@@ -17,6 +17,8 @@ public interface EmployeeWorkspaceRepository extends JpaRepository<EmployeeWorks
 
     Page<EmployeeWorkspaceEntity> findByStoreIdIdAndIsActiveTrue(UUID storeId, Pageable pageable);
 
+    Page<EmployeeWorkspaceEntity> findByEmployeeIdIdAndIsActiveTrue(UUID employeeId, Pageable pageable);
+
     Optional<EmployeeWorkspaceEntity> findByIdAndIsActiveTrue(UUID id);
 
     Optional<EmployeeWorkspaceEntity> findByEmployeeIdIdAndStoreIdIdAndIsDefaultTrueAndIsActiveTrue(UUID employeeId, UUID storeId);

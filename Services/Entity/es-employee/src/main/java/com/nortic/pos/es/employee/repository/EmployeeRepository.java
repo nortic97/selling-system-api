@@ -18,6 +18,8 @@ import java.util.UUID;
 public interface EmployeeRepository extends JpaRepository<EmployeeEntity, UUID>, JpaSpecificationExecutor<EmployeeEntity> {
     Optional<EmployeeEntity> findByUsernameIgnoreCase(String username);
 
+    Optional<EmployeeEntity> findByStoreIdIdAndUsernameIgnoreCase(UUID storeId, String username);
+
     Page<EmployeeEntity> findByStoreIdId(UUID storeId, Pageable pageable);
 
     boolean existsByStoreIdIdAndUsernameIgnoreCase(UUID storeId, String username);

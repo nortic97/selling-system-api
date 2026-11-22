@@ -36,7 +36,8 @@ public class SecurityFilterConfig {
                         .requestMatchers(SecurityConstants.PUBLIC_ENDPOINTS).permitAll()
 
                         .requestMatchers(HttpMethod.GET,
-                                SecurityConstants.API_BASE_PATH,
+                                SecurityConstants.EMPLOYEE_WORKSPACE_BY_STORE,
+                                SecurityConstants.EMPLOYEE_WORKSPACE_BY_EMPLOYEE,
                                 SecurityConstants.EMPLOYEE_WORKSPACE_ID)
                         .hasAnyAuthority(
                                 SecurityConstants.PERMISSION_EMPLOYEE_WORKSPACE_READ,
