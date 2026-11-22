@@ -1,7 +1,10 @@
 package com.nortic.pos.ms.auth.domain.model;
 
 import com.nortic.pos.ms.auth.domain.model.enums.DocumentTypeEnum;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.OffsetDateTime;

@@ -8,7 +8,6 @@ import com.nortic.pos.es.employee_workspace.rest.gen.model.RestModelUpdateEmploy
 import com.nortic.pos.es.employeeworkspace.mapper.EmployeeWorkspaceRestMapper;
 import com.nortic.pos.es.employeeworkspace.model.dto.RequestContextDTO;
 import com.nortic.pos.es.employeeworkspace.service.contract.EmployeeWorkspaceService;
-import com.nortic.pos.es.employeeworkspace.util.PageableUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

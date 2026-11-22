@@ -7,7 +7,6 @@ import com.nortic.pos.es.employeeworkspace.grpc.interceptor.GrpcInterceptor;
 import com.nortic.pos.es.employeeworkspace.mapper.EmployeeWorkspaceGrpcMapper;
 import com.nortic.pos.es.employeeworkspace.model.dto.RequestContextDTO;
 import com.nortic.pos.es.employeeworkspace.service.contract.EmployeeWorkspaceService;
-import com.nortic.pos.es.employeeworkspace.util.PageableUtil;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

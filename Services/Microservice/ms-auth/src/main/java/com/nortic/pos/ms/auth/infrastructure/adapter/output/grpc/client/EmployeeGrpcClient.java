@@ -2,7 +2,6 @@ package com.nortic.pos.ms.auth.infrastructure.adapter.output.grpc.client;
 
 import com.nortic.pos.es.employee.grpc.EmployeeServiceGrpc;
 import com.nortic.pos.ms.auth.application.port.output.EmployeeClient;
-import com.nortic.pos.ms.auth.application.port.output.TokenProvider;
 import com.nortic.pos.ms.auth.domain.model.Employee;
 import com.nortic.pos.ms.auth.domain.model.LoginCredentials;
 import com.nortic.pos.ms.auth.infrastructure.adapter.output.grpc.mapper.EmployeeGrpcMapper;

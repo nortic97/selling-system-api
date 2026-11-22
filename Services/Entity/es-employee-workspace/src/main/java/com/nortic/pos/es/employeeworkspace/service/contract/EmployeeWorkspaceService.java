@@ -1,7 +1,6 @@
 package com.nortic.pos.es.employeeworkspace.service.contract;
 
 import com.nortic.pos.es.employeeworkspace.model.dto.*;
-import org.springframework.data.domain.Pageable;
 
 import java.util.UUID;
 

@@ -2,12 +2,7 @@ package com.nortic.pos.es.employeeworkspace.mapper;
 
 import com.google.protobuf.Timestamp;
 import com.nortic.pos.es.employeeworkspace.grpc.EmployeeWorkspaceProto;
-import com.nortic.pos.es.employeeworkspace.model.dto.CreateEmployeeWorkspaceRequestDTO;
-import com.nortic.pos.es.employeeworkspace.model.dto.EmployeeWorkspaceDTO;
-import com.nortic.pos.es.employeeworkspace.model.dto.GetEmployeeWorkspacesByEmployeeRequestDTO;
-import com.nortic.pos.es.employeeworkspace.model.dto.GetEmployeeWorkspacesByStoreRequestDTO;
-import com.nortic.pos.es.employeeworkspace.model.dto.PaginatedEmployeeWorkspaceResponseDTO;
-import com.nortic.pos.es.employeeworkspace.model.dto.UpdateEmployeeWorkspaceRequestDTO;
+import com.nortic.pos.es.employeeworkspace.model.dto.*;
 import org.mapstruct.*;
 
 import java.time.OffsetDateTime;

@@ -4,12 +4,7 @@ import com.nortic.pos.es.employee_workspace.rest.gen.model.RestModelCreateEmploy
 import com.nortic.pos.es.employee_workspace.rest.gen.model.RestModelEmployeeWorkspaceResponseDTO;
 import com.nortic.pos.es.employee_workspace.rest.gen.model.RestModelPaginatedEmployeeWorkspaceResponseDTO;
 import com.nortic.pos.es.employee_workspace.rest.gen.model.RestModelUpdateEmployeeWorkspaceRequestDTO;
-import com.nortic.pos.es.employeeworkspace.model.dto.CreateEmployeeWorkspaceRequestDTO;
-import com.nortic.pos.es.employeeworkspace.model.dto.EmployeeWorkspaceDTO;
-import com.nortic.pos.es.employeeworkspace.model.dto.GetEmployeeWorkspacesByEmployeeRequestDTO;
-import com.nortic.pos.es.employeeworkspace.model.dto.GetEmployeeWorkspacesByStoreRequestDTO;
-import com.nortic.pos.es.employeeworkspace.model.dto.PaginatedEmployeeWorkspaceResponseDTO;
-import com.nortic.pos.es.employeeworkspace.model.dto.UpdateEmployeeWorkspaceRequestDTO;
+import com.nortic.pos.es.employeeworkspace.model.dto.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.NullValuePropertyMappingStrategy;
