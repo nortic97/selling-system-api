@@ -2,6 +2,8 @@ package com.nortic.pos.es.employee.model.dto;
 
 import lombok.*;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @Builder
@@ -9,6 +11,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AuthenticateRequestDTO {
+
+    private UUID storeId;
 
     private String username;
 

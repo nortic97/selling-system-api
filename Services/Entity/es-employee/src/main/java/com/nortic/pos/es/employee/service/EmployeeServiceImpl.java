@@ -143,7 +143,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         String normalizedUsername = authenticateRequestDTO.getUsername().trim().toLowerCase();
 
-        var employee = employeeRepository.findByUsernameIgnoreCase(normalizedUsername)
+        var employee = employeeRepository.findByStoreIdIdAndUsernameIgnoreCase(
+                        authenticateRequestDTO.getStoreId(),
+                        normalizedUsername)
                 .orElseThrow(() -> new EmployeeBusinessException(EmployeeExceptionCode.EMPLOYEE_NOT_FOUND));
 
         if (!passwordEncoder.matches(authenticateRequestDTO.getPassword(), employee.getPassword())) {

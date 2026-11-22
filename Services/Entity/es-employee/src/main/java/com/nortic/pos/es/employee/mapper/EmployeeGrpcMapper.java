@@ -35,6 +35,7 @@ public abstract class EmployeeGrpcMapper {
         return builder.build();
     }
 
+    @Mapping(target = "storeIdBytes", ignore = true)
     @Mapping(target = "passwordBytes", ignore = true)
     @Mapping(target = "usernameBytes", ignore = true)
     @Mapping(target = "unknownFields", ignore = true)

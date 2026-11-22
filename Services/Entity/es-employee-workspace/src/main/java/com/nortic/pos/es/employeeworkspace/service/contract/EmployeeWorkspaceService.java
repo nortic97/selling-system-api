@@ -1,15 +1,19 @@
 package com.nortic.pos.es.employeeworkspace.service.contract;
 
 import com.nortic.pos.es.employeeworkspace.model.dto.*;
-import org.springframework.data.domain.Pageable;
 
 import java.util.UUID;
 
 public interface EmployeeWorkspaceService {
 
-    PaginatedEmployeeWorkspaceResponseDTO getAllEmployeeWorkspaces(
+    PaginatedEmployeeWorkspaceResponseDTO getEmployeeWorkspacesByStore(
             RequestContextDTO requestContextDTO,
-            Pageable pageable
+            GetEmployeeWorkspacesByStoreRequestDTO requestDTO
+    );
+
+    PaginatedEmployeeWorkspaceResponseDTO getEmployeeWorkspacesByEmployee(
+            RequestContextDTO requestContextDTO,
+            GetEmployeeWorkspacesByEmployeeRequestDTO requestDTO
     );
 
     EmployeeWorkspaceDTO createEmployeeWorkspace(

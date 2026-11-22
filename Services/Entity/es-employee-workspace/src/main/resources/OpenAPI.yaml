@@ -20,23 +20,51 @@ servers:
         default: "8080"
 
 paths:
-  /api/v1/es/employee-workspace:
+  /api/v1/es/employee-workspace/store/{storeId}:
     get:
-      summary: Obtener espacios de trabajo de empleados paginados
+      summary: Obtener espacios de trabajo de empleados por tienda
       description: Retorna una lista paginada de los espacios de trabajo de empleados para una tienda específica. Soporta paginación y ordenamiento mediante query params.
-      operationId: getAllEmployeeWorkspaces
+      operationId: getEmployeeWorkspacesByStore
       tags:
         - EmployeeWorkspace
       parameters:
         - $ref: '#/components/parameters/CorrelationIdHeader'
         - $ref: '#/components/parameters/ConsumerIdHeader'
-        - $ref: '#/components/parameters/StoreIdHeader'
+        - $ref: '#/components/parameters/StoreIdPathParam'
         - $ref: '#/components/parameters/PageParam'
         - $ref: '#/components/parameters/SizeParam'
         - $ref: '#/components/parameters/SortParam'
       responses:
         '200':
-          description: Operación exitosa. Retorna la estructura paginada con todos los espacios de trabajo de empleados activos.
+          description: Operación exitosa. Retorna la estructura paginada con todos los espacios de trabajo de empleados activos de la tienda.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedEmployeeWorkspaceResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+  /api/v1/es/employee-workspace/employee/{employeeId}:
+    get:
+      summary: Obtener espacios de trabajo de un empleado
+      description: Retorna una lista paginada de los espacios de trabajo de un empleado específico. Soporta paginación y ordenamiento mediante query params.
+      operationId: getEmployeeWorkspacesByEmployee
+      tags:
+        - EmployeeWorkspace
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+        - $ref: '#/components/parameters/EmployeeIdPathParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/SizeParam'
+        - $ref: '#/components/parameters/SortParam'
+      responses:
+        '200':
+          description: Operación exitosa. Retorna la estructura paginada con todos los espacios de trabajo del empleado.
           content:
             application/json:
               schema:
@@ -231,15 +259,24 @@ components:
         type: string
         example: "SVP"
       description: Header obligatorio de trazabilidad distribuida para consumidor.
-    StoreIdHeader:
-      name: Store-Id
-      in: header
+    StoreIdPathParam:
+      name: storeId
+      in: path
       required: true
       schema:
         type: string
         format: uuid
         example: "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
-      description: Header obligatorio con el ID de la tienda para filtrar los espacios de trabajo.
+      description: ID de la tienda para filtrar los espacios de trabajo.
+    EmployeeIdPathParam:
+      name: employeeId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d"
+      description: ID del empleado para filtrar sus espacios de trabajo.
     EmployeeWorkspaceIdPathParam:
       name: id
       in: path

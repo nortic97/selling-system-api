@@ -2,10 +2,7 @@ package com.nortic.pos.es.employeeworkspace.mapper;
 
 import com.google.protobuf.Timestamp;
 import com.nortic.pos.es.employeeworkspace.grpc.EmployeeWorkspaceProto;
-import com.nortic.pos.es.employeeworkspace.model.dto.CreateEmployeeWorkspaceRequestDTO;
-import com.nortic.pos.es.employeeworkspace.model.dto.EmployeeWorkspaceDTO;
-import com.nortic.pos.es.employeeworkspace.model.dto.PaginatedEmployeeWorkspaceResponseDTO;
-import com.nortic.pos.es.employeeworkspace.model.dto.UpdateEmployeeWorkspaceRequestDTO;
+import com.nortic.pos.es.employeeworkspace.model.dto.*;
 import org.mapstruct.*;
 
 import java.time.OffsetDateTime;
@@ -58,6 +55,12 @@ public abstract class EmployeeWorkspaceGrpcMapper {
     public abstract CreateEmployeeWorkspaceRequestDTO toCreateEmployeeWorkspaceRequestDTO(EmployeeWorkspaceProto.CreateEmployeeWorkspaceRequest request);
 
     public abstract UpdateEmployeeWorkspaceRequestDTO toUpdateEmployeeWorkspaceRequestDTO(EmployeeWorkspaceProto.UpdateEmployeeWorkspaceRequest request);
+
+    @Mapping(target = "sort", source = "sortList")
+    public abstract GetEmployeeWorkspacesByStoreRequestDTO toGetEmployeeWorkspacesByStoreRequestDTO(EmployeeWorkspaceProto.GetEmployeeWorkspacesByStoreRequest request);
+
+    @Mapping(target = "sort", source = "sortList")
+    public abstract GetEmployeeWorkspacesByEmployeeRequestDTO toGetEmployeeWorkspacesByEmployeeRequestDTO(EmployeeWorkspaceProto.GetEmployeeWorkspacesByEmployeeRequest request);
 
     @Named("offsetDateTimeToTimestamp")
     protected Timestamp offsetDateTimeToTimestamp(OffsetDateTime offsetDateTime) {

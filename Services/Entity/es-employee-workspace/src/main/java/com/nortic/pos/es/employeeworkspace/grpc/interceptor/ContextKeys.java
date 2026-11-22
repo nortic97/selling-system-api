@@ -48,7 +48,8 @@ public final class ContextKeys {
     public static final Map<String, String> METHOD_PERMISSIONS = Map.ofEntries(
             Map.entry(GRPC_SERVICE + "/CreateEmployeeWorkspace", SecurityConstants.PERMISSION_EMPLOYEE_WORKSPACE_CREATE),
             Map.entry(GRPC_SERVICE + "/GetEmployeeWorkspaceById", SecurityConstants.PERMISSION_EMPLOYEE_WORKSPACE_READ),
-            Map.entry(GRPC_SERVICE + "/GetAllEmployeeWorkspaces", SecurityConstants.PERMISSION_EMPLOYEE_WORKSPACE_READ),
+            Map.entry(GRPC_SERVICE + "/GetEmployeeWorkspacesByStore", SecurityConstants.PERMISSION_EMPLOYEE_WORKSPACE_READ),
+            Map.entry(GRPC_SERVICE + "/GetEmployeeWorkspacesByEmployee", SecurityConstants.PERMISSION_EMPLOYEE_WORKSPACE_READ),
             Map.entry(GRPC_SERVICE + "/UpdateEmployeeWorkspace", SecurityConstants.PERMISSION_EMPLOYEE_WORKSPACE_UPDATE),
             Map.entry(GRPC_SERVICE + "/DeleteEmployeeWorkspace", SecurityConstants.PERMISSION_EMPLOYEE_WORKSPACE_DELETE),
             Map.entry(GRPC_SERVICE + "/RestoreEmployeeWorkspace", SecurityConstants.PERMISSION_EMPLOYEE_WORKSPACE_DELETE),

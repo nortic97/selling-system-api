@@ -35,6 +35,20 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
+    public StoreDTO getStoreByTaxId(RequestContextDTO requestContextDTO, String taxId) {
+        log.info("Get store by taxId {} service ...", taxId);
+
+        String normalizedTaxId = taxId.trim().toLowerCase();
+
+        var store = storeRepository.findByTaxIdIgnoreCase(normalizedTaxId)
+                .orElseThrow(() -> new BusinessException(ExceptionCode.STORE_NOT_FOUND));
+
+        log.info("Get store by taxId {} service completed ...", taxId);
+
+        return storeEntityMapper.toStoreDTO(store);
+    }
+
+    @Override
     public StoreDTO createStore(RequestContextDTO requestContextDTO, StoreDTO storeDTO) {
         log.info("Create store service ...");
 

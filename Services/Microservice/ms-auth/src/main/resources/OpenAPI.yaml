@@ -1,0 +1,230 @@
+openapi: 3.0.3
+info:
+  title: Enterprise Selling System - Authentication Microservice (ms-auth)
+  description: Microservicio encargado de la autenticación de usuarios y generación de tokens JWT.
+  version: 0.0.1
+security:
+  - bearerAuth: [ ]
+servers:
+  - url: "{protocol}://{server}:{port}"
+    variables:
+      protocol:
+        enum:
+          - http
+          - https
+        default: https
+      server:
+        default: localhost
+      port:
+        default: "8080"
+paths:
+  /api/v1/ms/auth/login:
+    post:
+      summary: Autenticar usuario y generar token
+      description: Autentica un usuario mediante username y password, retornando un token de acceso y token de refresco.
+      operationId: login
+      tags:
+        - Authentication
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequestDTO'
+      responses:
+        '200':
+          description: Autenticación exitosa. Retorna el token de acceso y token de refresco.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponseDTO'
+        '401':
+          description: Credenciales inválidas.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+
+  /api/v1/ms/auth/employee/login:
+    post:
+      summary: Autenticar empleado y generar token
+      description: Autentica un empleado mediante username y password, retornando un token de acceso y token de refresco.
+      operationId: employeeLogin
+      tags:
+        - Authentication
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequestDTO'
+      responses:
+        '200':
+          description: Autenticación exitosa. Retorna el token de acceso y token de refresco.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponseDTO'
+        '401':
+          description: Credenciales inválidas.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  parameters:
+    CorrelationIdHeader:
+      name: Correlation-Id
+      in: header
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+      description: Header obligatorio de trazabilidad distribuida para logs correlacionados.
+    ConsumerIdHeader:
+      name: Consumer-Id
+      in: header
+      required: true
+      schema:
+        type: string
+        example: "SVP"
+      description: Header obligatorio de trazabilidad distribuida para consumidor.
+
+  responses:
+    400BadRequest:
+      description: Error de validación en los datos enviados o sintaxis JSON incorrecta.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseDTO'
+    500InternalServerError:
+      description: Excepción no controlada en el servidor.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseDTO'
+
+  schemas:
+    # Enum Schemas
+    AccessTypeEnum:
+      type: string
+      enum:
+        - SYSTEM
+        - POS
+        - ADMIN
+      description: Tipo de acceso para determinar qué entidad consultar.
+    TokenTypeEnum:
+      type: string
+      enum:
+        - Bearer
+      description: Tipo de token.
+
+    # Error Schemas
+    ErrorResponseDTO:
+      type: object
+      required:
+        - code
+        - message
+        - timestamp
+      properties:
+        code:
+          type: string
+          example: "AUTH_001"
+        message:
+          type: string
+          example: "Credenciales inválidas"
+        timestamp:
+          type: string
+          format: date-time
+          example: "2024-01-01T00:00:00Z"
+        details:
+          type: array
+          description: Lista de errores específicos por cada campo (aparece si es error de validación de entrada).
+          items:
+            $ref: '#/components/schemas/FieldErrorDetailDTO'
+
+    FieldErrorDetailDTO:
+      type: object
+      required:
+        - field
+        - message
+      properties:
+        field:
+          type: string
+          example: "username"
+        rejectedValue:
+          type: string
+          example: ""
+          nullable: true
+        message:
+          type: string
+          example: "El campo es requerido y no puede ser nulo o vacío."
+
+    # Request DTOs
+    LoginRequestDTO:
+      type: object
+      required:
+        - username
+        - password
+        - accessType
+      properties:
+        username:
+          type: string
+          minLength: 4
+          maxLength: 100
+          description: Nombre de usuario
+          example: admin
+          x-field-extra-annotation: "@NotBlank"
+        password:
+          type: string
+          format: password
+          minLength: 8
+          maxLength: 255
+          description: Contraseña del usuario
+          example: password123
+          x-field-extra-annotation: "@NotBlank"
+        accessType:
+          $ref: '#/components/schemas/AccessTypeEnum'
+          description: Tipo de acceso para determinar qué entidad consultar
+          x-field-extra-annotation: "@NotNull"
+
+    # Response DTOs
+    LoginResponseDTO:
+      type: object
+      required:
+        - token
+        - refreshToken
+        - tokenType
+      properties:
+        token:
+          type: string
+          description: Token de acceso JWT
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        refreshToken:
+          type: string
+          description: Token de refresco para obtener nuevos tokens de acceso
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        tokenType:
+          $ref: '#/components/schemas/TokenTypeEnum'
+          description: Tipo de token
