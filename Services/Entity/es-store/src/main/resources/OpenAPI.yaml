@@ -81,24 +81,25 @@ paths:
         '500':
           $ref: '#/components/responses/500InternalServerError'
 
-  /api/v1/es/store/tax-id/{taxId}:
+  /api/v1/es/store/tax-id/{taxType}/{taxId}:
     get:
-      summary: Obtener una tienda por Tax ID
-      description: Obtiene los detalles de una tienda específica mediante su identificación fiscal (taxId)
-      operationId: getStoreByTaxId
+      summary: Obtener una tienda por Tax ID y Tax Type
+      description: Obtiene los detalles básicos de una tienda específica mediante su identificación fiscal (taxId) y tipo de identificación (taxType)
+      operationId: getStoreByTaxIdAndTaxType
       tags:
         - Store
       parameters:
         - $ref: '#/components/parameters/CorrelationIdHeader'
         - $ref: '#/components/parameters/ConsumerIdHeader'
+        - $ref: '#/components/parameters/TaxTypePathParam'
         - $ref: '#/components/parameters/TaxIdPathParam'
       responses:
         '200':
-          description: Detalles de la tienda
+          description: Detalles básicos de la tienda
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StoreResponseDTO'
+                $ref: '#/components/schemas/StoreBasicResponseDTO'
         '403':
           $ref: '#/components/responses/403Forbidden'
         '404':
@@ -397,6 +398,13 @@ components:
       schema:
         type: string
         maxLength: 100
+    TaxTypePathParam:
+      name: taxType
+      in: path
+      required: true
+      description: Tipo de identificación fiscal de la tienda (taxType)
+      schema:
+        $ref: '#/components/schemas/TaxTypeEnum'
 
   responses:
     400BadRequest:
@@ -616,6 +624,43 @@ components:
         currencyCode:
           $ref: '#/components/schemas/CurrencyCodeEnum'
           x-field-extra-annotation: '@NotNull'
+
+    StoreBasicResponseDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Identificador único de la tienda (UUID)
+        taxType:
+          $ref: '#/components/schemas/TaxTypeEnum'
+        taxId:
+          type: string
+          description: Identificación fiscal de la tienda (RUC/NIT/RFC)
+        legalName:
+          type: string
+          description: Razón social o nombre legal de la tienda
+        name:
+          type: string
+          description: Nombre comercial de la tienda
+        description:
+          type: string
+          description: Descripción de la tienda
+        slogan:
+          type: string
+          description: Eslogan de la tienda
+        logoUrl:
+          type: string
+          description: URL del logo de la tienda
+        country:
+          type: string
+          description: País de la tienda
+        stateProvince:
+          type: string
+          description: Estado/Provincia de la tienda
+        city:
+          type: string
+          description: Ciudad de la tienda
 
     StoreResponseDTO:
       type: object

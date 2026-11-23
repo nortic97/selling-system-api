@@ -15,7 +15,7 @@ import java.util.UUID;
 @Repository
 public interface StoreRepository extends JpaRepository<StoreEntity, UUID> {
 
-    Optional<StoreEntity> findByTaxIdIgnoreCase(String taxId);
+    Optional<StoreEntity> findByTaxTypeAndTaxIdIgnoreCase(TaxTypeEnum taxType, String taxId);
 
     boolean existsByTaxTypeAndTaxIdIgnoreCase(TaxTypeEnum taxType, String taxId);
 

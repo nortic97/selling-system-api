@@ -35,15 +35,16 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
-    public StoreDTO getStoreByTaxId(RequestContextDTO requestContextDTO, String taxId) {
-        log.info("Get store by taxId {} service ...", taxId);
+    public StoreDTO getStoreByTaxId(RequestContextDTO requestContextDTO, String taxType, String taxId) {
+        log.info("Get store by taxType {} and taxId {} service ...", taxType, taxId);
 
+        var taxTypeEnum = com.nortic.pos.es.store.model.enums.TaxTypeEnum.valueOf(taxType);
         String normalizedTaxId = taxId.trim().toLowerCase();
 
-        var store = storeRepository.findByTaxIdIgnoreCase(normalizedTaxId)
+        var store = storeRepository.findByTaxTypeAndTaxIdIgnoreCase(taxTypeEnum, normalizedTaxId)
                 .orElseThrow(() -> new BusinessException(ExceptionCode.STORE_NOT_FOUND));
 
-        log.info("Get store by taxId {} service completed ...", taxId);
+        log.info("Get store by taxType {} and taxId {} service completed ...", taxType, taxId);
 
         return storeEntityMapper.toStoreDTO(store);
     }

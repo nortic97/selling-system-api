@@ -13,7 +13,7 @@ public final class SecurityConstants {
     public static final String API_BASE_PATH = "/api/v1/es/store";
 
     public static final String STORE_ID = API_BASE_PATH + "/{id}";
-    public static final String STORE_TAX_ID = API_BASE_PATH + "/tax-id/{taxId}";
+    public static final String STORE_TAX_ID = API_BASE_PATH + "/tax-id/{taxType}/{taxId}";
 
     public static final String STORE_RESTORE = STORE_ID + "/restore";
     public static final String STORE_CHANGE_EMAIL = STORE_ID + "/email";
@@ -56,6 +56,7 @@ public final class SecurityConstants {
             "/actuator/**",
             "/swagger-ui/**",
             "/v3/api-docs/**",
-            "/swagger"
+            "/swagger",
+            STORE_TAX_ID
     };
 }
