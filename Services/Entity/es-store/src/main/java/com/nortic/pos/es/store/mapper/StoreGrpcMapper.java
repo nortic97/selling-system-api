@@ -61,6 +61,25 @@ public abstract class StoreGrpcMapper {
     @Mapping(target = "deletedAt", qualifiedByName = "offsetDateTimeToTimestamp")
     public abstract StoreProto.StoreResponse toStoreResponse(StoreDTO dto);
 
+    @Mapping(target = "unknownFields", ignore = true)
+    @Mapping(target = "mergeUnknownFields", ignore = true)
+    @Mapping(target = "mergeFrom", ignore = true)
+    @Mapping(target = "idBytes", ignore = true)
+    @Mapping(target = "taxTypeBytes", ignore = true)
+    @Mapping(target = "taxIdBytes", ignore = true)
+    @Mapping(target = "legalNameBytes", ignore = true)
+    @Mapping(target = "nameBytes", ignore = true)
+    @Mapping(target = "descriptionBytes", ignore = true)
+    @Mapping(target = "sloganBytes", ignore = true)
+    @Mapping(target = "logoUrlBytes", ignore = true)
+    @Mapping(target = "countryBytes", ignore = true)
+    @Mapping(target = "stateProvinceBytes", ignore = true)
+    @Mapping(target = "cityBytes", ignore = true)
+    @Mapping(target = "clearOneof", ignore = true)
+    @Mapping(target = "clearField", ignore = true)
+    @Mapping(target = "allFields", ignore = true)
+    public abstract StoreProto.StoreBasicResponse toStoreBasicResponse(StoreDTO dto);
+
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "isActive", ignore = true)
     @Mapping(target = "id", ignore = true)

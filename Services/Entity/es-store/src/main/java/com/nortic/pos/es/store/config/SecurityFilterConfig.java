@@ -40,8 +40,7 @@ public class SecurityFilterConfig {
 
                         .requestMatchers(HttpMethod.GET,
                                 SecurityConstants.API_BASE_PATH,
-                                SecurityConstants.STORE_ID,
-                                SecurityConstants.STORE_TAX_ID)
+                                SecurityConstants.STORE_ID)
                         .hasAnyAuthority(
                                 SecurityConstants.PERMISSION_READ,
                                 SecurityConstants.PERMISSION_STORE_ALL,
