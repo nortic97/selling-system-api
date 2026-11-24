@@ -22,6 +22,7 @@ public abstract class EmployeeGrpcMapper {
 
     @Mapping(target = "usernameBytes", ignore = true)
     @Mapping(target = "unknownFields", ignore = true)
+    @Mapping(target = "storeIdBytes", ignore = true)
     @Mapping(target = "passwordBytes", ignore = true)
     @Mapping(target = "mergeUnknownFields", ignore = true)
     @Mapping(target = "mergeFrom", ignore = true)

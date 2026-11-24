@@ -111,7 +111,7 @@ public class StoreGrpcControllerImpl extends StoreServiceGrpc.StoreServiceImplBa
     }
 
     @Override
-    public void getStoreByTaxId(StoreProto.TaxIdRequest request, StreamObserver<StoreProto.StoreResponse> responseObserver) {
+    public void getStoreByTaxId(StoreProto.TaxIdRequest request, StreamObserver<StoreProto.StoreBasicResponse> responseObserver) {
         try {
             log.info("getStoreByTaxId gRPC Controller...");
 
@@ -120,9 +120,9 @@ public class StoreGrpcControllerImpl extends StoreServiceGrpc.StoreServiceImplBa
                     .consumerId(ContextKeys.CONSUMER_ID_CONTEXT_KEY.get())
                     .build();
 
-            var store = storeService.getStoreByTaxId(requestContextDTO, request.getTaxId());
+            var store = storeService.getStoreByTaxId(requestContextDTO, request.getTaxType(), request.getTaxId());
 
-            var response = storeGrpcMapper.toStoreResponse(store);
+            var response = storeGrpcMapper.toStoreBasicResponse(store);
 
             log.info("getStoreByTaxId gRPC Controller Completed");
 

@@ -21,6 +21,8 @@ public abstract class StoreRestMapper {
 
     public abstract RestModelStoreResponseDTO toStoreResponseDTO(StoreDTO store);
 
+    public abstract RestModelStoreBasicResponseDTO toStoreBasicResponseDTO(StoreDTO store);
+
     public abstract RestModelPaginatedStoreResponseDTO toListStoresResponseDTO(PaginatedStoreResponseDTO paginatedStoreResponseDTO);
 
     public abstract ChangeEmailRequestDTO toChangeEmailRequestDTO(RestModelEmailRequestDTO restModelEmailRequestDTO);

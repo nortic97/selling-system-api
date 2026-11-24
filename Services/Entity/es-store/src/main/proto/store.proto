@@ -60,7 +60,8 @@ message StoreIdRequest {
 }
 
 message TaxIdRequest {
-  string tax_id = 1;
+  string tax_type = 1;
+  string tax_id = 2;
 }
 
 message ChangeStatusRequest {
@@ -82,6 +83,20 @@ message PaginationRequest {
   int32 page = 1;
   int32 size = 2;
   repeated string sort = 3;
+}
+
+message StoreBasicResponse {
+  string id = 1;
+  string tax_type = 2;
+  string tax_id = 3;
+  optional string legal_name = 4;
+  string name = 5;
+  optional string description = 6;
+  optional string slogan = 7;
+  optional string logo_url = 8;
+  optional string country = 9;
+  optional string state_province = 10;
+  optional string city = 11;
 }
 
 message StoreResponse {
@@ -134,7 +149,7 @@ service StoreService {
   rpc CreateStore(StoreRequest) returns (StoreResponse);
   rpc ListStores(PaginationRequest) returns (PaginatedStoreResponse);
   rpc GetStore(StoreIdRequest) returns (StoreResponse);
-  rpc GetStoreByTaxId(TaxIdRequest) returns (StoreResponse);
+  rpc GetStoreByTaxId(TaxIdRequest) returns (StoreBasicResponse);
   rpc UpdateStore(UpdateStoreRequest) returns (StoreResponse);
   rpc DeleteStore(StoreIdRequest) returns (google.protobuf.Empty);
   rpc ChangeStatus(ChangeStatusRequest) returns (StoreResponse);

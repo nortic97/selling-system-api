@@ -33,6 +33,8 @@ public class SecurityFilterConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) {
 
         http.csrf(AbstractHttpConfigurer::disable)
+                .cors(cors ->
+                        cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 SecurityConstants.PUBLIC_ENDPOINTS
@@ -40,8 +42,7 @@ public class SecurityFilterConfig {
 
                         .requestMatchers(HttpMethod.GET,
                                 SecurityConstants.API_BASE_PATH,
-                                SecurityConstants.STORE_ID,
-                                SecurityConstants.STORE_TAX_ID)
+                                SecurityConstants.STORE_ID)
                         .hasAnyAuthority(
                                 SecurityConstants.PERMISSION_READ,
                                 SecurityConstants.PERMISSION_STORE_ALL,
