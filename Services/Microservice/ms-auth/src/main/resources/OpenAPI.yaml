@@ -67,7 +67,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/LoginRequestDTO'
+              $ref: '#/components/schemas/EmployeeLoginRequestDTO'
       responses:
         '200':
           description: Autenticación exitosa. Retorna el token de acceso y token de refresco.
@@ -189,6 +189,40 @@ components:
         - password
         - accessType
       properties:
+        username:
+          type: string
+          minLength: 4
+          maxLength: 100
+          description: Nombre de usuario
+          example: admin
+          x-field-extra-annotation: "@NotBlank"
+        password:
+          type: string
+          format: password
+          minLength: 8
+          maxLength: 255
+          description: Contraseña del usuario
+          example: password123
+          x-field-extra-annotation: "@NotBlank"
+        accessType:
+          $ref: '#/components/schemas/AccessTypeEnum'
+          description: Tipo de acceso para determinar qué entidad consultar
+          x-field-extra-annotation: "@NotNull"
+
+    EmployeeLoginRequestDTO:
+      type: object
+      required:
+        - username
+        - password
+        - accessType
+        - storeId
+      properties:
+        storeId:
+          type: string
+          format: uuid
+          description: ID de la tienda
+          example: "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+          x-field-extra-annotation: "@NotNull"
         username:
           type: string
           minLength: 4

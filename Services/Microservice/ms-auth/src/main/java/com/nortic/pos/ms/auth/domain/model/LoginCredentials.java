@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LoginCredentials {
+    private String storeId;
     private String username;
     private String password;
     private AccessTypeEnum accessTypeEnum;

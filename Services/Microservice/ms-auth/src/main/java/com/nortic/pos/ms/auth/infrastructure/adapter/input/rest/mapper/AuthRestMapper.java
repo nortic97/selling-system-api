@@ -2,6 +2,7 @@ package com.nortic.pos.ms.auth.infrastructure.adapter.input.rest.mapper;
 
 import com.nortic.pos.ms.auth.domain.model.AuthResponse;
 import com.nortic.pos.ms.auth.domain.model.LoginCredentials;
+import com.nortic.pos.ms.auth.rest.gen.model.RestModelEmployeeLoginRequestDTO;
 import com.nortic.pos.ms.auth.rest.gen.model.RestModelLoginRequestDTO;
 import com.nortic.pos.ms.auth.rest.gen.model.RestModelLoginResponseDTO;
 import org.mapstruct.Mapper;
@@ -13,8 +14,11 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
 )
 public abstract class AuthRestMapper {
+    @Mapping(target = "storeId", ignore = true)
     @Mapping(target = "accessTypeEnum", source = "accessType")
     public abstract LoginCredentials toLoginCredentials(RestModelLoginRequestDTO restModelLoginRequest);
+    @Mapping(target = "accessTypeEnum", source = "accessType")
+    public abstract LoginCredentials toLoginCredentials(RestModelEmployeeLoginRequestDTO restModelLoginRequest);
     @Mapping(target = "tokenType", source = "tokenTypeEnum")
     public abstract RestModelLoginResponseDTO toLoginResponse(AuthResponse authResponse);
 }

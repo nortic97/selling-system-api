@@ -3,6 +3,7 @@ package com.nortic.pos.ms.auth.infrastructure.adapter.input.rest.controller;
 import com.nortic.pos.ms.auth.application.port.input.LoginUseCase;
 import com.nortic.pos.ms.auth.infrastructure.adapter.input.rest.mapper.AuthRestMapper;
 import com.nortic.pos.ms.auth.rest.gen.api.AuthenticationApi;
+import com.nortic.pos.ms.auth.rest.gen.model.RestModelEmployeeLoginRequestDTO;
 import com.nortic.pos.ms.auth.rest.gen.model.RestModelLoginRequestDTO;
 import com.nortic.pos.ms.auth.rest.gen.model.RestModelLoginResponseDTO;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +22,9 @@ public class AuthController implements AuthenticationApi {
     private final AuthRestMapper authRestMapper;
 
     @Override
-    public ResponseEntity<RestModelLoginResponseDTO> employeeLogin(UUID correlationId, String consumerId, RestModelLoginRequestDTO restModelLoginRequestDTO) {
+    public ResponseEntity<RestModelLoginResponseDTO> employeeLogin(UUID correlationId, String consumerId, RestModelEmployeeLoginRequestDTO restModelEmployeeLoginRequestDTO) {
         log.info("Employee Auth Controller Start...");
-        var loginCredentials = authRestMapper.toLoginCredentials(restModelLoginRequestDTO);
+        var loginCredentials = authRestMapper.toLoginCredentials(restModelEmployeeLoginRequestDTO);
         var authResponse = loginUseCase.loginEmployee(loginCredentials);
         log.info("Employee Auth Controller Finalized...");
         return ResponseEntity.ok().body(authRestMapper.toLoginResponse(authResponse));
