@@ -27,6 +27,8 @@ spring:
           target: static://${USER_GRPC_HOST:localhost:9091}
         es-employee:
           target: static://${EMPLOYEE_GRPC_HOST:localhost:9096}
+        es-role:
+          target: static://${ROLE_GRPC_HOST:localhost:9095}
 
   jackson:
     time-zone: ${TIME_ZONE:America/Bogota}
