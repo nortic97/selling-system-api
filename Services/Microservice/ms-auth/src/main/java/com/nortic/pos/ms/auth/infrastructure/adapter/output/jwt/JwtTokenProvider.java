@@ -4,9 +4,11 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nortic.pos.ms.auth.application.port.output.TokenProvider;
 import com.nortic.pos.ms.auth.domain.model.Employee;
+import com.nortic.pos.ms.auth.domain.model.Permission;
 import com.nortic.pos.ms.auth.domain.model.User;
 import com.nortic.pos.ms.auth.infrastructure.adapter.output.jwt.constants.JwtConstants;
 import com.nortic.pos.ms.auth.infrastructure.adapter.output.jwt.dto.JwtClaims;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -17,10 +19,7 @@ import org.springframework.stereotype.Component;
 import javax.crypto.SecretKey;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Slf4j
 @Component
@@ -112,6 +111,29 @@ public class JwtTokenProvider implements TokenProvider {
         return generateJwt(issuer, claims, expiration);
     }
 
+    @Override
+    public String tokenExchange(String token, List<Permission> permission) {
+        log.info("Token Exchange started");
+
+        Claims claims = parseJwtClaims(token);
+        JwtClaims jwtClaims = convertToJwtClaims(claims);
+        enrichPermissions(jwtClaims, permission);
+
+        String enrichedToken = generateJwt(
+                claims.getSubject(),
+                jwtClaims,
+                claims.getExpiration().toInstant()
+        );
+
+        log.info("Token Exchange finished");
+        return enrichedToken;
+    }
+
+    @Override
+    public String getSubject(String token) {
+        return parseJwtClaims(token).getSubject();
+    }
+
     private String generateJwt(String subject, JwtClaims claims, Instant expiration) {
         Instant now = Instant.now();
 
@@ -128,6 +150,31 @@ public class JwtTokenProvider implements TokenProvider {
     private Map<String, Object> toClaims(JwtClaims claims) {
         return objectMapper.convertValue(claims, new TypeReference<>() {
         });
+    }
+
+    private Claims parseJwtClaims(String token) {
+        return Jwts.parser()
+                .verifyWith(jwtSecret)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+    }
+
+    private JwtClaims convertToJwtClaims(Claims claims) {
+        return objectMapper.convertValue(claims, JwtClaims.class);
+    }
+
+    private void enrichPermissions(JwtClaims jwtClaims, List<Permission> permission) {
+        Set<String> permissions = new LinkedHashSet<>(
+                Optional.ofNullable(jwtClaims.getPermissions())
+                        .orElse(Collections.emptyList())
+        );
+
+        permission.stream()
+                .map(Permission::getCode)
+                .forEach(permissions::add);
+
+        jwtClaims.setPermissions(new ArrayList<>(permissions));
     }
 
 }

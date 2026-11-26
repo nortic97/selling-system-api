@@ -85,6 +85,40 @@ paths:
           $ref: '#/components/responses/400BadRequest'
         '500':
           $ref: '#/components/responses/500InternalServerError'
+
+  /api/v1/ms/auth/token/exchange:
+    post:
+      summary: Intercambiar y enriquecer token
+      description: Recibe un token y un UUID para retornar el LoginResponse con el token enriquecido.
+      operationId: tokenExchange
+      tags:
+        - Authentication
+      parameters:
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/ConsumerIdHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenExchangeRequestDTO'
+      responses:
+        '200':
+          description: Token enriquecido exitosamente. Retorna el token de acceso y token de refresco.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponseDTO'
+        '401':
+          description: Token inválido.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseDTO'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
 components:
   securitySchemes:
     bearerAuth:
@@ -241,6 +275,24 @@ components:
         accessType:
           $ref: '#/components/schemas/AccessTypeEnum'
           description: Tipo de acceso para determinar qué entidad consultar
+          x-field-extra-annotation: "@NotNull"
+
+    TokenExchangeRequestDTO:
+      type: object
+      required:
+        - token
+        - roleId
+      properties:
+        token:
+          type: string
+          description: Token de acceso JWT a enriquecer
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+          x-field-extra-annotation: "@NotBlank"
+        roleId:
+          type: string
+          format: uuid
+          description: ID del rol para enriquecer el token
+          example: "f47ac10b-58cc-4372-a567-0e02b2c3d479"
           x-field-extra-annotation: "@NotNull"
 
     # Response DTOs

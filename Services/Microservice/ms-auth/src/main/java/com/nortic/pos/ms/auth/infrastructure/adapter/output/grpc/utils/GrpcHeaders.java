@@ -20,6 +20,10 @@ public class GrpcHeaders {
                 Metadata.Key.of("authorization",
                         Metadata.ASCII_STRING_MARSHALLER);
 
+        Metadata.Key<String> storeId =
+                Metadata.Key.of("store-id",
+                        Metadata.ASCII_STRING_MARSHALLER);
+
         Metadata.Key<String> correlationId =
                 Metadata.Key.of("correlation-id",
                         Metadata.ASCII_STRING_MARSHALLER);
@@ -35,6 +39,11 @@ public class GrpcHeaders {
 
         metadata.put(
                 correlationId,
+                UUID.randomUUID().toString()
+        );
+
+        metadata.put(
+                storeId,
                 UUID.randomUUID().toString()
         );
 

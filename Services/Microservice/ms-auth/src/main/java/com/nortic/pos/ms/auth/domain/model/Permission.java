@@ -12,7 +12,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PermissionResponseDTO {
+public class Permission {
 
     private UUID id;
     private String code;

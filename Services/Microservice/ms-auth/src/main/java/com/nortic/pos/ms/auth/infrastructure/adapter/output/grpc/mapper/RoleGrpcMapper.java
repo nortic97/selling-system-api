@@ -2,8 +2,7 @@ package com.nortic.pos.ms.auth.infrastructure.adapter.output.grpc.mapper;
 
 import com.google.protobuf.Timestamp;
 import com.nortic.pos.es.role.grpc.RoleProto;
-import com.nortic.pos.es.role.grpc.RoleServiceGrpc;
-import com.nortic.pos.ms.auth.domain.model.PermissionResponseDTO;
+import com.nortic.pos.ms.auth.domain.model.Permission;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -34,14 +33,14 @@ public abstract class RoleGrpcMapper {
     public abstract RoleProto.RoleIdRequest toPermissionIdRequest(UUID roleId);
 
     @Named("toPermissionResponseDTO")
-    protected abstract PermissionResponseDTO mapPermission(
+    protected abstract Permission mapPermission(
             RoleProto.PermissionResponse permissionResponse
     );
 
-    public List<PermissionResponseDTO> toPermissionResponseDTO(
+    public List<Permission> toPermissionResponseDTO(
             Iterator<RoleProto.PermissionResponse> permissions
     ) {
-        List<PermissionResponseDTO> result = new ArrayList<>();
+        List<Permission> result = new ArrayList<>();
 
         permissions.forEachRemaining(
                 permission -> result.add(mapPermission(permission))

@@ -6,6 +6,7 @@ import com.nortic.pos.ms.auth.rest.gen.api.AuthenticationApi;
 import com.nortic.pos.ms.auth.rest.gen.model.RestModelEmployeeLoginRequestDTO;
 import com.nortic.pos.ms.auth.rest.gen.model.RestModelLoginRequestDTO;
 import com.nortic.pos.ms.auth.rest.gen.model.RestModelLoginResponseDTO;
+import com.nortic.pos.ms.auth.rest.gen.model.RestModelTokenExchangeRequestDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +38,14 @@ public class AuthController implements AuthenticationApi {
         var authResponse = loginUseCase.loginUser(loginCredentials);
         log.info("Auth Controller Finalized...");
         return ResponseEntity.ok().body(authRestMapper.toLoginResponse(authResponse));
+    }
+
+    @Override
+    public ResponseEntity<RestModelLoginResponseDTO> tokenExchange(UUID correlationId, String consumerId, RestModelTokenExchangeRequestDTO restModelTokenExchangeRequestDTO) {
+        log.info("Token Exchange Controller Start...");
+        var tokenExchange = loginUseCase.tokenExchange(authRestMapper.toTokenExchange(restModelTokenExchangeRequestDTO));
+        log.info("Token Exchange Controller Finalized...");
+        return ResponseEntity.ok().body(authRestMapper.toLoginResponse(tokenExchange));
     }
 
 
